@@ -1,0 +1,31 @@
+{
+  "name": "mip-validator",
+  "version": "1.0.0",
+  "description": "MIP validator",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "parse5": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "mock-fs": "^3.11.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://g@gitlab.baidu.com:8022/MIP/mip-validator.git"
+  },
+  "keywords": [
+    "MIP",
+    "validator"
+  ],
+  "author": "MIP Team",
+  "license": "ISC"
+}

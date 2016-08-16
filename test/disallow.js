@@ -1,0 +1,26 @@
+const env = require('./env.js');
+const expect = env.expect;
+const Validator = require('..');
+const errorCode = require('../error-code.json');
+
+describe('disallow', function() {
+    describe('tag', function() {
+        var validator;
+        before(function(){
+            validator = Validator({
+                script: {
+                    disallow: true
+                }
+            });
+        });
+        it('should accept with tag absence', function() {
+            var result = validator.validate('<p></p>');
+            expect(result).to.have.lengthOf(0);
+        });
+        it('should reject with tag presence', function() {
+            var result = validator.validate('<script></script>');
+            expect(result).to.have.lengthOf(1);
+            expect(result[0].code).to.equal(errorCode.TAG_DISALLOW);
+        });
+    });
+});

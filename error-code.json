@@ -1,0 +1,8 @@
+{
+  "TAG_MISSING": "100",
+  "TAG_DISALLOW": "110",
+
+  "ATTR_MISSING": "200",
+  "ATTR_DISALLOW": "210",
+  "ATTR_VALUE_INVALID": "220"
+}
