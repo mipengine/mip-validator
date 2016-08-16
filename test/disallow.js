@@ -20,7 +20,7 @@ describe('disallow', function() {
         it('should reject with tag presence', function() {
             var result = validator.validate('<script></script>');
             expect(result).to.have.lengthOf(1);
-            expect(result[0].code).to.equal(errorCode.TAG_DISALLOW);
+            expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG);
         });
     });
 });

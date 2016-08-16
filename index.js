@@ -64,7 +64,7 @@ Validator.prototype.validateAttr = function(attr, node, rule) {
     if (rule.value) {
         var regex = new RegExp(rule.value);
         if (!regex.test(attr.value)) {
-            this.createError(ERR.ATTR_VALUE_INVALID, attr.name, node.__location);
+            this.createError(ERR.INVALID_ATTR_VALUE, attr.name, node.__location);
         }
     }
 };
@@ -83,7 +83,7 @@ Validator.prototype.validateNode = function(node, rule) {
     // check attr occurrence
     var attrOccurrence = _.keyBy(node.attrs, 'name');
     this.checkOccurrence(rule.attrs, attrOccurrence, (k, v, err) => {
-        var code = [ERR.ATTR_MISSING, ERR.ATTR_DISALLOW][err];
+        var code = [ERR.MANDATORY_ONEOF_ATTR_MISSING, ERR.DISALLOWED_ATTR][err];
         this.createError(code, k, node.__location);
     });
 };
@@ -122,7 +122,7 @@ Validator.prototype.validate = function(html) {
 
     this.dfs(document);
     this.checkOccurrence(this.rules, this.occurrence, (k, v, err) => {
-        var code = [ERR.TAG_MISSING, ERR.TAG_DISALLOW][err];
+        var code = [ERR.MANDATORY_TAG_MISSING, ERR.DISALLOWED_TAG][err];
         this.createError(code, k);
     });
     return this.errors;

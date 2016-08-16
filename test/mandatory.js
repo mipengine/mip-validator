@@ -22,7 +22,7 @@ describe('mandatory', function() {
             });
             var result = validator.validate('<p></p>');
             expect(result).to.have.lengthOf(1);
-            expect(result[0].code).to.equal(errorCode.TAG_MISSING);
+            expect(result[0].code).to.equal(errorCode.MANDATORY_TAG_MISSING);
         });
 
         it('should accept when mandatory not set', function() {
@@ -79,7 +79,7 @@ describe('mandatory', function() {
         it('should reject invalid attr mandatory', function() {
             var result = validator.validate('<div></div>');
             expect(result).to.have.lengthOf(1);
-            expect(result[0].code).to.equal(errorCode.ATTR_MISSING);
+            expect(result[0].code).to.equal(errorCode.MANDATORY_ONEOF_ATTR_MISSING);
         });
         it('should accept when no tag presence', function() {
             var result = validator.validate('<p></p>');

@@ -36,9 +36,9 @@ describe('error', function() {
         expect(result.input).to.equal('  <img src="harttle.com"></img>');
     });
     it('should contain correct error code', function() {
-        expect(result.code).to.equal(errorCode.ATTR_VALUE_INVALID);
+        expect(result.code).to.equal(errorCode.INVALID_ATTR_VALUE);
     });
     it('should contain correct error message', function() {
-        expect(result.message).to.equal(zh_cn[errorCode.ATTR_VALUE_INVALID]);
+        expect(result.message).to.equal(zh_cn[errorCode.INVALID_ATTR_VALUE]);
     });
 });
