@@ -4,4 +4,6 @@ const mock = require('mock-fs');
 const fs = require('fs');
 
 describe('cli', function() {
+    before(function(){
+    });
 });

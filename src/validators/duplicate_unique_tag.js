@@ -8,7 +8,10 @@ exports.onBegin = function(rules, _engine) {
     engine = _engine;
 
     _.forOwn(rules, (rule, ruleName) => {
-        _.map(rule.duplicate, pattern => {
+        var duplicates = _.isArray(rule.duplicate) ?
+            rule.duplicate : [rule.duplicate];
+
+        _.map(duplicates, pattern => {
             var fingerprint = serialize(ruleName, pattern);
             cache[fingerprint] = 0;
         });
@@ -16,7 +19,12 @@ exports.onBegin = function(rules, _engine) {
 };
 
 exports.onNode = function(node, rule) {
-    _.map(rule.duplicate, pattern => {
+    if(!rule.duplicate) return;
+
+    var duplicates = _.isArray(rule.duplicate) ?
+        rule.duplicate : [rule.duplicate];
+
+    _.map(duplicates, pattern => {
         if (!match(node, pattern)) return;
 
         var fingerprint = serialize(node.nodeName, pattern);
@@ -41,7 +49,13 @@ function match(node, pattern) {
     var ret = true;
     _.forOwn(pattern, (v, k) => {
         var regex = new RegExp(v);
-        var actual = attrs[k].value;
+        var attr = attrs[k];
+        if (!attr) {
+            ret = false;
+            return;
+        }
+
+        var actual = attr.value;
         if (!regex.test(actual)) {
             ret = false;
         }

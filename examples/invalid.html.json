@@ -1,0 +1,66 @@
+[
+    {
+        "code": "400",
+        "message": "标签 'meta' 中的属性 'content' 的属性 'width' 被设置为 '100px'，该属性值无效",
+        "line": 5,
+        "col": 3,
+        "offset": 67,
+        "input": "  <meta name=\"viewport\" content=\"width=100px\">"
+    },
+    {
+        "code": "400",
+        "message": "标签 'meta' 中的属性 'content' 的属性 'initial-scale' 被设置为 'undefined'，该属性值无效",
+        "line": 5,
+        "col": 3,
+        "offset": 67,
+        "input": "  <meta name=\"viewport\" content=\"width=100px\">"
+    },
+    {
+        "code": "400",
+        "message": "标签 'meta' 中的属性 'content' 的属性 'IE' 被设置为 'not-edge'，该属性值无效",
+        "line": 6,
+        "col": 3,
+        "offset": 114,
+        "input": "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=not-edge\">"
+    },
+    {
+        "code": "120",
+        "message": "重复的标签",
+        "line": 8,
+        "col": 3,
+        "offset": 197,
+        "input": "  <link rel=\"miphtml\">"
+    },
+    {
+        "code": "320",
+        "message": "标签 'link' 的直接父标签应该是 'head'，而不是 'body'",
+        "line": 21,
+        "col": 3,
+        "offset": 367,
+        "input": "  <link rel=\"stylesheet\" href=\"#\">"
+    },
+    {
+        "code": "200",
+        "message": "强制属性属性缺失",
+        "line": 23,
+        "col": 3,
+        "offset": 434,
+        "input": "  <mip-input></mip-input>"
+    },
+    {
+        "code": "310",
+        "message": "标签 'mip-input' 只能是标签 'mip-form' 的子级标签",
+        "line": 23,
+        "col": 3,
+        "offset": 434,
+        "input": "  <mip-input></mip-input>"
+    },
+    {
+        "code": "100",
+        "message": "强制性标签 'great-mip' 缺失或错误",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
+    }
+]

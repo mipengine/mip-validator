@@ -4,6 +4,7 @@
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
+    "commander": "^2.9.0",
     "lodash": "^4.15.0",
     "parse5": "^2.2.0"
   },
@@ -17,6 +18,9 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "bin": {
+    "mip-validator": "./bin/cli.js"
   },
   "repository": {
     "type": "git",

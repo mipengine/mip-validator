@@ -21,7 +21,11 @@ describe('mandatory tag missing', function() {
         });
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(1);
-        expect(result[0].code).to.equal(errorCode.MANDATORY_TAG_MISSING.code);
+
+        var err = errorCode.MANDATORY_TAG_MISSING;
+        expect(result[0].code).to.equal(err.code);
+        var message = "强制性标签 'div' 缺失或错误";
+        expect(result[0].message).to.equal(message);
     });
 
     it('should accept when mandatory not set', function() {

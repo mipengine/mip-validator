@@ -1,7 +1,7 @@
 {
   "MANDATORY_TAG_MISSING": {
     "code": "100",
-    "message": "标签不存在"
+    "message": "强制性标签 '%s' 缺失或错误"
   },
   "DISALLOWED_TAG": {
     "code": "110",

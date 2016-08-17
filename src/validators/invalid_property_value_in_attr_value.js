@@ -40,8 +40,8 @@ exports.onAttr = function(attr, attrRules, node, rule, engine) {
 
 function parseValueProperties(value) {
     return _.chain(value || '')
-        .split(',')
-        .map(propertyStr => propertyStr.split('='))
+        .split(/[,;]/)
+        .map(propertyStr => propertyStr.split('=').map(_.trim))
         .fromPairs()
         .value();
 }
