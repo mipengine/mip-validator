@@ -1,8 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../src/error-code.json');
-const zh_cn = require('../i18n/zh_cn.json');
+const ERR = require('../src/error.json');
 
 describe('error', function() {
     var validator, result;
@@ -33,9 +32,9 @@ describe('error', function() {
         expect(result.input).to.equal('  <img src="harttle.com"></img>');
     });
     it('should contain correct error code', function() {
-        expect(result.code).to.equal(errorCode.INVALID_ATTR_VALUE);
+        expect(result.code).to.equal(ERR.INVALID_ATTR_VALUE.code);
     });
     it('should contain correct error message', function() {
-        expect(result.message).to.equal(zh_cn[errorCode.INVALID_ATTR_VALUE]);
+        expect(result.message).to.equal(ERR.INVALID_ATTR_VALUE.message);
     });
 });

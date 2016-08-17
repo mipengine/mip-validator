@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const ERR = require('../error-code.json');
-const zh_cn = require('../../i18n/zh_cn.json');
+const ERR = require('../error.json');
 
 var occurrence = {};
 
@@ -17,9 +16,8 @@ exports.onNode = function(node) {
 exports.onEnd = function(rules, engine) {
     _.forOwn(rules, (v, k) => {
         if (v.mandatory && !occurrence[k]) {
-            var code = ERR.MANDATORY_TAG_MISSING;
-            var msg = zh_cn[code];
-            engine.createError(code, msg);
+            var err = ERR.MANDATORY_TAG_MISSING;
+            engine.createError(err.code, err.message);
         }
     });
 };

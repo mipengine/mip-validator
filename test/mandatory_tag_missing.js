@@ -1,7 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../src/error-code.json');
+const errorCode = require('../src/error.json');
 
 describe('mandatory tag missing', function() {
     it('should accept valid mandatory', function() {
@@ -21,7 +21,7 @@ describe('mandatory tag missing', function() {
         });
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(1);
-        expect(result[0].code).to.equal(errorCode.MANDATORY_TAG_MISSING);
+        expect(result[0].code).to.equal(errorCode.MANDATORY_TAG_MISSING.code);
     });
 
     it('should accept when mandatory not set', function() {

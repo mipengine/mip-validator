@@ -1,7 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../src/error-code.json');
+const errorCode = require('../src/error.json');
 
 describe('mandatory oneof attr missing', function() {
     var validator;
@@ -23,7 +23,7 @@ describe('mandatory oneof attr missing', function() {
     it('should reject invalid attr mandatory', function() {
         var result = validator.validate('<div></div>');
         expect(result).to.have.lengthOf(1);
-        expect(result[0].code).to.equal(errorCode.MANDATORY_ONEOF_ATTR_MISSING);
+        expect(result[0].code).to.equal(errorCode.MANDATORY_ONEOF_ATTR_MISSING.code);
     });
     it('should accept when no tag presence', function() {
         var result = validator.validate('<p></p>');

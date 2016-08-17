@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const ERR = require('../error-code.json');
-const zh_cn = require('../../i18n/zh_cn.json');
+const ERR = require('../error.json');
 
 var cache, engine;
 
@@ -24,9 +23,8 @@ exports.onNode = function(node, rule) {
         cache[fingerprint]++;
         if (cache[fingerprint] <= 1) return;
 
-        engine.createError(ERR.DUPLICATE_UNIQUE_TAG,
-            zh_cn[ERR.DUPLICATE_UNIQUE_TAG],
-            node.__location);
+        var err = ERR.DUPLICATE_UNIQUE_TAG;
+        engine.createError(err.code, err.message, node.__location);
     });
 };
 

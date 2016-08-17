@@ -1,0 +1,42 @@
+{
+  "MANDATORY_TAG_MISSING": {
+    "code": "100",
+    "message": "标签不存在"
+  },
+  "DISALLOWED_TAG": {
+    "code": "110",
+    "message": "不允许标签"
+  },
+  "DUPLICATE_UNIQUE_TAG": {
+    "code": "120",
+    "message": "重复的标签"
+  },
+  "MANDATORY_ONEOF_ATTR_MISSING": {
+    "code": "200",
+    "message": "强制属性属性缺失"
+  },
+  "DISALLOWED_ATTR": {
+    "code": "210",
+    "message": "不允许的属性"
+  },
+  "INVALID_ATTR_VALUE": {
+    "code": "220",
+    "message": "属性值不合法"
+  },
+  "DISALLOWED_TAG_ANCESTOR": {
+    "code": "300",
+    "message": "标签 '%s' 不应该是标签 '%s' 的子标签"
+  },
+  "MANDATORY_TAG_ANCESTOR": {
+    "code": "310",
+    "message": "标签 '%s' 只能是标签 '%s' 的子级标签"
+  },
+  "WRONG_PARENT_TAG": {
+    "code": "320",
+    "message": "标签 '%s' 的直接父标签应该是 '%s'，而不是 '%s'"
+  },
+  "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
+    "code": "400",
+    "message": "标签 '%s' 中的属性 '%s' 的属性 '%s' 被设置为 '%s'，该属性值无效"
+  }
+}

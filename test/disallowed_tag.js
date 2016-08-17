@@ -1,7 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../src/error-code.json');
+const errorCode = require('../src/error.json');
 
 describe('disallowed tag', function() {
     var validator;
@@ -19,6 +19,6 @@ describe('disallowed tag', function() {
     it('should reject with tag presence', function() {
         var result = validator.validate('<script></script>');
         expect(result).to.have.lengthOf(1);
-        expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG);
+        expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
     });
 });
