@@ -2,7 +2,7 @@ const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
 
-describe('invalid attr value', function() {
+describe('invalid attribute value', function() {
     var validator;
     before(function() {
         validator = Validator({

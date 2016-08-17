@@ -1,6 +1,9 @@
 # MIP校验框架和命令行工具
 
 本项目给出用于MIP校验的NPM软件包，支持编程方式和命令行两种接口。
+本文档介绍两种接口的使用和开发方式，如需了解规则配置框架请移步：
+
+<http://gitlab.baidu.com/MIP/mip-validator/wikis/rules>
 
 ## 安装
 
@@ -53,7 +56,7 @@ mip-validator --help
 
 ## 规则配置
 
-`mip-validator`使用JSON格式的规则配置，详情请查看wiki。
+`mip-validator`使用JSON格式的规则配置，详情请查看[wiki][wiki]。
 仓库中提供了一组示例：
 
 * `examples/conf.json`：示例规则配置文件
@@ -99,3 +102,5 @@ make valid
 # 校验不符合规则的HTML
 make invalid
 ```
+
+[wiki]: http://gitlab.baidu.com/MIP/mip-validator/wikis/rules

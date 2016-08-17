@@ -78,5 +78,5 @@ Engine.prototype.validate = function(html) {
 };
 
 module.exports = function(rules) {
-    return new Engine(rules || {});
+    return new Engine(rules);
 };

@@ -1,7 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../src/error.json');
+const ERR = require('../src/error.json');
 
 describe('mandatory tag missing', function() {
     it('should accept valid mandatory', function() {
@@ -13,6 +13,38 @@ describe('mandatory tag missing', function() {
         var result = validator.validate('<div><img></div>');
         expect(result).to.have.lengthOf(0);
     });
+    it('should support attributes', function() {
+        var validator = Validator({
+            "body": {
+                "mandatory": {
+                    "mip": '^.*$',
+                    "foo": "bar"
+                }
+            }
+        });
+        var result = validator.validate('<body mip foo="bar"></body>');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<body></body>');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal(ERR.MANDATORY_TAG_MISSING.code);
+        var message = "强制性标签 '<body mip=\"^.*$\" foo=\"bar\">' 缺失或错误";
+        expect(result[0].message).to.equal(message);
+    });
+    it('should support arrays', function() {
+        var validator = Validator({
+            "link": {
+                "mandatory": [{
+                    "rel": "^standardhtml$"
+                }, {
+                    "rel": "^miphtml$"
+                }]
+            }
+        });
+        var result = validator.validate('<div><link rel="standardhtml"><link rel="miphtml"></div>');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<div><link rel="miphtml"></div>');
+        expect(result).to.have.lengthOf(1);
+    });
     it('should reject when mandatory tag missing', function() {
         var validator = Validator({
             div: {
@@ -22,24 +54,23 @@ describe('mandatory tag missing', function() {
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(1);
 
-        var err = errorCode.MANDATORY_TAG_MISSING;
+        var err = ERR.MANDATORY_TAG_MISSING;
         expect(result[0].code).to.equal(err.code);
-        var message = "强制性标签 'div' 缺失或错误";
+        var message = "强制性标签 '<div>' 缺失或错误";
         expect(result[0].message).to.equal(message);
-    });
-
-    it('should accept when mandatory not set', function() {
-        var validator = Validator({
-            div: {}
-        });
-        var result = validator.validate('<p></p>');
-        expect(result).to.have.lengthOf(0);
     });
     it('should accept when mandatory false', function() {
         var validator = Validator({
             div: {
                 mandatory: false
             }
+        });
+        var result = validator.validate('<p></p>');
+        expect(result).to.have.lengthOf(0);
+    });
+    it('should accept when mandatory not set', function() {
+        var validator = Validator({
+            div: {}
         });
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(0);

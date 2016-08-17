@@ -1,8 +1,9 @@
 const _ = require('lodash');
 const Engine = require('./src/engine.js');
+const config = require('./src/config.js');
 
 module.exports = function(rules) {
-    var engine = Engine(rules);
+    var engine = Engine(config.normalize(rules));
 
     // attr
     engine.register(require('./src/validators/disallowed_attr.js'));

@@ -1,58 +1,63 @@
 {
-  "img": {
-    "disallow": false
-  },
-  "form": {
-    "disallow_ancestor": "span"
-  },
-  "div": {
-    "disallow_ancestor": ["span", "a"]
-  },
-  "link": {
-    "mandatory_parent": "head",
-    "duplicate": [{
-      "rel": "^miphtml$"
-    }, {
-      "rel": "^standardhtml$"
-    }]
-  },
-  "great-mip": {
-    "mandatory": true
-  },
-  "mip-img": {
-    "attrs": {
-      "attrs": {
-        "src": {
-          "value": "^http://"
-        }
-      }
-    }
-  },
-  "mip-input": {
-    "mandatory_ancestor": "mip-form",
-    "attrs": {
-      "name": {
-        "mandatory": true
-      }
-    }
-  },
-  "meta": {
-    "duplicate": {
-      "viewport": "^.*$"
+    "img": {
+        "disallow": false
     },
-    "attrs": {
-      "content": [{
-        "match": "name=viewport",
-        "properties": {
-          "width": "device-width",
-          "initial-scale": "1"
+    "form": {
+        "disallow_ancestor": "span"
+    },
+    "div": {
+        "disallow_ancestor": ["span", "a"]
+    },
+    "link": {
+        "mandatory": [{
+            "rel": "^miphtml$"
+        }, {
+            "rel": "^standardhtml$"
+        }],
+        "mandatory_parent": "head",
+        "duplicate": [{
+            "rel": "^miphtml$"
+        }, {
+            "rel": "^standardhtml$"
+        }]
+    },
+    "great-mip": {
+        "mandatory": true
+    },
+    "mip-img": {
+        "attrs": {
+            "attrs": {
+                "src": {
+                    "value": "^http://"
+                }
+            }
         }
-      }, {
-        "match": "http-equiv=X-UA-Compatible",
-        "properties": {
-          "IE": "edge"
+    },
+    "mip-input": {
+        "mandatory_ancestor": "mip-form",
+        "attrs": {
+            "name": {
+                "mandatory": true
+            }
         }
-      }]
+    },
+    "meta": {
+        "duplicate": {
+            "viewport": "^.*$"
+        },
+        "attrs": {
+            "content": [{
+                "match": "name=viewport",
+                "properties": {
+                    "width": "device-width",
+                    "initial-scale": "1"
+                }
+            }, {
+                "match": "http-equiv=X-UA-Compatible",
+                "properties": {
+                    "IE": "edge"
+                }
+            }]
+        }
     }
-  }
 }
