@@ -1,10 +1,10 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../error-code.json');
+const errorCode = require('../src/error-code.json');
 const zh_cn = require('../i18n/zh_cn.json');
 
-describe('value regular expression', function() {
+describe('invalid attr value', function() {
     var validator;
     before(function() {
         validator = Validator({

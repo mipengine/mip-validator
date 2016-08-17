@@ -1,17 +1,17 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const ERR = require('../error-code.json');
+const ERR = require('../src/error-code.json');
 
-describe('duplicate tag', function() {
+describe('duplicate unique tag', function() {
     var validator;
     before(function() {
         validator = Validator({
             link: {
                 duplicate: [{
-                    rel: "standardhtml"
+                    rel: "^standardhtml$"
                 }, {
-                    rel: "miphtml"
+                    rel: "^miphtml$"
                 }]
             },
             meta: {

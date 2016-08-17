@@ -1,7 +1,7 @@
 const env = require('./env.js');
 const expect = env.expect;
 const Validator = require('..');
-const errorCode = require('../error-code.json');
+const errorCode = require('../src/error-code.json');
 const zh_cn = require('../i18n/zh_cn.json');
 
 describe('error', function() {
@@ -25,9 +25,6 @@ describe('error', function() {
     });
     it('should contain correct col number', function() {
         expect(result.col).to.equal(3);
-    });
-    it('should contain correct rule name', function() {
-        expect(result.rule).to.equal('src');
     });
     it('should contain correct offset', function() {
         expect(result.offset).to.equal(10);
