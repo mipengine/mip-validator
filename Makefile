@@ -1,6 +1,10 @@
-.PHONY: clean
+.PHONY: clean valid invalid
 
-all: examples/valid.html.json examples/invalid.html.json
+valid: 
+	node bin/cli.js -f examples/conf.json < examples/valid.html
+
+invalid: 
+	node bin/cli.js -f examples/conf.json < examples/invalid.html
 
 examples/valid.html.json: examples/valid.html examples/conf.json
 	node bin/cli.js -f examples/conf.json < examples/valid.html > examples/valid.html.json
