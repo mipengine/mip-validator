@@ -3,7 +3,7 @@
 本项目给出用于MIP校验的NPM软件包，支持编程方式和命令行两种接口。
 本文档介绍两种接口的使用和开发方式，如需了解规则配置框架请移步：
 
-<http://gitlab.baidu.com/MIP/mip-validator/wikis/rules>
+<http://gitlab.baidu.com/MIP/mip-validator/tree/master/docs/rules.md>
 
 ## 安装
 
