@@ -26,10 +26,8 @@
     },
     "mip-img": {
         "attrs": {
-            "attrs": {
-                "src": {
-                    "value": "^http://"
-                }
+            "src": {
+                "value": "^http://"
             }
         }
     },
