@@ -38,14 +38,14 @@ console.log(errorArray);
 
 需要全局安装`mip-validator`（见上一节）。API：
 
-* `-f`参数来指定规则文件（JSON格式），默认为`./validator.json`。
+* `-c`参数来指定规则文件（JSON格式），默认为`./validator.json`。
 * 使用标准输入HTML（String类型）
 * 标准输出的错误列表（JSON格式）
 
 例如：
 
 ```bash
-mip-validator -f conf.json < a.html > result.json
+mip-validator -c conf.json < a.html
 ```
 
 更多使用方式请参考：
@@ -57,13 +57,7 @@ mip-validator --help
 ## 规则配置
 
 `mip-validator`使用JSON格式的规则配置，详情请查看[wiki][wiki]。
-仓库中提供了一组示例：
-
-* `examples/conf.json`：示例规则配置文件
-* `examples/valid.html`：合法的HTML，满足上述规则配置
-* `examples/valid.html.json`：上述文件的校验结果
-* `examples/invalid.html`：不合法的HTML，不满足上述规则配置
-* `examples/invalid.html.json`：上述文件的校验结果
+仓库中提供了示例配置文件：`examples/conf.json`。
 
 ## 开发
 
@@ -93,14 +87,13 @@ mocha
 利用Makefile可以方便地校验`example`下的样例文件，其中：
 
 * `example/conf.json`: 校验配置文件
-* `example/valid.html`: 样例HTML（符合上述校验配置）
-* `example/invalid.html`: 样例HTML（不符合上述校验配置）
+* `example/htmls/*.html`: 样例HTML
+* `example/results/*.html.json`: 对应样例HTML的校验结果
+
+校验所有`example/htmls`下的HTML文件（结果会输出到`examples/results/`）：
 
 ```bash
-# 校验符合规则的HTML
-make valid
-# 校验不符合规则的HTML
-make invalid
+make examples
 ```
 
 [wiki]: http://gitlab.baidu.com/MIP/mip-validator/wikis/rules
