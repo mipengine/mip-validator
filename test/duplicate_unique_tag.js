@@ -44,4 +44,19 @@ describe('duplicate unique tag', function() {
         var result = validator.validate('<link rel="standardhtml"><link rel="miphtml">');
         expect(result).to.have.lengthOf(0);
     });
+    it('should validate html/head/body tag', function() {
+        var validator = Validator({
+            html: {
+                duplicate: true
+            },
+            head: {
+                duplicate: true
+            },
+            body: {
+                duplicate: true
+            }
+        });
+        var result = validator.validate('<html><body><head><head><body><html>');
+        expect(result).to.have.lengthOf(3);
+    });
 });

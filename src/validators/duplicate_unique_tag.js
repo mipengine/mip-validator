@@ -1,13 +1,13 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
+const POLLYFILL_TAGS = ['html', 'body', 'head'];
 
-var cache, engine;
+var cache;
 
-exports.onBegin = function(rules, _engine) {
+exports.onBegin = function(engine) {
     cache = {};
-    engine = _engine;
 
-    _.forOwn(rules, (rule, ruleName) => {
+    _.forOwn(engine.rules, (rule, ruleName) => {
         var duplicates = _.isArray(rule.duplicate) ?
             rule.duplicate : [rule.duplicate];
 
@@ -16,9 +16,11 @@ exports.onBegin = function(rules, _engine) {
             cache[fingerprint] = 0;
         });
     });
+
+    validatePollyfill(engine);
 };
 
-exports.onNode = function(node, rule) {
+exports.onNode = function(node, rule, engine) {
     if(!rule.duplicate) return;
 
     var duplicates = _.isArray(rule.duplicate) ?
@@ -42,6 +44,18 @@ function serialize(tagName, pattern) {
         .map(arr => arr[0] + '_' + arr[1])
         .join(',');
     return tagName + ',' + patternStr;
+}
+
+function validatePollyfill(engine){
+    POLLYFILL_TAGS.forEach(tag => {
+        var re = new RegExp(`<${tag}>`, 'g');
+        var match = engine.html.match(re);
+        if(match && match.length > 1){
+            var err = ERR.DUPLICATE_UNIQUE_TAG;
+            var msg = err.message;
+            engine.createError(err.code, msg);
+        }
+    });
 }
 
 function match(node, pattern) {

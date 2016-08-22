@@ -5,10 +5,10 @@ const matchAttrs = require('../matcher.js').matchAttrs;
 
 var cache;
 
-exports.onBegin = function(rules) {
+exports.onBegin = function(engine) {
     cache = {};
 
-    _.forOwn(rules, (rule, ruleName) => {
+    _.forOwn(engine.rules, (rule, ruleName) => {
         if (!rule.mandatory) return;
 
         _.map(rule.mandatory, pattern => {
@@ -34,7 +34,7 @@ exports.onNode = function(node, rule) {
     });
 };
 
-exports.onEnd = function(rules, engine) {
+exports.onEnd = function(engine) {
     _.forOwn(cache, (v, k) => {
         if (v.count >= 1) return;
 

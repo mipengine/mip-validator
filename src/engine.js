@@ -30,7 +30,7 @@ Engine.prototype.createError = function(code, message, location) {
 };
 
 Engine.prototype.onBegin = function() {
-    _.map(this.onBeginCbs, cb => cb(this.rules, this));
+    _.map(this.onBeginCbs, cb => cb(this));
 };
 
 Engine.prototype.onNode = function(node, rule) {
@@ -46,7 +46,7 @@ Engine.prototype.onAttr = function(attr, attrRule, node, nodeRule) {
 };
 
 Engine.prototype.onEnd = function() {
-    _.map(this.onEndCbs, cb => cb(this.rules, this));
+    _.map(this.onEndCbs, cb => cb(this));
 };
 
 Engine.prototype.dfs = function(node) {
