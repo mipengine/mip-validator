@@ -10,7 +10,7 @@ describe('error', function() {
             "img": {
                 "attrs": {
                     "src": {
-                        "value": "^http://"
+                        "value": "http:///"
                     }
                 }
             }

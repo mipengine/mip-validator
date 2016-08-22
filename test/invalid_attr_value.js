@@ -9,7 +9,7 @@ describe('invalid attribute value', function() {
             "img": {
                 "attrs": {
                     "src": {
-                        "value": "^http://"
+                        "value": "/^http:///"
                     }
                 }
             }

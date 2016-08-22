@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const regexSyntax = /\/(.*)\/(\w*)/;
+const regexSyntax = /^\/(.*)\/(\w*)$/;
 
 function matchValue(src, target) {
     var match;
