@@ -1,18 +1,18 @@
 {
   "MANDATORY_TAG_MISSING": {
-    "code": "100",
+    "code": "06200101",
     "message": "强制性标签 '%s' 缺失或错误"
   },
   "DISALLOWED_TAG": {
-    "code": "110",
+    "code": "06200201",
     "message": "不允许标签"
   },
   "DUPLICATE_UNIQUE_TAG": {
-    "code": "120",
+    "code": "06200701",
     "message": "重复的标签"
   },
   "MANDATORY_ONEOF_ATTR_MISSING": {
-    "code": "200",
+    "code": "06200501",
     "message": "强制属性属性缺失"
   },
   "DISALLOWED_ATTR": {
@@ -20,7 +20,7 @@
     "message": "不允许的属性"
   },
   "INVALID_ATTR_VALUE": {
-    "code": "220",
+    "code": "06200301",
     "message": "属性值不合法"
   },
   "DISALLOWED_TAG_ANCESTOR": {
@@ -32,11 +32,11 @@
     "message": "标签 '%s' 只能是标签 '%s' 的子级标签"
   },
   "WRONG_PARENT_TAG": {
-    "code": "320",
+    "code": "06200601",
     "message": "标签 '%s' 的直接父标签应该是 '%s'，而不是 '%s'"
   },
   "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
-    "code": "400",
+    "code": "06200401",
     "message": "标签 '%s' 中的属性 '%s' 的属性 '%s' 被设置为 '%s'，该属性值无效"
   }
 }

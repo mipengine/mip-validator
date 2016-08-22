@@ -1,7 +1,4 @@
 {
-    "img": {
-        "disallow": false
-    },
     "form": {
         "disallow_ancestor": "span"
     },
@@ -10,24 +7,27 @@
     },
     "link": {
         "mandatory": [{
-            "rel": "^miphtml$"
+            "rel": "^(miphtml)|(standardhtml)$"
         }, {
-            "rel": "^standardhtml$"
+            "rel": "^stylesheet$",
+            "href": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
         }],
+
         "mandatory_parent": "head",
         "duplicate": [{
-            "rel": "^miphtml$"
+            "rel": "^(miphtml)|(standardhtml)$"
         }, {
-            "rel": "^standardhtml$"
+            "rel": "^stylesheet$",
+            "href": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
         }]
     },
-    "great-mip": {
-        "mandatory": true
-    },
-    "mip-img": {
+    "script": {
+        "mandatory": {
+            "src": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
+        },
         "attrs": {
-            "src": {
-                "value": "^http://"
+            "type": {
+                "value": "^(application\/ld+json)|(text\/javascript)$"
             }
         }
     },
@@ -49,13 +49,222 @@
                 "properties": {
                     "width": "device-width",
                     "initial-scale": "1"
-                }
+                },
+                "charset": "utf-8"
             }, {
                 "match": "http-equiv=X-UA-Compatible",
                 "properties": {
                     "IE": "edge"
                 }
             }]
+        },
+        "mandatory": {
+            "name": "viewport",
+            "content": {
+                "properties": {
+                    "width": "device-width",
+                    "initial-scale": "1"
+                }
+            }
+        },
+        "mandatory_parent": "head"
+    },
+    "img": {
+        "disallow": true
+    },
+    "video": {
+        "disallow": true
+    },
+    "audio": {
+        "disallow": true
+    },
+    "frame": {
+        "disallow": true
+    },
+    "frameset": {
+        "disallow": true
+    },
+    "object": {
+        "disallow": true
+    },
+    "param": {
+        "disallow": true
+    },
+    "applet": {
+        "disallow": true
+    },
+    "embed": {
+        "disallow": true
+    },
+    "form": {
+        "disallow": true
+    },
+    "input": {
+        "disallow": true
+    },
+    "textarea": {
+        "disallow": true
+    },
+    "select": {
+        "disallow": true
+    },
+    "option": {
+        "disallow": true
+    },
+
+
+    "a": {
+        "attrs": {
+            "href": {
+                "value": "^(http(s)?:\/\/)|#"
+            }
+        },
+        "mandatory":[{
+            "href": "^(http(s)?:\/\/)|#"
+        }, {
+            "target": "^_blank"
+        }]
+    },
+    "mip-img": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "^(http(s)?:)?\/\/"
+            }
         }
+    },
+    "mip-pix": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "^(https:\/\/)|(http:\/\/*\\?)"
+            }
+        }
+    },
+    "mip-video": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "^https:\/\/"
+            },
+            "poster": {
+                "mandatory": true,
+                "value": "^http(s)?:\/\/"
+            }
+        }
+    },
+    "mip-carousel": {
+        "attrs": {
+            "width": {
+                "mandatory": true,
+                "value": "^\\d{1,4}$"
+            },
+            "height": {
+                "mandatory": true,
+                "value": "^\\d{1,4}$"
+            }
+        }
+    },
+    "mip-iframe": {
+        "attrs": {
+            "width": {
+                "mandatory": true,
+                "value": "^\\d{1,4}$"
+            },
+            "height": {
+                "mandatory": true,
+                "value": "^\\d{1,4}$"
+            }
+        }
+    },
+    "mip-appdl": {
+        "attrs": {
+            "tpl": {
+                "mandatory": true,
+                "value": "^imageText$"
+            },
+            "src": {
+                "mandatory": true,
+                "value": "^http(s)?:\/\/"
+            },
+            "texttip": {
+                "mandatory": true
+            },
+            "postiontye": {
+                "mandatory": true,
+                "value": "^(static)|(fixed)$"
+            }
+        }
+    },
+    "mip-audio": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "^https:\/\/"
+            }
+        }
+    },
+    "mip-stats-bidu": {
+        "attrs": {
+            "token": {
+                "mandatory": true
+            }
+        }
+    },
+    "mip-form": {
+        "attrs": {
+            "method": {
+                "mandatory": true
+            },
+            "url": {
+                "mandatory": true
+            }
+        }
+    },
+    "mip-link": {
+        "attrs": {
+            "href": {
+                "mandatory": true
+            }
+        }
+    },
+    "mip-ad": {
+        "attrs": {
+            "type": {
+                "mandatory": true,
+                "value": "^ad\\-(baidu)|(comm)|(qwang)"
+            }
+        }
+    },
+    "mip-embed": {
+        "attrs": {
+            "type": {
+                "mandatory": true,
+                "value": "^ad\\-(baidu)|(comm)|(qwang)"
+            }
+        }
+    },
+
+
+    "head": {
+        "mandatory_parent": "html"
+    },
+    "body": {
+        "mandatory_parent": "html"
+    },
+    "style": {
+        "mandatory": {
+            "mip-custom": true
+        }
+    },
+
+
+
+    "html": {
+        "duplicate": true,
+        
     }
+
+
+
 }

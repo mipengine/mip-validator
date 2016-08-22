@@ -1,5 +1,13 @@
 [
     {
+        "code": "120",
+        "message": "重复的标签",
+        "line": 10,
+        "col": 3,
+        "offset": 252,
+        "input": "  <link rel=\"standardhtml\">"
+    },
+    {
         "code": "100",
         "message": "强制性标签 '<script type=\"^application/ld+json\">' 缺失或错误",
         "line": 0,
