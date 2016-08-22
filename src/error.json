@@ -13,7 +13,7 @@
   },
   "MANDATORY_ONEOF_ATTR_MISSING": {
     "code": "06200501",
-    "message": "强制属性属性缺失"
+    "message": "标签'%s'的强制性属性'%s'缺失"
   },
   "DISALLOWED_ATTR": {
     "code": "210",
