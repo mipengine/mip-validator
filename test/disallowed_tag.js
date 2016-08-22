@@ -9,6 +9,9 @@ describe('disallowed tag', function() {
         validator = Validator({
             script: {
                 disallow: true
+            },
+            frameset: {
+                disallow: true
             }
         });
     });
@@ -20,5 +23,9 @@ describe('disallowed tag', function() {
         var result = validator.validate('<script></script>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
+    });
+    it('should support obsolete tags', function() {
+        result = validator.validate('<div><frameset></frameset></div>');
+        expect(result).to.have.lengthOf(1);
     });
 });

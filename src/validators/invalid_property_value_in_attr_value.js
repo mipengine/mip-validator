@@ -31,7 +31,7 @@ exports.onAttr = function(attr, attrRules, node, rule, engine) {
             var err = ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE;
             var msg = util.format(err.message,
                 node.nodeName, attr.name,
-                property.name, property.value);
+                property.name, property.value || '');
 
             engine.createError(err.code, msg, node.__location);
         });

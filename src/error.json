@@ -21,7 +21,7 @@
   },
   "INVALID_ATTR_VALUE": {
     "code": "220",
-    "message": "属性值不合法"
+    "message": "标签 '%s' 中的属性 '%s' 的属性值 '%s' 无效"
   },
   "DISALLOWED_TAG_ANCESTOR": {
     "code": "300",

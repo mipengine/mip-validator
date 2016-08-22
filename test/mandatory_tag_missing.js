@@ -4,13 +4,14 @@ const Validator = require('..');
 const ERR = require('../src/error.json');
 
 describe('mandatory tag missing', function() {
+    var result;
     it('should accept valid mandatory', function() {
         var validator = Validator({
             div: {
                 mandatory: true
             }
         });
-        var result = validator.validate('<div><img></div>');
+        result = validator.validate('<div><img></div>');
         expect(result).to.have.lengthOf(0);
     });
     it('should support attributes', function() {

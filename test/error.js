@@ -34,7 +34,4 @@ describe('error', function() {
     it('should contain correct error code', function() {
         expect(result.code).to.equal(ERR.INVALID_ATTR_VALUE.code);
     });
-    it('should contain correct error message', function() {
-        expect(result.message).to.equal(ERR.INVALID_ATTR_VALUE.message);
-    });
 });
