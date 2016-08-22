@@ -1,16 +1,13 @@
-.PHONY: clean valid invalid
+.PHONY: clean examples
 
-valid: 
-	node bin/cli.js -f examples/conf.json < examples/valid.html
+htmls = $(shell find examples/htmls -name "*.html")
 
-invalid: 
-	node bin/cli.js -f examples/conf.json < examples/invalid.html
+results = $(patsubst examples/htmls/%,examples/results/%.json, $(htmls))
 
-examples/valid.html.json: examples/valid.html examples/conf.json
-	node bin/cli.js -f examples/conf.json < examples/valid.html > examples/valid.html.json
+default:
 
-examples/invalid.html.json: examples/invalid.html examples/conf.json
-	node bin/cli.js -f examples/conf.json < examples/invalid.html > examples/invalid.html.json
+examples: $(results)
 
-clean:
-	rm examples/*.html.json
+$(results):examples/results/%.json:examples/htmls/%
+	node bin/cli.js -c examples/conf.json < $< > $@
+

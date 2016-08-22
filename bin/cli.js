@@ -7,11 +7,11 @@ const path = require('path');
 
 program
     .version(pkg.version)
-    .option('-f, --file [path]', 'validator configuration [validator.json]', 'validator.json')
+    .option('-c, --conf [path]', 'validator configuration file [validator.json]', 'validator.json')
     .parse(process.argv);
 
 var html = '';
-var configPath = path.resolve(process.cwd(), program.file);
+var configPath = path.resolve(process.cwd(), program['conf']);
 var config = require(configPath);
 var validator = Validator(config);
 

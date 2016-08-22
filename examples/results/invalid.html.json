@@ -40,6 +40,14 @@
         "input": "  <link rel=\"stylesheet\" href=\"#\">"
     },
     {
+        "code": "220",
+        "message": "属性值不合法",
+        "line": 22,
+        "col": 3,
+        "offset": 402,
+        "input": "  <mip-img src=\"xxx\"></mip-img>"
+    },
+    {
         "code": "200",
         "message": "强制属性属性缺失",
         "line": 23,
