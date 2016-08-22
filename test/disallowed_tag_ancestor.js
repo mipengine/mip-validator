@@ -23,7 +23,7 @@ describe('disallowed tag ancestor', function() {
         var result = validator.validate('<span><div></div></span>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(ERR.DISALLOWED_TAG_ANCESTOR.code);
-        expect(result[0].message).to.equal("标签 'div' 不应该是标签 'span' 的子标签");
+        expect(result[0].message).to.equal("标签'div'不应该是标签'span'的子标签");
     });
     it('should reject when grandfather matched', function() {
         var result = validator.validate('<span><section><div></div></section></span>');

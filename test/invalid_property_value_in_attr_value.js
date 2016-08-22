@@ -62,14 +62,14 @@ describe('invalid property value in attribute value', function() {
         expect(result).to.have.lengthOf(1);
 
         var err = ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE;
-        var message = "标签 'meta' 中的属性 'content' 的属性 'width' 被设置为 '100px'，该属性值无效";
+        var message = "标签'meta'中的属性'content'的属性'width'被设置为'100px'，该属性值无效";
         expect(result[0].code).to.equal(err.code);
         expect(result[0].message).to.equal(message);
     });
     it('should reject with detailed error info', function() {
         var html = '<meta name="viewport" content="width=device-width">';
         var result = validator.validate(html);
-        var message = "标签 'meta' 中的属性 'content' 的属性 'initial-scale' 被设置为 ''，该属性值无效";
+        var message = "标签'meta'中的属性'content'的属性'initial-scale'被设置为''，该属性值无效";
         expect(result[0].message).to.equal(message);
     });
     it('should respect match', function() {
