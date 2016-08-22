@@ -10,7 +10,9 @@ describe('invalid property value in attribute value', function() {
             "meta": {
                 attrs: {
                     "content": {
-                        match: "name=viewport",
+                        match: {
+                            "name": "viewport"
+                        },
                         properties: {
                             "width": "device-width",
                             "initial-scale": "1"
@@ -21,11 +23,16 @@ describe('invalid property value in attribute value', function() {
             "span": {
                 attrs: {
                     "content": [{
-                        match: "name=foo",
+                        match: {
+                            "name": "foo"
+                        },
                         properties: {
                             "width": "1"
                         }
                     }, {
+                        match: {
+                            "name": "bar"
+                        },
                         properties: {
                             "width": "2"
                         }
@@ -47,15 +54,6 @@ describe('invalid property value in attribute value', function() {
         html = '<span name="foo" content="width=2"></span>';
         result = validator.validate(html);
         expect(result).to.have.lengthOf(1);
-    });
-    it('should use properties with no match as default', function() {
-        var html = '<span name="bar" content="width=1"></span>';
-        var result = validator.validate(html);
-        expect(result).to.have.lengthOf(1);
-
-        html = '<span name="bar" content="width=2"></span>';
-        result = validator.validate(html);
-        expect(result).to.have.lengthOf(0);
     });
     it('should reject invalid attr value', function() {
         var html = '<meta name="viewport" content="width=100px,initial-scale=1">';

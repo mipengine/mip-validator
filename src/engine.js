@@ -1,5 +1,6 @@
 const parse5 = require('parse5');
 const _ = require('lodash');
+const matcher = require('./matcher.js');
 
 function Engine(rules) {
     this.rules = rules;
@@ -36,8 +37,12 @@ Engine.prototype.onNode = function(node, rule) {
     _.map(this.onNodeCbs, cb => cb(node, rule, this));
 };
 
-Engine.prototype.onAttr = function(attr, attrRule, node, rule) {
-    _.map(this.onAttrCbs, cb => cb(attr, attrRule, node, rule, this));
+Engine.prototype.onAttr = function(attr, attrRule, node, nodeRule) {
+    attrRule.map(rule => {
+        if (matcher.matchAttrs(node, rule.match)) {
+            _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, this));
+        }
+    });
 };
 
 Engine.prototype.onEnd = function() {

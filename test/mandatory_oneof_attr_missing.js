@@ -20,7 +20,7 @@ describe('mandatory oneof attr missing', function() {
         var result = validator.validate('<div id="foo"></div>');
         expect(result).to.have.lengthOf(0);
     });
-    it('should reject invalid attr mandatory', function() {
+    it('should reject invalid mandatory attr', function() {
         var result = validator.validate('<div></div>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.MANDATORY_ONEOF_ATTR_MISSING.code);

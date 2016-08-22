@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
 const util = require('util');
+const matchAttrs = require('../matcher.js').matchAttrs;
 
 var cache;
 
@@ -26,7 +27,7 @@ exports.onNode = function(node, rule) {
     if (!rule.mandatory) return;
 
     _.map(rule.mandatory, pattern => {
-        if (!match(node, pattern)) return;
+        if (!matchAttrs(node, pattern)) return;
 
         var fingerprint = serialize(node.nodeName, pattern);
         cache[fingerprint].count++;
@@ -64,21 +65,3 @@ function serialize(tagName, pattern) {
     return tagName + ',' + patternStr;
 }
 
-function match(node, pattern) {
-    var attrs = _.keyBy(node.attrs, 'name');
-    var ret = true;
-    _.forOwn(pattern, (v, k) => {
-        var regex = new RegExp(v);
-        var attr = attrs[k];
-        if (!attr) {
-            ret = false;
-            return;
-        }
-
-        var actual = attr.value;
-        if (!regex.test(actual)) {
-            ret = false;
-        }
-    });
-    return ret;
-}

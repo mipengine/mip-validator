@@ -1,30 +1,40 @@
 const _ = require('lodash');
+const assert = require('assert');
 
 function normalize(config) {
-    config = config || {};
-    _.forOwn(config, (v, k) => {
-        config[k] = normalizeTagConfig(v);
-    });
-    return config;
+    return config = _.chain(config || {})
+        .toPairs()
+        .map(pair => [pair[0], normalizeTag(pair[1])])
+        .fromPairs()
+        .value();
 }
 
-function normalizeTagConfig(config) {
-    if (!config) return config;
+function normalizeArray(v) {
+    if (!v) {
+        return [];
+    }
+    if (v === true) {
+        v = {};
+    }
+    if (!_.isArray(v)) {
+        v = [v];
+    }
+    return v;
+}
 
-    _.forOwn(config, (v, k) => {
-        if (k === 'mandatory') {
-            if (v === false) {
-                return;
-            }
-            if (v === true) {
-                v = {};
-            }
-            if (!_.isArray(v)) {
-                v = [v];
-            }
-            config[k] = v;
-        }
-    });
+function normalizeAttrs(attrs) {
+    return _.chain(attrs)
+        .toPairs()
+        .map(pair => [pair[0], normalizeArray(pair[1])])
+        .fromPairs()
+        .value();
+}
+
+function normalizeTag(config) {
+    assert(_.isObject(config), 'node name should be Array or Object');
+
+    if (config.mandatory) config.mandatory = normalizeArray(config.mandatory);
+    if (config.attrs) config.attrs = normalizeAttrs(config.attrs);
     return config;
 }
 
