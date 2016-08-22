@@ -29,4 +29,9 @@ describe('mandatory oneof attr missing', function() {
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(0);
     });
+    it('should accept when no tag presence', function() {
+        var result = validator.validate('<p></p>');
+        expect(result).to.have.lengthOf(0);
+//标签'xx'的强制性属性'xx'缺失
+    });
 });

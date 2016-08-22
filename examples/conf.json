@@ -28,6 +28,10 @@
         "attrs": {
             "type": {
                 "value": "^(application\/ld+json)|(text\/javascript)$"
+            },
+            "src": {
+                "match": "type=text/javascript",
+                "mandatory": true
             }
         }
     },
@@ -244,8 +248,6 @@
             }
         }
     },
-
-
     "head": {
         "mandatory_parent": "html"
     },
@@ -253,18 +255,13 @@
         "mandatory_parent": "html"
     },
     "style": {
-        "mandatory": {
-            "mip-custom": true
+        "attrs": {
+            "mip-custom": {
+                 "mandatory": true
+            }
         }
     },
-
-
-
     "html": {
-        "duplicate": true,
-        
+        "duplicate": true
     }
-
-
-
 }

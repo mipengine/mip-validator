@@ -1,6 +1,6 @@
 [
     {
-        "code": "120",
+        "code": "06200701",
         "message": "重复的标签",
         "line": 10,
         "col": 3,
@@ -8,24 +8,24 @@
         "input": "  <link rel=\"standardhtml\">"
     },
     {
-        "code": "100",
-        "message": "强制性标签 '<script type=\"^application/ld+json\">' 缺失或错误",
-        "line": 0,
-        "col": 0,
-        "offset": 0,
-        "input": ""
+        "code": "06200501",
+        "message": "强制属性属性缺失",
+        "line": 26,
+        "col": 3,
+        "offset": 659,
+        "input": "  <mip-form>"
     },
     {
-        "code": "100",
+        "code": "06200501",
+        "message": "强制属性属性缺失",
+        "line": 26,
+        "col": 3,
+        "offset": 659,
+        "input": "  <mip-form>"
+    },
+    {
+        "code": "06200101",
         "message": "强制性标签 '<a target=\"^_blank\">' 缺失或错误",
-        "line": 0,
-        "col": 0,
-        "offset": 0,
-        "input": ""
-    },
-    {
-        "code": "100",
-        "message": "强制性标签 '<style mip-custom=\"true\">' 缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,

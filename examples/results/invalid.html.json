@@ -1,6 +1,6 @@
 [
     {
-        "code": "400",
+        "code": "06200401",
         "message": "标签 'meta' 中的属性 'content' 的属性 'width' 被设置为 '100px'，该属性值无效",
         "line": 5,
         "col": 3,
@@ -8,15 +8,15 @@
         "input": "  <meta name=\"viewport\" content=\"width=100px\">"
     },
     {
-        "code": "400",
-        "message": "标签 'meta' 中的属性 'content' 的属性 'initial-scale' 被设置为 'undefined'，该属性值无效",
+        "code": "06200401",
+        "message": "标签 'meta' 中的属性 'content' 的属性 'initial-scale' 被设置为 ''，该属性值无效",
         "line": 5,
         "col": 3,
         "offset": 67,
         "input": "  <meta name=\"viewport\" content=\"width=100px\">"
     },
     {
-        "code": "400",
+        "code": "06200401",
         "message": "标签 'meta' 中的属性 'content' 的属性 'IE' 被设置为 'not-edge'，该属性值无效",
         "line": 6,
         "col": 3,
@@ -24,7 +24,7 @@
         "input": "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=not-edge\">"
     },
     {
-        "code": "120",
+        "code": "06200701",
         "message": "重复的标签",
         "line": 8,
         "col": 3,
@@ -32,7 +32,23 @@
         "input": "  <link rel=\"miphtml\">"
     },
     {
-        "code": "320",
+        "code": "06200201",
+        "message": "不允许标签",
+        "line": 12,
+        "col": 3,
+        "offset": 253,
+        "input": "  <img>"
+    },
+    {
+        "code": "06200201",
+        "message": "不允许标签",
+        "line": 14,
+        "col": 5,
+        "offset": 272,
+        "input": "    <form></form>"
+    },
+    {
+        "code": "06200601",
         "message": "标签 'link' 的直接父标签应该是 'head'，而不是 'body'",
         "line": 21,
         "col": 3,
@@ -40,15 +56,15 @@
         "input": "  <link rel=\"stylesheet\" href=\"#\">"
     },
     {
-        "code": "220",
-        "message": "属性值不合法",
+        "code": "06200301",
+        "message": "标签 'mip-img' 中的属性 'src' 的属性值 'xxx' 无效",
         "line": 22,
         "col": 3,
         "offset": 402,
         "input": "  <mip-img src=\"xxx\"></mip-img>"
     },
     {
-        "code": "200",
+        "code": "06200501",
         "message": "强制属性属性缺失",
         "line": 23,
         "col": 3,
@@ -64,16 +80,24 @@
         "input": "  <mip-input></mip-input>"
     },
     {
-        "code": "100",
-        "message": "强制性标签 '<link rel=\"^standardhtml$\">' 缺失或错误",
+        "code": "06200101",
+        "message": "强制性标签 '<link rel=\"^stylesheet$\" href=\"^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)\">' 缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
         "input": ""
     },
     {
-        "code": "100",
-        "message": "强制性标签 '<great-mip>' 缺失或错误",
+        "code": "06200101",
+        "message": "强制性标签 '<script src=\"^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)\">' 缺失或错误",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
+    },
+    {
+        "code": "06200101",
+        "message": "强制性标签 '<a target=\"^_blank\">' 缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
