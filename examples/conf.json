@@ -1,5 +1,6 @@
 {
     "html": {
+        "mandatory": true,
         "attrs": {
             "mip": {
                 "mandatory": true
@@ -20,8 +21,7 @@
                 "properties": {
                     "width": "device-width",
                     "initial-scale": "1"
-                },
-                "charset": "utf-8"
+                }
             }, {
                 "match": {
                     "http-equiv": "X-UA-Compatible"
@@ -31,14 +31,15 @@
                 }
             }]
         },
+        "mandatoryOr": [{
+            "http-equiv": "/Content-Type/i",
+            "content": "/charset=(utf)|(UTF)-8/"
+        }, {
+            "charset": "(utf)|(UTF-8"
+        }],
         "mandatory": {
             "name": "viewport",
-            "content": {
-                "properties": {
-                    "width": "device-width",
-                    "initial-scale": "1"
-                }
-            }
+            "content": "width=device-width,minimum-scale=1,initial-scale=1"
         },
         "mandatory_parent": "head"
     },
@@ -47,7 +48,7 @@
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\//)/"
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -60,11 +61,11 @@
     },
     "script": {
         "mandatory": {
-            "src": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         },
         "attrs": {
             "type": {
-                "value": "/^(application\/ld+json)|(text\/javascript)$/"
+                "value": "/^(application\/(ld\\+)?json)|(text\/javascript)$/"
             },
             "src": {
                 "match": {
@@ -148,7 +149,7 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^(http(s)?:)?\/\//"
             }
         }
     },
@@ -264,9 +265,11 @@
         }
     },
     "head": {
+        "mandatory": true,
         "mandatory_parent": "html"
     },
     "body": {
+        "mandatory": true,
         "mandatory_parent": "html"
     },
     "style": {
