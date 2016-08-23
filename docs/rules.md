@@ -40,7 +40,7 @@
 
 > mip-validator会识别正则表达式语法：`/regex/`以及`/regex/ops`。
 
-属性：`<TagName>.mandatoryOr`
+属性：`<TagName>.mandatory_or`
 
 类型：`Array<Object>`
 
@@ -53,7 +53,7 @@
 ```json
 {
     "meta": {
-        "mandatoryOr": [{
+        "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
             "content": "/charset=utf-8/"
         }, {
