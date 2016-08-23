@@ -4,10 +4,13 @@ const Validator = require('..');
 const errorCode = require('../src/error.json');
 
 describe('disallowed tag', function() {
-    var validator;
+    var validator, result;
     before(function() {
         validator = Validator({
             script: {
+                disallow: true
+            },
+            frame: {
                 disallow: true
             },
             frameset: {
@@ -16,16 +19,16 @@ describe('disallowed tag', function() {
         });
     });
     it('should accept with tag absence', function() {
-        var result = validator.validate('<p></p>');
+        result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(0);
     });
     it('should reject with tag presence', function() {
-        var result = validator.validate('<script></script>');
+        result = validator.validate('<script></script>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
     });
     it('should support frame/frameset', function() {
-        result = validator.validate('<div><frameset></frameset></div>');
-        expect(result).to.have.lengthOf(1);
+        result = validator.validate('<div><frame></frame><frameset></div>');
+        expect(result).to.have.lengthOf(2);
     });
 });

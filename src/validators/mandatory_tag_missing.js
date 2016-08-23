@@ -2,7 +2,7 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const util = require('util');
 const matchAttrs = require('../matcher.js').matchAttrs;
-const POLLYFILL_TAGS = ['html', 'body', 'head'];
+const POLYFILL_TAGS = ['html', 'body', 'head'];
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
@@ -33,7 +33,7 @@ exports.onBegin = function(engine) {
         }
     });
 
-    validatePollyfill(engine);
+    validatePolyfill(engine);
 };
 
 exports.onNode = function(node, rule) {
@@ -69,8 +69,8 @@ exports.onEnd = function(engine) {
     });
 };
 
-function validatePollyfill(engine) {
-    POLLYFILL_TAGS.forEach(tag => {
+function validatePolyfill(engine) {
+    POLYFILL_TAGS.forEach(tag => {
         if (!_.get(engine.rules, `${tag}.mandatory`)) return;
 
         var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');

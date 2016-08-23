@@ -1,12 +1,13 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
-const POLLYFILL_TAGS = ['html', 'body', 'head'];
+const POLYFILL_TAGS = ['html', 'body', 'head'];
 
 var cache;
 
 exports.onBegin = function(engine) {
     cache = {};
 
+    // TODO: remove array test
     _.forOwn(engine.rules, (rule, ruleName) => {
         var duplicates = _.isArray(rule.duplicate) ?
             rule.duplicate : [rule.duplicate];
@@ -17,7 +18,7 @@ exports.onBegin = function(engine) {
         });
     });
 
-    validatePollyfill(engine);
+    validatePolyfill(engine);
 };
 
 exports.onNode = function(node, rule, engine) {
@@ -46,9 +47,10 @@ function serialize(tagName, pattern) {
     return tagName + ',' + patternStr;
 }
 
-function validatePollyfill(engine){
-    POLLYFILL_TAGS.forEach(tag => {
-        var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
+function validatePolyfill(engine){
+    // TODO: respect rules
+    POLYFILL_TAGS.forEach(tag => {
+        var re = new RegExp(`<\\s*${tag}(\\s+.*)*>`, 'g');
         var match = engine.html.match(re);
         if(match && match.length > 1){
             var err = ERR.DUPLICATE_UNIQUE_TAG;
