@@ -49,7 +49,7 @@ describe('mandatory tag missing', function() {
     it('should support OR arrays', function() {
         var validator = Validator({
             "meta": {
-                "mandatoryOr": [{
+                "mandatory_or": [{
                     "http-equiv": "/Content-Type/i",
                     "content": "/charset=utf-8/"
                 }, {

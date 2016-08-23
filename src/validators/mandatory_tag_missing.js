@@ -24,7 +24,7 @@ exports.onBegin = function(engine) {
                 };
             });
         }
-        if (rule.mandatoryOr) {
+        if (rule.mandatory_or) {
             ors[ruleName] = {
                 rule: rule,
                 ruleName: ruleName,
@@ -43,7 +43,7 @@ exports.onNode = function(node, rule) {
         var fp = matcher.fingerprintByObject(node.nodeName, pattern);
         tags[fp].count++;
     });
-    _.map(rule.mandatoryOr, pattern => {
+    _.map(rule.mandatory_or, pattern => {
         if (!matcher.matchAttrs(node, pattern)) return;
         ors[node.nodeName].count++;
     });
@@ -58,9 +58,9 @@ exports.onEnd = function(engine) {
         }
     });
     _.forOwn(ors, (v, k) => {
-        if (v.rule.mandatoryOr && v.count < 1) {
+        if (v.rule.mandatory_or && v.count < 1) {
             var err = ERR.MANDATORY_TAG_MISSING;
-            var fps = v.rule.mandatoryOr
+            var fps = v.rule.mandatory_or
                 .map(rule => matcher.fingerprintByObject(k, rule))
                 .join("'或'");
             var message = util.format(err.message, fps);
