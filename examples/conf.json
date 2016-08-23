@@ -31,7 +31,7 @@
                 }
             }]
         },
-        "mandatoryOr": [{
+        "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
             "content": "/charset=(utf)|(UTF)-8/"
         }, {
@@ -60,20 +60,12 @@
         }]
     },
     "script": {
-        "mandatory": {
+        "mandatory_or": [{
+            "type": "/^(text/javascript)?/",
             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
-        },
-        "attrs": {
-            "type": {
-                "value": "/^(application\/(ld\\+)?json)|(text\/javascript)$/"
-            },
-            "src": {
-                "match": {
-                    "type": "text/javascript"
-                },
-                "mandatory": true
-            }
-        }
+        }, {
+            "type": "/^(application\/(ld\\+)?json)$/"
+        }]
     },
     "mip-input": {
         "mandatory_ancestor": "mip-form",
@@ -137,7 +129,7 @@
         "attrs": {
             "href": {
                 "mandatory": true,
-                "value": "/^(http(s)?:\/\/)|#/"
+                "value": "/^((http(s)?:)?\/\/)|#/"
             },
             "target": {
                 "mandatory": true,
