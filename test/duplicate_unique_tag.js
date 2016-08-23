@@ -9,14 +9,14 @@ describe('duplicate unique tag', function() {
         validator = Validator({
             link: {
                 duplicate: [{
-                    rel: "^standardhtml$"
+                    rel: "standardhtml"
                 }, {
-                    rel: "^miphtml$"
+                    rel: "miphtml"
                 }]
             },
             meta: {
                 duplicate: {
-                    viewport: "^.*$"
+                    viewport: "/.*/"
                 }
             }
         });

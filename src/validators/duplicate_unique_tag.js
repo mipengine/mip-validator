@@ -1,18 +1,15 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
+const matcher = require('../matcher.js');
 
 var cache;
 
 exports.onBegin = function(engine) {
     cache = {};
 
-    // TODO: remove array test
     _.forOwn(engine.rules, (rule, ruleName) => {
-        var duplicates = _.isArray(rule.duplicate) ?
-            rule.duplicate : [rule.duplicate];
-
-        _.map(duplicates, pattern => {
+        _.map(rule.duplicate, pattern => {
             var fingerprint = serialize(ruleName, pattern);
             cache[fingerprint] = 0;
         });
@@ -22,13 +19,13 @@ exports.onBegin = function(engine) {
 };
 
 exports.onNode = function(node, rule, engine) {
-    if(!rule.duplicate) return;
+    if(!rule.duplicate || _.includes(POLYFILL_TAGS, node.nodeName)) return;
 
     var duplicates = _.isArray(rule.duplicate) ?
         rule.duplicate : [rule.duplicate];
 
     _.map(duplicates, pattern => {
-        if (!match(node, pattern)) return;
+        if (!matcher.matchAttrs(node, pattern)) return;
 
         var fingerprint = serialize(node.nodeName, pattern);
         cache[fingerprint]++;
@@ -59,23 +56,4 @@ function validatePolyfill(engine){
             engine.createError(err.code, msg);
         }
     });
-}
-
-function match(node, pattern) {
-    var attrs = _.keyBy(node.attrs, 'name');
-    var ret = true;
-    _.forOwn(pattern, (v, k) => {
-        var regex = new RegExp(v);
-        var attr = attrs[k];
-        if (!attr) {
-            ret = false;
-            return;
-        }
-
-        var actual = attr.value;
-        if (!regex.test(actual)) {
-            ret = false;
-        }
-    });
-    return ret;
 }

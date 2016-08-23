@@ -34,6 +34,7 @@ function normalizeTag(config) {
     assert(_.isObject(config), 'node name should be Array or Object');
 
     if (config.mandatory) config.mandatory = normalizeArray(config.mandatory);
+    if (config.duplicate) config.duplicate = normalizeArray(config.duplicate);
     if (config.attrs) config.attrs = normalizeAttrs(config.attrs);
     return config;
 }
