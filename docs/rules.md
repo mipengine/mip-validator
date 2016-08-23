@@ -30,13 +30,40 @@
 {
     "link": {
         "mandatory": [{
-            "rel": "^standardhtml$"
+            "rel": "/standardhtml/"
         }, {
-            "rel": "^miphtml$"
+            "rel": "/miphtml/"
         }]
     }
 }
 ```
+
+> mip-validator会识别正则表达式语法：`/regex/`以及`/regex/ops`。
+
+属性：`<TagName>.mandatoryOr`
+
+类型：`Array<Object>`
+
+默认：`undefined`
+
+错误代号：`"MANDATORY_TAG_MISSING"`
+
+同`<TagName>.mandatory`，但数组元素是或的关系，例如检查`charset`设置：
+
+```json
+{
+    "meta": {
+        "mandatoryOr": [{
+            "http-equiv": "/Content-Type/i",
+            "content": "/charset=utf-8/"
+        }, {
+            "charset": "utf-8"
+        }]
+    }
+}
+```
+
+> 其中`i`为不区分大小写，参考[JavaScript正则表达式][js-regex]。
 
 # Mandatory Tag Ancestor
 
@@ -140,13 +167,13 @@
 {
     "meta": {
         "duplicate": {
-            "viewport": "^.*$"
+            "viewport": "/.*/"
         }
     "link": {
         "duplicate": [{
-            "rel": "^miphtml$"
+            "rel": "miphtml"
         }, {
-            "rel": "^standardhtml$"
+            "rel": "standardhtml"
         }]
     }
 }
@@ -170,7 +197,7 @@
     "mip-img": {
         "attrs": {
             "src": {
-                "value": "^http://"
+                "value": "/^http:///"
             }
         }
     }
@@ -196,7 +223,9 @@
     "meta": {
         "attrs": {
             "content" {
-                "match": "name=viewport",
+                "match": {
+                    "name": "viewport"  
+                },
                 "properties": {
                     "width": "device-width",
                     "initial-scale": "1"
@@ -236,4 +265,4 @@
 
 上述规则强制要求所有`<mip-input>`标签拥有`name`属性。
 
-
+[js-regex]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp
