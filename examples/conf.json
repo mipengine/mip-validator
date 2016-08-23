@@ -1,62 +1,31 @@
 {
-    "form": {
-        "disallow_ancestor": "span"
-    },
-    "div": {
-        "disallow_ancestor": ["span", "a"]
-    },
-    "link": {
-        "mandatory": [{
-            "rel": "^(miphtml)|(standardhtml)$"
-        }, {
-            "rel": "^stylesheet$",
-            "href": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
-        }],
-
-        "mandatory_parent": "head",
-        "duplicate": [{
-            "rel": "^(miphtml)|(standardhtml)$"
-        }, {
-            "rel": "^stylesheet$",
-            "href": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
-        }]
-    },
-    "script": {
-        "mandatory": {
-            "src": "^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)"
+    "html": {
+        "attrs": {
+            "mip": {
+                "mandatory": true
+            }
         },
-        "attrs": {
-            "type": {
-                "value": "^(application\/ld+json)|(text\/javascript)$"
-            },
-            "src": {
-                "match": "type=text/javascript",
-                "mandatory": true
-            }
-        }
+        "duplicate": true
     },
-    "mip-input": {
-        "mandatory_ancestor": "mip-form",
-        "attrs": {
-            "name": {
-                "mandatory": true
-            }
-        }
-    },
+
     "meta": {
         "duplicate": {
-            "viewport": "^.*$"
+            "viewport": "/^.*$/"
         },
         "attrs": {
             "content": [{
-                "match": "name=viewport",
+                "match": {
+                    "name": "viewport"
+                },
                 "properties": {
                     "width": "device-width",
                     "initial-scale": "1"
                 },
                 "charset": "utf-8"
             }, {
-                "match": "http-equiv=X-UA-Compatible",
+                "match": {
+                    "http-equiv": "X-UA-Compatible"
+                },
                 "properties": {
                     "IE": "edge"
                 }
@@ -73,6 +42,49 @@
         },
         "mandatory_parent": "head"
     },
+    "link": {
+        "mandatory": [{
+            "rel": "/^(miphtml)|(standardhtml)$/"
+        }, {
+            "rel": "/^stylesheet$/",
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\//)/"
+        }],
+
+        "mandatory_parent": "head",
+        "duplicate": [{
+            "rel": "/^(miphtml)|(standardhtml)$/"
+        }, {
+            "rel": "/^stylesheet$/",
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+        }]
+    },
+    "script": {
+        "mandatory": {
+            "src": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+        },
+        "attrs": {
+            "type": {
+                "value": "/^(application\/ld+json)|(text\/javascript)$/"
+            },
+            "src": {
+                "match": {
+                    "type": "text/javascript"
+                },
+                "mandatory": true
+            }
+        }
+    },
+    "mip-input": {
+        "mandatory_ancestor": "mip-form",
+        "attrs": {
+            "name": {
+                "mandatory": true
+            }
+        }
+    },
+
+
+    
     "img": {
         "disallow": true
     },
@@ -117,23 +129,26 @@
     },
 
 
+
+
+
     "a": {
         "attrs": {
             "href": {
-                "value": "^(http(s)?:\/\/)|#"
+                "mandatory": true,
+                "value": "/^(http(s)?:\/\/)|#/"
+            },
+            "target": {
+                "mandatory": true,
+                "value": "/^_blank$/"
             }
-        },
-        "mandatory":[{
-            "href": "^(http(s)?:\/\/)|#"
-        }, {
-            "target": "^_blank"
-        }]
+        }
     },
     "mip-img": {
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "^(http(s)?:)?\/\/"
+                "value": "/^http(s)?:\/\//"
             }
         }
     },
@@ -141,7 +156,7 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "^(https:\/\/)|(http:\/\/*\\?)"
+                "value": "/^(https:\/\/)|(http:\/\/*\\?)/"
             }
         }
     },
@@ -149,11 +164,11 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "^https:\/\/"
+                "value": "/^https:\/\//"
             },
             "poster": {
                 "mandatory": true,
-                "value": "^http(s)?:\/\/"
+                "value": "/^http(s)?:\/\//"
             }
         }
     },
@@ -161,11 +176,11 @@
         "attrs": {
             "width": {
                 "mandatory": true,
-                "value": "^\\d{1,4}$"
+                "value": "/^\\d{1,4}$/"
             },
             "height": {
                 "mandatory": true,
-                "value": "^\\d{1,4}$"
+                "value": "/^\\d{1,4}$/"
             }
         }
     },
@@ -173,11 +188,11 @@
         "attrs": {
             "width": {
                 "mandatory": true,
-                "value": "^\\d{1,4}$"
+                "value": "/^\\d{1,4}$/"
             },
             "height": {
                 "mandatory": true,
-                "value": "^\\d{1,4}$"
+                "value": "/^\\d{1,4}$/"
             }
         }
     },
@@ -185,18 +200,18 @@
         "attrs": {
             "tpl": {
                 "mandatory": true,
-                "value": "^imageText$"
+                "value": "/^imageText$/"
             },
             "src": {
                 "mandatory": true,
-                "value": "^http(s)?:\/\/"
+                "value": "/^http(s)?:\/\//"
             },
             "texttip": {
                 "mandatory": true
             },
             "postiontye": {
                 "mandatory": true,
-                "value": "^(static)|(fixed)$"
+                "value": "/^(static)|(fixed)$/"
             }
         }
     },
@@ -204,7 +219,7 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "^https:\/\/"
+                "value": "/^https:\/\//"
             }
         }
     },
@@ -236,7 +251,7 @@
         "attrs": {
             "type": {
                 "mandatory": true,
-                "value": "^ad\\-(baidu)|(comm)|(qwang)"
+                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
             }
         }
     },
@@ -244,7 +259,7 @@
         "attrs": {
             "type": {
                 "mandatory": true,
-                "value": "^ad\\-(baidu)|(comm)|(qwang)"
+                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
             }
         }
     },
@@ -260,8 +275,6 @@
                  "mandatory": true
             }
         }
-    },
-    "html": {
-        "duplicate": true
     }
+    
 }
