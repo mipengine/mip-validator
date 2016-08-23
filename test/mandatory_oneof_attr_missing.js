@@ -23,6 +23,16 @@ describe('mandatory oneof attr missing', function() {
                         }
                     }
                 }
+            },
+            script: {
+                attrs: {
+                    src: {
+                        mandatory: true,
+                        match: {
+                            type: 'text/javascript'
+                        }
+                    }
+                }
             }
         });
     });
@@ -49,6 +59,12 @@ describe('mandatory oneof attr missing', function() {
         var result = validator.validate('<span></span>');
         expect(result).to.have.lengthOf(0);
         result = validator.validate('<span style="none"></span>');
+        expect(result).to.have.lengthOf(1);
+    });
+    it('should support script[type=text/javascript]', function() {
+        var result = validator.validate('<script>');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<script type="text/javascript">');
         expect(result).to.have.lengthOf(1);
     });
 });
