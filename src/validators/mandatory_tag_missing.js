@@ -2,6 +2,7 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const util = require('util');
 const matchAttrs = require('../matcher.js').matchAttrs;
+const POLLYFILL_TAGS = ['html', 'body', 'head'];
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
@@ -31,6 +32,8 @@ exports.onBegin = function(engine) {
             };
         }
     });
+
+    validatePollyfill(engine);
 };
 
 exports.onNode = function(node, rule) {
@@ -65,6 +68,20 @@ exports.onEnd = function(engine) {
         }
     });
 };
+
+function validatePollyfill(engine) {
+    POLLYFILL_TAGS.forEach(tag => {
+        if (!_.get(engine.rules, `${tag}.mandatory`)) return;
+
+        var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
+        var match = engine.html.match(re);
+        if (!match) {
+            var err = ERR.MANDATORY_TAG_MISSING;
+            var msg = util.format(err.message, `<${tag}>`);
+            engine.createError(err.code, msg);
+        }
+    });
+}
 
 function fingerprint(tagName, attrs) {
     var attrStr = _.chain(attrs)

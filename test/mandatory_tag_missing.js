@@ -110,4 +110,21 @@ describe('mandatory tag missing', function() {
         expect(result[0].line).to.equal(0);
         expect(result[0].col).to.equal(0);
     });
+    it('should validate html/head/body tag', function() {
+        var validator = Validator({
+            html: {
+                mandatory: true
+            },
+            head: {
+                mandatory: true
+            },
+            body: {
+                mandatory: true
+            }
+        });
+        var result = validator.validate('<html><body><head>');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<div>');
+        expect(result).to.have.lengthOf(3);
+    });
 });

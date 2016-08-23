@@ -48,7 +48,7 @@ function serialize(tagName, pattern) {
 
 function validatePollyfill(engine){
     POLLYFILL_TAGS.forEach(tag => {
-        var re = new RegExp(`<${tag}>`, 'g');
+        var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
         var match = engine.html.match(re);
         if(match && match.length > 1){
             var err = ERR.DUPLICATE_UNIQUE_TAG;

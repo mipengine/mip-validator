@@ -24,7 +24,7 @@ describe('disallowed tag', function() {
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
     });
-    it('should support obsolete tags', function() {
+    it('should support frame/frameset', function() {
         result = validator.validate('<div><frameset></frameset></div>');
         expect(result).to.have.lengthOf(1);
     });
