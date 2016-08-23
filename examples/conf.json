@@ -11,7 +11,7 @@
 
     "meta": {
         "duplicate": {
-            "viewport": "/^.*$/"
+            "name": "/^viewport/"
         },
         "attrs": {
             "content": [{
