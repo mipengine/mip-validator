@@ -46,6 +46,24 @@ describe('mandatory tag missing', function() {
         result = validator.validate('<div><link rel="miphtml"></div>');
         expect(result).to.have.lengthOf(1);
     });
+    it('should support OR arrays', function() {
+        var validator = Validator({
+            "meta": {
+                "mandatoryOr": [{
+                    "http-equiv": "/Content-Type/i",
+                    "content": "/charset=utf-8/"
+                }, {
+                    "charset": "utf-8"
+                }]
+            }
+        });
+        var result = validator.validate('<div></div>');
+        expect(result).to.have.lengthOf(1);
+        result = validator.validate('<meta http-equiv="content-type" content="charset=utf-8">');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<meta charset="utf-8">');
+        expect(result).to.have.lengthOf(0);
+    });
     it('should reject when mandatory tag missing', function() {
         var validator = Validator({
             div: {

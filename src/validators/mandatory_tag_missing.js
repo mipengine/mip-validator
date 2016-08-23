@@ -3,65 +3,77 @@ const ERR = require('../error.json');
 const util = require('util');
 const matchAttrs = require('../matcher.js').matchAttrs;
 
-var cache;
+// Tag 标记，Tag OR 标记
+var tags, ors;
 
 exports.onBegin = function(engine) {
-    cache = {};
+    tags = {};
+    ors = {};
 
+    // 初始化Mandatory标记
     _.forOwn(engine.rules, (rule, ruleName) => {
-        if (!rule.mandatory) return;
-
-        _.map(rule.mandatory, pattern => {
-            var fingerprint = serialize(ruleName, pattern);
-            cache[fingerprint] = {
+        if (rule.mandatory) {
+            _.map(rule.mandatory, pattern => {
+                var fp = fingerprint(ruleName, pattern);
+                tags[fp] = {
+                    rule: rule,
+                    ruleName: ruleName,
+                    pattern: pattern,
+                    count: 0
+                };
+            });
+        }
+        if (rule.mandatoryOr) {
+            ors[ruleName] = {
                 rule: rule,
                 ruleName: ruleName,
-                pattern: pattern,
                 count: 0
             };
-        });
+        }
     });
 };
 
 exports.onNode = function(node, rule) {
-    if (!rule.mandatory) return;
-
     _.map(rule.mandatory, pattern => {
         if (!matchAttrs(node, pattern)) return;
 
-        var fingerprint = serialize(node.nodeName, pattern);
-        cache[fingerprint].count++;
+        var fp = fingerprint(node.nodeName, pattern);
+        tags[fp].count++;
+    });
+    _.map(rule.mandatoryOr, pattern => {
+        if (!matchAttrs(node, pattern)) return;
+        ors[node.nodeName].count++;
     });
 };
 
 exports.onEnd = function(engine) {
-    _.forOwn(cache, (v, k) => {
-        if (v.count >= 1) return;
-
-        var err = ERR.MANDATORY_TAG_MISSING;
-        var message = util.format(err.message, tagStr(v.ruleName, v.pattern));
-        engine.createError(err.code, message);
+    _.forOwn(tags, (v, k) => {
+        if (v.rule.mandatory && v.count < 1) {
+            var err = ERR.MANDATORY_TAG_MISSING;
+            var message = util.format(err.message, k);
+            engine.createError(err.code, message);
+        }
+    });
+    _.forOwn(ors, (v, k) => {
+        if (v.rule.mandatoryOr && v.count < 1) {
+            var err = ERR.MANDATORY_TAG_MISSING;
+            var fps = v.rule.mandatoryOr
+                .map(rule => fingerprint(k, rule))
+                .join("'或'");
+            var message = util.format(err.message, fps);
+            engine.createError(err.code, message);
+        }
     });
 };
 
-function tagStr(tagName, attrs){
-    var attrStr =  _.chain(attrs)
+function fingerprint(tagName, attrs) {
+    var attrStr = _.chain(attrs)
         .toPairs()
         .map(attr => `${attr[0]}="${attr[1]}"`)
         .join(' ')
         .value();
-    if(attrStr.length){
+    if (attrStr.length) {
         attrStr = ' ' + attrStr;
     }
-        
     return `<${tagName}${attrStr}>`;
 }
-
-function serialize(tagName, pattern) {
-    var patternStr = _.chain(pattern)
-        .toPairs()
-        .map(arr => arr[0] + '_' + arr[1])
-        .join(',');
-    return tagName + ',' + patternStr;
-}
-
