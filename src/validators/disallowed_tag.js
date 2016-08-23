@@ -12,6 +12,8 @@ exports.onNode = function(node, rule, engine) {
         engine.createError(err.code, err.message, node.__location);
 };
 
+// parse5 do not support frameset/frame
+// ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(engine){
     POLYFILL_TAGS.forEach(tag => {
         if(!_.get(engine.rules, `${tag}.disallow`)) return;

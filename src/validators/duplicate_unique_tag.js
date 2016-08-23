@@ -48,8 +48,9 @@ function serialize(tagName, pattern) {
 }
 
 function validatePolyfill(engine){
-    // TODO: respect rules
     POLYFILL_TAGS.forEach(tag => {
+        if(!_.get(engine.rules, `${tag}.duplicate`)) return;
+
         var re = new RegExp(`<\\s*${tag}(\\s+.*)*>`, 'g');
         var match = engine.html.match(re);
         if(match && match.length > 1){
