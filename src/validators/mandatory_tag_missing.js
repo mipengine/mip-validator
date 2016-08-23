@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
 const util = require('util');
-const matchAttrs = require('../matcher.js').matchAttrs;
+const matcher = require('../matcher.js');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
 
 // Tag 标记，Tag OR 标记
@@ -15,7 +15,7 @@ exports.onBegin = function(engine) {
     _.forOwn(engine.rules, (rule, ruleName) => {
         if (rule.mandatory) {
             _.map(rule.mandatory, pattern => {
-                var fp = fingerprint(ruleName, pattern);
+                var fp = matcher.fingerprintByObject(ruleName, pattern);
                 tags[fp] = {
                     rule: rule,
                     ruleName: ruleName,
@@ -38,13 +38,13 @@ exports.onBegin = function(engine) {
 
 exports.onNode = function(node, rule) {
     _.map(rule.mandatory, pattern => {
-        if (!matchAttrs(node, pattern)) return;
+        if (!matcher.matchAttrs(node, pattern)) return;
 
-        var fp = fingerprint(node.nodeName, pattern);
+        var fp = matcher.fingerprintByObject(node.nodeName, pattern);
         tags[fp].count++;
     });
     _.map(rule.mandatoryOr, pattern => {
-        if (!matchAttrs(node, pattern)) return;
+        if (!matcher.matchAttrs(node, pattern)) return;
         ors[node.nodeName].count++;
     });
 };
@@ -61,7 +61,7 @@ exports.onEnd = function(engine) {
         if (v.rule.mandatoryOr && v.count < 1) {
             var err = ERR.MANDATORY_TAG_MISSING;
             var fps = v.rule.mandatoryOr
-                .map(rule => fingerprint(k, rule))
+                .map(rule => matcher.fingerprintByObject(k, rule))
                 .join("'或'");
             var message = util.format(err.message, fps);
             engine.createError(err.code, message);
@@ -83,14 +83,4 @@ function validatePolyfill(engine) {
     });
 }
 
-function fingerprint(tagName, attrs) {
-    var attrStr = _.chain(attrs)
-        .toPairs()
-        .map(attr => `${attr[0]}="${attr[1]}"`)
-        .join(' ')
-        .value();
-    if (attrStr.length) {
-        attrStr = ' ' + attrStr;
-    }
-    return `<${tagName}${attrStr}>`;
-}
+

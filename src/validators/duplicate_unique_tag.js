@@ -10,7 +10,7 @@ exports.onBegin = function(engine) {
 
     _.forOwn(engine.rules, (rule, ruleName) => {
         _.map(rule.duplicate, pattern => {
-            var fingerprint = serialize(ruleName, pattern);
+            var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
             cache[fingerprint] = 0;
         });
     });
@@ -27,7 +27,7 @@ exports.onNode = function(node, rule, engine) {
     _.map(duplicates, pattern => {
         if (!matcher.matchAttrs(node, pattern)) return;
 
-        var fingerprint = serialize(node.nodeName, pattern);
+        var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern);
         cache[fingerprint]++;
         if (cache[fingerprint] <= 1) return;
 
@@ -35,14 +35,6 @@ exports.onNode = function(node, rule, engine) {
         engine.createError(err.code, err.message, node.__location);
     });
 };
-
-function serialize(tagName, pattern) {
-    var patternStr = _.chain(pattern)
-        .toPairs()
-        .map(arr => arr[0] + '_' + arr[1])
-        .join(',');
-    return tagName + ',' + patternStr;
-}
 
 function validatePolyfill(engine){
     POLYFILL_TAGS.forEach(tag => {

@@ -29,6 +29,35 @@ function matchAttrs(node, target) {
     return match(attrSet, target);
 }
 
+function createNode(nodeName, attrsObj) {
+    return {
+        nodeName,
+        attrs: _.chain(attrsObj)
+            .toPairs()
+            .map(pair => ({
+                name: pair[0],
+                value: pair[1]
+            }))
+            .value()
+    };
+}
+
+function fingerprintByObject(nodeName, attrsObj){
+    var tag = createNode(nodeName, attrsObj);
+    return fingerprintByTag(tag);
+}
+
+function fingerprintByTag(node) {
+    var attrStr = _.chain(node.attrs)
+        .map(attr => `${attr.name}="${attr.value}"`)
+        .join(' ')
+        .value();
+    if (attrStr.length) {
+        attrStr = ' ' + attrStr;
+    }
+    return `<${node.nodeName}${attrStr}>`;
+}
+
 module.exports = {
-    match, matchAttrs, matchValue
+    match, matchAttrs, matchValue, fingerprintByTag, createNode, fingerprintByObject
 };
