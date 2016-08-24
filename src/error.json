@@ -9,7 +9,7 @@
   },
   "DUPLICATE_UNIQUE_TAG": {
     "code": "06200701",
-    "message": "重复的标签"
+    "message": "标签'%s'只能出现一次"
   },
   "MANDATORY_ONEOF_ATTR_MISSING": {
     "code": "06200501",

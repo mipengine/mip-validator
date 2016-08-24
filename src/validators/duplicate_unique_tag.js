@@ -2,6 +2,7 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
 const matcher = require('../matcher.js');
+const util = require('util');
 
 var cache;
 
@@ -32,7 +33,8 @@ exports.onNode = function(node, rule, engine) {
         if (cache[fingerprint] <= 1) return;
 
         var err = ERR.DUPLICATE_UNIQUE_TAG;
-        engine.createError(err.code, err.message, node.__location);
+        var msg = util.format(err.message, node.nodeName);
+        engine.createError(err.code, msg, node.__location);
     });
 };
 
@@ -44,7 +46,7 @@ function validatePolyfill(engine){
         var match = engine.html.match(re);
         if(match && match.length > 1){
             var err = ERR.DUPLICATE_UNIQUE_TAG;
-            var msg = err.message;
+            var msg = util.format(err.message, tag);
             engine.createError(err.code, msg);
         }
     });
