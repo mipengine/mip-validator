@@ -40,7 +40,7 @@
 33| 多个 !DOCTYPE html 被容错
 34| 多个 head
 35| 多个 meta http-equiv=Content-Type
-36| 多个 standhtml
+36| 多个 standardhtml
 37| 多个 body
   | 
 38| mip-video 缺少 src poster
