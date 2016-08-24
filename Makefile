@@ -8,6 +8,6 @@ default:
 
 examples: $(results)
 
-$(results):examples/results/%.json:examples/htmls/% examples/conf.json 
-	node bin/cli.js -c examples/conf.json < $< > $@
+$(results):examples/results/%.json:examples/htmls/% rules.json 
+	node bin/cli.js < $< > $@
 

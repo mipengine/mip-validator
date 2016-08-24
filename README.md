@@ -20,31 +20,50 @@ npm install -g mip-validator
 
 需要在本地安装`mip-validator`（见上一节）。API：
 
-* `new Validator(rules)`：根据传入的校验规则返回一个校验器实例。
+* `new Validator([rules])`：根据传入的校验规则返回一个校验器实例。
 * `.validate(html)`：传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
+* `#rules`：默认规则配置。
+
+#### 默认使用方式
+
+使用`mip-validator`创建一个实例，即可用来验证MIP HTML。
 
 ```bash
 const Validator = require('mip-validator');
-var validator = Valicator({
+
+var validator = Valicator(); // 等效于：Valicator(Validator.rules);
+var errs = validator.validate('<html><div></div></html>')
+console.log(errs);
+```
+
+#### 自定义规则配置
+
+如需更新验证规则，或者测试新的验证规则，可通过构造参数传入。
+
+```bash
+rules = {
     div: {
         mandatory: true
     }
-});
-var errorArray = validator.validate('<html><div></div></html>')
-console.log(errorArray);
+};
+var validator = Validator(rules);
+// ...
 ```
 
 ### 命令行接口
 
 需要全局安装`mip-validator`（见上一节）。API：
 
-* `-c`参数来指定规则文件（JSON格式），默认为`./validator.json`。
 * 使用标准输入HTML（String类型）
 * 标准输出的错误列表（JSON格式）
+* `-c`参数（可选）来指定规则文件（JSON格式），为空则采用MIP默认配置。
 
 例如：
 
 ```bash
+# 验证 a.html
+mip-validator < a.html
+# 使用自定义规则conf.json验证a.html
 mip-validator -c conf.json < a.html
 ```
 
@@ -57,7 +76,7 @@ mip-validator --help
 ## 规则配置
 
 `mip-validator`使用JSON格式的规则配置，详情请查看[wiki][wiki]。
-仓库中提供了示例配置文件：`examples/conf.json`。
+代码仓库中提供了示例配置文件：`rules.json`。
 
 ## 开发
 
@@ -86,7 +105,6 @@ mocha
 
 利用Makefile可以方便地校验`example`下的样例文件，其中：
 
-* `example/conf.json`: 校验配置文件
 * `example/htmls/*.html`: 样例HTML
 * `example/results/*.html.json`: 对应样例HTML的校验结果
 

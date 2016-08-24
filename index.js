@@ -1,8 +1,9 @@
 const _ = require('lodash');
 const Engine = require('./src/engine.js');
 const config = require('./src/config.js');
+const rules = require('./rules.json');
 
-module.exports = function(rules) {
+function factory(rules) {
     var engine = Engine(config.normalize(rules));
 
     // attr
@@ -22,5 +23,9 @@ module.exports = function(rules) {
     engine.register(require('./src/validators/mandatory_tag_parent.js'));
 
     return engine;
-};
+}
+
+factory.rules = _.cloneDeep(rules);
+
+module.exports = factory;
 

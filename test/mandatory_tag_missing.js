@@ -95,7 +95,7 @@ describe('mandatory tag missing', function() {
         expect(result).to.have.lengthOf(0);
     });
     it('should accept when rule not set', function() {
-        var validator = Validator();
+        var validator = Validator({});
         var result = validator.validate('<p></p>');
         expect(result).to.have.lengthOf(0);
     });
