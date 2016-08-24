@@ -4,7 +4,7 @@ const Validator = require('..');
 const ERR = require('../src/error.json');
 
 describe('duplicate unique tag', function() {
-    var validator;
+    var validator, result;
     before(function() {
         validator = Validator({
             link: {
@@ -22,11 +22,11 @@ describe('duplicate unique tag', function() {
         });
     });
     it('should accept when no duplicate', function(){
-        var result = validator.validate('<meta viewport="foo">');
+        result = validator.validate('<meta viewport="foo">');
         expect(result).to.have.lengthOf(0);
     });
     it('should reject when duplicate', function() {
-        var result = validator.validate('<meta viewport="foo"><meta viewport="bar">');
+        result = validator.validate('<meta viewport="foo"><meta viewport="bar">');
         expect(result).to.have.lengthOf(1);
         result = result[0];
         var err = ERR.DUPLICATE_UNIQUE_TAG;
@@ -34,17 +34,17 @@ describe('duplicate unique tag', function() {
         expect(result.message).to.equal("标签'meta'只能出现一次");
     });
     it('should support array of duplicate patterns', function() {
-        var result = validator.validate('<link rel="miphtml">');
+        result = validator.validate('<link rel="miphtml">');
         expect(result).to.have.lengthOf(0);
         result = validator.validate('<link rel="miphtml"><link rel="miphtml">');
         expect(result).to.have.lengthOf(1);
     });
     it('should accept when attribute not present', function() {
-        var result = validator.validate('<link>');
+        result = validator.validate('<link>');
         expect(result).to.have.lengthOf(0);
     });
     it('should support different duplicate patterns', function() {
-        var result = validator.validate('<link rel="standardhtml"><link rel="miphtml">');
+        result = validator.validate('<link rel="standardhtml"><link rel="miphtml">');
         expect(result).to.have.lengthOf(0);
     });
     it('should validate html/head/body tag', function() {
@@ -59,7 +59,7 @@ describe('duplicate unique tag', function() {
                 duplicate: true
             }
         });
-        var result = validator.validate('<html><body><head><head><body><html>');
+        result = validator.validate('<html><body><head><head><body><html>');
         expect(result).to.have.lengthOf(3);
     });
 });

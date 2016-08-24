@@ -46,7 +46,7 @@ function validatePolyfill(engine){
         var match = engine.html.match(re);
         if(match && match.length > 1){
             var err = ERR.DUPLICATE_UNIQUE_TAG;
-            var msg = err.message;
+            var msg = util.format(err.message, tag);
             engine.createError(err.code, msg);
         }
     });
