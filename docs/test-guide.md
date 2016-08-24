@@ -7,7 +7,7 @@
 4 | 缺少 meta
 5 | 缺少 css
 6 | 缺少 body
-7 | 缺少 <link rel="standardhtml" href="">
+7 | 缺少 link rel="standardhtml" href=""
 8 | 禁止 frameset，frame
 9 | 禁止 frameset，frame
 10| 禁止 object
@@ -33,7 +33,7 @@
 30| meta 父标签 head
 31| link 父标签 head
 32| style mip-custom 父标签 head
-33| 多个 <!DOCTYPE html> 被容错
+33| 多个 !DOCTYPE html 被容错
 34| 多个 head
 35| 多个 meta http-equiv=Content-Type
 36| 多个 standhtml
