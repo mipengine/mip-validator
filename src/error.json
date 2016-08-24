@@ -16,7 +16,7 @@
     "message": "标签'%s'的强制性属性'%s'缺失"
   },
   "DISALLOWED_ATTR": {
-    "code": "210",
+    "code": "06200202",
     "message": "不允许的属性"
   },
   "INVALID_ATTR_VALUE": {
@@ -24,11 +24,11 @@
     "message": "标签'%s'中的属性'%s'的属性值'%s'无效"
   },
   "DISALLOWED_TAG_ANCESTOR": {
-    "code": "300",
+    "code": "06200801",
     "message": "标签'%s'不应该是标签'%s'的子标签"
   },
   "MANDATORY_TAG_ANCESTOR": {
-    "code": "310",
+    "code": "06200901",
     "message": "标签'%s'只能是标签'%s'的子级标签"
   },
   "WRONG_PARENT_TAG": {
