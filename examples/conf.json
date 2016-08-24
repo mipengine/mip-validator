@@ -10,9 +10,13 @@
     },
 
     "meta": {
-        "duplicate": {
-            "viewport": "/^.*$/"
-        },
+        "duplicate": [{
+            "name": "/^viewport/"
+        }, {
+            "http-equiv": "/Content-Type/i"
+        }, {
+            "charset": "/^(utf)|(UTF-8)/"
+        }],
         "attrs": {
             "content": [{
                 "match": {
@@ -35,7 +39,7 @@
             "http-equiv": "/Content-Type/i",
             "content": "/charset=(utf)|(UTF)-8/"
         }, {
-            "charset": "(utf)|(UTF-8"
+            "charset": "/^(utf)|(UTF-8)/"
         }],
         "mandatory": {
             "name": "viewport",
@@ -269,7 +273,8 @@
             "mip-custom": {
                  "mandatory": true
             }
-        }
+        },
+        "mandatory_parent": "head"
     }
     
 }
