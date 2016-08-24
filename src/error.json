@@ -5,7 +5,7 @@
   },
   "DISALLOWED_TAG": {
     "code": "06200201",
-    "message": "不允许标签"
+    "message": "禁止使用'%s'标签"
   },
   "DUPLICATE_UNIQUE_TAG": {
     "code": "06200701",

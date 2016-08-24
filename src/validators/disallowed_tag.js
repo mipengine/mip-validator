@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
 const POLYFILL_TAGS = ['frame', 'frameset'];
+const util = require('util');
 
 exports.onBegin = function(engine) {
     validatePolyfill(engine);
@@ -9,7 +10,8 @@ exports.onBegin = function(engine) {
 exports.onNode = function(node, rule, engine) {
     if (!rule.disallow || _.includes(POLYFILL_TAGS, node.nodeName)) return;
         var err = ERR.DISALLOWED_TAG;
-        engine.createError(err.code, err.message, node.__location);
+        var msg = util.format(err.message, node.nodeName);
+        engine.createError(err.code, msg, node.__location);
 };
 
 // parse5 do not support frameset/frame

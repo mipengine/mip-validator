@@ -26,6 +26,7 @@ describe('disallowed tag', function() {
         result = validator.validate('<script></script>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
+        expect(result[0].message).to.equal("禁止使用'script'标签");
     });
     it('should support frame/frameset', function() {
         result = validator.validate('<div><frame></frame><frameset></div>');
