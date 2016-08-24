@@ -31,5 +31,6 @@ describe('disallowed tag', function() {
     it('should support frame/frameset', function() {
         result = validator.validate('<div><frame></frame><frameset></div>');
         expect(result).to.have.lengthOf(2);
+        expect(result[0].message).to.equal("禁止使用'frame'标签");
     });
 });
