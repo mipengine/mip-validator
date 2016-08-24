@@ -33,8 +33,20 @@ Engine.prototype.onBegin = function() {
     _.map(this.onBeginCbs, cb => cb(this));
 };
 
-Engine.prototype.onNode = function(node, rule) {
-    _.map(this.onNodeCbs, cb => cb(node, rule, this));
+Engine.prototype.onNode = function(node, rules) {
+    rules.map(rule => {
+        if (!rule.match || matcher.matchAttrs(node, rule.match)) {
+            _.map(this.onNodeCbs, cb => cb(node, rule, this));
+
+            var attrs = node.attrs || [];
+            attrs.forEach(attr => {
+                var attrRule = _.get(rule.attrs, attr.name);
+                if (attrRule) {
+                    this.onAttr(attr, attrRule, node, rule);
+                }
+            });
+        }
+    });
 };
 
 Engine.prototype.onAttr = function(attr, attrRule, node, nodeRule) {
@@ -50,17 +62,9 @@ Engine.prototype.onEnd = function() {
 };
 
 Engine.prototype.dfs = function(node) {
-    var rule = this.rules[node.nodeName];
-    if (rule) {
-        this.onNode(node, rule);
-
-        var attrs = node.attrs || [];
-        attrs.forEach(attr => {
-            var attrRule = _.get(rule.attrs, attr.name);
-            if (attrRule) {
-                this.onAttr(attr, attrRule, node, rule);
-            }
-        });
+    var rules = this.rules[node.nodeName];
+    if (rules) {
+        this.onNode(node, rules);
     }
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child));

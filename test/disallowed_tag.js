@@ -7,8 +7,14 @@ describe('disallowed tag', function() {
     var validator, result;
     before(function() {
         validator = Validator({
-            script: {
+            link: {
                 disallow: true
+            },
+            script: {
+                disallow: true,
+                match: {
+                    type: 'application/javascript'
+                }
             },
             frame: {
                 disallow: true
@@ -23,10 +29,19 @@ describe('disallowed tag', function() {
         expect(result).to.have.lengthOf(0);
     });
     it('should reject with tag presence', function() {
-        result = validator.validate('<script></script>');
+        result = validator.validate('<link>');
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
-        expect(result[0].message).to.equal("禁止使用'script'标签");
+        expect(result[0].message).to.equal("禁止使用'<link>'标签");
+    });
+    it('should respect match', function() {
+        result = validator.validate('<script>');
+        expect(result).to.have.lengthOf(0);
+        result = validator.validate('<script type="application/javascript">');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code);
+        var msg = "禁止使用'<script type=\"application/javascript\">'标签";
+        expect(result[0].message).to.equal(msg);
     });
     it('should support frame/frameset', function() {
         result = validator.validate('<div><frame></frame><frameset></div>');

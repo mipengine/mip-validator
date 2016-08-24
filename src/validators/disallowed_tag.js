@@ -2,6 +2,7 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const POLYFILL_TAGS = ['frame', 'frameset'];
 const util = require('util');
+const matcher = require('../matcher.js');
 
 exports.onBegin = function(engine) {
     validatePolyfill(engine);
@@ -10,7 +11,7 @@ exports.onBegin = function(engine) {
 exports.onNode = function(node, rule, engine) {
     if (!rule.disallow || _.includes(POLYFILL_TAGS, node.nodeName)) return;
     var err = ERR.DISALLOWED_TAG;
-    var msg = util.format(err.message, node.nodeName);
+    var msg = util.format(err.message, matcher.fingerprintByTag(node));
     engine.createError(err.code, msg, node.__location);
 };
 
@@ -21,11 +22,14 @@ function validatePolyfill(engine) {
     while (match = re.exec(engine.html)) {
         var input = match[0];
         var tag = match[1];
-        if (_.get(engine.rules, `${tag}.disallow`)) {
+        var rules = _.get(engine.rules, `${tag}`);
+        _.map(rules, rule => {
+            if (!rule.disallow) return;
+
             var err = ERR.DISALLOWED_TAG;
             var msg = util.format(err.message, tag);
             engine.createError(err.code, msg);
-        }
+        });
     }
 }
 

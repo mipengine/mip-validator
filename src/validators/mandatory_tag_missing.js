@@ -12,25 +12,27 @@ exports.onBegin = function(engine) {
     ors = {};
 
     // 初始化Mandatory标记
-    _.forOwn(engine.rules, (rule, ruleName) => {
-        if (rule.mandatory) {
-            _.map(rule.mandatory, pattern => {
-                var fp = matcher.fingerprintByObject(ruleName, pattern);
-                tags[fp] = {
+    _.forOwn(engine.rules, (rules, ruleName) => {
+        _.map(rules, rule => {
+            if (rule.mandatory) {
+                _.map(rule.mandatory, pattern => {
+                    var fp = matcher.fingerprintByObject(ruleName, pattern);
+                    tags[fp] = {
+                        rule: rule,
+                        ruleName: ruleName,
+                        pattern: pattern,
+                        count: 0
+                    };
+                });
+            }
+            if (rule.mandatory_or) {
+                ors[ruleName] = {
                     rule: rule,
                     ruleName: ruleName,
-                    pattern: pattern,
                     count: 0
                 };
-            });
-        }
-        if (rule.mandatory_or) {
-            ors[ruleName] = {
-                rule: rule,
-                ruleName: ruleName,
-                count: 0
-            };
-        }
+            }
+        });
     });
 
     validatePolyfill(engine);
@@ -71,16 +73,17 @@ exports.onEnd = function(engine) {
 
 function validatePolyfill(engine) {
     POLYFILL_TAGS.forEach(tag => {
-        if (!_.get(engine.rules, `${tag}.mandatory`)) return;
+        var rules = _.get(engine.rules, `${tag}`);
+        _.map(rules, rule => {
+            if (!rule.mandatory) return;
 
-        var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
-        var match = engine.html.match(re);
-        if (!match) {
-            var err = ERR.MANDATORY_TAG_MISSING;
-            var msg = util.format(err.message, `<${tag}>`);
-            engine.createError(err.code, msg);
-        }
+            var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
+            var match = engine.html.match(re);
+            if (!match) {
+                var err = ERR.MANDATORY_TAG_MISSING;
+                var msg = util.format(err.message, `<${tag}>`);
+                engine.createError(err.code, msg);
+            }
+        });
     });
 }
-
-

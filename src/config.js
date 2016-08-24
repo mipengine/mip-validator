@@ -5,7 +5,10 @@ const rules = require('../rules.json');
 function normalize(config) {
     return config = _.chain(config || rules)
         .toPairs()
-        .map(pair => [pair[0], normalizeTag(pair[1])])
+        .map(pair => [
+            pair[0],
+            normalizeArray(pair[1]).map(tag => normalizeTag(tag))
+        ])
         .fromPairs()
         .value();
 }
