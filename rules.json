@@ -26,13 +26,6 @@
                     "width": "device-width",
                     "initial-scale": "1"
                 }
-            }, {
-                "match": {
-                    "http-equiv": "X-UA-Compatible"
-                },
-                "properties": {
-                    "IE": "edge"
-                }
             }]
         },
         "mandatory_or": [{
@@ -41,10 +34,6 @@
         }, {
             "charset": "/^(utf)|(UTF-8)/"
         }],
-        "mandatory": {
-            "name": "viewport",
-            "content": "width=device-width,minimum-scale=1,initial-scale=1"
-        },
         "mandatory_parent": "head"
     },
     "link": {
@@ -52,7 +41,7 @@
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -60,19 +49,14 @@
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }]
     },
     "script": {
-        "mandatory": {
-            "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
-        },
-        "mandatory_or": [{
-            "type": "/^(text/javascript)?/",
-            "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
-        }, {
-            "type": "/^(application\/(ld\\+)?json)$/"
-        }]
+        "disallow": true,
+        "match": {
+            "type": "/^(?!application\/ld+json)/"
+        }
     },
     "mip-input": {
         "mandatory_ancestor": "mip-form",
