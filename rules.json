@@ -64,6 +64,9 @@
         }]
     },
     "script": {
+        "mandatory": {
+            "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+        },
         "mandatory_or": [{
             "type": "/^(text/javascript)?/",
             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
