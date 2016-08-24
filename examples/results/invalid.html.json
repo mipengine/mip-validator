@@ -1,7 +1,15 @@
 [
     {
+        "code": "06200501",
+        "message": "标签'html'的强制性属性'mip'缺失",
+        "line": 2,
+        "col": 1,
+        "offset": 16,
+        "input": "<html lang=\"en\">"
+    },
+    {
         "code": "06200401",
-        "message": "标签 'meta' 中的属性 'content' 的属性 'width' 被设置为 '100px'，该属性值无效",
+        "message": "标签'meta'中的属性'content'的属性'width'被设置为'100px'，该属性值无效",
         "line": 5,
         "col": 3,
         "offset": 67,
@@ -9,7 +17,7 @@
     },
     {
         "code": "06200401",
-        "message": "标签 'meta' 中的属性 'content' 的属性 'initial-scale' 被设置为 ''，该属性值无效",
+        "message": "标签'meta'中的属性'content'的属性'initial-scale'被设置为''，该属性值无效",
         "line": 5,
         "col": 3,
         "offset": 67,
@@ -17,7 +25,7 @@
     },
     {
         "code": "06200401",
-        "message": "标签 'meta' 中的属性 'content' 的属性 'IE' 被设置为 'not-edge'，该属性值无效",
+        "message": "标签'meta'中的属性'content'的属性'IE'被设置为'not-edge'，该属性值无效",
         "line": 6,
         "col": 3,
         "offset": 114,
@@ -25,7 +33,7 @@
     },
     {
         "code": "06200701",
-        "message": "重复的标签",
+        "message": "标签'link'只能出现一次",
         "line": 8,
         "col": 3,
         "offset": 197,
@@ -48,8 +56,16 @@
         "input": "    <form></form>"
     },
     {
+        "code": "06200501",
+        "message": "标签'a'的强制性属性'target'缺失",
+        "line": 16,
+        "col": 3,
+        "offset": 298,
+        "input": "  <a href=\"#\">"
+    },
+    {
         "code": "06200601",
-        "message": "标签 'link' 的直接父标签应该是 'head'，而不是 'body'",
+        "message": "标签'link'的直接父标签应该是'head'，而不是'body'",
         "line": 21,
         "col": 3,
         "offset": 367,
@@ -57,7 +73,7 @@
     },
     {
         "code": "06200301",
-        "message": "标签 'mip-img' 中的属性 'src' 的属性值 'xxx' 无效",
+        "message": "标签'mip-img'中的属性'src'的属性值'xxx'无效",
         "line": 22,
         "col": 3,
         "offset": 402,
@@ -65,7 +81,7 @@
     },
     {
         "code": "06200501",
-        "message": "强制属性属性缺失",
+        "message": "标签'mip-input'的强制性属性'name'缺失",
         "line": 23,
         "col": 3,
         "offset": 434,
@@ -73,7 +89,7 @@
     },
     {
         "code": "310",
-        "message": "标签 'mip-input' 只能是标签 'mip-form' 的子级标签",
+        "message": "标签'mip-input'只能是标签'mip-form'的子级标签",
         "line": 23,
         "col": 3,
         "offset": 434,
@@ -81,7 +97,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签 '<link rel=\"^stylesheet$\" href=\"^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)\">' 缺失或错误",
+        "message": "强制性标签'<meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
@@ -89,7 +105,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签 '<script src=\"^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)\">' 缺失或错误",
+        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
@@ -97,7 +113,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签 '<a target=\"^_blank\">' 缺失或错误",
+        "message": "强制性标签'<script type=\"/^(text/javascript)?/\" src=\"/^(http(s)?:)?//(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'或'<script type=\"/^(application/(ld\\+)?json)$/\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,

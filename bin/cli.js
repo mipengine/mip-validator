@@ -7,13 +7,16 @@ const path = require('path');
 
 program
     .version(pkg.version)
-    .option('-c, --conf [path]', 'validator configuration file [validator.json]', 'validator.json')
+    .option('-c, --conf [path]', 'validator configuration file [validator.json]')
     .parse(process.argv);
 
 var html = '';
-var configPath = path.resolve(process.cwd(), program['conf']);
-var config = require(configPath);
-var validator = Validator(config);
+var config;
+if(program['conf']){
+    var configPath = path.resolve(process.cwd(), program['conf']);
+    var config = require(configPath);
+}
+var validator = config ? Validator(config) : Validator();
 
 process.stdin.on('data', function(buf) {
     html += buf.toString();

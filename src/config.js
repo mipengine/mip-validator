@@ -1,8 +1,9 @@
 const _ = require('lodash');
 const assert = require('assert');
+const rules = require('../rules.json');
 
 function normalize(config) {
-    return config = _.chain(config || {})
+    return config = _.chain(config || rules)
         .toPairs()
         .map(pair => [pair[0], normalizeTag(pair[1])])
         .fromPairs()
