@@ -28,7 +28,10 @@ describe('duplicate unique tag', function() {
     it('should reject when duplicate', function() {
         var result = validator.validate('<meta viewport="foo"><meta viewport="bar">');
         expect(result).to.have.lengthOf(1);
-        expect(result[0].code).to.equal(ERR.DUPLICATE_UNIQUE_TAG.code);
+        result = result[0];
+        var err = ERR.DUPLICATE_UNIQUE_TAG;
+        expect(result.code).to.equal(err.code);
+        expect(result.message).to.equal("标签'meta'只能出现一次");
     });
     it('should support array of duplicate patterns', function() {
         var result = validator.validate('<link rel="miphtml">');

@@ -2,6 +2,7 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
 const matcher = require('../matcher.js');
+const util = require('util');
 
 var cache;
 
@@ -32,7 +33,8 @@ exports.onNode = function(node, rule, engine) {
         if (cache[fingerprint] <= 1) return;
 
         var err = ERR.DUPLICATE_UNIQUE_TAG;
-        engine.createError(err.code, err.message, node.__location);
+        var msg = util.format(err.message, node.nodeName);
+        engine.createError(err.code, msg, node.__location);
     });
 };
 
