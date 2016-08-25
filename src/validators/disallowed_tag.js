@@ -18,7 +18,7 @@ exports.onNode = function(node, rule, engine) {
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(engine) {
-    var re = tagPattern(POLYFILL_TAGS);
+    var re = tagPattern(POLYFILL_TAGS), match;
     while (match = re.exec(engine.html)) {
         var input = match[0];
         var tag = match[1];
