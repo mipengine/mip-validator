@@ -25,7 +25,15 @@
     },
     {
         "code": "06200401",
-        "message": "标签'meta'中的属性'content'的属性'IE'被设置为'not-edge'，该属性值无效",
+        "message": "标签'meta'中的属性'content'的属性'width'被设置为''，该属性值无效",
+        "line": 6,
+        "col": 3,
+        "offset": 114,
+        "input": "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=not-edge\">"
+    },
+    {
+        "code": "06200401",
+        "message": "标签'meta'中的属性'content'的属性'initial-scale'被设置为''，该属性值无效",
         "line": 6,
         "col": 3,
         "offset": 114,
@@ -41,7 +49,7 @@
     },
     {
         "code": "06200201",
-        "message": "不允许标签",
+        "message": "禁止使用'<img>'标签",
         "line": 12,
         "col": 3,
         "offset": 253,
@@ -49,7 +57,7 @@
     },
     {
         "code": "06200201",
-        "message": "不允许标签",
+        "message": "禁止使用'<form>'标签",
         "line": 14,
         "col": 5,
         "offset": 272,
@@ -88,7 +96,7 @@
         "input": "  <mip-input></mip-input>"
     },
     {
-        "code": "310",
+        "code": "06200901",
         "message": "标签'mip-input'只能是标签'mip-form'的子级标签",
         "line": 23,
         "col": 3,
@@ -97,7 +105,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签'<meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">'缺失或错误",
+        "message": "强制性标签'<meta name=\"/(viewport)?/\" content=\"/(width=device-width)|(initial-scale=1)|(minimum-scale=1){3}(,)?/\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
@@ -105,7 +113,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'缺失或错误",
+        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^http(s)?://(mipcache.bdstatic.com/static/mip-common.css)|(m.baidu.com/static/ala/sf/static/)/\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,
@@ -113,15 +121,7 @@
     },
     {
         "code": "06200101",
-        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^http(s)?://(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'缺失或错误",
-        "line": 0,
-        "col": 0,
-        "offset": 0,
-        "input": ""
-    },
-    {
-        "code": "06200101",
-        "message": "强制性标签'<script type=\"/^(text/javascript)?/\" src=\"/^(http(s)?:)?//(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'或'<script type=\"/^(application/(ld\\+)?json)$/\">'缺失或错误",
+        "message": "强制性标签'<script type=\"/^(text/javascript)?/\" src=\"/^(http(s)?:)?//(mipcache.bdstatic.com)|(m.baidu.com/static/ala/sf/static/)/\">'缺失或错误",
         "line": 0,
         "col": 0,
         "offset": 0,

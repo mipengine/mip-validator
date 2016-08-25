@@ -35,6 +35,10 @@
         }, {
             "charset": "/^(utf)|(UTF-8)/"
         }],
+        "mandatory": {
+            "name": "/(viewport)?/",
+            "content": "/(width=device-width)|(initial-scale=1)|(minimum-scale=1){3}(,)?/"
+        },
         "mandatory_parent": "head"
     },
     "link": {
