@@ -73,6 +73,25 @@ mip-validator -c conf.json < a.html
 mip-validator --help
 ```
 
+### 构建浏览器库
+
+mip-validator依赖于Node.js 4以上，但可以通过Browserify在浏览器中运行。
+构建浏览器库：
+
+```bash
+# 输出到 dist/ 目录：mip-validator.min.js, mip-validator.js
+make dist
+```
+
+将`dist/mip-validator.js`引入页面后，在脚本中可直接使用：
+
+```javascript
+// 在浏览器中：
+var Validator = require('mip-validator');
+var validator = Validator(rules);
+// ...
+```
+
 ## 规则配置
 
 `mip-validator`使用JSON格式的规则配置，详情请查看[wiki][wiki]。
