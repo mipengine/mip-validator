@@ -20,7 +20,7 @@
         "attrs": {
             "content": [{
                 "match": {
-                    "name": "viewport"
+                    "name": "/viewport/"
                 },
                 "properties": {
                     "width": "device-width",
@@ -52,12 +52,19 @@
             "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }]
     },
-    "script": {
-        "disallow": true,
-        "match": {
-            "type": "/^(?!application\/ld+json)/"
+    "script": [{
+        "mandatory": {
+             "type": "/^(text\/javascript)?/",
+             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }
-    },
+    }, {
+        "disallow": true,
+            "match": {
+                "type": "/^(?!application\/(ld\\+)?json)/",
+                "src":"/^(?!http(s)?:\/\/mipcache.bdstatic.com)/"
+            }
+    }],
+    
     "mip-input": {
         "mandatory_ancestor": "mip-form",
         "attrs": {
