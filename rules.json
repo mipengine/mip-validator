@@ -59,7 +59,7 @@
     "script": [{
         "mandatory": {
              "type": "/^(text\/javascript)?/",
-             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }
     }, {
         "disallow": true,
