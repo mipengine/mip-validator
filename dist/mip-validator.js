@@ -21887,8 +21887,7 @@ module.exports={
         "attrs": {
             "content": [{
                 "match": {
-                    "name": "/(viewport)?/",
-                    "http-equiv": "/^(?!Content-Type)/"
+                    "name": "/^viewport/"
                 },
                 "properties": {
                     "width": "device-width",
@@ -21903,7 +21902,7 @@ module.exports={
             "charset": "/^(utf)|(UTF-8)/"
         }],
         "mandatory": {
-            "name": "/(viewport)?/",
+            "name": "/^(viewport)?/",
             "content": "/(width=device-width)|(initial-scale=1)|(minimum-scale=1){3}(,)?/"
         },
         "mandatory_parent": "head"
@@ -21913,7 +21912,7 @@ module.exports={
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -21927,7 +21926,7 @@ module.exports={
     "script": [{
         "mandatory": {
              "type": "/^(text\/javascript)?/",
-             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }
     }, {
         "disallow": true,
@@ -22069,7 +22068,8 @@ module.exports={
                 "value": "/^http(s)?:\/\//"
             },
             "texttip": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^\\S+$/"
             },
             "postiontye": {
                 "mandatory": true,
@@ -22088,24 +22088,28 @@ module.exports={
     "mip-stats-bidu": {
         "attrs": {
             "token": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^\\S+$/"
             }
         }
     },
     "mip-form": {
         "attrs": {
             "method": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^(post)|(get)$/"
             },
             "url": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^(http(s)?:)?\/\//"
             }
         }
     },
     "mip-link": {
         "attrs": {
             "href": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^(http(s)?:)?\/\//"
             }
         }
     },
