@@ -4,6 +4,10 @@ const config = require('./src/config.js');
 const rules = require('./rules.json');
 
 function factory(rules) {
+    if(rules === 'package.json'){
+        return require('./package.json');
+    }
+
     var engine = Engine(config.normalize(rules));
 
     // attr
