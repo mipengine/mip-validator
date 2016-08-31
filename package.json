@@ -1,6 +1,6 @@
 {
   "name": "mip-validator",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -21,7 +21,8 @@
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "npm test && make dist"
   },
   "bin": {
     "mip-validator": "./bin/cli.js"

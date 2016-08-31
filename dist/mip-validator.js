@@ -8,6 +8,10 @@ var config = require('./src/config.js');
 var rules = require('./rules.json');
 
 function factory(rules) {
+    if (rules === 'package.json') {
+        return require('./package.json');
+    }
+
     var engine = Engine(config.normalize(rules));
 
     // attr
@@ -33,7 +37,7 @@ factory.rules = _.cloneDeep(rules);
 
 module.exports = factory;
 
-},{"./rules.json":52,"./src/config.js":53,"./src/engine.js":54,"./src/validators/disallowed_attr.js":57,"./src/validators/disallowed_tag.js":58,"./src/validators/disallowed_tag_ancestor.js":59,"./src/validators/duplicate_unique_tag.js":60,"./src/validators/invalid_attr_value.js":61,"./src/validators/invalid_property_value_in_attr_value.js":62,"./src/validators/mandatory_oneof_attr_missing.js":63,"./src/validators/mandatory_tag_ancestor.js":64,"./src/validators/mandatory_tag_missing.js":65,"./src/validators/mandatory_tag_parent.js":66,"lodash":12}],2:[function(require,module,exports){
+},{"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":55,"./src/validators/disallowed_attr.js":58,"./src/validators/disallowed_tag.js":59,"./src/validators/disallowed_tag_ancestor.js":60,"./src/validators/duplicate_unique_tag.js":61,"./src/validators/invalid_attr_value.js":62,"./src/validators/invalid_property_value_in_attr_value.js":63,"./src/validators/mandatory_oneof_attr_missing.js":64,"./src/validators/mandatory_tag_ancestor.js":65,"./src/validators/mandatory_tag_missing.js":66,"./src/validators/mandatory_tag_parent.js":67,"lodash":12}],2:[function(require,module,exports){
 'use strict';
 
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -21901,6 +21905,48 @@ function hasOwnProperty(obj, prop) {
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
+  "name": "mip-validator",
+  "version": "1.2.9",
+  "description": "MIP validator",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "lodash": "^4.15.0",
+    "parse5": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "mock-fs": "^3.11.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "uglifyjs": "^2.4.10"
+  },
+  "scripts": {
+    "test": "mocha",
+    "prepublish": "npm test && make dist"
+  },
+  "bin": {
+    "mip-validator": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://g@gitlab.baidu.com:8022/MIP/mip-validator.git"
+  },
+  "keywords": [
+    "MIP",
+    "validator"
+  ],
+  "author": "harttle",
+  "license": "ISC"
+}
+
+},{}],53:[function(require,module,exports){
+module.exports={
     "html": {
         "mandatory": true,
         "attrs": {
@@ -21947,7 +21993,7 @@ module.exports={
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -21955,8 +22001,13 @@ module.exports={
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
-        }]
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+        }],
+        "attrs": {
+            "href": {
+                "value": "/^(?!\/[^\/])/"
+            }
+        }
     },
     "script": [{
         "mandatory": {
@@ -22060,11 +22111,11 @@ module.exports={
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^https:\/\//"
+                "value": "/^(?!\/[^\/])/"
             },
             "poster": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^(?!\/[^\/])/"
             }
         }
     },
@@ -22116,7 +22167,7 @@ module.exports={
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^https:\/\//"
+                "value": "/^(?!\/[^\/])/"
             }
         }
     },
@@ -22183,7 +22234,7 @@ module.exports={
     
 }
 
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22228,7 +22279,7 @@ function normalizeTag(config) {
 
 exports.normalize = normalize;
 
-},{"../rules.json":52,"assert":2,"lodash":12}],54:[function(require,module,exports){
+},{"../rules.json":53,"assert":2,"lodash":12}],55:[function(require,module,exports){
 'use strict';
 
 var parse5 = require('parse5');
@@ -22343,7 +22394,7 @@ module.exports = function (rules) {
     return new Engine(rules);
 };
 
-},{"./matcher.js":56,"lodash":12,"parse5":18}],55:[function(require,module,exports){
+},{"./matcher.js":57,"lodash":12,"parse5":18}],56:[function(require,module,exports){
 module.exports={
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
@@ -22387,7 +22438,7 @@ module.exports={
   }
 }
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22451,7 +22502,7 @@ module.exports = {
     match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject
 };
 
-},{"lodash":12}],57:[function(require,module,exports){
+},{"lodash":12}],58:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22464,7 +22515,7 @@ exports.onAttr = function (attr, attrRule, node, rule, engine) {
     }
 };
 
-},{"../error.json":55,"lodash":12}],58:[function(require,module,exports){
+},{"../error.json":56,"lodash":12}],59:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22508,7 +22559,7 @@ function tagPattern(tags) {
     return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'g');
 }
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],59:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],60:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22528,7 +22579,7 @@ exports.onNode = function (node, rule, engine) {
     }
 };
 
-},{"../error.json":55,"lodash":12,"util":51}],60:[function(require,module,exports){
+},{"../error.json":56,"lodash":12,"util":51}],61:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22591,7 +22642,7 @@ function validatePolyfill(engine) {
     });
 }
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],61:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],62:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22609,7 +22660,7 @@ exports.onAttr = function (attr, attrRule, node, rule, engine) {
     }
 };
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],62:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],63:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22642,7 +22693,7 @@ function parseValueProperties(value) {
     }).fromPairs().value();
 }
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],63:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],64:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22665,7 +22716,7 @@ exports.onNode = function (node, nodeRule, engine) {
     });
 };
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],64:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],65:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22685,7 +22736,7 @@ exports.onNode = function (node, rule, engine) {
     return engine.createError(err.code, msg, node.__location);
 };
 
-},{"../error.json":55,"lodash":12,"util":51}],65:[function(require,module,exports){
+},{"../error.json":56,"lodash":12,"util":51}],66:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22778,7 +22829,7 @@ function validatePolyfill(engine) {
     });
 }
 
-},{"../error.json":55,"../matcher.js":56,"lodash":12,"util":51}],66:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],67:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22796,5 +22847,5 @@ exports.onNode = function (node, rule, engine) {
     return engine.createError(err.code, msg, node.__location);
 };
 
-},{"../error.json":55,"lodash":12,"util":51}]},{},[1])(1)
+},{"../error.json":56,"lodash":12,"util":51}]},{},[1])(1)
 });})();
