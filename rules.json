@@ -45,7 +45,7 @@
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -53,8 +53,13 @@
             "rel": "/^(miphtml)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^http(s)?:\/\/(mipcache.bdstatic.com\/static\/mip-common.css)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
-        }]
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+        }],
+        "attrs": {
+            "href": {
+                "value": "/^(?!\/[^\/])/"
+            }
+        }
     },
     "script": [{
         "mandatory": {
@@ -158,11 +163,11 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^https:\/\//"
+                "value": "/^(?!\/[^\/])/"
             },
             "poster": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^(?!\/[^\/])/"
             }
         }
     },
@@ -214,7 +219,7 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^https:\/\//"
+                "value": "/^(?!\/[^\/])/"
             }
         }
     },
