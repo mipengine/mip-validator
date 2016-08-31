@@ -22044,7 +22044,7 @@ module.exports={
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^(http(s)?:)?\/\//"
+                "value": "/^(?!\/[^\/])/"
             }
         }
     },
