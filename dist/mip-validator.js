@@ -21906,7 +21906,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -22063,7 +22063,7 @@ module.exports={
         "disallow": true
     },
     "input": {
-        "disallow": true
+        "mandatory_ancestor": "mip-form"
     },
     "textarea": {
         "disallow": true
