@@ -11,8 +11,16 @@
 # 编程方式访问
 npm install -S mip-validator
 # 命令行接口
-npm install -g mip-validator
+sudo npm install -g mip-validator
 ```
+
+注意：对于命令行接口，如果没有管理员权限可安装在本地（不加`-g`参数）：
+
+```bash
+npm install mip-validator
+```
+
+以后使用时用本地的可执行文件`./node_modules/.bin/mip-validator`代替全局可执行文件`mip-validator`。
 
 ## 使用
 
