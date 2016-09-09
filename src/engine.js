@@ -33,34 +33,34 @@ Engine.prototype.onBegin = function() {
     _.map(this.onBeginCbs, cb => cb(this));
 };
 
-Engine.prototype.onNode = function(node, nodeRules, regexNodeRules) {
-    _.forEach(nodeRules, nodeRule => {
-        if (!nodeRule.match || matcher.matchAttrs(node, nodeRule.match)) {
-            _.map(this.onNodeCbs, cb => cb(node, nodeRule, this));
+Engine.prototype.onNode = function(node, config) {
+    // get rules
+    var rules = _.chain(config.regexNodes)
+        .filter((rules, name) => rules.regex.test(node.nodeName))
+        .flatten()
+        .concat(config.nodes[node.nodeName] || [])
+        .filter(rule => matcher.matchAttrs(node, rule.match))
+        .value();
 
-            // for each attribute
-            _.forEach(node.attrs, attr => {
-                // retrieve rule for the attribute
-                var attrRule = _.get(nodeRule.attrs, attr.name);
-                if (attrRule) {
-                    this.onAttr(attr, attrRule, node, nodeRule);
-                }
-                // traversal regex rules for the attribute
-                _.forEach(nodeRule.regexAttrs, (attrRules, attrName) => {
-                    if (attrRules.regex.test(attr.name)) {
-                        this.onAttr(attr, attrRules, node, nodeRule);
-                    }
-                });
-            });
-        }
+    _.forEach(rules, nodeRule => {
+        // call callbacks
+        _.map(this.onNodeCbs, cb => cb(node, nodeRule, this));
+        // traversal attributes
+        _.forEach(node.attrs, attr => this.onAttr(attr, node, nodeRule));
     });
 };
 
-Engine.prototype.onAttr = function(attr, attrRules, node, nodeRule) {
-    attrRules.map(rule => {
-        if (matcher.matchAttrs(node, rule.match)) {
-            _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, this));
-        }
+Engine.prototype.onAttr = function(attr, node, nodeRule) {
+    // get rules
+    var rules = _.chain(nodeRule.regexAttrs)
+        .filter((rules, name) => rules.regex.test(attr.name))
+        .flatten()
+        .concat(nodeRule.attrs[attr.name] || [])
+        .filter(rule => matcher.matchAttrs(node, rule.match))
+        .value();
+    // call callbacks
+    rules.map(rule => {
+        _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, this));
     });
 };
 
@@ -69,9 +69,7 @@ Engine.prototype.onEnd = function() {
 };
 
 Engine.prototype.dfs = function(node) {
-    var nodeRules = this.config.nodes[node.nodeName];
-    var regexNodeRules = this.config.regexNodes;
-    this.onNode(node, nodeRules, regexNodeRules);
+    this.onNode(node, this.config);
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child));
 };

@@ -21,6 +21,9 @@ describe('disallowed tag', function() {
             },
             frameset: {
                 disallow: true
+            },
+            '/^foo\\d/': {
+                disallow: true
             }
         });
     });
@@ -48,5 +51,11 @@ describe('disallowed tag', function() {
         expect(result).to.have.lengthOf(2);
         expect(result[0].message).to.equal("禁止使用'frame'标签");
         expect(result[1].message).to.equal("禁止使用'frameset'标签");
+    });
+    it('should support regex', function() {
+        result = validator.validate('<foo0></foo0><foo1></foo1>');
+        expect(result).to.have.lengthOf(2);
+        expect(result[0].message).to.equal("禁止使用'<foo0>'标签");
+        expect(result[1].message).to.equal("禁止使用'<foo1>'标签");
     });
 });
