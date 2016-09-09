@@ -9,7 +9,7 @@ var cache;
 exports.onBegin = function(engine) {
     cache = {};
 
-    _.forOwn(engine.rules, (rules, ruleName) => {
+    _.forOwn(engine.config.nodes, (rules, ruleName) => {
         _.map(rules, rule => {
             if (rule.duplicate) {
                 _.map(rule.duplicate, pattern => {
@@ -44,7 +44,7 @@ exports.onNode = function(node, rule, engine) {
 
 function validatePolyfill(engine) {
     POLYFILL_TAGS.forEach(tag => {
-        var rules = _.get(engine.rules, `${tag}`);
+        var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
             if (!rule.duplicate) return;
 

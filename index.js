@@ -2,13 +2,16 @@ const _ = require('lodash');
 const Engine = require('./src/engine.js');
 const config = require('./src/config.js');
 const rules = require('./rules.json');
+const preprocess = require('./src/preprocess.js');
 
-function factory(rules) {
-    if(rules === 'package.json'){
+function factory(conf) {
+    if(conf === 'package.json'){
         return require('./package.json');
     }
 
-    var engine = Engine(config.normalize(rules));
+    conf = config.normalize(conf);
+    conf = preprocess.process(conf);
+    var engine = Engine(conf);
 
     // attr
     engine.register(require('./src/validators/disallowed_attr.js'));

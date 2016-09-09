@@ -1,9 +1,10 @@
 const _ = require('lodash');
 const assert = require('assert');
-const rules = require('../rules.json');
+const defaultRules = require('../rules.json');
 
-function normalize(config) {
-    return config = _.chain(config || rules)
+function normalize(rules) {
+    var config = {};
+    config.nodes = _.chain(rules || defaultRules)
         .toPairs()
         .map(pair => [
             pair[0],
@@ -11,6 +12,7 @@ function normalize(config) {
         ])
         .fromPairs()
         .value();
+    return config;
 }
 
 function normalizeArray(v) {
@@ -37,9 +39,9 @@ function normalizeAttrs(attrs) {
 function normalizeTag(config) {
     assert(_.isObject(config), 'node name should be Array or Object');
 
-    if (config.mandatory) config.mandatory = normalizeArray(config.mandatory);
-    if (config.duplicate) config.duplicate = normalizeArray(config.duplicate);
-    if (config.attrs) config.attrs = normalizeAttrs(config.attrs);
+    config.mandatory = normalizeArray(config.mandatory);
+    config.duplicate = normalizeArray(config.duplicate);
+    config.attrs = normalizeAttrs(config.attrs);
     return config;
 }
 

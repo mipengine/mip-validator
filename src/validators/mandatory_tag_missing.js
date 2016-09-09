@@ -12,7 +12,7 @@ exports.onBegin = function(engine) {
     ors = {};
 
     // 初始化Mandatory标记
-    _.forOwn(engine.rules, (rules, ruleName) => {
+    _.forOwn(engine.config.nodes, (rules, ruleName) => {
         _.map(rules, rule => {
             if (rule.mandatory) {
                 _.map(rule.mandatory, pattern => {
@@ -73,7 +73,7 @@ exports.onEnd = function(engine) {
 
 function validatePolyfill(engine) {
     POLYFILL_TAGS.forEach(tag => {
-        var rules = _.get(engine.rules, `${tag}`);
+        var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
             if (!rule.mandatory) return;
 

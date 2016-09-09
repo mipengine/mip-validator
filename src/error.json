@@ -17,7 +17,7 @@
   },
   "DISALLOWED_ATTR": {
     "code": "06200202",
-    "message": "不允许的属性"
+    "message": "'%s'标签中禁止使用'%s'属性"
   },
   "INVALID_ATTR_VALUE": {
     "code": "06200301",

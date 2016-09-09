@@ -22,7 +22,7 @@ function validatePolyfill(engine) {
     while (match = re.exec(engine.html)) {
         var input = match[0];
         var tag = match[1];
-        var rules = _.get(engine.rules, `${tag}`);
+        var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
             if (!rule.disallow) return;
 

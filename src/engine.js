@@ -2,8 +2,8 @@ const parse5 = require('parse5');
 const _ = require('lodash');
 const matcher = require('./matcher.js');
 
-function Engine(rules) {
-    this.rules = rules;
+function Engine(config) {
+    this.config = config;
     this.onBeginCbs = [];
     this.onEndCbs = [];
     this.onAttrCbs = [];
@@ -33,24 +33,31 @@ Engine.prototype.onBegin = function() {
     _.map(this.onBeginCbs, cb => cb(this));
 };
 
-Engine.prototype.onNode = function(node, rules) {
-    rules.map(rule => {
-        if (!rule.match || matcher.matchAttrs(node, rule.match)) {
-            _.map(this.onNodeCbs, cb => cb(node, rule, this));
+Engine.prototype.onNode = function(node, nodeRules, regexNodeRules) {
+    _.forEach(nodeRules, nodeRule => {
+        if (!nodeRule.match || matcher.matchAttrs(node, nodeRule.match)) {
+            _.map(this.onNodeCbs, cb => cb(node, nodeRule, this));
 
-            var attrs = node.attrs || [];
-            attrs.forEach(attr => {
-                var attrRule = _.get(rule.attrs, attr.name);
+            // for each attribute
+            _.forEach(node.attrs, attr => {
+                // retrieve rule for the attribute
+                var attrRule = _.get(nodeRule.attrs, attr.name);
                 if (attrRule) {
-                    this.onAttr(attr, attrRule, node, rule);
+                    this.onAttr(attr, attrRule, node, nodeRule);
                 }
+                // traversal regex rules for the attribute
+                _.forEach(nodeRule.regexAttrs, (attrRules, attrName) => {
+                    if (attrRules.regex.test(attr.name)) {
+                        this.onAttr(attr, attrRules, node, nodeRule);
+                    }
+                });
             });
         }
     });
 };
 
-Engine.prototype.onAttr = function(attr, attrRule, node, nodeRule) {
-    attrRule.map(rule => {
+Engine.prototype.onAttr = function(attr, attrRules, node, nodeRule) {
+    attrRules.map(rule => {
         if (matcher.matchAttrs(node, rule.match)) {
             _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, this));
         }
@@ -62,10 +69,9 @@ Engine.prototype.onEnd = function() {
 };
 
 Engine.prototype.dfs = function(node) {
-    var rules = this.rules[node.nodeName];
-    if (rules) {
-        this.onNode(node, rules);
-    }
+    var nodeRules = this.config.nodes[node.nodeName];
+    var regexNodeRules = this.config.regexNodes;
+    this.onNode(node, nodeRules, regexNodeRules);
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child));
 };

@@ -1,10 +1,14 @@
 const _ = require('lodash');
 const regexSyntax = /^\/(.*)\/(\w*)$/;
 
+function stringToRegex(str){
+    var match = str.match(regexSyntax);
+    return match ? new RegExp(match[1], match[2]) : null;
+}
+
 function matchValue(src, target) {
-    var match;
-    if (match = target.match(regexSyntax)) {
-        var re = new RegExp(match[1], match[2]);
+    var re;
+    if (re = stringToRegex(target)) {
         return re.test(src);
     } else {
         return src == target;
@@ -59,5 +63,6 @@ function fingerprintByTag(node) {
 }
 
 module.exports = {
-    match, matchAttrs, matchValue, fingerprintByTag, createNode, fingerprintByObject
+    match, matchAttrs, matchValue, fingerprintByTag, createNode, fingerprintByObject,
+    stringToRegex
 };
