@@ -6,7 +6,7 @@ const util = require('util');
 
 var cache;
 
-exports.onBegin = function(engine) {
+exports.onBegin = function(error, engine) {
     cache = {};
 
     _.forOwn(engine.config.nodes, (rules, ruleName) => {
@@ -20,10 +20,10 @@ exports.onBegin = function(engine) {
         });
     });
 
-    validatePolyfill(engine);
+    validatePolyfill(error, engine);
 };
 
-exports.onNode = function(node, rule, engine) {
+exports.onNode = function(node, rule, error, engine) {
     if (!rule.duplicate || _.includes(POLYFILL_TAGS, node.nodeName)) return;
 
     var duplicates = _.isArray(rule.duplicate) ?
@@ -36,14 +36,12 @@ exports.onNode = function(node, rule, engine) {
         cache[fingerprint]++;
         if (cache[fingerprint] <= 1) return;
 
-        var err = ERR.DUPLICATE_UNIQUE_TAG;
         var tagStr = matcher.fingerprintByObject(node.nodeName, pattern);
-        var msg = util.format(err.message, tagStr);
-        engine.createError(err.code, msg, node.__location);
+        error(ERR.DUPLICATE_UNIQUE_TAG, tagStr);
     });
 };
 
-function validatePolyfill(engine) {
+function validatePolyfill(error, engine) {
     POLYFILL_TAGS.forEach(tag => {
         var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
@@ -52,9 +50,7 @@ function validatePolyfill(engine) {
             var re = new RegExp(`<\\s*${tag}(\\s+.*)*>`, 'g');
             var match = engine.html.match(re);
             if (match && match.length > 1) {
-                var err = ERR.DUPLICATE_UNIQUE_TAG;
-                var msg = util.format(err.message, tag);
-                engine.createError(err.code, msg);
+                error(ERR.DUPLICATE_UNIQUE_TAG, tag);
             }
         });
     });

@@ -53,4 +53,5 @@
 45| mip-link 缺少 href
 47| mip-embed 缺少 type
 48| mipmain js 缺失
-
+49| 禁止使用 style 属性
+50| 禁止使用 on开头的属性

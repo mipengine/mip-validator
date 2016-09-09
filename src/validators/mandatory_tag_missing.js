@@ -1,13 +1,12 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
-const util = require('util');
 const matcher = require('../matcher.js');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
 
-exports.onBegin = function(engine) {
+exports.onBegin = function(error, engine) {
     tags = {};
     ors = {};
 
@@ -35,10 +34,10 @@ exports.onBegin = function(engine) {
         });
     });
 
-    validatePolyfill(engine);
+    validatePolyfill(error, engine);
 };
 
-exports.onNode = function(node, rule) {
+exports.onNode = function(node, rule, error, engine) {
     _.map(rule.mandatory, pattern => {
         if (!matcher.matchAttrs(node, pattern)) return;
 
@@ -51,27 +50,23 @@ exports.onNode = function(node, rule) {
     });
 };
 
-exports.onEnd = function(engine) {
+exports.onEnd = function(error, engine) {
     _.forOwn(tags, (v, k) => {
         if (v.rule.mandatory && v.count < 1) {
-            var err = ERR.MANDATORY_TAG_MISSING;
-            var message = util.format(err.message, k);
-            engine.createError(err.code, message);
+            error(ERR.MANDATORY_TAG_MISSING, k);
         }
     });
     _.forOwn(ors, (v, k) => {
         if (v.rule.mandatory_or && v.count < 1) {
-            var err = ERR.MANDATORY_TAG_MISSING;
             var fps = v.rule.mandatory_or
                 .map(rule => matcher.fingerprintByObject(k, rule))
                 .join("'或'");
-            var message = util.format(err.message, fps);
-            engine.createError(err.code, message);
+            error(ERR.MANDATORY_TAG_MISSING, fps);
         }
     });
 };
 
-function validatePolyfill(engine) {
+function validatePolyfill(error, engine) {
     POLYFILL_TAGS.forEach(tag => {
         var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
@@ -80,9 +75,7 @@ function validatePolyfill(engine) {
             var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
             var match = engine.html.match(re);
             if (!match) {
-                var err = ERR.MANDATORY_TAG_MISSING;
-                var msg = util.format(err.message, `<${tag}>`);
-                engine.createError(err.code, msg);
+                error(ERR.MANDATORY_TAG_MISSING, `<${tag}>`);
             }
         });
     });
