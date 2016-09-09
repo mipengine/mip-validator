@@ -1,4 +1,15 @@
 {
+    "/.*/": {
+        "attrs": {
+            "style": {
+                "disallow": true
+            },
+            "/^on.+/": {
+                "disallow": true
+            }
+        }
+    },
+
     "html": {
         "mandatory": true,
         "attrs": {
@@ -147,7 +158,7 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^(?!\/[^\/])/"
+                "value": "/^(?!\/[^\/]).+/"
             }
         }
     },
