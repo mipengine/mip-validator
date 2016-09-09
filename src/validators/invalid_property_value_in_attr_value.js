@@ -1,9 +1,8 @@
 const _ = require('lodash');
 const ERR = require('../error.json');
-const util = require('util');
 const matcher = require('../matcher.js');
 
-exports.onAttr = function(attr, attrRule, node, nodeRule, engine) {
+exports.onAttr = function(attr, attrRule, node, nodeRule, error, engine) {
     if (!attrRule.properties) return;
 
     var obj = parseValueProperties(attr.value);
@@ -15,12 +14,9 @@ exports.onAttr = function(attr, attrRule, node, nodeRule, engine) {
 
         if (property.value == value) return;
 
-        var err = ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE;
-        var msg = util.format(err.message,
+        error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE,
             node.nodeName, attr.name,
             property.name, property.value || '');
-
-        engine.createError(err.code, msg, node.__location);
     });
 };
 

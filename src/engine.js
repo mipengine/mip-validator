@@ -1,6 +1,7 @@
 const parse5 = require('parse5');
 const _ = require('lodash');
 const matcher = require('./matcher.js');
+const ValidateError = require('./validate-error.js');
 
 function Engine(config) {
     this.config = config;
@@ -17,23 +18,11 @@ Engine.prototype.register = function(validator) {
     validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
-Engine.prototype.createError = function(code, message, location) {
-    var err = {
-        code: code || "000",
-        message: message,
-        line: location ? location.line : 0,
-        col: location ? location.col : 0,
-        offset: location ? location.startOffset : 0,
-        input: location ? this.lines[location.line - 1] : ''
-    };
-    this.errors.push(err);
+Engine.prototype.onBegin = function(error) {
+    _.map(this.onBeginCbs, cb => cb(error, this));
 };
 
-Engine.prototype.onBegin = function() {
-    _.map(this.onBeginCbs, cb => cb(this));
-};
-
-Engine.prototype.onNode = function(node, config) {
+Engine.prototype.onNode = function(node, config, error) {
     // get rules
     var rules = _.chain(config.regexNodes)
         .filter((rules, name) => rules.regex.test(node.nodeName))
@@ -44,13 +33,21 @@ Engine.prototype.onNode = function(node, config) {
 
     _.forEach(rules, nodeRule => {
         // call callbacks
-        _.map(this.onNodeCbs, cb => cb(node, nodeRule, this));
+        _.map(this.onNodeCbs, cb => {
+            cb(node, nodeRule, nodeError, this);
+        });
         // traversal attributes
-        _.forEach(node.attrs, attr => this.onAttr(attr, node, nodeRule));
+        _.forEach(node.attrs, attr => this.onAttr(attr, node, nodeRule, nodeError));
     });
+
+    // error generator
+    function nodeError(e) {
+        e.location = node.__location;
+        error.apply(null, arguments);
+    }
 };
 
-Engine.prototype.onAttr = function(attr, node, nodeRule) {
+Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
     // get rules
     var rules = _.chain(nodeRule.regexAttrs)
         .filter((rules, name) => rules.regex.test(attr.name))
@@ -60,34 +57,35 @@ Engine.prototype.onAttr = function(attr, node, nodeRule) {
         .value();
     // call callbacks
     rules.map(rule => {
-        _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, this));
+        _.map(this.onAttrCbs, cb => cb(attr, rule, node, nodeRule, error, this));
     });
 };
 
-Engine.prototype.onEnd = function() {
-    _.map(this.onEndCbs, cb => cb(this));
+Engine.prototype.onEnd = function(error) {
+    _.map(this.onEndCbs, cb => cb(error, this));
 };
 
-Engine.prototype.dfs = function(node) {
-    this.onNode(node, this.config);
+Engine.prototype.dfs = function(node, error) {
+    this.onNode(node, this.config, error);
     var children = node.childNodes || [];
-    children.forEach(child => this.dfs(child));
+    children.forEach(child => this.dfs(child, error));
 };
 
 Engine.prototype.validate = function(html) {
-    this.errors = [];
     this.html = html;
-    this.lines = html.split('\n');
 
     var document = parse5.parse(html, {
         locationInfo: true
     });
+    var errorGenertor = ValidateError.generator({
+        html: html
+    });
 
-    this.onBegin();
-    this.dfs(document);
-    this.onEnd();
+    this.onBegin(errorGenertor);
+    this.dfs(document, errorGenertor);
+    this.onEnd(errorGenertor);
 
-    return this.errors;
+    return errorGenertor.errors;
 };
 
 module.exports = function(rules) {
