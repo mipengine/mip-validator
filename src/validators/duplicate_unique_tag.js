@@ -37,7 +37,8 @@ exports.onNode = function(node, rule, engine) {
         if (cache[fingerprint] <= 1) return;
 
         var err = ERR.DUPLICATE_UNIQUE_TAG;
-        var msg = util.format(err.message, node.nodeName);
+        var tagStr = matcher.fingerprintByObject(node.nodeName, pattern);
+        var msg = util.format(err.message, tagStr);
         engine.createError(err.code, msg, node.__location);
     });
 };
