@@ -54,3 +54,5 @@
 47| mip-embed 缺少 type
 48| mipmain js 缺失
 
+49| 禁止使用 style 属性
+
