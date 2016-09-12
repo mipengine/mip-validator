@@ -18,10 +18,21 @@ describe('duplicate unique tag', function() {
                 duplicate: {
                     viewport: "/.*/"
                 }
-            }
+            },
+            div: [{
+                duplicate: true,
+                match: {
+                    foo: 'bar'
+                }
+            }, {
+                duplicate: true,
+                match: {
+                    bar: 'foo'
+                }
+            }]
         });
     });
-    it('should accept when no duplicate', function(){
+    it('should accept when no duplicate', function() {
         result = validator.validate('<meta viewport="foo">');
         expect(result).to.have.lengthOf(0);
     });
@@ -61,5 +72,10 @@ describe('duplicate unique tag', function() {
         });
         result = validator.validate('<html><body><head><head><body><html>');
         expect(result).to.have.lengthOf(3);
+    });
+    //it.only('should count correctly for multiple rules per node', function() {
+    it('should count correctly for multiple rules per node', function() {
+        result = validator.validate('<div foo="bar" bar="foo">');
+        expect(result).to.have.lengthOf(0);
     });
 });

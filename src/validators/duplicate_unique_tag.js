@@ -14,7 +14,8 @@ exports.onBegin = function(error, engine) {
             if (rule.duplicate) {
                 _.map(rule.duplicate, pattern => {
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
-                    cache[fingerprint] = 0;
+                    var hash = fingerprint + rule.id;
+                    cache[hash] = 0;
                 });
             }
         });
@@ -33,11 +34,11 @@ exports.onNode = function(node, rule, error, engine) {
         if (!matcher.matchAttrs(node, pattern)) return;
 
         var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern);
-        cache[fingerprint]++;
-        if (cache[fingerprint] <= 1) return;
+        var hash = fingerprint + rule.id;
+        cache[hash]++;
+        if (cache[hash] <= 1) return;
 
-        var tagStr = matcher.fingerprintByObject(node.nodeName, pattern);
-        error(ERR.DUPLICATE_UNIQUE_TAG, tagStr);
+        error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint);
     });
 };
 
