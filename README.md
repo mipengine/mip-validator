@@ -1,4 +1,4 @@
-# MIP校验框架
+# MIP Validator
 
 [![NPM version](https://img.shields.io/npm/v/mip-validator.svg?style=flat)](https://www.npmjs.org/package/mip-validator)
 [![Build Status](https://travis-ci.org/mipengine/mip-validator.svg?branch=master)](https://travis-ci.org/mipengine/mip-validator)
