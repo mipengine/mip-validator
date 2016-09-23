@@ -62,7 +62,18 @@ function fingerprintByTag(node) {
     return `<${node.nodeName}${attrStr}>`;
 }
 
+function tagsPattern(tags) {
+    var reTags = tags.join('|');
+    return new RegExp(`<\\s*(${reTags})(?:\\s+[^>]*)*>`, 'g');
+}
+
+function matchTagNames(tagNames, html) {
+    var tagsStr = tagNames.join('|');
+    var re = new RegExp(`<\\s*(${tagsStr})(?:\\s+[^>]*)*>`, 'g');
+    return (html || '').match(re) || [];
+}
+
 module.exports = {
     match, matchAttrs, matchValue, fingerprintByTag, createNode, fingerprintByObject,
-    stringToRegex
+    stringToRegex, matchTagNames
 };

@@ -7,12 +7,16 @@ const util = require('util');
 var cache;
 
 exports.onBegin = function(error, engine) {
+    //console.log('[DUPLICATE_UNIQUE_TAG] onBegin');
     cache = {};
 
     _.forOwn(engine.config.nodes, (rules, ruleName) => {
+        //console.log('rules', rules);
         _.map(rules, rule => {
+            //console.log('rule', rule);
             if (rule.duplicate) {
                 _.map(rule.duplicate, pattern => {
+                    //console.log('pattern', pattern);
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
                     var hash = fingerprint + rule.id;
                     cache[hash] = 0;
@@ -20,8 +24,10 @@ exports.onBegin = function(error, engine) {
             }
         });
     });
-
+    //console.log('[DUPLICATE_UNIQUE_TAG] before polyfill');
     validatePolyfill(error, engine);
+    //console.log('[DUPLICATE_UNIQUE_TAG] after polyfill');
+    //console.log('[DUPLICATE_UNIQUE_TAG] after onBegin');
 };
 
 exports.onNode = function(node, rule, error, engine) {
@@ -47,10 +53,8 @@ function validatePolyfill(error, engine) {
         var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
             if (!rule.duplicate) return;
-
-            var re = new RegExp(`<\\s*${tag}(\\s+.*)*>`, 'g');
-            var match = engine.html.match(re);
-            if (match && match.length > 1) {
+            var matches = matcher.matchTagNames([tag], engine.html);
+            if (matches.length > 1) {
                 error(ERR.DUPLICATE_UNIQUE_TAG, tag);
             }
         });

@@ -17,21 +17,17 @@ exports.onNode = function(node, rule, error, engine) {
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(error, engine) {
-    var re = tagPattern(POLYFILL_TAGS), match;
-    while (match = re.exec(engine.html)) {
-        var input = match[0];
-        var tag = match[1];
-        var rules = _.get(engine.config.nodes, `${tag}`);
+    var matches = matcher.matchTagNames(POLYFILL_TAGS, engine.html);
+    //console.log(matches);
+    matches.forEach(function(tag){
+        var tagName = tag.match(/\w+/);
+        var rules = _.get(engine.config.nodes, `${tagName}`);
         _.map(rules, rule => {
             if (!rule.disallow) return;
 
             var err = ERR.DISALLOWED_TAG;
             error(err, tag);
         });
-    }
+    });
 }
 
-function tagPattern(tags) {
-    var reTags = tags.join('|');
-    return new RegExp(`<\\s*(${reTags})(?:\\s+[^>]*)*>`, 'g');
-}

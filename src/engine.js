@@ -19,10 +19,12 @@ Engine.prototype.register = function(validator) {
 };
 
 Engine.prototype.onBegin = function(error) {
+    //console.log('onBegin');
     _.map(this.onBeginCbs, cb => cb(error, this));
 };
 
 Engine.prototype.onNode = function(node, config, error) {
+    //console.log('onNode', node.nodeName);
     // get rules
     var rules = _.chain(config.regexNodes)
         .filter((rules, name) => rules.regex.test(node.nodeName))
@@ -62,10 +64,12 @@ Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
 };
 
 Engine.prototype.onEnd = function(error) {
+    //console.log('onEnd');
     _.map(this.onEndCbs, cb => cb(error, this));
 };
 
 Engine.prototype.dfs = function(node, error) {
+    //console.log('dfs', node.nodeName);
     this.onNode(node, this.config, error);
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child, error));

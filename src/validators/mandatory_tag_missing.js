@@ -7,11 +7,13 @@ const POLYFILL_TAGS = ['html', 'body', 'head'];
 var tags, ors;
 
 exports.onBegin = function(error, engine) {
+    //console.log('[MANDATORY_TAG_MISSING] onBegin');
     tags = {};
     ors = {};
 
     // 初始化Mandatory标记
     _.forOwn(engine.config.nodes, (rules, ruleName) => {
+        //console.log(rules);
         _.map(rules, rule => {
             if (rule.mandatory) {
                 _.map(rule.mandatory, pattern => {
@@ -35,6 +37,7 @@ exports.onBegin = function(error, engine) {
     });
 
     validatePolyfill(error, engine);
+    //console.log('[MANDATORY_TAG_MISSING] after onBegin');
 };
 
 exports.onNode = function(node, rule, error, engine) {
@@ -71,10 +74,8 @@ function validatePolyfill(error, engine) {
         var rules = _.get(engine.config.nodes, `${tag}`);
         _.map(rules, rule => {
             if (!rule.mandatory) return;
-
-            var re = new RegExp(`<${tag}(\\s+.*)*>`, 'g');
-            var match = engine.html.match(re);
-            if (!match) {
+            var matches = matcher.matchTagNames([tag], engine.html);
+            if (matches.length === 0) {
                 error(ERR.MANDATORY_TAG_MISSING, `<${tag}>`);
             }
         });

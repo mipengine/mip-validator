@@ -1,4 +1,6 @@
-校验框架的安装和使用方法请参考README，示例校验文件与校验结果请查看 <http://gitlab.baidu.com/MIP/mip-validator/tree/master/examples>。
+* 校验框架的安装和使用方法请参考README
+* 示例校验文件请参考源码中的`rules.json`
+* 示例MIP文件请查看 <http://gitlab.baidu.com/MIP/mip-validator/tree/master/examples>。
 
 `mip-validator`采取JSON格式的配置文件，所有校验规则均来源于该文件。
 文件的每个根键对应DOM标签名，其属性为应用于该标签的校验规则。
