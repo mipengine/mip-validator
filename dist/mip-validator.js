@@ -6,13 +6,16 @@ var _ = require('lodash');
 var Engine = require('./src/engine.js');
 var config = require('./src/config.js');
 var rules = require('./rules.json');
+var preprocess = require('./src/preprocess.js');
 
-function factory(rules) {
-    if (rules === 'package.json') {
+function factory(conf) {
+    if (conf === 'package.json') {
         return require('./package.json');
     }
 
-    var engine = Engine(config.normalize(rules));
+    conf = config.normalize(conf);
+    conf = preprocess.process(conf);
+    var engine = Engine(conf);
 
     // attr
     engine.register(require('./src/validators/disallowed_attr.js'));
@@ -37,7 +40,7 @@ factory.rules = _.cloneDeep(rules);
 
 module.exports = factory;
 
-},{"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":55,"./src/validators/disallowed_attr.js":58,"./src/validators/disallowed_tag.js":59,"./src/validators/disallowed_tag_ancestor.js":60,"./src/validators/duplicate_unique_tag.js":61,"./src/validators/invalid_attr_value.js":62,"./src/validators/invalid_property_value_in_attr_value.js":63,"./src/validators/mandatory_oneof_attr_missing.js":64,"./src/validators/mandatory_tag_ancestor.js":65,"./src/validators/mandatory_tag_missing.js":66,"./src/validators/mandatory_tag_parent.js":67,"lodash":12}],2:[function(require,module,exports){
+},{"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":55,"./src/preprocess.js":58,"./src/validators/disallowed_attr.js":60,"./src/validators/disallowed_tag.js":61,"./src/validators/disallowed_tag_ancestor.js":62,"./src/validators/duplicate_unique_tag.js":63,"./src/validators/invalid_attr_value.js":64,"./src/validators/invalid_property_value_in_attr_value.js":65,"./src/validators/mandatory_oneof_attr_missing.js":66,"./src/validators/mandatory_tag_ancestor.js":67,"./src/validators/mandatory_tag_missing.js":68,"./src/validators/mandatory_tag_parent.js":69,"lodash":12}],2:[function(require,module,exports){
 'use strict';
 
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -21906,7 +21909,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -21915,15 +21918,17 @@ module.exports={
     "parse5": "^2.2.0"
   },
   "devDependencies": {
-    "mocha": "^2.4.5",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "mock-fs": "^3.11.0",
-    "coveralls": "^2.11.9",
-    "istanbul": "^0.4.3",
     "babel-preset-es2015": "^6.13.2",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "changelog": "^1.0.7",
+    "coveralls": "^2.11.9",
+    "git-changelog": "^1.0.1",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "mock-fs": "^3.11.0",
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
@@ -21947,6 +21952,17 @@ module.exports={
 
 },{}],53:[function(require,module,exports){
 module.exports={
+    "/.*/": {
+        "attrs": {
+            "style": {
+                "disallow": true
+            },
+            "/^on.+/": {
+                "disallow": true
+            }
+        }
+    },
+
     "html": {
         "mandatory": true,
         "attrs": {
@@ -22095,7 +22111,7 @@ module.exports={
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^(?!\/[^\/])/"
+                "value": "/^(?!\/[^\/]).+/"
             }
         }
     },
@@ -22239,14 +22255,16 @@ module.exports={
 
 var _ = require('lodash');
 var assert = require('assert');
-var rules = require('../rules.json');
+var defaultRules = require('../rules.json');
 
-function normalize(config) {
-    return config = _.chain(config || rules).toPairs().map(function (pair) {
+function normalize(rules) {
+    var config = {};
+    config.nodes = _.chain(rules || defaultRules).toPairs().map(function (pair) {
         return [pair[0], normalizeArray(pair[1]).map(function (tag) {
             return normalizeTag(tag);
         })];
     }).fromPairs().value();
+    return config;
 }
 
 function normalizeArray(v) {
@@ -22271,9 +22289,9 @@ function normalizeAttrs(attrs) {
 function normalizeTag(config) {
     assert(_.isObject(config), 'node name should be Array or Object');
 
-    if (config.mandatory) config.mandatory = normalizeArray(config.mandatory);
-    if (config.duplicate) config.duplicate = normalizeArray(config.duplicate);
-    if (config.attrs) config.attrs = normalizeAttrs(config.attrs);
+    config.mandatory = normalizeArray(config.mandatory);
+    config.duplicate = normalizeArray(config.duplicate);
+    config.attrs = normalizeAttrs(config.attrs);
     return config;
 }
 
@@ -22285,9 +22303,10 @@ exports.normalize = normalize;
 var parse5 = require('parse5');
 var _ = require('lodash');
 var matcher = require('./matcher.js');
+var ValidateError = require('./validate-error.js');
 
-function Engine(rules) {
-    this.rules = rules;
+function Engine(config) {
+    this.config = config;
     this.onBeginCbs = [];
     this.onEndCbs = [];
     this.onAttrCbs = [];
@@ -22301,100 +22320,99 @@ Engine.prototype.register = function (validator) {
     validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
-Engine.prototype.createError = function (code, message, location) {
-    var err = {
-        code: code || "000",
-        message: message,
-        line: location ? location.line : 0,
-        col: location ? location.col : 0,
-        offset: location ? location.startOffset : 0,
-        input: location ? this.lines[location.line - 1] : ''
-    };
-    this.errors.push(err);
-};
-
-Engine.prototype.onBegin = function () {
+Engine.prototype.onBegin = function (error) {
     var _this = this;
 
     _.map(this.onBeginCbs, function (cb) {
-        return cb(_this);
+        return cb(error, _this);
     });
 };
 
-Engine.prototype.onNode = function (node, rules) {
+Engine.prototype.onNode = function (node, config, error) {
     var _this2 = this;
 
-    rules.map(function (rule) {
-        if (!rule.match || matcher.matchAttrs(node, rule.match)) {
-            _.map(_this2.onNodeCbs, function (cb) {
-                return cb(node, rule, _this2);
-            });
+    // get rules
+    var rules = _.chain(config.regexNodes).filter(function (rules, name) {
+        return rules.regex.test(node.nodeName);
+    }).flatten().concat(config.nodes[node.nodeName] || []).filter(function (rule) {
+        return matcher.matchAttrs(node, rule.match);
+    }).value();
 
-            var attrs = node.attrs || [];
-            attrs.forEach(function (attr) {
-                var attrRule = _.get(rule.attrs, attr.name);
-                if (attrRule) {
-                    _this2.onAttr(attr, attrRule, node, rule);
-                }
-            });
-        }
+    _.forEach(rules, function (nodeRule) {
+        // call callbacks
+        _.map(_this2.onNodeCbs, function (cb) {
+            cb(node, nodeRule, nodeError, _this2);
+        });
+        // traversal attributes
+        _.forEach(node.attrs, function (attr) {
+            return _this2.onAttr(attr, node, nodeRule, nodeError);
+        });
     });
+
+    // error generator
+    function nodeError(e) {
+        e.location = node.__location;
+        error.apply(null, arguments);
+    }
 };
 
-Engine.prototype.onAttr = function (attr, attrRule, node, nodeRule) {
+Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
     var _this3 = this;
 
-    attrRule.map(function (rule) {
-        if (matcher.matchAttrs(node, rule.match)) {
-            _.map(_this3.onAttrCbs, function (cb) {
-                return cb(attr, rule, node, nodeRule, _this3);
-            });
-        }
+    // get rules
+    var rules = _.chain(nodeRule.regexAttrs).filter(function (rules, name) {
+        return rules.regex.test(attr.name);
+    }).flatten().concat(nodeRule.attrs[attr.name] || []).filter(function (rule) {
+        return matcher.matchAttrs(node, rule.match);
+    }).value();
+    // call callbacks
+    rules.map(function (rule) {
+        _.map(_this3.onAttrCbs, function (cb) {
+            return cb(attr, rule, node, nodeRule, error, _this3);
+        });
     });
 };
 
-Engine.prototype.onEnd = function () {
+Engine.prototype.onEnd = function (error) {
     var _this4 = this;
 
     _.map(this.onEndCbs, function (cb) {
-        return cb(_this4);
+        return cb(error, _this4);
     });
 };
 
-Engine.prototype.dfs = function (node) {
+Engine.prototype.dfs = function (node, error) {
     var _this5 = this;
 
-    var rules = this.rules[node.nodeName];
-    if (rules) {
-        this.onNode(node, rules);
-    }
+    this.onNode(node, this.config, error);
     var children = node.childNodes || [];
     children.forEach(function (child) {
-        return _this5.dfs(child);
+        return _this5.dfs(child, error);
     });
 };
 
 Engine.prototype.validate = function (html) {
-    this.errors = [];
     this.html = html;
-    this.lines = html.split('\n');
 
     var document = parse5.parse(html, {
         locationInfo: true
     });
+    var errorGenertor = ValidateError.generator({
+        html: html
+    });
 
-    this.onBegin();
-    this.dfs(document);
-    this.onEnd();
+    this.onBegin(errorGenertor);
+    this.dfs(document, errorGenertor);
+    this.onEnd(errorGenertor);
 
-    return this.errors;
+    return errorGenertor.errors;
 };
 
 module.exports = function (rules) {
     return new Engine(rules);
 };
 
-},{"./matcher.js":57,"lodash":12,"parse5":18}],56:[function(require,module,exports){
+},{"./matcher.js":57,"./validate-error.js":59,"lodash":12,"parse5":18}],56:[function(require,module,exports){
 module.exports={
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
@@ -22414,7 +22432,7 @@ module.exports={
   },
   "DISALLOWED_ATTR": {
     "code": "06200202",
-    "message": "不允许的属性"
+    "message": "'%s'标签中禁止使用'%s'属性"
   },
   "INVALID_ATTR_VALUE": {
     "code": "06200301",
@@ -22444,10 +22462,14 @@ module.exports={
 var _ = require('lodash');
 var regexSyntax = /^\/(.*)\/(\w*)$/;
 
+function stringToRegex(str) {
+    var match = str.match(regexSyntax);
+    return match ? new RegExp(match[1], match[2]) : null;
+}
+
 function matchValue(src, target) {
-    var match;
-    if (match = target.match(regexSyntax)) {
-        var re = new RegExp(match[1], match[2]);
+    var re;
+    if (re = stringToRegex(target)) {
         return re.test(src);
     } else {
         return src == target;
@@ -22499,23 +22521,103 @@ function fingerprintByTag(node) {
 }
 
 module.exports = {
-    match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject
+    match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject,
+    stringToRegex: stringToRegex
 };
 
 },{"lodash":12}],58:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
-var ERR = require('../error.json');
+var matcher = require('./matcher.js');
 
-exports.onAttr = function (attr, attrRule, node, rule, engine) {
+var id = 0;
+
+function process(config) {
+    processNodeRules(config);
+    return config;
+}
+
+function processNodeRules(config) {
+    config.regexNodes = {};
+    // for each node
+    _.forEach(config.nodes, function (rules, name) {
+        var re = matcher.stringToRegex(name);
+        if (re) {
+            rules.regex = re;
+            config.regexNodes[name] = rules;
+        }
+        _.forEach(rules, processNodeRule);
+    });
+}
+
+function processNodeRule(nodeRule) {
+    nodeRule.id = id++;
+    nodeRule.regexAttrs = {};
+    _.forEach(nodeRule.attrs, function (rules, name) {
+        var re = matcher.stringToRegex(name);
+        rules.regex = re;
+        if (re) {
+            nodeRule.regexAttrs[name] = rules;
+        }
+        _.forEach(rules, processAttrRule);
+    });
+}
+
+function processAttrRule(attrRule) {
+    attrRule.id = id++;
+}
+
+exports.process = process;
+
+},{"./matcher.js":57,"lodash":12}],59:[function(require,module,exports){
+'use strict';
+
+var util = require('util');
+var _ = require('lodash');
+
+function getGenerator(options) {
+    var lines = options.html.split('\n');
+
+    function generator(err) {
+        var location = err.location;
+
+        var args = _.toArray(arguments);
+        args[0] = err.message;
+        var message = util.format.apply(util, args);
+
+        generator.errors.push({
+            code: err.code,
+            message: message,
+            line: location ? location.line : 0,
+            col: location ? location.col : 0,
+            offset: location ? location.startOffset : 0,
+            input: location ? lines[location.line - 1] : ''
+        });
+    }
+    generator.errors = [];
+    return generator;
+}
+
+exports.generator = getGenerator;
+
+},{"lodash":12,"util":51}],60:[function(require,module,exports){
+'use strict';
+
+var _ = require('lodash');
+var ERR = require('../error.json');
+var util = require('util');
+var matcher = require('../matcher.js');
+
+exports.onAttr = function (attr, attrRule, node, rule, error, engine) {
     if (attrRule.disallow) {
         var err = ERR.DISALLOWED_ATTR;
-        engine.createError(err.message, err.code, node.__location);
+        var tagStr = matcher.fingerprintByObject(node.tagName);
+        error(err, tagStr, attr.name);
     }
 };
 
-},{"../error.json":56,"lodash":12}],59:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],61:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22524,32 +22626,30 @@ var POLYFILL_TAGS = ['frame', 'frameset'];
 var util = require('util');
 var matcher = require('../matcher.js');
 
-exports.onBegin = function (engine) {
-    validatePolyfill(engine);
+exports.onBegin = function (error, engine) {
+    validatePolyfill(error, engine);
 };
 
-exports.onNode = function (node, rule, engine) {
+exports.onNode = function (node, rule, error, engine) {
     if (!rule.disallow || _.includes(POLYFILL_TAGS, node.nodeName)) return;
     var err = ERR.DISALLOWED_TAG;
-    var msg = util.format(err.message, matcher.fingerprintByTag(node));
-    engine.createError(err.code, msg, node.__location);
+    error(err, matcher.fingerprintByTag(node));
 };
 
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
-function validatePolyfill(engine) {
+function validatePolyfill(error, engine) {
     var re = tagPattern(POLYFILL_TAGS),
         match;
     while (match = re.exec(engine.html)) {
         var input = match[0];
         var tag = match[1];
-        var rules = _.get(engine.rules, '' + tag);
+        var rules = _.get(engine.config.nodes, '' + tag);
         _.map(rules, function (rule) {
             if (!rule.disallow) return;
 
             var err = ERR.DISALLOWED_TAG;
-            var msg = util.format(err.message, tag);
-            engine.createError(err.code, msg);
+            error(err, tag);
         });
     }
 }
@@ -22559,27 +22659,25 @@ function tagPattern(tags) {
     return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'g');
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],60:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],62:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
 var util = require('util');
 
-exports.onNode = function (node, rule, engine) {
+exports.onNode = function (node, rule, error, engine) {
     if (!rule.disallowed_ancestor) return;
 
     for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
         if (_.includes(rule.disallowed_ancestor, cur.nodeName)) {
             var err = ERR.DISALLOWED_TAG_ANCESTOR;
-            var msg = util.format(err.message, node.nodeName, cur.nodeName);
-
-            return engine.createError(err.code, msg, node.__location);
+            return error(err, node.nodeName, cur.nodeName);
         }
     }
 };
 
-},{"../error.json":56,"lodash":12,"util":51}],61:[function(require,module,exports){
+},{"../error.json":56,"lodash":12,"util":51}],63:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22590,24 +22688,25 @@ var util = require('util');
 
 var cache;
 
-exports.onBegin = function (engine) {
+exports.onBegin = function (error, engine) {
     cache = {};
 
-    _.forOwn(engine.rules, function (rules, ruleName) {
+    _.forOwn(engine.config.nodes, function (rules, ruleName) {
         _.map(rules, function (rule) {
             if (rule.duplicate) {
                 _.map(rule.duplicate, function (pattern) {
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
-                    cache[fingerprint] = 0;
+                    var hash = fingerprint + rule.id;
+                    cache[hash] = 0;
                 });
             }
         });
     });
 
-    validatePolyfill(engine);
+    validatePolyfill(error, engine);
 };
 
-exports.onNode = function (node, rule, engine) {
+exports.onNode = function (node, rule, error, engine) {
     if (!rule.duplicate || _.includes(POLYFILL_TAGS, node.nodeName)) return;
 
     var duplicates = _.isArray(rule.duplicate) ? rule.duplicate : [rule.duplicate];
@@ -22616,59 +22715,53 @@ exports.onNode = function (node, rule, engine) {
         if (!matcher.matchAttrs(node, pattern)) return;
 
         var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern);
-        cache[fingerprint]++;
-        if (cache[fingerprint] <= 1) return;
+        var hash = fingerprint + rule.id;
+        cache[hash]++;
+        if (cache[hash] <= 1) return;
 
-        var err = ERR.DUPLICATE_UNIQUE_TAG;
-        var msg = util.format(err.message, node.nodeName);
-        engine.createError(err.code, msg, node.__location);
+        error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint);
     });
 };
 
-function validatePolyfill(engine) {
+function validatePolyfill(error, engine) {
     POLYFILL_TAGS.forEach(function (tag) {
-        var rules = _.get(engine.rules, '' + tag);
+        var rules = _.get(engine.config.nodes, '' + tag);
         _.map(rules, function (rule) {
             if (!rule.duplicate) return;
 
             var re = new RegExp('<\\s*' + tag + '(\\s+.*)*>', 'g');
             var match = engine.html.match(re);
             if (match && match.length > 1) {
-                var err = ERR.DUPLICATE_UNIQUE_TAG;
-                var msg = util.format(err.message, tag);
-                engine.createError(err.code, msg);
+                error(ERR.DUPLICATE_UNIQUE_TAG, tag);
             }
         });
     });
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],62:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],64:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
-var util = require('util');
 var matcher = require('../matcher.js');
 
-exports.onAttr = function (attr, attrRule, node, rule, engine) {
+exports.onAttr = function (attr, attrRule, node, rule, error, engine) {
     if (attrRule.value) {
         if (matcher.matchValue(attr.value, attrRule.value)) return;
 
         var err = ERR.INVALID_ATTR_VALUE;
-        var msg = util.format(err.message, node.tagName, attr.name, attr.value);
-        engine.createError(err.code, msg, node.__location);
+        error(err, node.tagName, attr.name, attr.value);
     }
 };
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],63:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12}],65:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
-var util = require('util');
 var matcher = require('../matcher.js');
 
-exports.onAttr = function (attr, attrRule, node, nodeRule, engine) {
+exports.onAttr = function (attr, attrRule, node, nodeRule, error, engine) {
     if (!attrRule.properties) return;
 
     var obj = parseValueProperties(attr.value);
@@ -22680,10 +22773,7 @@ exports.onAttr = function (attr, attrRule, node, nodeRule, engine) {
 
         if (property.value == value) return;
 
-        var err = ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE;
-        var msg = util.format(err.message, node.nodeName, attr.name, property.name, property.value || '');
-
-        engine.createError(err.code, msg, node.__location);
+        error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE, node.nodeName, attr.name, property.name, property.value || '');
     });
 };
 
@@ -22693,15 +22783,14 @@ function parseValueProperties(value) {
     }).fromPairs().value();
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],64:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12}],66:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
 var matcher = require('../matcher.js');
-var util = require('util');
 
-exports.onNode = function (node, nodeRule, engine) {
+exports.onNode = function (node, nodeRule, error, engine) {
     var attrOccurrence = _.keyBy(node.attrs, 'name');
 
     _.forOwn(nodeRule.attrs, function (rules, attrName) {
@@ -22709,21 +22798,19 @@ exports.onNode = function (node, nodeRule, engine) {
             if (rule.mandatory && matcher.matchAttrs(node, rule.match) && !attrOccurrence[attrName]) {
 
                 var err = ERR.MANDATORY_ONEOF_ATTR_MISSING;
-                var msg = util.format(err.message, node.nodeName, attrName);
-                engine.createError(err.code, msg, node.__location);
+                error(err, node.nodeName, attrName);
             }
         });
     });
 };
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],65:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12}],67:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
-var util = require('util');
 
-exports.onNode = function (node, rule, engine) {
+exports.onNode = function (node, rule, error, engine) {
     if (!rule.mandatory_ancestor) return;
 
     for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
@@ -22732,28 +22819,26 @@ exports.onNode = function (node, rule, engine) {
         }
     }
     var err = ERR.MANDATORY_TAG_ANCESTOR;
-    var msg = util.format(err.message, node.nodeName, rule.mandatory_ancestor);
-    return engine.createError(err.code, msg, node.__location);
+    error(err, node.nodeName, rule.mandatory_ancestor);
 };
 
-},{"../error.json":56,"lodash":12,"util":51}],66:[function(require,module,exports){
+},{"../error.json":56,"lodash":12}],68:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
-var util = require('util');
 var matcher = require('../matcher.js');
 var POLYFILL_TAGS = ['html', 'body', 'head'];
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
 
-exports.onBegin = function (engine) {
+exports.onBegin = function (error, engine) {
     tags = {};
     ors = {};
 
     // 初始化Mandatory标记
-    _.forOwn(engine.rules, function (rules, ruleName) {
+    _.forOwn(engine.config.nodes, function (rules, ruleName) {
         _.map(rules, function (rule) {
             if (rule.mandatory) {
                 _.map(rule.mandatory, function (pattern) {
@@ -22776,10 +22861,10 @@ exports.onBegin = function (engine) {
         });
     });
 
-    validatePolyfill(engine);
+    validatePolyfill(error, engine);
 };
 
-exports.onNode = function (node, rule) {
+exports.onNode = function (node, rule, error, engine) {
     _.map(rule.mandatory, function (pattern) {
         if (!matcher.matchAttrs(node, pattern)) return;
 
@@ -22792,60 +22877,51 @@ exports.onNode = function (node, rule) {
     });
 };
 
-exports.onEnd = function (engine) {
+exports.onEnd = function (error, engine) {
     _.forOwn(tags, function (v, k) {
         if (v.rule.mandatory && v.count < 1) {
-            var err = ERR.MANDATORY_TAG_MISSING;
-            var message = util.format(err.message, k);
-            engine.createError(err.code, message);
+            error(ERR.MANDATORY_TAG_MISSING, k);
         }
     });
     _.forOwn(ors, function (v, k) {
         if (v.rule.mandatory_or && v.count < 1) {
-            var err = ERR.MANDATORY_TAG_MISSING;
             var fps = v.rule.mandatory_or.map(function (rule) {
                 return matcher.fingerprintByObject(k, rule);
             }).join("'或'");
-            var message = util.format(err.message, fps);
-            engine.createError(err.code, message);
+            error(ERR.MANDATORY_TAG_MISSING, fps);
         }
     });
 };
 
-function validatePolyfill(engine) {
+function validatePolyfill(error, engine) {
     POLYFILL_TAGS.forEach(function (tag) {
-        var rules = _.get(engine.rules, '' + tag);
+        var rules = _.get(engine.config.nodes, '' + tag);
         _.map(rules, function (rule) {
             if (!rule.mandatory) return;
 
             var re = new RegExp('<' + tag + '(\\s+.*)*>', 'g');
             var match = engine.html.match(re);
             if (!match) {
-                var err = ERR.MANDATORY_TAG_MISSING;
-                var msg = util.format(err.message, '<' + tag + '>');
-                engine.createError(err.code, msg);
+                error(ERR.MANDATORY_TAG_MISSING, '<' + tag + '>');
             }
         });
     });
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],67:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":57,"lodash":12}],69:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
-var util = require('util');
 
-exports.onNode = function (node, rule, engine) {
+exports.onNode = function (node, rule, error, engine) {
     if (!rule.mandatory_parent) return;
 
     var parent = node.parentNode && node.parentNode.nodeName;
     if (_.includes(rule.mandatory_parent, parent)) return;
 
-    var err = ERR.WRONG_PARENT_TAG;
-    var msg = util.format(err.message, node.nodeName, rule.mandatory_parent, parent);
-    return engine.createError(err.code, msg, node.__location);
+    error(ERR.WRONG_PARENT_TAG, node.nodeName, rule.mandatory_parent, parent);
 };
 
-},{"../error.json":56,"lodash":12,"util":51}]},{},[1])(1)
+},{"../error.json":56,"lodash":12}]},{},[1])(1)
 });})();
