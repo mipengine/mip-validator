@@ -1,7 +1,8 @@
 {
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
-    "message": "强制性标签'%s'缺失或错误"
+    "message": "强制性标签'%s'缺失或错误",
+    "misc": "去除该标签即可"
   },
   "DISALLOWED_TAG": {
     "code": "06200201",

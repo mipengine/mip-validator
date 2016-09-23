@@ -1,13 +1,9 @@
 # MIP校验框架
 
 本项目给出用于MIP校验的NPM软件包，支持编程方式、命令行接口、以及浏览器JS。
-本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考：
+本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考[Wiki][wiki]。
 
-* 规则配置语法： <https://github.com/mipengine/mip-validator/wiki/MIP%E8%A7%84%E5%88%99%E8%AF%AD%E6%B3%95>
-* 最新规则文件： <https://github.com/mipengine/mip-validator/blob/master/rules.json>
-* 错误码与错误提示：<https://github.com/mipengine/mip-validator/blob/master/src/error.json>
-
-## 安装
+## 依赖与安装
 
 **确保安装了Node.js(版本>=4)**
 
@@ -26,9 +22,7 @@ npm install mip-validator
 
 以后使用时用本地的可执行文件`./node_modules/.bin/mip-validator`代替全局可执行文件`mip-validator`。
 
-## 使用
-
-### 编程接口
+## 编程接口
 
 需要在本地安装`mip-validator`（见上一节）。API：
 
@@ -36,7 +30,7 @@ npm install mip-validator
 * `.validate(html)`：传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
 * `#rules`：默认规则配置。
 
-#### 默认使用方式
+### 默认使用方式
 
 使用`mip-validator`创建一个实例，即可用来验证MIP HTML。
 
@@ -48,7 +42,7 @@ var errs = validator.validate('<html><div></div></html>')
 console.log(errs);
 ```
 
-#### 自定义规则配置
+### 自定义规则配置
 
 如需更新验证规则，或者测试新的验证规则，可通过构造参数传入。
 
@@ -62,7 +56,7 @@ var validator = Validator(rules);
 // ...
 ```
 
-### 命令行接口
+## 命令行接口
 
 需要全局安装`mip-validator`（见上一节）。API：
 
@@ -89,7 +83,7 @@ mip-validator --help
     -c, --conf [path]  validator configuration file [rules.json]
 ```
 
-### 浏览器JS
+## 浏览器JS
 
 
 将`dist/mip-validator.js`引入页面后，在脚本中可直接使用：
@@ -101,7 +95,7 @@ var validator = Validator(rules);
 // 使用方式参考编程接口
 ```
 
-## 开发
+## 开发指南
 
 ### 环境准备
 
@@ -150,4 +144,25 @@ mip-validator依赖于Node.js 4以上，
 make dist
 ```
 
-[wiki]: http://gitlab.baidu.com/MIP/mip-validator/wikis/rules
+### 工具脚本
+
+工具脚本位于[bin](bin)目录下：
+
+#### bin/cli.js
+
+命令行接口，通过package.json暴露给NPM。
+
+#### bin/benchmark.js
+
+简单的性能测试，运行[examples/htmls](examples/htmls)下的所有样例，
+并统计运行时间。使用方式：
+
+```bash
+node bin/benchmark.js
+```
+
+#### bin/md-error.js
+
+将[错误代码](src/error.json)转换为Markdown文件，用于Wiki或其他Doc。
+
+[wiki]: https://github.com/mipengine/mip-validator/wiki
