@@ -1,14 +1,19 @@
 # MIP校验框架
 
+[![NPM version](https://img.shields.io/npm/v/mip-validator.svg?style=flat)](https://www.npmjs.org/package/mip-validator)
+[![Build Status](https://travis-ci.org/mipengine/mip-validator.svg?branch=master)](https://travis-ci.org/mipengine/mip-validator)
+[![Coverage Status](https://coveralls.io/repos/github/mipengine/mip-validator/badge.svg?branch=master)](https://coveralls.io/github/mipengine/mip-validator?branch=master)
+[![Dependency manager](https://img.shields.io/david/dev/mipengine/mip-validator.svg?style=flat)](https://david-dm.org/mipengine/mip-validator)
+
 本项目给出用于MIP校验的NPM软件包，支持编程方式、命令行接口、以及浏览器JS。
 本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考[Wiki][wiki]。
 
 ## 依赖与安装
 
-**确保安装了Node.js(版本>=4)**
+确保安装了Node.js(版本>=4)，然后使用npm安装`mip-validator`。
 
 ```bash
-# 编程方式访问
+# 编程方式访问，将会安装到 ./node_modules/mip-validator
 npm install -S mip-validator
 # 命令行接口
 sudo npm install -g mip-validator
@@ -24,17 +29,16 @@ npm install mip-validator
 
 ## 编程接口
 
-需要在本地安装`mip-validator`（见上一节）。API：
+需要在本地安装`mip-validator`，即安装于`node_modules`目录下。API：
 
-* `new Validator([rules])`：根据传入的校验规则返回一个校验器实例。
+* `new Validator(<rules>)`：根据传入的校验规则返回一个校验器实例，`rules`参数可省略，默认为最新的MIP校验规则。
 * `.validate(html)`：传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
-* `#rules`：默认规则配置。
 
 ### 默认使用方式
 
 使用`mip-validator`创建一个实例，即可用来验证MIP HTML。
 
-```bash
+```javascript
 const Validator = require('mip-validator');
 
 var validator = Valicator(); // 等效于：Valicator(Validator.rules);
@@ -44,16 +48,26 @@ console.log(errs);
 
 ### 自定义规则配置
 
-如需更新验证规则，或者测试新的验证规则，可通过构造参数传入。
+如果你希望使用旧版规则（rules.json），或者希望探索MIP校验框架内部的逻辑，
+或者在发明新的校验规则，可以将你的规则作为构造参数传入。
 
-```bash
-rules = {
+```javascript
+var rules = {
     div: {
         mandatory: true
     }
 };
 var validator = Validator(rules);
-// ...
+```
+
+可通过`Validator.rules`访问最新的MIP的规则，并在其基础上进行定制，例如：
+
+```javascript
+var rules = Validator.rules;
+rules.div = {
+    mandatory: rules.iframe.mandatory
+};
+var validator = Validator(rules);
 ```
 
 ## 命令行接口
@@ -77,7 +91,6 @@ mip-validator < a.html > a.html.json
 
 ```bash
 mip-validator --help
-# 命令参数及说明
     -h, --help         output usage information
     -V, --version      output the version number
     -c, --conf [path]  validator configuration file [rules.json]
@@ -85,14 +98,13 @@ mip-validator --help
 
 ## 浏览器JS
 
-
-将`dist/mip-validator.js`引入页面后，在脚本中可直接使用：
+MIP校验框架可以在浏览器端使用，通过`window.MIPValidator`提供API。
+将`dist/mip-validator.js`引入页面后，在脚本中可直接使用，用法与Node.js端完全相同：
 
 ```javascript
 // 在浏览器中：
 var Validator = window.MIPValidator;
 var validator = Validator(rules);
-// 使用方式参考编程接口
 ```
 
 ## 开发指南
