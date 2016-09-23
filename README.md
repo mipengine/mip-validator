@@ -1,11 +1,15 @@
-# MIP校验框架和命令行工具
+# MIP校验框架
 
-本项目给出用于MIP校验的NPM软件包，支持编程方式和命令行两种接口。
-本文档介绍两种接口的使用和开发方式，如需了解规则配置框架请移步：
+本项目给出用于MIP校验的NPM软件包，支持编程方式、命令行接口、以及浏览器JS。
+本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考：
 
-<http://gitlab.baidu.com/MIP/mip-validator/tree/master/docs/rules.md>
+* 规则配置语法： <https://github.com/mipengine/mip-validator/wiki/MIP%E8%A7%84%E5%88%99%E8%AF%AD%E6%B3%95>
+* 最新规则文件： <https://github.com/mipengine/mip-validator/blob/master/rules.json>
+* 错误码与错误提示：<https://github.com/mipengine/mip-validator/blob/master/src/error.json>
 
 ## 安装
+
+**确保安装了Node.js(版本>=4)**
 
 ```bash
 # 编程方式访问
@@ -71,39 +75,31 @@ var validator = Validator(rules);
 ```bash
 # 验证 a.html
 mip-validator < a.html
-# 使用自定义规则conf.json验证a.html
-mip-validator -c conf.json < a.html
+# 也可将验证结果重定向至文件
+mip-validator < a.html > a.html.json
 ```
 
-更多使用方式请参考：
+更多参数：
 
 ```bash
 mip-validator --help
+# 命令参数及说明
+    -h, --help         output usage information
+    -V, --version      output the version number
+    -c, --conf [path]  validator configuration file [rules.json]
 ```
 
-### 构建浏览器库
+### 浏览器JS
 
-mip-validator依赖于Node.js 4以上，但可以通过Browserify在浏览器中运行。
-构建浏览器库：
-
-```bash
-# 输出到 dist/ 目录：mip-validator.min.js, mip-validator.js
-make dist
-```
 
 将`dist/mip-validator.js`引入页面后，在脚本中可直接使用：
 
 ```javascript
 // 在浏览器中：
-var Validator = require('mip-validator');
+var Validator = window.MIPValidator;
 var validator = Validator(rules);
-// ...
+// 使用方式参考编程接口
 ```
-
-## 规则配置
-
-`mip-validator`使用JSON格式的规则配置，详情请查看[wiki][wiki]。
-代码仓库中提供了示例配置文件：`rules.json`。
 
 ## 开发
 
@@ -116,7 +112,7 @@ git clone xxx
 npm install
 ```
 
-### 测试
+### 单元测试
 
 可以使用NPM Script进行测试，也可以全局安装`mocha`后直接运行Mocha。
 
@@ -128,9 +124,9 @@ npm test
 mocha
 ```
 
-### 校验样例HTML
+### 集成测试
 
-利用Makefile可以方便地校验`example`下的样例文件，其中：
+目前利用Makefile可以方便地校验`example`下的样例文件，其中：
 
 * `example/htmls/*.html`: 样例HTML
 * `example/results/*.html.json`: 对应样例HTML的校验结果
@@ -139,6 +135,19 @@ mocha
 
 ```bash
 make examples
+```
+
+TODO: 自动运行集成测试，并给出DIFF。
+
+### 构建浏览器JS
+
+mip-validator依赖于Node.js 4以上，
+但本项目通过Browserify提供了在浏览器JS。
+可通过下列命令重新生成：
+
+```bash
+# 输出到 dist/ 目录：mip-validator.min.js, mip-validator.js
+make dist
 ```
 
 [wiki]: http://gitlab.baidu.com/MIP/mip-validator/wikis/rules

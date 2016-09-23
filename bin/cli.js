@@ -7,7 +7,7 @@ const path = require('path');
 
 program
     .version(pkg.version)
-    .option('-c, --conf [path]', 'validator configuration file [validator.json]')
+    .option('-c, --conf [path]', 'validator configuration file [rules.json]')
     .parse(process.argv);
 
 var html = '';

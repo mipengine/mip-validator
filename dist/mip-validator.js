@@ -21909,7 +21909,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -22323,6 +22323,7 @@ Engine.prototype.register = function (validator) {
 Engine.prototype.onBegin = function (error) {
     var _this = this;
 
+    //console.log('onBegin');
     _.map(this.onBeginCbs, function (cb) {
         return cb(error, _this);
     });
@@ -22331,6 +22332,7 @@ Engine.prototype.onBegin = function (error) {
 Engine.prototype.onNode = function (node, config, error) {
     var _this2 = this;
 
+    //console.log('onNode', node.nodeName);
     // get rules
     var rules = _.chain(config.regexNodes).filter(function (rules, name) {
         return rules.regex.test(node.nodeName);
@@ -22376,6 +22378,7 @@ Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
 Engine.prototype.onEnd = function (error) {
     var _this4 = this;
 
+    //console.log('onEnd');
     _.map(this.onEndCbs, function (cb) {
         return cb(error, _this4);
     });
@@ -22384,6 +22387,7 @@ Engine.prototype.onEnd = function (error) {
 Engine.prototype.dfs = function (node, error) {
     var _this5 = this;
 
+    //console.log('dfs', node.nodeName);
     this.onNode(node, this.config, error);
     var children = node.childNodes || [];
     children.forEach(function (child) {
@@ -22520,9 +22524,20 @@ function fingerprintByTag(node) {
     return '<' + node.nodeName + attrStr + '>';
 }
 
+function tagsPattern(tags) {
+    var reTags = tags.join('|');
+    return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'g');
+}
+
+function matchTagNames(tagNames, html) {
+    var tagsStr = tagNames.join('|');
+    var re = new RegExp('<\\s*(' + tagsStr + ')(?:\\s+[^>]*)*>', 'g');
+    return (html || '').match(re) || [];
+}
+
 module.exports = {
     match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject,
-    stringToRegex: stringToRegex
+    stringToRegex: stringToRegex, matchTagNames: matchTagNames
 };
 
 },{"lodash":12}],58:[function(require,module,exports){
@@ -22639,24 +22654,18 @@ exports.onNode = function (node, rule, error, engine) {
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(error, engine) {
-    var re = tagPattern(POLYFILL_TAGS),
-        match;
-    while (match = re.exec(engine.html)) {
-        var input = match[0];
-        var tag = match[1];
-        var rules = _.get(engine.config.nodes, '' + tag);
+    var matches = matcher.matchTagNames(POLYFILL_TAGS, engine.html);
+    //console.log(matches);
+    matches.forEach(function (tag) {
+        var tagName = tag.match(/\w+/);
+        var rules = _.get(engine.config.nodes, '' + tagName);
         _.map(rules, function (rule) {
             if (!rule.disallow) return;
 
             var err = ERR.DISALLOWED_TAG;
             error(err, tag);
         });
-    }
-}
-
-function tagPattern(tags) {
-    var reTags = tags.join('|');
-    return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'g');
+    });
 }
 
 },{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],62:[function(require,module,exports){
@@ -22689,12 +22698,16 @@ var util = require('util');
 var cache;
 
 exports.onBegin = function (error, engine) {
+    //console.log('[DUPLICATE_UNIQUE_TAG] onBegin');
     cache = {};
 
     _.forOwn(engine.config.nodes, function (rules, ruleName) {
+        //console.log('rules', rules);
         _.map(rules, function (rule) {
+            //console.log('rule', rule);
             if (rule.duplicate) {
                 _.map(rule.duplicate, function (pattern) {
+                    //console.log('pattern', pattern);
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
                     var hash = fingerprint + rule.id;
                     cache[hash] = 0;
@@ -22702,8 +22715,10 @@ exports.onBegin = function (error, engine) {
             }
         });
     });
-
+    //console.log('[DUPLICATE_UNIQUE_TAG] before polyfill');
     validatePolyfill(error, engine);
+    //console.log('[DUPLICATE_UNIQUE_TAG] after polyfill');
+    //console.log('[DUPLICATE_UNIQUE_TAG] after onBegin');
 };
 
 exports.onNode = function (node, rule, error, engine) {
@@ -22728,10 +22743,8 @@ function validatePolyfill(error, engine) {
         var rules = _.get(engine.config.nodes, '' + tag);
         _.map(rules, function (rule) {
             if (!rule.duplicate) return;
-
-            var re = new RegExp('<\\s*' + tag + '(\\s+.*)*>', 'g');
-            var match = engine.html.match(re);
-            if (match && match.length > 1) {
+            var matches = matcher.matchTagNames([tag], engine.html);
+            if (matches.length > 1) {
                 error(ERR.DUPLICATE_UNIQUE_TAG, tag);
             }
         });
@@ -22834,11 +22847,13 @@ var POLYFILL_TAGS = ['html', 'body', 'head'];
 var tags, ors;
 
 exports.onBegin = function (error, engine) {
+    //console.log('[MANDATORY_TAG_MISSING] onBegin');
     tags = {};
     ors = {};
 
     // 初始化Mandatory标记
     _.forOwn(engine.config.nodes, function (rules, ruleName) {
+        //console.log(rules);
         _.map(rules, function (rule) {
             if (rule.mandatory) {
                 _.map(rule.mandatory, function (pattern) {
@@ -22862,6 +22877,7 @@ exports.onBegin = function (error, engine) {
     });
 
     validatePolyfill(error, engine);
+    //console.log('[MANDATORY_TAG_MISSING] after onBegin');
 };
 
 exports.onNode = function (node, rule, error, engine) {
@@ -22898,10 +22914,8 @@ function validatePolyfill(error, engine) {
         var rules = _.get(engine.config.nodes, '' + tag);
         _.map(rules, function (rule) {
             if (!rule.mandatory) return;
-
-            var re = new RegExp('<' + tag + '(\\s+.*)*>', 'g');
-            var match = engine.html.match(re);
-            if (!match) {
+            var matches = matcher.matchTagNames([tag], engine.html);
+            if (matches.length === 0) {
                 error(ERR.MANDATORY_TAG_MISSING, '<' + tag + '>');
             }
         });
