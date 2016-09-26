@@ -6,7 +6,7 @@ htmls = $(shell find examples/htmls -name "*.html")
 
 results = $(patsubst examples/htmls/%,examples/results/%.json, $(htmls))
 
-default:
+default: 
 
 examples: $(results)
 
