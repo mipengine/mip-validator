@@ -2,6 +2,7 @@ const parse5 = require('parse5');
 const _ = require('lodash');
 const matcher = require('./matcher.js');
 const ValidateError = require('./validate-error.js');
+const logger = require('./logger');
 
 function Engine(config) {
     this.config = config;
