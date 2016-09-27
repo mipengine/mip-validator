@@ -1,16 +1,30 @@
-const _ = require('lodash');
-
 function Logger(id) {
-    if (!_.isString(id)) {
+    if (!isString(id)) {
         throw new Error(`invalid logger id: ${id}`);
     }
-    //var enabled = (process.env.DEBUG || '');
+    var debugEnabled = match(process.env.DEBUG, id);
     return {
+        debug: debugEnabled ? createWith(console.log.bind(console), id) : x => false,
         log: createWith(console.log.bind(console), id),
         warn: createWith(console.warn.bind(console), id),
         error: createWith(console.error.bind(console), id),
         info: createWith(console.info.bind(console), id)
     };
+}
+
+function isString(obj) {
+    return (typeof obj === 'string' || obj instanceof String);
+}
+
+function match(root, path) {
+    if (!root) return false;
+    root = String(root).split(':').filter(x => x.length);
+    path = (path || '').split(':').filter(x => x.length);
+    console.log(root, path);
+    for (var i = 0; i < root.length; i++) {
+        if (path[i] != root[i]) return false;
+    }
+    return true;
 }
 
 function createWith(output, id) {
@@ -39,42 +53,46 @@ function timestamp() {
     return date + '-' + time;
 }
 
-var formatRegExp = /%[sdj%]/g;
+var formatRegExp = /%[sdjJ%]/g;
 
 function format(f) {
-    // no a format string
-    if (!_.isString(f)) {
-        return _.toArray(arguments).map(_.toString).join(' ');
-    }
-
-    i = 1;
+    var i = 0;
     var args = arguments;
     var len = args.length;
-    var str = String(f).replace(formatRegExp, function(x) {
-        if (x === '%%') return '%';
-        if (i >= len) return x;
-        switch (x) {
-            case '%s':
-                return String(args[i++]);
-            case '%d':
-                return Number(args[i++]);
-            case '%j':
-                try {
-                    return JSON.stringify(args[i++]);
-                } catch (_) {
-                    return '[Circular]';
-                }
-                break;
-            default:
-                return x;
-        }
-    });
+    var str = '';
+    if (isString(f)) {
+        i++;
+        str += String(f).replace(formatRegExp, function(x) {
+            if (i >= len) return x;
+            switch (x) {
+                case '%%':
+                    return '%';
+                case '%s':
+                    return String(args[i++]);
+                case '%d':
+                    return Number(args[i++]);
+                case '%j':
+                    try {
+                        return JSON.stringify(args[i++]);
+                    } catch (_) {
+                        return '[Circular]';
+                    }
+                    break;
+                case '%J':
+                    try {
+                        return '\n' + JSON.stringify(args[i++], null, 4) + '\n';
+                    } catch (_) {
+                        return '\n[Circular]\n';
+                    }
+                    break;
+                default:
+                    return x;
+            }
+        });
+    }
     for (var x = args[i]; i < len; x = args[++i]) {
-        if (isNull(x) || !isObject(x)) {
-            str += ' ' + x;
-        } else {
-            str += ' ' + inspect(x);
-        }
+        console.log('haha ' + x);
+        str += ' ' + x;
     }
     return str;
 }
