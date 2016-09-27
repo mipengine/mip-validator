@@ -3,7 +3,7 @@ const ERR = require('../error.json');
 const POLYFILL_TAGS = ['frame', 'frameset'];
 const util = require('util');
 const matcher = require('../matcher.js');
-const logger = require('../logger.js');
+const logger = require('../logger.js')('mip-validator:disallowed_tag');
 
 exports.onBegin = function(error, engine) {
     validatePolyfill(error, engine);
