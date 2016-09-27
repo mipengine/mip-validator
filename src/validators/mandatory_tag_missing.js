@@ -2,18 +2,18 @@ const _ = require('lodash');
 const ERR = require('../error.json');
 const matcher = require('../matcher.js');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
+const logger = require('../logger.js')('mip-validator:mandatory_tag_missing');
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
 
 exports.onBegin = function(error, engine) {
-    //console.log('[MANDATORY_TAG_MISSING] onBegin');
+    logger.debug('[MANDATORY_TAG_MISSING] onBegin');
     tags = {};
     ors = {};
 
     // 初始化Mandatory标记
     _.forOwn(engine.config.nodes, (rules, ruleName) => {
-        //console.log(rules);
         _.map(rules, rule => {
             if (rule.mandatory) {
                 _.map(rule.mandatory, pattern => {
@@ -37,7 +37,6 @@ exports.onBegin = function(error, engine) {
     });
 
     validatePolyfill(error, engine);
-    //console.log('[MANDATORY_TAG_MISSING] after onBegin');
 };
 
 exports.onNode = function(node, rule, error, engine) {

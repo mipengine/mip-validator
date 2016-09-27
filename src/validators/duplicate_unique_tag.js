@@ -3,20 +3,18 @@ const ERR = require('../error.json');
 const POLYFILL_TAGS = ['html', 'body', 'head'];
 const matcher = require('../matcher.js');
 const util = require('util');
+const logger = require('../logger.js')('mip-validator:duplicate_unique_tag');
 
 var cache;
 
 exports.onBegin = function(error, engine) {
-    //console.log('[DUPLICATE_UNIQUE_TAG] onBegin');
+    logger.debug('[DUPLICATE_UNIQUE_TAG] onBegin');
     cache = {};
 
     _.forOwn(engine.config.nodes, (rules, ruleName) => {
-        //console.log('rules', rules);
         _.map(rules, rule => {
-            //console.log('rule', rule);
             if (rule.duplicate) {
                 _.map(rule.duplicate, pattern => {
-                    //console.log('pattern', pattern);
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
                     var hash = fingerprint + rule.id;
                     cache[hash] = 0;
@@ -24,10 +22,7 @@ exports.onBegin = function(error, engine) {
             }
         });
     });
-    //console.log('[DUPLICATE_UNIQUE_TAG] before polyfill');
     validatePolyfill(error, engine);
-    //console.log('[DUPLICATE_UNIQUE_TAG] after polyfill');
-    //console.log('[DUPLICATE_UNIQUE_TAG] after onBegin');
 };
 
 exports.onNode = function(node, rule, error, engine) {

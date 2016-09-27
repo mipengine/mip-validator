@@ -7,6 +7,7 @@ var Engine = require('./src/engine.js');
 var config = require('./src/config.js');
 var rules = require('./rules.json');
 var preprocess = require('./src/preprocess.js');
+var logger = require('./src/logger.js')('mip-validator:index');
 
 function factory(conf) {
     if (conf === 'package.json') {
@@ -40,7 +41,7 @@ factory.rules = _.cloneDeep(rules);
 
 module.exports = factory;
 
-},{"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":55,"./src/preprocess.js":58,"./src/validators/disallowed_attr.js":60,"./src/validators/disallowed_tag.js":61,"./src/validators/disallowed_tag_ancestor.js":62,"./src/validators/duplicate_unique_tag.js":63,"./src/validators/invalid_attr_value.js":64,"./src/validators/invalid_property_value_in_attr_value.js":65,"./src/validators/mandatory_oneof_attr_missing.js":66,"./src/validators/mandatory_tag_ancestor.js":67,"./src/validators/mandatory_tag_missing.js":68,"./src/validators/mandatory_tag_parent.js":69,"lodash":12}],2:[function(require,module,exports){
+},{"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":55,"./src/logger.js":57,"./src/preprocess.js":59,"./src/validators/disallowed_attr.js":61,"./src/validators/disallowed_tag.js":62,"./src/validators/disallowed_tag_ancestor.js":63,"./src/validators/duplicate_unique_tag.js":64,"./src/validators/invalid_attr_value.js":65,"./src/validators/invalid_property_value_in_attr_value.js":66,"./src/validators/mandatory_oneof_attr_missing.js":67,"./src/validators/mandatory_tag_ancestor.js":68,"./src/validators/mandatory_tag_missing.js":69,"./src/validators/mandatory_tag_parent.js":70,"lodash":12}],2:[function(require,module,exports){
 'use strict';
 
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -21929,6 +21930,8 @@ module.exports={
     "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "mock-fs": "^3.11.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
@@ -22304,6 +22307,7 @@ var parse5 = require('parse5');
 var _ = require('lodash');
 var matcher = require('./matcher.js');
 var ValidateError = require('./validate-error.js');
+var logger = require('./logger.js')('mip-validator:engine');
 
 function Engine(config) {
     this.config = config;
@@ -22313,6 +22317,10 @@ function Engine(config) {
     this.onNodeCbs = [];
 }
 
+/*
+ * Register a validator
+ * @param {Object} validator
+ */
 Engine.prototype.register = function (validator) {
     validator.onBegin && this.onBeginCbs.push(validator.onBegin);
     validator.onEnd && this.onEndCbs.push(validator.onEnd);
@@ -22320,24 +22328,39 @@ Engine.prototype.register = function (validator) {
     validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
+/*
+ * Callback when DFS begins
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.onBegin = function (error) {
     var _this = this;
 
-    //console.log('onBegin');
+    logger.debug('onBegin');
     _.map(this.onBeginCbs, function (cb) {
         return cb(error, _this);
     });
 };
 
+/*
+ * Callback when DFS found a Node
+ * @param {ASTNode}  node   the node currently found, see:
+ *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
+ * @param {Object}   config rule config object
+ * @param {Function} error  errorFactory to create an error.
+ */
 Engine.prototype.onNode = function (node, config, error) {
     var _this2 = this;
 
-    //console.log('onNode', node.nodeName);
+    logger.debug('onNode', node.nodeName);
     // get rules
     var rules = _.chain(config.regexNodes).filter(function (rules, name) {
         return rules.regex.test(node.nodeName);
     }).flatten().concat(config.nodes[node.nodeName] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
+    }).filter(function (rule) {
+        return matcher.matchParent(node, rule.match_parent);
+    }).filter(function (rule) {
+        return matcher.matchAncestor(node, rule.match_ancestor);
     }).value();
 
     _.forEach(rules, function (nodeRule) {
@@ -22358,6 +22381,14 @@ Engine.prototype.onNode = function (node, config, error) {
     }
 };
 
+/*
+ * Callback when DFS found an attribute
+ * @param {ASTAttribute} attribute the attribute currently found
+ *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
+ * @param {ASTNode}      node the parent node
+ * @param {Object}       nodeRule rule config object for the node
+ * @param {Function}     error  errorFactory to create an error
+ */
 Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
     var _this3 = this;
 
@@ -22375,19 +22406,27 @@ Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
     });
 };
 
+/*
+ * Callback when DFS ends
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.onEnd = function (error) {
     var _this4 = this;
 
-    //console.log('onEnd');
+    logger.debug('onEnd');
     _.map(this.onEndCbs, function (cb) {
         return cb(error, _this4);
     });
 };
 
+/*
+ * Do a DFS for the node
+ * @param {ASTNode}  node the root node to dfs with
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.dfs = function (node, error) {
     var _this5 = this;
 
-    //console.log('dfs', node.nodeName);
     this.onNode(node, this.config, error);
     var children = node.childNodes || [];
     children.forEach(function (child) {
@@ -22395,6 +22434,10 @@ Engine.prototype.dfs = function (node, error) {
     });
 };
 
+/*
+ * Validate the HTML
+ * @param {String} html The HTML to validate
+ */
 Engine.prototype.validate = function (html) {
     this.html = html;
 
@@ -22416,11 +22459,12 @@ module.exports = function (rules) {
     return new Engine(rules);
 };
 
-},{"./matcher.js":57,"./validate-error.js":59,"lodash":12,"parse5":18}],56:[function(require,module,exports){
+},{"./logger.js":57,"./matcher.js":58,"./validate-error.js":60,"lodash":12,"parse5":18}],56:[function(require,module,exports){
 module.exports={
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
-    "message": "强制性标签'%s'缺失或错误"
+    "message": "强制性标签'%s'缺失或错误",
+    "misc": "去除该标签即可"
   },
   "DISALLOWED_TAG": {
     "code": "06200201",
@@ -22461,16 +22505,131 @@ module.exports={
 }
 
 },{}],57:[function(require,module,exports){
+(function (process){
+'use strict';
+
+function Logger(id) {
+    if (!isString(id)) {
+        throw new Error('invalid logger id: ' + id);
+    }
+    var debugEnabled = match(process.env.DEBUG, id);
+    return {
+        debug: debugEnabled ? createWith(console.log.bind(console), id) : function (x) {
+            return false;
+        },
+        log: createWith(console.log.bind(console), id),
+        warn: createWith(console.warn.bind(console), id),
+        error: createWith(console.error.bind(console), id),
+        info: createWith(console.info.bind(console), id)
+    };
+}
+
+function isString(obj) {
+    return typeof obj === 'string' || obj instanceof String;
+}
+
+function match(root, path) {
+    if (!root) return false;
+    root = String(root).split(':').filter(function (x) {
+        return x.length;
+    });
+    path = (path || '').split(':').filter(function (x) {
+        return x.length;
+    });
+    console.log(root, path);
+    for (var i = 0; i < root.length; i++) {
+        if (path[i] != root[i]) return false;
+    }
+    return true;
+}
+
+function createWith(output, id) {
+    return function () {
+        var str = '[' + timestamp() + '][' + id + '] ';
+        str += format.apply(exports, arguments);
+        output(str);
+        return str;
+    };
+}
+
+function pad(n) {
+    return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+function timestamp() {
+    var d = new Date();
+    var date = [pad(d.getFullYear()), pad(d.getMonth() + 1), pad(d.getDate())].join('/');
+    var time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+    return date + '-' + time;
+}
+
+var formatRegExp = /%[sdjJ%]/g;
+
+function format(f) {
+    var i = 0;
+    var args = arguments;
+    var len = args.length;
+    var str = '';
+    if (isString(f)) {
+        i++;
+        str += String(f).replace(formatRegExp, function (x) {
+            if (i >= len) return x;
+            switch (x) {
+                case '%%':
+                    return '%';
+                case '%s':
+                    return String(args[i++]);
+                case '%d':
+                    return Number(args[i++]);
+                case '%j':
+                    try {
+                        return JSON.stringify(args[i++]);
+                    } catch (_) {
+                        return '[Circular]';
+                    }
+                    break;
+                case '%J':
+                    try {
+                        return '\n' + JSON.stringify(args[i++], null, 4) + '\n';
+                    } catch (_) {
+                        return '\n[Circular]\n';
+                    }
+                    break;
+                default:
+                    return x;
+            }
+        });
+    }
+    for (var x = args[i]; i < len; x = args[++i]) {
+        str += ' ' + x;
+    }
+    return str;
+}
+
+module.exports = Logger;
+
+}).call(this,require('_process'))
+},{"_process":36}],58:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var regexSyntax = /^\/(.*)\/(\w*)$/;
+var logger = require('./logger.js')('mip-validator:matcher');
 
+/*
+ * convert regex-like string to regex
+ * @param {str} the regex-like string to convert
+ */
 function stringToRegex(str) {
     var match = str.match(regexSyntax);
     return match ? new RegExp(match[1], match[2]) : null;
 }
 
+/*
+ * match string with string rule
+ * @param {String} src the string to match
+ * @param {String} target the string or regex-like string to match with
+ */
 function matchValue(src, target) {
     var re;
     if (re = stringToRegex(target)) {
@@ -22480,6 +22639,17 @@ function matchValue(src, target) {
     }
 }
 
+/*
+ * object match: match src with target
+ * @param {Object} src the object to match
+ * @param {Object} target the object to match with
+ * legacy:
+ *      match({
+ *          id: 'modal-user'
+ *      }, {
+ *          id: '/^modal-.+$/'
+ *      });
+ */
 function match(src, target) {
     var ret = true;
     _.forOwn(target, function (value, key) {
@@ -22490,6 +22660,16 @@ function match(src, target) {
     return ret;
 }
 
+/*
+ * attributes match
+ * @param {ASTNode} node the node of which attributes will be matched
+ * @param {Object} target the attribute list object to match with
+ * legacy:
+ *      matchAttrs(node, {
+ *          style: 'color:red',
+ *          id: '/mip-.+/'
+ *      });
+ */
 function matchAttrs(node, target) {
     var attrSet = _.chain(node.attrs).map(function (attr) {
         return [attr.name, attr.value];
@@ -22497,6 +22677,44 @@ function matchAttrs(node, target) {
     return match(attrSet, target);
 }
 
+/*
+ * match ancestor name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} ancestorNodeName string or regex-like string to match with
+ * legacy:
+ *      matchAncestor(node, 'form');
+ *      matchAncestor(node, '/form|div|section/'
+ */
+function matchAncestor(node, ancestorNodeName) {
+    // match_ancestor disabled
+    if (!ancestorNodeName) return true;
+
+    while (node = node.parentNode) {
+        if (matchValue(node.nodeName, ancestorNodeName)) return true;
+    }
+    return false;
+}
+
+/*
+ * match parent name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} parentNodeName string or regex-like string to match with
+ * legacy:
+ *      matchParent(node, 'form');
+ *      matchParent(node, '/form|div|section/'
+ */
+function matchParent(node, parentNodeName) {
+    // match disabled 
+    if (!parentNodeName) return true;
+    // there's no parent
+    if (!node.parentNode) return false;
+
+    return matchValue(node.parentNode.nodeName, parentNodeName);
+}
+
+/*
+ * Create a ASTNode for given nodeName and attribute object
+ */
 function createNode(nodeName, attrsObj) {
     return {
         nodeName: nodeName,
@@ -22509,11 +22727,21 @@ function createNode(nodeName, attrsObj) {
     };
 }
 
+/*
+ * Generate a fingerprint for given nodeName and attributes
+ * legacy:
+ *      // returns: <div id="modal">
+ *      fingerprintByObject('div', {id: 'modal'});
+ */
 function fingerprintByObject(nodeName, attrsObj) {
     var tag = createNode(nodeName, attrsObj);
     return fingerprintByTag(tag);
 }
 
+/*
+ * Generate a fingerprint for given node
+ * @param {ASTNode} node
+ */
 function fingerprintByTag(node) {
     var attrStr = _.chain(node.attrs).map(function (attr) {
         return attr.name + '="' + attr.value + '"';
@@ -22524,11 +22752,22 @@ function fingerprintByTag(node) {
     return '<' + node.nodeName + attrStr + '>';
 }
 
+/*
+ * Get a RegExp matching one of the given tags
+ * @param {Array} tags
+ * legacy: tagsPattern(['div', 'head', 'iframe'])
+ */
 function tagsPattern(tags) {
     var reTags = tags.join('|');
     return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'g');
 }
 
+/*
+ * Match tagnames from the given HTML
+ * @param {Array} tagNames
+ * @param {String} html
+ * legacy: matchTagNames(['div', 'head', 'iframe'], '<div><iframe></div>')
+ */
 function matchTagNames(tagNames, html) {
     var tagsStr = tagNames.join('|');
     var re = new RegExp('<\\s*(' + tagsStr + ')(?:\\s+[^>]*)*>', 'g');
@@ -22537,10 +22776,10 @@ function matchTagNames(tagNames, html) {
 
 module.exports = {
     match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject,
-    stringToRegex: stringToRegex, matchTagNames: matchTagNames
+    stringToRegex: stringToRegex, matchTagNames: matchTagNames, matchParent: matchParent, matchAncestor: matchAncestor
 };
 
-},{"lodash":12}],58:[function(require,module,exports){
+},{"./logger.js":57,"lodash":12}],59:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22585,7 +22824,7 @@ function processAttrRule(attrRule) {
 
 exports.process = process;
 
-},{"./matcher.js":57,"lodash":12}],59:[function(require,module,exports){
+},{"./matcher.js":58,"lodash":12}],60:[function(require,module,exports){
 'use strict';
 
 var util = require('util');
@@ -22616,7 +22855,7 @@ function getGenerator(options) {
 
 exports.generator = getGenerator;
 
-},{"lodash":12,"util":51}],60:[function(require,module,exports){
+},{"lodash":12,"util":51}],61:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22632,7 +22871,7 @@ exports.onAttr = function (attr, attrRule, node, rule, error, engine) {
     }
 };
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],61:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":58,"lodash":12,"util":51}],62:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22640,6 +22879,7 @@ var ERR = require('../error.json');
 var POLYFILL_TAGS = ['frame', 'frameset'];
 var util = require('util');
 var matcher = require('../matcher.js');
+var logger = require('../logger.js');
 
 exports.onBegin = function (error, engine) {
     validatePolyfill(error, engine);
@@ -22654,8 +22894,8 @@ exports.onNode = function (node, rule, error, engine) {
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(error, engine) {
+    logger.debug('begin polyfills', matches);
     var matches = matcher.matchTagNames(POLYFILL_TAGS, engine.html);
-    //console.log(matches);
     matches.forEach(function (tag) {
         var tagName = tag.match(/\w+/);
         var rules = _.get(engine.config.nodes, '' + tagName);
@@ -22668,7 +22908,7 @@ function validatePolyfill(error, engine) {
     });
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],62:[function(require,module,exports){
+},{"../error.json":56,"../logger.js":57,"../matcher.js":58,"lodash":12,"util":51}],63:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22686,7 +22926,7 @@ exports.onNode = function (node, rule, error, engine) {
     }
 };
 
-},{"../error.json":56,"lodash":12,"util":51}],63:[function(require,module,exports){
+},{"../error.json":56,"lodash":12,"util":51}],64:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22694,20 +22934,18 @@ var ERR = require('../error.json');
 var POLYFILL_TAGS = ['html', 'body', 'head'];
 var matcher = require('../matcher.js');
 var util = require('util');
+var logger = require('../logger.js')('mip-validator:duplicate_unique_tag');
 
 var cache;
 
 exports.onBegin = function (error, engine) {
-    //console.log('[DUPLICATE_UNIQUE_TAG] onBegin');
+    logger.debug('[DUPLICATE_UNIQUE_TAG] onBegin');
     cache = {};
 
     _.forOwn(engine.config.nodes, function (rules, ruleName) {
-        //console.log('rules', rules);
         _.map(rules, function (rule) {
-            //console.log('rule', rule);
             if (rule.duplicate) {
                 _.map(rule.duplicate, function (pattern) {
-                    //console.log('pattern', pattern);
                     var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
                     var hash = fingerprint + rule.id;
                     cache[hash] = 0;
@@ -22715,10 +22953,7 @@ exports.onBegin = function (error, engine) {
             }
         });
     });
-    //console.log('[DUPLICATE_UNIQUE_TAG] before polyfill');
     validatePolyfill(error, engine);
-    //console.log('[DUPLICATE_UNIQUE_TAG] after polyfill');
-    //console.log('[DUPLICATE_UNIQUE_TAG] after onBegin');
 };
 
 exports.onNode = function (node, rule, error, engine) {
@@ -22751,7 +22986,7 @@ function validatePolyfill(error, engine) {
     });
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12,"util":51}],64:[function(require,module,exports){
+},{"../error.json":56,"../logger.js":57,"../matcher.js":58,"lodash":12,"util":51}],65:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22767,7 +23002,7 @@ exports.onAttr = function (attr, attrRule, node, rule, error, engine) {
     }
 };
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12}],65:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":58,"lodash":12}],66:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22796,7 +23031,7 @@ function parseValueProperties(value) {
     }).fromPairs().value();
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12}],66:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":58,"lodash":12}],67:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22817,7 +23052,7 @@ exports.onNode = function (node, nodeRule, error, engine) {
     });
 };
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12}],67:[function(require,module,exports){
+},{"../error.json":56,"../matcher.js":58,"lodash":12}],68:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
@@ -22835,25 +23070,25 @@ exports.onNode = function (node, rule, error, engine) {
     error(err, node.nodeName, rule.mandatory_ancestor);
 };
 
-},{"../error.json":56,"lodash":12}],68:[function(require,module,exports){
+},{"../error.json":56,"lodash":12}],69:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
 var ERR = require('../error.json');
 var matcher = require('../matcher.js');
 var POLYFILL_TAGS = ['html', 'body', 'head'];
+var logger = require('../logger.js')('mip-validator:mandatory_tag_missing');
 
 // Tag 标记，Tag OR 标记
 var tags, ors;
 
 exports.onBegin = function (error, engine) {
-    //console.log('[MANDATORY_TAG_MISSING] onBegin');
+    logger.debug('[MANDATORY_TAG_MISSING] onBegin');
     tags = {};
     ors = {};
 
     // 初始化Mandatory标记
     _.forOwn(engine.config.nodes, function (rules, ruleName) {
-        //console.log(rules);
         _.map(rules, function (rule) {
             if (rule.mandatory) {
                 _.map(rule.mandatory, function (pattern) {
@@ -22877,7 +23112,6 @@ exports.onBegin = function (error, engine) {
     });
 
     validatePolyfill(error, engine);
-    //console.log('[MANDATORY_TAG_MISSING] after onBegin');
 };
 
 exports.onNode = function (node, rule, error, engine) {
@@ -22922,7 +23156,7 @@ function validatePolyfill(error, engine) {
     });
 }
 
-},{"../error.json":56,"../matcher.js":57,"lodash":12}],69:[function(require,module,exports){
+},{"../error.json":56,"../logger.js":57,"../matcher.js":58,"lodash":12}],70:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
