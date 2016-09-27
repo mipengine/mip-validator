@@ -67,7 +67,7 @@ describe('disallowed attr', function() {
                     'style': {
                         disallow: true,
                     },
-                    '/^on/': {
+                    '/^on.+/': {
                         disallow: true
                     }
                 }

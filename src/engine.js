@@ -2,7 +2,7 @@ const parse5 = require('parse5');
 const _ = require('lodash');
 const matcher = require('./matcher.js');
 const ValidateError = require('./validate-error.js');
-const logger = require('./logger');
+const logger = require('./logger.js')('mip-validator:engine');
 
 function Engine(config) {
     this.config = config;
@@ -12,6 +12,10 @@ function Engine(config) {
     this.onNodeCbs = [];
 }
 
+/*
+ * Register a validator
+ * @param {Object} validator
+ */
 Engine.prototype.register = function(validator) {
     validator.onBegin && this.onBeginCbs.push(validator.onBegin);
     validator.onEnd && this.onEndCbs.push(validator.onEnd);
@@ -19,19 +23,32 @@ Engine.prototype.register = function(validator) {
     validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
+/*
+ * Callback when DFS begins
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.onBegin = function(error) {
-    //console.log('onBegin');
+    logger.debug('onBegin');
     _.map(this.onBeginCbs, cb => cb(error, this));
 };
 
+/*
+ * Callback when DFS found a Node
+ * @param {ASTNode}  node   the node currently found, see:
+ *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
+ * @param {Object}   config rule config object
+ * @param {Function} error  errorFactory to create an error.
+ */
 Engine.prototype.onNode = function(node, config, error) {
-    //console.log('onNode', node.nodeName);
+    logger.debug('onNode', node.nodeName);
     // get rules
     var rules = _.chain(config.regexNodes)
         .filter((rules, name) => rules.regex.test(node.nodeName))
         .flatten()
         .concat(config.nodes[node.nodeName] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
+        .filter(rule => matcher.matchParent(node, rule.match_parent))
+        .filter(rule => matcher.matchAncestor(node, rule.match_ancestor))
         .value();
 
     _.forEach(rules, nodeRule => {
@@ -50,6 +67,14 @@ Engine.prototype.onNode = function(node, config, error) {
     }
 };
 
+/*
+ * Callback when DFS found an attribute
+ * @param {ASTAttribute} attribute the attribute currently found
+ *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
+ * @param {ASTNode}      node the parent node
+ * @param {Object}       nodeRule rule config object for the node
+ * @param {Function}     error  errorFactory to create an error
+ */
 Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
     // get rules
     var rules = _.chain(nodeRule.regexAttrs)
@@ -64,18 +89,30 @@ Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
     });
 };
 
+/*
+ * Callback when DFS ends
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.onEnd = function(error) {
-    //console.log('onEnd');
+    logger.debug('onEnd');
     _.map(this.onEndCbs, cb => cb(error, this));
 };
 
+/*
+ * Do a DFS for the node
+ * @param {ASTNode}  node the root node to dfs with
+ * @param {Function} error errorFactory to create an error.
+ */
 Engine.prototype.dfs = function(node, error) {
-    //console.log('dfs', node.nodeName);
     this.onNode(node, this.config, error);
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child, error));
 };
 
+/*
+ * Validate the HTML
+ * @param {String} html The HTML to validate
+ */
 Engine.prototype.validate = function(html) {
     this.html = html;
 

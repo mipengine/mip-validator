@@ -3,6 +3,7 @@ const Engine = require('./src/engine.js');
 const config = require('./src/config.js');
 const rules = require('./rules.json');
 const preprocess = require('./src/preprocess.js');
+const logger = require('./src/logger.js')('mip-validator:index');
 
 function factory(conf) {
     if(conf === 'package.json'){

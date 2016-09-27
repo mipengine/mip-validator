@@ -91,7 +91,6 @@ function format(f) {
         });
     }
     for (var x = args[i]; i < len; x = args[++i]) {
-        console.log('haha ' + x);
         str += ' ' + x;
     }
     return str;
