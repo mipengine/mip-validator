@@ -21910,7 +21910,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -22009,7 +22009,8 @@ module.exports={
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(standardhtml)$/"
+            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/",
+            "href": "/^(http(s)?:)?\/\//"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
@@ -22018,6 +22019,8 @@ module.exports={
         "mandatory_parent": "head",
         "duplicate": [{
             "rel": "/^(miphtml)|(standardhtml)$/"
+        }, {
+            "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
@@ -22508,6 +22511,10 @@ module.exports={
 (function (process){
 'use strict';
 
+/*
+ * Logger constructor
+ * @param {String} id trace ID of the logger instance, typically use module ID
+ */
 function Logger(id) {
     if (!isString(id)) {
         throw new Error('invalid logger id: ' + id);
@@ -22528,6 +22535,11 @@ function isString(obj) {
     return typeof obj === 'string' || obj instanceof String;
 }
 
+/*
+ * match id with DEBUG switch
+ * @param {string} root DEBUG switch
+ * @param {String} path trace ID
+ */
 function match(root, path) {
     if (!root) return false;
     root = String(root).split(':').filter(function (x) {
@@ -22543,6 +22555,13 @@ function match(root, path) {
     return true;
 }
 
+/*
+ * create logger method with STDOUT instance and trace ID 
+ * @param {Function} output STDOUT instance
+ * @param {String} id trace ID
+ * legacy:
+ *      createWith(console.log.bind(console), 'mip:cache:getCache')
+ */
 function createWith(output, id) {
     return function () {
         var str = '[' + timestamp() + '][' + id + '] ';
@@ -22552,10 +22571,24 @@ function createWith(output, id) {
     };
 }
 
+/*
+ * Pad number to 2-digit.
+ * @param {Number} n The number
+ * @return {String} 2-digit number string
+ * legacy:
+ *      pad(2)      // 02
+ *      pad(22)     // 22
+ */
 function pad(n) {
     return n < 10 ? '0' + n.toString(10) : n.toString(10);
 }
 
+/*
+ * Generate a timestamp from current time 
+ * @return {String} the timestamp string
+ * legacy:
+ *      timestamp()    // "2016/09/27-17:31:22"
+ */
 function timestamp() {
     var d = new Date();
     var date = [pad(d.getFullYear()), pad(d.getMonth() + 1), pad(d.getDate())].join('/');
@@ -22565,6 +22598,19 @@ function timestamp() {
 
 var formatRegExp = /%[sdjJ%]/g;
 
+/*
+ * format arguments to a single string
+ * @param {String} f Optional, the format string
+ * @return {String} the formated string
+ * legacy:
+ *      format('%s', 'foo', 'bar')  // foo bar
+ *      format('%d', '200', 'bar')  // 200 bar
+ *      format('%j', {foo: 'bar'}, 'bar')
+ *                                  // {"foo":"bar"}bar
+ *      format('%j', {foo: 'bar'}, 'bar')
+ *                                  // \n{\n    "foo": "bar"\n}\nbar
+ *      format('foo', 'bar')        // foo bar
+ */
 function format(f) {
     var i = 0;
     var args = arguments;
@@ -22879,7 +22925,7 @@ var ERR = require('../error.json');
 var POLYFILL_TAGS = ['frame', 'frameset'];
 var util = require('util');
 var matcher = require('../matcher.js');
-var logger = require('../logger.js');
+var logger = require('../logger.js')('mip-validator:disallowed_tag');
 
 exports.onBegin = function (error, engine) {
     validatePolyfill(error, engine);
