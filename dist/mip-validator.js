@@ -21910,7 +21910,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -21943,7 +21943,7 @@ module.exports={
   },
   "repository": {
     "type": "git",
-    "url": "ssh://g@gitlab.baidu.com:8022/MIP/mip-validator.git"
+    "url": "ssh://git@github.com:mipengine/mip-validator.git"
   },
   "keywords": [
     "MIP",
@@ -22009,8 +22009,7 @@ module.exports={
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/",
-            "href": "/^(http(s)?:)?\/\//"
+            "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
@@ -22026,9 +22025,18 @@ module.exports={
             "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
         }],
         "attrs": {
-            "href": {
-                "value": "/^(?!\/[^\/])/"
-            }
+            "href": [{
+                "value": "/^(http(s)?:)?\/\//",
+                "match": {
+                    "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
+                }
+            }, {
+                "value": "/^(?!\/[^\/])/",
+                "match": {
+                    "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
+                }
+            }]
+            
         }
     },
     "script": [{
@@ -22098,19 +22106,20 @@ module.exports={
     },
 
 
-
-
-
     "a": {
         "attrs": {
-            "href": {
-                "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#/"
-            },
             "target": {
                 "mandatory": true,
-                "value": "/^_blank$/"
+                "value": "/^_blank$/",
+                "match": {
+                    "href": "/^((http(s)?:)?\/\/)|#$/"
+                }
+            },
+            "href": {
+                "mandatory": true,
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
+            
         }
     },
     "mip-img": {
@@ -22217,7 +22226,7 @@ module.exports={
         "attrs": {
             "href": {
                 "mandatory": true,
-                "value": "/^(http(s)?:)?\/\//"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
         }
     },
