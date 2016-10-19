@@ -150,19 +150,20 @@
     },
 
 
-
-
-
     "a": {
         "attrs": {
+            "target": {
+                "mandatory": true,
+                "value": "/^_blank$/",
+                "match": {
+                    "href": "/^((http(s)?:)?\/\/)|#$/"
+                }
+            },
             "href": {
                 "mandatory": true,
                 "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
-            },
-            "target": {
-                "mandatory": true,
-                "value": "/^_blank$/"
             }
+            
         }
     },
     "mip-img": {
