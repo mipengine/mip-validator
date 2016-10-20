@@ -23,7 +23,16 @@ process.stdin.on('data', function(buf) {
 });
 
 process.stdin.on('end', function() {
+    html = normalize(html);
     var result = validator.validate(html);
     var str = JSON.stringify(result, null, 4);
     console.log(str);
 });
+
+/*
+ * @param {String} fileContent The unicode string from file
+ * @return {String} The normalized string
+ */
+function normalize(fileContent){
+    return fileContent.replace(/^\uFEFF/, '');
+}
