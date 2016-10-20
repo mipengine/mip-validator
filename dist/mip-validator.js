@@ -21910,7 +21910,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -22009,7 +22009,7 @@ module.exports={
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)$/"
+            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
@@ -22260,7 +22260,9 @@ module.exports={
                  "mandatory": true
             }
         },
+        "duplicate": true,
         "mandatory_parent": "head"
+        
     }
     
 }
