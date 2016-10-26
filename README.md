@@ -27,29 +27,103 @@ npm install mip-validator
 
 以后使用时用本地的可执行文件`./node_modules/.bin/mip-validator`代替全局可执行文件`mip-validator`。
 
-## 编程接口
+## 使用方式
 
-需要在本地安装`mip-validator`，即安装于`node_modules`目录下。API：
+### 编程接口
 
-* `new Validator(<rules>)`：根据传入的校验规则返回一个校验器实例，`rules`参数可省略，默认为最新的MIP校验规则。
-* `.validate(html)`：传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
-
-### 默认使用方式
-
+在本地安装`mip-validator`（即安装于`node_modules`目录下）。
 使用`mip-validator`创建一个实例，即可用来验证MIP HTML。
 
 ```javascript
 const Validator = require('mip-validator');
 
-var validator = Valicator(); // 等效于：Valicator(Validator.rules);
+// 使用默认规则创建实例，等效于：Valicator(Validator.rules);
+var validator = Valicator(); 
 var errs = validator.validate('<html><div></div></html>')
 console.log(errs);
 ```
 
-### 自定义规则配置
+### 命令行接口
 
+需要全局安装`mip-validator`（见上一节）。API：
+
+* 使用标准输入HTML（String类型）
+* 标准输出的错误列表（JSON格式）
+* `-c`参数（可选）来指定规则文件（JSON格式），为空则采用MIP默认配置。
+
+例如：
+
+```
+$ mip-validator < a.html                # 校验 a.html
+$ mip-validator < a.html > a.html.json  # 也可将验证结果重定向至文件
+$ mip-validator --help                  # 查看帮助
+    -h, --help         output usage information
+    -V, --version      output the version number
+    -F, --fast         fast validation
+    -c, --conf [path]  validator configuration file [rules.json]
+```
+
+### 浏览器JS
+
+MIP校验框架可以在浏览器端使用，通过`window.MIPValidator`提供API。
+将`dist/mip-validator.js`引入页面后，在页面脚本中可直接使用，用法与Node.js端完全相同：
+
+```javascript
+var Validator = window.MIPValidator;
+var validator = Validator();
+```
+
+### HTTP Service
+
+```
+$ mip-validator-http
+```
+
+> 端口与主机可以通过参数更改，更多信息请运行`mip-validator-http -h`。
+
+然后访问`http://localhost:4444`，可以看到简单的使用说明。
+示例客户端程序见：[demo/http.js](demo/http.js)。
+
+* 校验HTML文档：POST `/validate`，Request Body为待校验HTML字符串。
+* 快速校验HTML文档：POST `/validate?fast=true`，Request Body为待校验HTML字符串。
+
+> 开启快速校验时，只能获得第一个校验错误。因此运行也稍快。
+
+### Socket Service
+
+Socket服务只支持快速校验模式，不需要设置。
+
+```
+$ mip-validator-socket
+```
+
+创建Socket Client并连接到`localhost:4445`，逐个发送HTML。
+HTML文本之间以`__baidu_mip_validator__`分隔，
+返回的字符串也以`__baidu_mip_validator__`分隔。
+对于每个HTML，将按顺序返回一个字符串序列化的JSON。
+示例客户端程序见：[demo/socket.js](demo/socket.js)。
+
+* 统一使用UTF-8编码。
+* 协议仍待增强（字符串Escape未实现）。
+
+> 端口与主机可以通过参数更改，更多信息请运行`mip-validator-socket -h`。
+
+## API
+
+### `new Validator(<rules>, <config>)`
+
+根据传入的校验规则，以及校验器配置返回一个校验器实例。
+
+### `<rules>`
+
+可选，默认值：`Validator.rules`。
+
+> 默认值的内容见[rules.json](rules.json)，语法见[rules wiki][rules-syntax]。
+
+为`false`, `undefined`, `null`时会应用默认值，
+为Object（例如`{}`）时会应用该规则定义对象。
 如果你希望使用旧版规则（rules.json），或者希望探索MIP校验框架内部的逻辑，
-或者在发明新的校验规则，可以将你的规则作为构造参数传入。
+或者在发明新的校验规则，可以使用此参数。
 
 ```javascript
 var rules = {
@@ -60,50 +134,30 @@ var rules = {
 var validator = Validator(rules);
 ```
 
-可通过`Validator.rules`访问最新的MIP的规则，并在其基础上进行定制，例如：
+### `<config.fast>`
+
+可选，默认值：`false`
+
+为`true`时mip-validator在第一个错误发生就立即返回。
+否则mip-validator会找到所有错误。例如：
+
+```javascript
+var validator = Validator(null, {fast: true});
+```
+
+### `.validate(html)`
+
+传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
+
+### `Validator.rules`
+
+默认的MIP校验规则（`<rules>`的默认值），可在其基础上进行定制，例如：
 
 ```javascript
 var rules = Validator.rules;
 rules.div = {
     mandatory: rules.iframe.mandatory
 };
-var validator = Validator(rules);
-```
-
-## 命令行接口
-
-需要全局安装`mip-validator`（见上一节）。API：
-
-* 使用标准输入HTML（String类型）
-* 标准输出的错误列表（JSON格式）
-* `-c`参数（可选）来指定规则文件（JSON格式），为空则采用MIP默认配置。
-
-例如：
-
-```bash
-# 验证 a.html
-mip-validator < a.html
-# 也可将验证结果重定向至文件
-mip-validator < a.html > a.html.json
-```
-
-更多参数：
-
-```bash
-mip-validator --help
-    -h, --help         output usage information
-    -V, --version      output the version number
-    -c, --conf [path]  validator configuration file [rules.json]
-```
-
-## 浏览器JS
-
-MIP校验框架可以在浏览器端使用，通过`window.MIPValidator`提供API。
-将`dist/mip-validator.js`引入页面后，在脚本中可直接使用，用法与Node.js端完全相同：
-
-```javascript
-// 在浏览器中：
-var Validator = window.MIPValidator;
 var validator = Validator(rules);
 ```
 
@@ -178,3 +232,4 @@ node bin/benchmark.js
 将[错误代码](src/error.json)转换为Markdown文件，用于Wiki或其他Doc。
 
 [wiki]: https://github.com/mipengine/mip-validator/wiki
+[rules-syntax]: https://github.com/mipengine/mip-validator/wiki/%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95

@@ -1,5 +1,5 @@
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const mock = require('mock-fs');
 const fs = require('fs');
 const Validator = require('..');
@@ -19,5 +19,12 @@ describe('index', function() {
     it('should export default rules', function() {
         rules = Validator.rules;
         expect(rules).to.be.an('object');
+    });
+    it('should return first error only in fast mode', function() {
+        validator = Validator(null, {
+            fast: true
+        });
+        result = validator.validate('<html></html>');
+        expect(result).to.have.lengthOf(1);
     });
 });

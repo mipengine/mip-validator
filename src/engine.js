@@ -36,16 +36,15 @@ Engine.prototype.onBegin = function(error) {
  * Callback when DFS found a Node
  * @param {ASTNode}  node   the node currently found, see:
  *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
- * @param {Object}   config rule config object
  * @param {Function} error  errorFactory to create an error.
  */
-Engine.prototype.onNode = function(node, config, error) {
+Engine.prototype.onNode = function(node, error) {
     logger.debug('onNode', node.nodeName);
     // get rules
-    var rules = _.chain(config.regexNodes)
+    var rules = _.chain(this.config.regexNodes)
         .filter((rules, name) => rules.regex.test(node.nodeName))
         .flatten()
-        .concat(config.nodes[node.nodeName] || [])
+        .concat(this.config.nodes[node.nodeName] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
         .filter(rule => matcher.matchParent(node, rule.match_parent))
         .filter(rule => matcher.matchAncestor(node, rule.match_ancestor))
@@ -104,7 +103,7 @@ Engine.prototype.onEnd = function(error) {
  * @param {Function} error errorFactory to create an error.
  */
 Engine.prototype.dfs = function(node, error) {
-    this.onNode(node, this.config, error);
+    this.onNode(node, error);
     var children = node.childNodes || [];
     children.forEach(child => this.dfs(child, error));
 };
@@ -120,14 +119,22 @@ Engine.prototype.validate = function(html) {
         locationInfo: true
     });
     var errorGenertor = ValidateError.generator({
-        html: html
+        html: html,
+        fast: this.config.fast
     });
 
-    this.onBegin(errorGenertor);
-    this.dfs(document, errorGenertor);
-    this.onEnd(errorGenertor);
-
-    return errorGenertor.errors;
+    try {
+        this.onBegin(errorGenertor);
+        this.dfs(document, errorGenertor);
+        this.onEnd(errorGenertor);
+        return this.config.fast ? [] : errorGenertor.errors;
+    } catch (e) {
+        if (this.config.fast) {
+            return [e];
+        } else {
+            throw e;
+        }
+    }
 };
 
 module.exports = function(rules) {

@@ -2,9 +2,8 @@ const _ = require('lodash');
 const assert = require('assert');
 const defaultRules = require('../rules.json');
 
-function normalize(rules) {
-    var config = {};
-    config.nodes = _.chain(rules || defaultRules)
+function normalize(config) {
+    config.nodes = _.chain(config.rules || defaultRules)
         .toPairs()
         .map(pair => [
             pair[0],

@@ -22,6 +22,7 @@
     "mock-fs": "^3.11.0",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
+    "supertest": "^2.0.1",
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
@@ -29,7 +30,9 @@
     "prepublish": "npm test && make dist"
   },
   "bin": {
-    "mip-validator": "./bin/cli.js"
+    "mip-validator": "./bin/cli.js",
+    "mip-validator-http": "./bin/http.js",
+    "mip-validator-socket": "./bin/socket.js"
   },
   "repository": {
     "type": "git",

@@ -5,11 +5,14 @@ const rules = require('./rules.json');
 const preprocess = require('./src/preprocess.js');
 const logger = require('./src/logger.js')('mip-validator:index');
 
-function factory(conf) {
-    if(conf === 'package.json'){
+function factory(rules, conf) {
+    // NPM compliance
+    if(rules === 'package.json'){
         return require('./package.json');
     }
 
+    conf = conf || {};
+    conf.rules = rules;
     conf = config.normalize(conf);
     conf = preprocess.process(conf);
     var engine = Engine(conf);

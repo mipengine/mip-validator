@@ -1,5 +1,5 @@
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const Validator = require('..');
 const ERR = require('../src/error.json');
 

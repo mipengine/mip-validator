@@ -2,8 +2,8 @@
  * @author harttle<yangjun14@baidu.com>
  * @file match_ancestor testing
  */
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const Validator = require('..');
 
 describe('match_ancestor', function() {

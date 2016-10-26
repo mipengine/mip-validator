@@ -4,8 +4,8 @@
  *              maybe the console object should be injected as 
  *              a constructor parameter.
  */
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const Logger = require('../src/Logger.js');
 
 describe('Logger', function() {

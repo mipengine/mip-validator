@@ -2,8 +2,8 @@
  * @author harttle<yangjun14@baidu.com>
  * @file match_parent testing
  */
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const Validator = require('..');
 
 describe('match_parent', function() {

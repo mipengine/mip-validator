@@ -1,5 +1,5 @@
-const env = require('./env.js');
-const expect = env.expect;
+const chai = require('./chai.js');
+const expect = chai.expect;
 const Validator = require('..');
 
 describe('invalid attribute value', function() {
