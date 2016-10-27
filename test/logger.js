@@ -6,7 +6,7 @@
  */
 const chai = require('./chai.js');
 const expect = chai.expect;
-const Logger = require('../src/Logger.js');
+const Logger = require('../src/logger.js');
 
 describe('Logger', function() {
     it('should throw when id undefined', function() {
