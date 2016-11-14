@@ -56,7 +56,7 @@
             "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -86,7 +86,7 @@
     "script": [{
         "mandatory": {
              "type": "/^(text\/javascript)?/",
-             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)/"
         }
     }, {
         "disallow": true,
@@ -140,7 +140,7 @@
         "mandatory_ancestor": "mip-form"
     },
     "textarea": {
-        "disallow": true
+        "mandatory_ancestor": "mip-form"
     },
     "select": {
         "disallow": true
@@ -161,7 +161,7 @@
             },
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
             
         }
@@ -270,7 +270,7 @@
         "attrs": {
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
         }
     },
