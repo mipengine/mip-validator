@@ -9,11 +9,14 @@ var rules = require('./rules.json');
 var preprocess = require('./src/preprocess.js');
 var logger = require('./src/logger.js')('mip-validator:index');
 
-function factory(conf) {
-    if (conf === 'package.json') {
+function factory(rules, conf) {
+    // NPM compliance
+    if (rules === 'package.json') {
         return require('./package.json');
     }
 
+    conf = conf || {};
+    conf.rules = rules;
     conf = config.normalize(conf);
     conf = preprocess.process(conf);
     var engine = Engine(conf);
@@ -21910,7 +21913,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -21932,6 +21935,7 @@ module.exports={
     "mock-fs": "^3.11.0",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
+    "supertest": "^2.0.1",
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
@@ -21939,7 +21943,9 @@ module.exports={
     "prepublish": "npm test && make dist"
   },
   "bin": {
-    "mip-validator": "./bin/cli.js"
+    "mip-validator": "./bin/cli.js",
+    "mip-validator-http": "./bin/http.js",
+    "mip-validator-socket": "./bin/socket.js"
   },
   "repository": {
     "type": "git",
@@ -22012,7 +22018,7 @@ module.exports={
             "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)/"
         }],
 
         "mandatory_parent": "head",
@@ -22042,7 +22048,7 @@ module.exports={
     "script": [{
         "mandatory": {
              "type": "/^(text\/javascript)?/",
-             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+             "src": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)/"
         }
     }, {
         "disallow": true,
@@ -22096,7 +22102,7 @@ module.exports={
         "mandatory_ancestor": "mip-form"
     },
     "textarea": {
-        "disallow": true
+        "mandatory_ancestor": "mip-form"
     },
     "select": {
         "disallow": true
@@ -22117,7 +22123,7 @@ module.exports={
             },
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
             
         }
@@ -22226,7 +22232,7 @@ module.exports={
         "attrs": {
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:1[34578]\\d{9})|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
         }
     },
@@ -22274,9 +22280,8 @@ var _ = require('lodash');
 var assert = require('assert');
 var defaultRules = require('../rules.json');
 
-function normalize(rules) {
-    var config = {};
-    config.nodes = _.chain(rules || defaultRules).toPairs().map(function (pair) {
+function normalize(config) {
+    config.nodes = _.chain(config.rules || defaultRules).toPairs().map(function (pair) {
         return [pair[0], normalizeArray(pair[1]).map(function (tag) {
             return normalizeTag(tag);
         })];
@@ -22359,17 +22364,16 @@ Engine.prototype.onBegin = function (error) {
  * Callback when DFS found a Node
  * @param {ASTNode}  node   the node currently found, see:
  *     https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/parse5
- * @param {Object}   config rule config object
  * @param {Function} error  errorFactory to create an error.
  */
-Engine.prototype.onNode = function (node, config, error) {
+Engine.prototype.onNode = function (node, error) {
     var _this2 = this;
 
     logger.debug('onNode', node.nodeName);
     // get rules
-    var rules = _.chain(config.regexNodes).filter(function (rules, name) {
+    var rules = _.chain(this.config.regexNodes).filter(function (rules, name) {
         return rules.regex.test(node.nodeName);
-    }).flatten().concat(config.nodes[node.nodeName] || []).filter(function (rule) {
+    }).flatten().concat(this.config.nodes[node.nodeName] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
     }).filter(function (rule) {
         return matcher.matchParent(node, rule.match_parent);
@@ -22441,7 +22445,7 @@ Engine.prototype.onEnd = function (error) {
 Engine.prototype.dfs = function (node, error) {
     var _this5 = this;
 
-    this.onNode(node, this.config, error);
+    this.onNode(node, error);
     var children = node.childNodes || [];
     children.forEach(function (child) {
         return _this5.dfs(child, error);
@@ -22459,14 +22463,22 @@ Engine.prototype.validate = function (html) {
         locationInfo: true
     });
     var errorGenertor = ValidateError.generator({
-        html: html
+        html: html,
+        fast: this.config.fast
     });
 
-    this.onBegin(errorGenertor);
-    this.dfs(document, errorGenertor);
-    this.onEnd(errorGenertor);
-
-    return errorGenertor.errors;
+    try {
+        this.onBegin(errorGenertor);
+        this.dfs(document, errorGenertor);
+        this.onEnd(errorGenertor);
+        return this.config.fast ? [] : errorGenertor.errors;
+    } catch (e) {
+        if (this.config.fast) {
+            return [e];
+        } else {
+            throw e;
+        }
+    }
 };
 
 module.exports = function (rules) {
@@ -22887,6 +22899,18 @@ exports.process = process;
 var util = require('util');
 var _ = require('lodash');
 
+function ValidationError(message, code, location, lines) {
+    //this.stack = (new Error()).stack;
+    this.message = message;
+    this.code = code;
+    this.line = location ? location.line : 0;
+    this.col = location ? location.col : 0;
+    this.offset = location ? location.startOffset : 0;
+    this.input = location ? lines[location.line - 1] : '';
+}
+ValidationError.prototype = Object.create(Error.prototype);
+ValidationError.prototype.name = 'ValidationError';
+
 function getGenerator(options) {
     var lines = options.html.split('\n');
 
@@ -22897,20 +22921,19 @@ function getGenerator(options) {
         args[0] = err.message;
         var message = util.format.apply(util, args);
 
-        generator.errors.push({
-            code: err.code,
-            message: message,
-            line: location ? location.line : 0,
-            col: location ? location.col : 0,
-            offset: location ? location.startOffset : 0,
-            input: location ? lines[location.line - 1] : ''
-        });
+        var err = new ValidationError(message, err.code, location, lines);
+
+        if (options.fast) {
+            throw err;
+        }
+        generator.errors.push(err);
     }
     generator.errors = [];
     return generator;
 }
 
 exports.generator = getGenerator;
+exports.ValidationError = ValidationError;
 
 },{"lodash":12,"util":51}],61:[function(require,module,exports){
 'use strict';
