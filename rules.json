@@ -178,17 +178,13 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^(https:\/\/)|(http:\/\/*\\?)/"
+                "value": "/^((https:)?\/\/)|(http:\/\/*\\?)/"
             }
         }
     },
     "mip-video": {
         "attrs": {
             "src": {
-                "mandatory": true,
-                "value": "/^(?!\/[^\/])/"
-            },
-            "poster": {
                 "mandatory": true,
                 "value": "/^(?!\/[^\/])/"
             }
@@ -277,16 +273,14 @@
     "mip-ad": {
         "attrs": {
             "type": {
-                "mandatory": true,
-                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
+                "mandatory": true
             }
         }
     },
     "mip-embed": {
         "attrs": {
             "type": {
-                "mandatory": true,
-                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
+                "mandatory": true
             }
         }
     },
