@@ -21913,7 +21913,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":9}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.2.16",
+  "version": "1.2.18",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -22140,17 +22140,13 @@ module.exports={
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^(https:\/\/)|(http:\/\/*\\?)/"
+                "value": "/^((https:)?\/\/)|(http:\/\/*\\?)/"
             }
         }
     },
     "mip-video": {
         "attrs": {
             "src": {
-                "mandatory": true,
-                "value": "/^(?!\/[^\/])/"
-            },
-            "poster": {
                 "mandatory": true,
                 "value": "/^(?!\/[^\/])/"
             }
@@ -22239,16 +22235,14 @@ module.exports={
     "mip-ad": {
         "attrs": {
             "type": {
-                "mandatory": true,
-                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
+                "mandatory": true
             }
         }
     },
     "mip-embed": {
         "attrs": {
             "type": {
-                "mandatory": true,
-                "value": "/^ad\\-(baidu)|(comm)|(qwang)/"
+                "mandatory": true
             }
         }
     },
