@@ -148,7 +148,7 @@ function fingerprintByTag(node) {
  */
 function tagsPattern(tags) {
     var reTags = tags.join('|');
-    return new RegExp(`<\\s*(${reTags})(?:\\s+[^>]*)*>`, 'g');
+    return new RegExp(`<\\s*(${reTags})(?:\\s+[^>]*)*>`, 'ig');
 }
 
 /*
@@ -159,7 +159,7 @@ function tagsPattern(tags) {
  */
 function matchTagNames(tagNames, html) {
     var tagsStr = tagNames.join('|');
-    var re = new RegExp(`<\\s*(${tagsStr})(?:\\s+[^>]*)*>`, 'g');
+    var re = new RegExp(`<\\s*(${tagsStr})(?:\\s+[^>]*)*>`, 'ig');
     return (html || '').match(re) || [];
 }
 
