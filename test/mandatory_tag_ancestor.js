@@ -34,10 +34,30 @@ describe('mandatory tag ancestor', function() {
                 mandatory_ancestor: 'body'
             }
         });
-        var src = '<html><head><noscript></noscript></head></html>'
-        var result = validator.validate(src);
+        var result = validator.validate('<head><noscript></noscript></head>');
         expect(result).to.have.lengthOf(1);
         var result = validator.validate('<body><noscript></noscript></body>');
+        expect(result).to.have.lengthOf(0);
+    });
+    it('should reject <noscript> if not the last of <head>', function() {
+        var validator = Validator({});
+        var result = validator.validate('<head><noscript></noscript><link></head>');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal('06201001');
+    });
+    it('should accept <noscript> as the last element of <head>', function() {
+        var validator = Validator({});
+        var result = validator.validate('<head><noscript></noscript> foo </head>');
+        expect(result).to.have.lengthOf(0);
+    });
+    it('should accept <noscript> as the last child of <head>', function() {
+        var validator = Validator({});
+        var result = validator.validate('<head><link><noscript></noscript></head>');
+        expect(result).to.have.lengthOf(0);
+    });
+    it('should accept <noscript> as child of <body>', function() {
+        var validator = Validator({});
+        var result = validator.validate('<body><input><noscript></noscript></body>');
         expect(result).to.have.lengthOf(0);
     });
 });
