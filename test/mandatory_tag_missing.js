@@ -127,6 +127,15 @@ describe('mandatory tag missing', function() {
         result = validator.validate('<div>');
         expect(result).to.have.lengthOf(3);
     });
+    it('should validate noscript tag', function() {
+        var validator = Validator({
+            'noscript': {
+                mandatory: true
+            }
+        });
+        var result = validator.validate('<html>');
+        expect(result).to.have.lengthOf(1);
+    });
     it('should ignore case for tag name', function() {
         var validator = Validator({
             html: {

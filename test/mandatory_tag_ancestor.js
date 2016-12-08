@@ -28,5 +28,17 @@ describe('mandatory tag ancestor', function() {
         var result = validator.validate('<form><a><mip-input></mip-input></a></form>');
         expect(result).to.have.lengthOf(0);
     });
+    it('should validate ancestor of noscript', function() {
+        var validator = Validator({
+            'noscript': {
+                mandatory_ancestor: 'body'
+            }
+        });
+        var src = '<html><head><noscript></noscript></head></html>'
+        var result = validator.validate(src);
+        expect(result).to.have.lengthOf(1);
+        var result = validator.validate('<body><noscript></noscript></body>');
+        expect(result).to.have.lengthOf(0);
+    });
 });
 
