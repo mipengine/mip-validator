@@ -145,7 +145,7 @@ module.exports = function(rules) {
 
 function behaveBuggyAsTheCPPVersion(doc, errorGenertor){
     try{
-        var head = doc.childNodes[0].childNodes[0];
+        var head = findFirstTagChild(findFirstTagChild(doc));
         if(head.tagName !== 'head') return;
 
         var noscriptAppeared = false;
@@ -163,3 +163,12 @@ function behaveBuggyAsTheCPPVersion(doc, errorGenertor){
         console.log('behaveBuggyAsTheCPPVersion error:', e);
     }
 };
+
+function findFirstTagChild(parent){
+    var ret;
+    parent.childNodes.some(node => {
+        ret = node;
+        return node.tagName;
+    });
+    return ret;
+}

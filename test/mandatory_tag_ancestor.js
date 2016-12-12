@@ -45,6 +45,12 @@ describe('mandatory tag ancestor', function() {
         expect(result).to.have.lengthOf(1);
         expect(result[0].code).to.equal('06201001');
     });
+    it('should reject <noscript> if not the last of <head> (with DOCTYPE declaration)', function() {
+        var validator = Validator({});
+        var result = validator.validate('<!DOCTYPE>\n<head><noscript></noscript><link></head>');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal('06201001');
+    });
     it('should accept <noscript> as the last element of <head>', function() {
         var validator = Validator({});
         var result = validator.validate('<head><noscript></noscript> foo </head>');
