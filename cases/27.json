@@ -1,10 +1,1 @@
-[
-    {
-        "message": "'<div>'标签中禁止使用'style'属性",
-        "code": "06200202",
-        "line": 23,
-        "col": 1,
-        "offset": 741,
-        "input": "<div class=\"mip-img-container\" height=\"353\" width=\"478\" style=\"width: 478;\">"
-    }
-]
+[]

@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "禁止使用'<form>'标签",
+        "code": "06200201",
+        "line": 11,
+        "col": 1,
+        "offset": 443,
+        "input": "<form></form>"
+    }
+]

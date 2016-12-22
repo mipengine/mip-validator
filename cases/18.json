@@ -1,10 +1,1 @@
-[
-    {
-        "message": "标签'meta'中的属性'content'的属性'width'被设置为''，该属性值无效",
-        "code": "06200401",
-        "line": 5,
-        "col": 1,
-        "offset": 125,
-        "input": "<meta name=\"viewport\" content=\"width=,minimum-scale=0,initial-scale=1\">"
-    }
-]
+[]

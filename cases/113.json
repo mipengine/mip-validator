@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "禁止使用'<object>'标签",
+        "code": "06200201",
+        "line": 12,
+        "col": 1,
+        "offset": 576,
+        "input": "<object></object>"
+    }
+]

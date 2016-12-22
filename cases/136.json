@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^(http(s)?:)?//(mipcache.bdstatic.com/static/mipmain)|(m.baidu.com/static/ala/sf/static/)|((http(s)?:)?//mipcache.bdstatic.com/static/v\\d/)/\">'缺失或错误",
+        "code": "06200101",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
+    }
+]
