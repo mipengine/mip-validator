@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/mip-validator.svg?style=flat)](https://www.npmjs.org/package/mip-validator)
 [![Build Status](https://travis-ci.org/mipengine/mip-validator.svg?branch=master)](https://travis-ci.org/mipengine/mip-validator)
 [![Coverage Status](https://coveralls.io/repos/github/mipengine/mip-validator/badge.svg?branch=master)](https://coveralls.io/github/mipengine/mip-validator?branch=master)
-[![Dependency manager](https://img.shields.io/david/dev/mipengine/mip-validator.svg?style=flat)](https://david-dm.org/mipengine/mip-validator)
+[![Dependency manager](https://david-dm.org/mipengine/mip-validator/status.svg)](https://david-dm.org/mipengine/mip-validator)
 
 本项目给出用于MIP校验的NPM软件包，支持编程方式、命令行接口、以及浏览器JS。
 本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考[Wiki][wiki]。
