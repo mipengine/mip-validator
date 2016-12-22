@@ -188,18 +188,20 @@ mocha
 
 ### 集成测试
 
-目前利用Makefile可以方便地校验`example`下的样例文件，其中：
+目前利用Makefile可以方便地校验`cases/`下的样例文件，其中：
 
-* `example/htmls/*.html`: 样例HTML
-* `example/results/*.html.json`: 对应样例HTML的校验结果
+* `cases/*.html`: 样例HTML
+* `cases/*.json`: 对应样例HTML的校验结果
 
-校验所有`example/htmls`下的HTML文件（结果会输出到`examples/results/`）：
+集成测试我们用 Git 来管理，生成集成测试结果：
 
 ```bash
-make examples
+make cases
+git diff        # 对，就是用 Git 来查看 😀
 ```
 
-TODO: 自动运行集成测试，并给出DIFF。
+如果`cases/*.json`存在 Diff，说明校验有问题或者要升级。
+如果是前者那就继续调试，如果是后者那就直接 Commit。
 
 ### 构建浏览器JS
 
