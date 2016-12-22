@@ -54,4 +54,4 @@
 149|标签'style'的直接父标签应该是'head'，而不是'body'
 150|标签'head'只能出现一次
 151|标签`<meta http-equiv=\"/Content-Type/i\">`只能出现一次
-
+152|标签`<noscript>`在标签`<head>`中时强制为最后一个子节点
