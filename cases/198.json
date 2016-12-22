@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'<meta http-equiv=\"/Content-Type/i\">'只能出现一次",
+        "code": "06200701",
+        "line": 5,
+        "col": 1,
+        "offset": 102,
+        "input": "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
+    }
+]
