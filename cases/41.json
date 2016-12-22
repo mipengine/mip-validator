@@ -1,0 +1,26 @@
+[
+    {
+        "message": "禁止使用'<script type=\"text/javascript\">'标签",
+        "code": "06200201",
+        "line": 153,
+        "col": 1,
+        "offset": 5938,
+        "input": "<script type=\"text/javascript\"></script>"
+    },
+    {
+        "message": "禁止使用'<script type=\"text/javascript\">'标签",
+        "code": "06200201",
+        "line": 154,
+        "col": 1,
+        "offset": 5979,
+        "input": "<script type=\"text/javascript\"></script>"
+    },
+    {
+        "message": "禁止使用'<script type=\"application\">'标签",
+        "code": "06200201",
+        "line": 169,
+        "col": 1,
+        "offset": 6670,
+        "input": "<script type=\"application\">"
+    }
+]

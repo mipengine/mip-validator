@@ -1,18 +1,24 @@
 MINIFY = ./node_modules/.bin/uglifyjs
 BROWSERIFY = ./node_modules/.bin/browserify
-.PHONY: clean examples dist/mip-validator.js
+htmls   = $(shell ls cases/*.html)
+results = $(patsubst cases/%.html,cases/%.json, $(htmls))
+checks  = $(patsubst cases/%.html,tmp/%.json, $(htmls))
 
-htmls = $(shell find examples/htmls -name "*.html")
-
-results = $(patsubst examples/htmls/%,examples/results/%.json, $(htmls))
-
-default: 
-
-examples: $(results)
+.PHONY: clean cases dist/mip-validator.js
 
 dist: dist/mip-validator.min.js
 
-$(results):examples/results/%.json:examples/htmls/% rules.json 
+cases: $(results)
+
+check-regression: $(checks)
+
+prepare-checks:
+	rm -rf ./tmp && mkdir tmp
+	
+$(checks):tmp/%.json:cases/%.html rules.json prepare-checks
+	node bin/cli.js < $< > $@
+
+$(results):cases/%.json:cases/%.html rules.json 
 	node bin/cli.js < $< > $@
 
 dist/mip-validator.min.js: dist/mip-validator.js

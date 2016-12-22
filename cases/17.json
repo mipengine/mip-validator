@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'mip-pix'的强制性属性'src'缺失",
+        "code": "06200501",
+        "line": 154,
+        "col": 1,
+        "offset": 5939,
+        "input": "<mip-pix scr=\"\"></mip-pix>"
+    }
+]
