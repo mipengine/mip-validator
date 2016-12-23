@@ -1,23 +1,23 @@
 [
     {
-        "message": "禁止使用'<select>'标签",
-        "code": "06200201",
+        "message": "标签'select'只能是标签'mip-form'的子级标签",
+        "code": "06200901",
         "line": 14,
         "col": 2,
         "offset": 606,
         "input": "\t<select>"
     },
     {
-        "message": "禁止使用'<option>'标签",
-        "code": "06200201",
+        "message": "标签'option'只能是标签'mip-form'的子级标签",
+        "code": "06200901",
         "line": 15,
         "col": 5,
         "offset": 619,
         "input": "    <option>1</option>"
     },
     {
-        "message": "禁止使用'<option>'标签",
-        "code": "06200201",
+        "message": "标签'option'只能是标签'mip-form'的子级标签",
+        "code": "06200901",
         "line": 16,
         "col": 5,
         "offset": 642,

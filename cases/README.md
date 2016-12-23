@@ -104,3 +104,4 @@
 199|template中：标签'meta'的直接父标签应该是'head'，而不是'body'
 200|template中：标签'link'的直接父标签应该是'head'，而不是'body'
 201|template中：标签'style'的直接父标签应该是'head'，而不是'body'
+202|标签'a'中的属性'href'的属性值'sms:'无效
