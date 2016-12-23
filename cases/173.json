@@ -4,7 +4,7 @@
         "code": "06200701",
         "line": 18,
         "col": 2,
-        "offset": 664,
+        "offset": 684,
         "input": "\t<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200601",
         "line": 18,
         "col": 2,
-        "offset": 664,
+        "offset": 684,
         "input": "\t<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     }
 ]
