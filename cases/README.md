@@ -64,7 +64,7 @@
 159|template中：标签'mip-img'中的属性'src'的属性值''无效
 160|template中：标签'mip-pix'的强制性属性'src'缺失
 161|template中：标签'meta'中的属性'content'的属性'width'被设置为''，该属性值无效
-162|template中：强制标签`<meta charset="utf-8">`缺失
+162|template中：template中：标签'head'只能出现一次
 163|template中：标签`<meta http-equiv=\"/Content-Type/i\">`只能出现一次
 164|template中：标签'html'只能出现一次
 165|template中：禁止使用`<object>`标签
@@ -104,4 +104,3 @@
 199|template中：标签'meta'的直接父标签应该是'head'，而不是'body'
 200|template中：标签'link'的直接父标签应该是'head'，而不是'body'
 201|template中：标签'style'的直接父标签应该是'head'，而不是'body'
-202|template中：标签'head'只能出现一次

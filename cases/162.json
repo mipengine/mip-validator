@@ -1,26 +1,10 @@
 [
     {
-        "message": "标签'mip-img'中的属性'src'的属性值''无效",
-        "code": "06200301",
-        "line": 22,
-        "col": 1,
-        "offset": 782,
-        "input": "<mip-img data-carousel=\"carousel\" class=\"mip-img mip-element\" src=\"\">"
-    },
-    {
-        "message": "标签'<meta http-equiv=\"/Content-Type/i\">'只能出现一次",
+        "message": "标签'head'只能出现一次",
         "code": "06200701",
-        "line": 26,
-        "col": 2,
-        "offset": 882,
-        "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
-    },
-    {
-        "message": "标签'meta'的直接父标签应该是'head'，而不是'#document-fragment'",
-        "code": "06200601",
-        "line": 26,
-        "col": 2,
-        "offset": 882,
-        "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
     }
 ]

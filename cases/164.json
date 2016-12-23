@@ -6,13 +6,5 @@
         "col": 0,
         "offset": 0,
         "input": ""
-    },
-    {
-        "message": "标签'html'的强制性属性'mip'缺失",
-        "code": "06200501",
-        "line": 2,
-        "col": 1,
-        "offset": 16,
-        "input": "<html>"
     }
 ]
