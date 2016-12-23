@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "message": "标签'mip-carousel'的强制性属性'width'缺失",
+        "code": "06200501",
+        "line": 154,
+        "col": 5,
+        "offset": 5953,
+        "input": "    <mip-carousel></mip-carousel>"
+    },
+    {
+        "message": "标签'mip-carousel'的强制性属性'height'缺失",
+        "code": "06200501",
+        "line": 154,
+        "col": 5,
+        "offset": 5953,
+        "input": "    <mip-carousel></mip-carousel>"
+    }
+]

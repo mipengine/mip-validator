@@ -1,10 +1,10 @@
 [
     {
-        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^(http(s)?:)?//(mipcache.bdstatic.com/static/mipmain)|(m.baidu.com/static/ala/sf/static/)|((http(s)?:)?//mipcache.bdstatic.com/static/v\\d/)/\">'缺失或错误",
-        "code": "06200101",
-        "line": 0,
-        "col": 0,
-        "offset": 0,
-        "input": ""
+        "message": "标签'link'的直接父标签应该是'head'，而不是'#document-fragment'",
+        "code": "06200601",
+        "line": 11,
+        "col": 2,
+        "offset": 348,
+        "input": "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"//m.baidu.com/static/ala/sf/static/css/miphtml_c0c6e10.css\">"
     }
 ]

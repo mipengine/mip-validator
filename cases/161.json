@@ -6,5 +6,13 @@
         "col": 1,
         "offset": 102,
         "input": "<meta name=\"viewport\" content=\"width=,minimum-scale=0,initial-scale=1\">"
+    },
+    {
+        "message": "标签'meta'的直接父标签应该是'head'，而不是'#document-fragment'",
+        "code": "06200601",
+        "line": 12,
+        "col": 2,
+        "offset": 442,
+        "input": "\t<meta content=\"width=\">"
     }
 ]

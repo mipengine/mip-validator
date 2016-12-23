@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "标签'mip-ad'的强制性属性'type'缺失",
+        "code": "06200501",
+        "line": 117,
+        "col": 2,
+        "offset": 6926,
+        "input": "\t<mip-ad ></mip-ad> "
+    }
+]

@@ -26,7 +26,7 @@
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "DEBUG='mip-validator:' mocha",
     "prepublish": "npm test && make dist"
   },
   "bin": {

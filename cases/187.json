@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "'<div>'标签中禁止使用'style'属性",
+        "code": "06200202",
+        "line": 130,
+        "col": 2,
+        "offset": 5099,
+        "input": "\t<div class=\"o-page-ad2\" style=\"\">"
+    }
+]

@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "标签'a'中的属性'target'的属性值'_self'无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 2,
+        "offset": 457,
+        "input": "\t<a href=\"//m.baidu.com\" target=\"_self\">target不对的连接</a>"
+    }
+]

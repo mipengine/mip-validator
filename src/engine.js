@@ -103,11 +103,12 @@ Engine.prototype.onEnd = function(error) {
  * @param {Function} error errorFactory to create an error.
  */
 Engine.prototype.dfs = function(node, error) {
-    this.onNode(node, error);
-    var children = node.childNodes || [];
     if(node.nodeName === 'template'){
+        logger.debug('<template> encountered');
         node.childNodes = node.content.childNodes;
     }
+    this.onNode(node, error);
+    var children = node.childNodes || [];
     children.forEach(child => this.dfs(child, error));
 };
 

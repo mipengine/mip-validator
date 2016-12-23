@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "message": "禁止使用'<select>'标签",
+        "code": "06200201",
+        "line": 14,
+        "col": 2,
+        "offset": 586,
+        "input": "\t<select>"
+    },
+    {
+        "message": "禁止使用'<option>'标签",
+        "code": "06200201",
+        "line": 15,
+        "col": 5,
+        "offset": 599,
+        "input": "    <option>1</option>"
+    },
+    {
+        "message": "禁止使用'<option>'标签",
+        "code": "06200201",
+        "line": 16,
+        "col": 5,
+        "offset": 622,
+        "input": "    <option>2</option>"
+    }
+]

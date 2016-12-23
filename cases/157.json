@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "标签'a'中的属性'href'的属性值'javascript:void(0)'无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 2,
+        "offset": 457,
+        "input": "\t<a href=\"javascript:void(0)\" target=\"_blank\">href不对的连接</a>"
+    }
+]

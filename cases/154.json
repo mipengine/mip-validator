@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "禁止使用'<video>'标签",
+        "code": "06200201",
+        "line": 13,
+        "col": 2,
+        "offset": 455,
+        "input": "\t<video></video>"
+    }
+]
