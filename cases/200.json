@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'link'的直接父标签应该是'head'，而不是'#document-fragment'",
+        "code": "06200601",
+        "line": 11,
+        "col": 2,
+        "offset": 368,
+        "input": "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"//m.baidu.com/static/ala/sf/static/css/miphtml_c0c6e10.css\">"
+    }
+]

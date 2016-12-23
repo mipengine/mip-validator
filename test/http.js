@@ -4,7 +4,7 @@ const request = require('supertest');
 const path = require('path');
 const fs = require('fs');
 const validHTML = fs.readFileSync(
-    path.resolve(__dirname, '../examples/htmls/valid.html'),
+    path.resolve(__dirname, '../cases/0.html'),
     'utf8');
 const invalidHTML = '<html></html>';
 

@@ -1,0 +1,18 @@
+[
+    {
+        "message": "标签'<meta http-equiv=\"/Content-Type/i\">'只能出现一次",
+        "code": "06200701",
+        "line": 15,
+        "col": 2,
+        "offset": 499,
+        "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
+    },
+    {
+        "message": "标签'meta'的直接父标签应该是'head'，而不是'#document-fragment'",
+        "code": "06200601",
+        "line": 15,
+        "col": 2,
+        "offset": 499,
+        "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
+    }
+]

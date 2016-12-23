@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<audio>'标签",
+        "code": "06200201",
+        "line": 12,
+        "col": 1,
+        "offset": 443,
+        "input": "<audio></audio>"
+    }
+]

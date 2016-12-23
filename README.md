@@ -1,9 +1,11 @@
 # MIP Validator
 
 [![NPM version](https://img.shields.io/npm/v/mip-validator.svg?style=flat)](https://www.npmjs.org/package/mip-validator)
+<!--
 [![Build Status](https://travis-ci.org/mipengine/mip-validator.svg?branch=master)](https://travis-ci.org/mipengine/mip-validator)
 [![Coverage Status](https://coveralls.io/repos/github/mipengine/mip-validator/badge.svg?branch=master)](https://coveralls.io/github/mipengine/mip-validator?branch=master)
-[![Dependency manager](https://img.shields.io/david/dev/mipengine/mip-validator.svg?style=flat)](https://david-dm.org/mipengine/mip-validator)
+-->
+[![Dependency manager](https://david-dm.org/mipengine/mip-validator/status.svg)](https://david-dm.org/mipengine/mip-validator)
 
 本项目给出用于MIP校验的NPM软件包，支持编程方式、命令行接口、以及浏览器JS。
 本文档介绍MIP校验框架的使用和开发方式，其他相关文档请参考[Wiki][wiki]。
@@ -186,18 +188,20 @@ mocha
 
 ### 集成测试
 
-目前利用Makefile可以方便地校验`example`下的样例文件，其中：
+目前利用Makefile可以方便地校验`cases/`下的样例文件，其中：
 
-* `example/htmls/*.html`: 样例HTML
-* `example/results/*.html.json`: 对应样例HTML的校验结果
+* `cases/*.html`: 样例HTML
+* `cases/*.json`: 对应样例HTML的校验结果
 
-校验所有`example/htmls`下的HTML文件（结果会输出到`examples/results/`）：
+集成测试我们用 Git 来管理，生成集成测试结果：
 
 ```bash
-make examples
+make cases
+git diff        # 对，就是用 Git 来查看 😀
 ```
 
-TODO: 自动运行集成测试，并给出DIFF。
+如果`cases/*.json`存在 Diff，说明校验有问题或者要升级。
+如果是前者那就继续调试，如果是后者那就直接 Commit。
 
 ### 构建浏览器JS
 

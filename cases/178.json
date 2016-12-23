@@ -1,0 +1,18 @@
+[
+    {
+        "message": "标签'mip-iframe'的强制性属性'width'缺失",
+        "code": "06200501",
+        "line": 154,
+        "col": 5,
+        "offset": 5973,
+        "input": "    <mip-iframe></mip-iframe>"
+    },
+    {
+        "message": "标签'mip-iframe'的强制性属性'height'缺失",
+        "code": "06200501",
+        "line": 154,
+        "col": 5,
+        "offset": 5973,
+        "input": "    <mip-iframe></mip-iframe>"
+    }
+]

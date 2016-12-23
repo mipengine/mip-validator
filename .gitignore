@@ -1,4 +1,5 @@
 node_modules/
+tmp/
 *.log
 *.swp
 examples/results/*.json

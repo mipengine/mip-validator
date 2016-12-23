@@ -26,7 +26,7 @@
         }, {
             "http-equiv": "/Content-Type/i"
         }, {
-            "charset": "/^(utf)|(UTF-8)/"
+            "charset": "/^(UTF-8)/i"
         }],
         "attrs": {
             "content": [{
@@ -47,7 +47,7 @@
         }],
         "mandatory": {
             "name": "/^(viewport)?/",
-            "content": "/(width=device-width)|(initial-scale=1)|(minimum-scale=1){3}(,)?/"
+            "content": "/((width|initial-scale)=.+){2}/"
         },
         "mandatory_parent": "head"
     },
@@ -143,10 +143,10 @@
         "mandatory_ancestor": "mip-form"
     },
     "select": {
-        "disallow": true
+        "mandatory_ancestor": "mip-form"
     },
     "option": {
-        "disallow": true
+        "mandatory_ancestor": "mip-form"
     },
 
 
@@ -161,7 +161,7 @@
             },
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(sms:\\d+)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
             
         }
@@ -227,10 +227,6 @@
             "texttip": {
                 "mandatory": true,
                 "value": "/^\\S+$/"
-            },
-            "postiontye": {
-                "mandatory": true,
-                "value": "/^(static)|(fixed)$/"
             }
         }
     },
@@ -254,7 +250,7 @@
         "attrs": {
             "method": {
                 "mandatory": true,
-                "value": "/^(post)|(get)$/"
+                "value": "/^(post)|(get)$/i"
             },
             "url": {
                 "mandatory": true,
@@ -266,7 +262,7 @@
         "attrs": {
             "href": {
                 "mandatory": true,
-                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
+                "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(sms:\\d+)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
             }
         }
     },
@@ -301,6 +297,13 @@
         "duplicate": true,
         "mandatory_parent": "head"
         
+    },
+    "template": {
+        "attrs": {
+            "type": {
+                 "mandatory": true
+            }
+        }
     }
     
 }

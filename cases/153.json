@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<img src=\"./bn_files/f9198618367adab42b088b5783d4b31c8601e4ce.jpg\">'标签",
+        "code": "06200201",
+        "line": 23,
+        "col": 2,
+        "offset": 735,
+        "input": "\t<img src=\"./bn_files/f9198618367adab42b088b5783d4b31c8601e4ce.jpg\">"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'mip-img'中的属性'src'的属性值'/dfdf'无效",
+        "code": "06200301",
+        "line": 328,
+        "col": 21,
+        "offset": 9906,
+        "input": "                    <mip-img src=\"/dfdf\">"
+    }
+]

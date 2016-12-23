@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<param>'标签",
+        "code": "06200201",
+        "line": 12,
+        "col": 2,
+        "offset": 607,
+        "input": "\t<param></param>"
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "message": "标签'mip-link'中的属性'href'的属性值'tel:-'无效",
+        "code": "06200301",
+        "line": 526,
+        "col": 13,
+        "offset": 19666,
+        "input": "            <mip-link href=\"tel:-\"></mip-link>"
+    },
+    {
+        "message": "标签'a'中的属性'href'的属性值'tel:13ddff'无效",
+        "code": "06200301",
+        "line": 527,
+        "col": 9,
+        "offset": 19709,
+        "input": "        <a href=\"tel:13ddff\"></a>"
+    }
+]
