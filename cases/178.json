@@ -1,18 +1,10 @@
 [
     {
-        "message": "标签'template'的强制性属性'type'缺失",
-        "code": "06200501",
-        "line": 153,
-        "col": 1,
-        "offset": 5938,
-        "input": "<template>"
-    },
-    {
         "message": "标签'mip-iframe'的强制性属性'width'缺失",
         "code": "06200501",
         "line": 154,
         "col": 5,
-        "offset": 5953,
+        "offset": 5973,
         "input": "    <mip-iframe></mip-iframe>"
     },
     {
@@ -20,7 +12,7 @@
         "code": "06200501",
         "line": 154,
         "col": 5,
-        "offset": 5953,
+        "offset": 5973,
         "input": "    <mip-iframe></mip-iframe>"
     }
 ]
