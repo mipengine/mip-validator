@@ -106,6 +106,7 @@ Engine.prototype.dfs = function(node, error) {
     if(node.nodeName === 'template'){
         logger.debug('<template> encountered');
         node.childNodes = node.content.childNodes;
+        node.childNodes.forEach(child => child.parentNode = node);
     }
     this.onNode(node, error);
     var children = node.childNodes || [];
