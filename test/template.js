@@ -29,5 +29,15 @@ describe('template content validation', function() {
         var result = validator.validate('<template></template>');
         expect(result).to.have.lengthOf(0);
     });
+    it('should validate disallowed_tag_ancestor', function() {
+        var validator = Validator({
+            script: {
+                disallowed_ancestor: 'template'
+            }
+        });
+        var result = validator.validate('<template><script></script></template>');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal(ERR.DISALLOWED_TAG_ANCESTOR.code);
+    });
 });
 
