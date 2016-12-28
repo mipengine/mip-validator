@@ -3,6 +3,7 @@ const _ = require('lodash');
 const matcher = require('./matcher.js');
 const ValidateError = require('./validate-error.js');
 const logger = require('./logger.js')('mip-validator:engine');
+const checkUTF8 = require('./encoding.js').checkUTF8;
 
 function Engine(config) {
     this.config = config;
@@ -129,6 +130,7 @@ Engine.prototype.validate = function(html) {
     });
 
     try {
+        checkUTF8(html, errorGenertor);
         this.onBegin(errorGenertor);
         this.dfs(document, errorGenertor);
         this.onEnd(errorGenertor);
