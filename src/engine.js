@@ -104,7 +104,7 @@ Engine.prototype.onEnd = function(error) {
  * @param {Function} error errorFactory to create an error.
  */
 Engine.prototype.dfs = function(node, error) {
-    if(node.nodeName === 'template'){
+    if (node.nodeName === 'template') {
         logger.debug('<template> encountered');
         node.childNodes = node.content.childNodes;
         node.childNodes.forEach(child => child.parentNode = node);
@@ -119,30 +119,60 @@ Engine.prototype.dfs = function(node, error) {
  * @param {String} html The HTML to validate
  */
 Engine.prototype.validate = function(html) {
-    this.html = html;
+    // just pretend to be UTF-8
+    this.html = normalize(html);
 
-    var document = parse5.parse(html, {
-        locationInfo: true
-    });
     var errorGenertor = ValidateError.generator({
-        html: html,
+        html: this.html,
         fast: this.config.fast
     });
 
-    try {
+    // Encoding Check
+    var errors = this.applyErrorPolicy(() => {
         checkUTF8(html, errorGenertor);
+        return errorGenertor.errors;
+    });
+    if (errors.length) {
+        // stop continue on Encoding error
+        return errors;
+    }
+
+    // parse DOM tree
+    var document = parse5.parse(this.html, {
+        locationInfo: true
+    });
+
+    // Apply Validators
+    errors = this.applyErrorPolicy(() => {
         this.onBegin(errorGenertor);
         this.dfs(document, errorGenertor);
         this.onEnd(errorGenertor);
-        return this.config.fast ? [] : errorGenertor.errors;
+        return errorGenertor.errors;
+    }, this.config.fast);
+
+    return errors;
+};
+
+Engine.prototype.applyErrorPolicy = function(validate, fastEnabled) {
+    try {
+        var errors = validate();
+        return fastEnabled ? [] : errors;
     } catch (e) {
-        if (this.config.fast) {
+        if (fastEnabled) {
             return [e];
         } else {
             throw e;
         }
     }
 };
+
+/*
+ * @param {String} content The unicode string from file
+ * @return {String} The normalized string
+ */
+function normalize(content){
+    return content.toString().replace(/^\uFEFF/, '');
+}
 
 module.exports = function(rules) {
     return new Engine(rules);

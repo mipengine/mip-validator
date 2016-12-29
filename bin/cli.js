@@ -10,7 +10,7 @@ program
     .option('-c, --conf [path]', 'validator configuration file [rules.json]')
     .parse(process.argv);
 
-var html = '';
+var html = new Buffer(0);
 var config;
 if(program['conf']){
     var configPath = path.resolve(process.cwd(), program['conf']);
@@ -19,20 +19,12 @@ if(program['conf']){
 var validator = config ? Validator(config) : Validator();
 
 process.stdin.on('data', function(buf) {
-    html += buf.toString();
+    html = Buffer.concat([html, buf]);
 });
 
 process.stdin.on('end', function() {
-    html = normalize(html);
     var result = validator.validate(html);
     var str = JSON.stringify(result, null, 4);
     console.log(str);
 });
 
-/*
- * @param {String} fileContent The unicode string from file
- * @return {String} The normalized string
- */
-function normalize(fileContent){
-    return fileContent.replace(/^\uFEFF/, '');
-}
