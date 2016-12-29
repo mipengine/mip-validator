@@ -218,7 +218,7 @@
         "attrs": {
             "tpl": {
                 "mandatory": true,
-                "value": "/^imageText$/"
+                "value": "/^(noneImg)|(imageText)$/"
             },
             "src": {
                 "mandatory": true,
@@ -297,13 +297,6 @@
         "duplicate": true,
         "mandatory_parent": "head"
         
-    },
-    "template": {
-        "attrs": {
-            "type": {
-                 "mandatory": true
-            }
-        }
     }
     
 }
