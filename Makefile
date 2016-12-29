@@ -17,5 +17,6 @@ dist/mip-validator.min.js: dist/mip-validator.js
 
 dist/mip-validator.js: 
 	echo '(function(define) {' > $@
-	$(BROWSERIFY) index.js -s MIPValidator -t [ babelify --global true --presets [ es2015 ] ] >> $@
+	$(BROWSERIFY) . -s MIPValidator >> $@
+	#$(BROWSERIFY) index.js -s MIPValidator -t [ babelify --global true --presets [ es2015 ] ] >> $@
 	echo '})();' >> $@

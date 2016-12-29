@@ -4,6 +4,7 @@ const program = require('commander');
 const pkg = require('../package.json');
 const Validator = require('..');
 const path = require('path');
+const Buffer = require('buffer').Buffer;
 
 program
     .version(pkg.version)
