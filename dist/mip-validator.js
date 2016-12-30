@@ -16235,7 +16235,7 @@ module.exports={
         "attrs": {
             "tpl": {
                 "mandatory": true,
-                "value": "/^imageText$/"
+                "value": "/^(noneImg)|(imageText)$/"
             },
             "src": {
                 "mandatory": true,
@@ -16314,13 +16314,6 @@ module.exports={
         "duplicate": true,
         "mandatory_parent": "head"
         
-    },
-    "template": {
-        "attrs": {
-            "type": {
-                 "mandatory": true
-            }
-        }
     }
     
 }
@@ -16397,6 +16390,7 @@ var _ = require('./../node_modules/lodash/lodash.min.js');
 var matcher = require('./matcher.js');
 var ValidateError = require('./validate-error.js');
 var logger = require('./logger.js')('mip-validator:engine');
+var ERR = require('./error.json');
 var checkUTF8 = require('./encoding.js').checkUTF8;
 
 function Engine(config) {
@@ -16562,6 +16556,7 @@ Engine.prototype.validate = function (html) {
 
     // Apply Validators
     errors = this.applyErrorPolicy(function () {
+        behaveBuggyAsTheCPPVersion(document, errorGenertor);
         _this6.onBegin(errorGenertor);
         _this6.dfs(document, errorGenertor);
         _this6.onEnd(errorGenertor);
@@ -16596,7 +16591,37 @@ module.exports = function (rules) {
     return new Engine(rules);
 };
 
-},{"./../node_modules/lodash/lodash.min.js":11,"./encoding.js":55,"./logger.js":59,"./matcher.js":60,"./validate-error.js":62,"parse5":17}],57:[function(require,module,exports){
+function behaveBuggyAsTheCPPVersion(doc, errorGenertor) {
+    try {
+        var head = findFirstTagChild(findFirstTagChild(doc));
+        if (head.tagName !== 'head') return;
+
+        var noscriptAppeared = false;
+        head.childNodes.forEach(function (node, i) {
+            if (node.tagName === 'noscript') {
+                noscriptAppeared = true;
+                // it's a tag after noscript
+            } else if (node.tagName && noscriptAppeared) {
+                var err = ERR.INVALID_NOSCRIPT;
+                errorGenertor(err);
+            }
+        });
+    } catch (e) {
+        // let it be...
+        console.log('behaveBuggyAsTheCPPVersion error:', e);
+    }
+};
+
+function findFirstTagChild(parent) {
+    var ret;
+    parent.childNodes.some(function (node) {
+        ret = node;
+        return node.tagName;
+    });
+    return ret;
+}
+
+},{"./../node_modules/lodash/lodash.min.js":11,"./encoding.js":55,"./error.json":57,"./logger.js":59,"./matcher.js":60,"./validate-error.js":62,"parse5":17}],57:[function(require,module,exports){
 module.exports={
   "DISALLOWED_ENCODING": {
     "code": "06200001",
@@ -16642,6 +16667,10 @@ module.exports={
   "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
     "code": "06200401",
     "message": "标签'%s'中的属性'%s'的属性'%s'被设置为'%s'，该属性值无效"
+  },
+  "INVALID_NOSCRIPT": {
+    "code": "06201001",
+    "message": "标签'<noscript>'在标签'<head>'中时强制为最后一个子节点"
   }
 }
 

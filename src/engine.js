@@ -128,7 +128,6 @@ Engine.prototype.validate = function(html) {
         fast: this.config.fast
     });
 
-    try {
     // Encoding Check
     var errors = this.applyErrorPolicy(() => {
         checkUTF8(html, errorGenertor);
