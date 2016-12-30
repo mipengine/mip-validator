@@ -6,5 +6,13 @@
         "col": 2,
         "offset": 5974,
         "input": "\t<script src=\"./bn_files/ds.js\"></script>"
+    },
+    {
+        "message": "标签'script'不应该是标签'template'的子标签",
+        "code": "06200801",
+        "line": 109,
+        "col": 2,
+        "offset": 5974,
+        "input": "\t<script src=\"./bn_files/ds.js\"></script>"
     }
 ]

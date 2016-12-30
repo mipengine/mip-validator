@@ -1,4 +1,8 @@
 {
+  "DISALLOWED_ENCODING": {
+    "code": "06200001",
+    "message": "禁止使用'%s'，请统一使用UTF-8编码"
+  },
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
     "message": "强制性标签'%s'缺失或错误",
