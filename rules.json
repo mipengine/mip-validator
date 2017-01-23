@@ -217,7 +217,10 @@
             },
             "src": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^http(s)?:\/\//",
+                "match": {
+                    "tpl": "imageText"
+                }
             },
             "texttip": {
                 "mandatory": true,
@@ -293,7 +296,7 @@
         "mandatory_parent": "head"
         
     },
-    "templage": {
+    "template": {
         "attrs": {
             "type": {
                  "mandatory": true
