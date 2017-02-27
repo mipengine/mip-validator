@@ -23,7 +23,7 @@ if (program['conf']) {
     rules = require(configPath);
 }
 
-var htmls = readHTMLFiles(path.resolve(__dirname, '../examples/htmls'));
+var htmls = readHTMLFiles(path.resolve(__dirname, '../cases'));
 htmls = randomize(htmls, HTML_COUNT);
 
 var bm = Benchmark(htmls.length);
@@ -219,9 +219,12 @@ function randomize(seeds, size) {
 function readHTMLFiles(filepath) {
     console.time('reading html files');
     var htmlFiles = fs.readdirSync(filepath);
-    console.log(`[benchmark] found ${htmlFiles.length} html files in ${filepath}`);
 
-    var htmlContents = htmlFiles
+    var files = htmlFiles
+        .filter(file => file.match(/\.html$/));
+    console.log(`[benchmark] found ${files.length} html files in ${filepath}`);
+
+    var htmlContents = files
         .map(file => path.resolve(filepath, file))
         .map(filepath => fs.readFileSync(filepath, 'utf8'));
     console.timeEnd('reading html files');
