@@ -8,14 +8,6 @@
         "input": "    <script type=\"text/javascript\"></script>"
     },
     {
-        "message": "标签'script'不应该是标签'template'的子标签",
-        "code": "06200801",
-        "line": 154,
-        "col": 5,
-        "offset": 5973,
-        "input": "    <script type=\"text/javascript\"></script>"
-    },
-    {
         "message": "禁止使用'<script type=\"text/javascript\">'标签",
         "code": "06200201",
         "line": 155,
@@ -24,32 +16,8 @@
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
-        "message": "标签'script'不应该是标签'template'的子标签",
-        "code": "06200801",
-        "line": 155,
-        "col": 1,
-        "offset": 6014,
-        "input": "<script type=\"text/javascript\"></script>"
-    },
-    {
-        "message": "标签'script'不应该是标签'template'的子标签",
-        "code": "06200801",
-        "line": 156,
-        "col": 1,
-        "offset": 6055,
-        "input": "<script type=\"application/ld+json\">"
-    },
-    {
         "message": "禁止使用'<script type=\"application\">'标签",
         "code": "06200201",
-        "line": 160,
-        "col": 1,
-        "offset": 6107,
-        "input": "<script type=\"application\">"
-    },
-    {
-        "message": "标签'script'不应该是标签'template'的子标签",
-        "code": "06200801",
         "line": 160,
         "col": 1,
         "offset": 6107,
