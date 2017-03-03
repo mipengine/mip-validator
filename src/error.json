@@ -43,5 +43,9 @@
   "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
     "code": "06200401",
     "message": "标签'%s'中的属性'%s'的属性'%s'被设置为'%s'，该属性值无效"
+  },
+  "INVALID_NOSCRIPT": {
+    "code": "06201001",
+    "message": "标签'<noscript>'在标签'<head>'中时强制为最后一个子节点"
   }
 }

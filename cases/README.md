@@ -105,3 +105,4 @@
 200|template中：标签'link'的直接父标签应该是'head'，而不是'body'
 201|template中：标签'style'的直接父标签应该是'head'，而不是'body'
 202|标签'a'中的属性'href'的属性值'sms:'无效
+203|标签'mip-video'中的既无属性'src'也无子节点 source
