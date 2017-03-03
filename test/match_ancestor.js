@@ -18,7 +18,7 @@ describe('match_ancestor', function() {
         expect(result).to.have.lengthOf(1);
     });
     it('should validate when undirect ancestor matched', function() {
-        result = validator.validate('<form><div><input></div></form>');
+        var result = validator.validate('<form><div><input></div></form>');
         expect(result).to.have.lengthOf(1);
     });
     it('should skip when ancestor not matched', function() {

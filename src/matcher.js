@@ -91,12 +91,51 @@ function matchAncestor(node, ancestorNodeName) {
  *      matchParent(node, '/form|div|section/'
  */
 function matchParent(node, parentNodeName) {
+    logger.debug('matching parent:', parentNodeName);
+
     // match disabled 
     if (!parentNodeName) return true;
     // there's no parent
-    if(!node.parentNode) return false;
+    if (!node.parentNode) return false;
 
     return matchValue(node.parentNode.nodeName, parentNodeName);
+}
+
+/*
+ * match descendant node name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} descendantNodeName string or regex-like string to match with
+ * legacy:
+ *      matchDescendant(node, 'form');
+ *      matchDescendant(node, '/form|div|section/'
+ */
+function matchDescendant(node, descendantNodeName) {
+    // match disabled 
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return dfsUntil(node, child => matchValue(child.nodeName, descendantNodeName));
+}
+
+/*
+ * nomatch descendant node name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} descendantNodeName string or regex-like string to match with
+ * legacy:
+ *      nomatchDescendant(node, 'form');
+ *      nomatchDescendant(node, '/form|div|section/'
+ */
+function nomatchDescendant(node, descendantNodeName) {
+    logger.debug('nomatching descendant:', descendantNodeName);
+
+    // match disabled, pass
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return !matchDescendant(node, descendantNodeName);
+}
+
+function dfsUntil(node, predict) {
+    var children = node.childNodes || [];
+    return predict(node) || children.some(child => dfsUntil(child, predict));
 }
 
 /*
@@ -142,16 +181,6 @@ function fingerprintByTag(node) {
 }
 
 /*
- * Get a RegExp matching one of the given tags
- * @param {Array} tags
- * legacy: tagsPattern(['div', 'head', 'iframe'])
- */
-function tagsPattern(tags) {
-    var reTags = tags.join('|');
-    return new RegExp(`<\\s*(${reTags})(?:\\s+[^>]*)*>`, 'ig');
-}
-
-/*
  * Match tagnames from the given HTML
  * @param {Array} tagNames
  * @param {String} html
@@ -164,6 +193,16 @@ function matchTagNames(tagNames, html) {
 }
 
 module.exports = {
-    match, matchAttrs, matchValue, fingerprintByTag, createNode, fingerprintByObject,
-    stringToRegex, matchTagNames, matchParent, matchAncestor
+    match,
+    matchAttrs,
+    matchValue,
+    fingerprintByTag,
+    createNode,
+    fingerprintByObject,
+    stringToRegex,
+    matchTagNames,
+    matchParent,
+    matchAncestor,
+    nomatchDescendant,
+    matchDescendant
 };
