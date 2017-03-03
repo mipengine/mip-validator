@@ -43,7 +43,7 @@ Engine.prototype.onNode = function(node, error) {
     logger.debug('onNode', node.nodeName);
     // get rules
     var rules = _.chain(this.config.regexNodes)
-        .filter((rules, name) => rules.regex.test(node.nodeName))
+        .filter((rules) => rules.regex.test(node.nodeName))
         .flatten()
         .concat(this.config.nodes[node.nodeName] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
@@ -78,10 +78,11 @@ Engine.prototype.onNode = function(node, error) {
 Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
     // get rules
     var rules = _.chain(nodeRule.regexAttrs)
-        .filter((rules, name) => rules.regex.test(attr.name))
+        .filter((rules) => rules.regex.test(attr.name))
         .flatten()
         .concat(nodeRule.attrs[attr.name] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
+        .filter(rule => matcher.nomatchDescendant(node, rule.nomatch_descendant))
         .value();
     // call callbacks
     rules.map(rule => {
@@ -170,7 +171,7 @@ Engine.prototype.applyErrorPolicy = function(validate, fastEnabled) {
  * @param {String} content The unicode string from file
  * @return {String} The normalized string
  */
-function normalize(content){
+function normalize(content) {
     return content.toString().replace(/^\uFEFF/, '');
 }
 

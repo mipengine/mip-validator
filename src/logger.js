@@ -8,7 +8,7 @@ function Logger(id) {
     }
     var debugEnabled = match(process.env.DEBUG, id);
     return {
-        debug: debugEnabled ? createWith(console.log.bind(console), id) : x => false,
+        debug: debugEnabled ? createWith(console.log.bind(console), id) : () => false,
         log: createWith(console.log.bind(console), id),
         warn: createWith(console.warn.bind(console), id),
         error: createWith(console.error.bind(console), id),

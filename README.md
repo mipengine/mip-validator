@@ -224,7 +224,7 @@ make dist
 
 #### bin/benchmark.js
 
-简单的性能测试，运行[examples/htmls](examples/htmls)下的所有样例，
+简单的性能测试，运行[cases/htmls](cases/htmls)下的所有样例，
 并统计运行时间。使用方式：
 
 ```bash
