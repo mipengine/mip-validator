@@ -181,6 +181,15 @@
         "attrs": {
             "src": {
                 "mandatory": true,
+                "nomatch_descendant": "source"
+            }
+        }
+    },
+    "source": {
+        "mandatory_ancestor": "mip-video",
+        "attrs": {
+            "src": {
+                "mandatory": true,
                 "value": "/^(?!\/[^\/])/"
             }
         }

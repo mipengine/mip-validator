@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'mip-video'的强制性属性'src'缺失",
+        "code": "06200501",
+        "line": 372,
+        "col": 1,
+        "offset": 29046,
+        "input": "<mip-video controls layout=\"responsive\" width=\"640\" height=\"360\">"
+    }
+]
