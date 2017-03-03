@@ -4,7 +4,6 @@ const Validator = require('..');
 const ERR = require('../src/error.json');
 
 describe('template content validation', function() {
-    var result;
     it('should validate mandatory tag missing', function() {
         var validator = Validator({
             input: {
