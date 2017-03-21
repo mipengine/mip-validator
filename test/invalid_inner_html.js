@@ -39,7 +39,7 @@ describe('invalid inner HTML', function() {
         expect(result[0].code).to.equal(code);
         expect(result[0].message).to.contain("标签 'footer' 的 HTML 内容不合法");
     });
-    it.only('should validate child tags', function() {
+    it('should validate child tags', function() {
         var result = validator.validate('<div>foo<span>bar</span></div>');
         expect(result).to.have.lengthOf(0);
         var result = validator.validate('<div>foo<span>bar</span>foo</div>');
