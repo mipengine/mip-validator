@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "message": "标签'script'不应该是标签'template'的子标签",
+        "code": "06200801",
+        "line": 154,
+        "col": 5,
+        "offset": 5973,
+        "input": "    <script type=\"text/javascript\" src=\"https://mipcache.bdstatic.com/static/mipmain-v0.0.1.js\"></script>"
+    }
+]

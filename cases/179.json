@@ -8,14 +8,6 @@
         "input": "    <mip-appdl></mip-appdl>"
     },
     {
-        "message": "标签'mip-appdl'的强制性属性'src'缺失",
-        "code": "06200501",
-        "line": 154,
-        "col": 5,
-        "offset": 5973,
-        "input": "    <mip-appdl></mip-appdl>"
-    },
-    {
         "message": "标签'mip-appdl'的强制性属性'texttip'缺失",
         "code": "06200501",
         "line": 154,

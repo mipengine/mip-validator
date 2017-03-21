@@ -3,6 +3,7 @@ const _ = require('lodash');
 const matcher = require('./matcher.js');
 const ValidateError = require('./validate-error.js');
 const logger = require('./logger.js')('mip-validator:engine');
+const ERR = require('./error.json');
 const checkUTF8 = require('./encoding.js').checkUTF8;
 
 function Engine(config) {
@@ -145,6 +146,7 @@ Engine.prototype.validate = function(html) {
 
     // Apply Validators
     errors = this.applyErrorPolicy(() => {
+        behaveBuggyAsTheCPPVersion(document, errorGenertor);
         this.onBegin(errorGenertor);
         this.dfs(document, errorGenertor);
         this.onEnd(errorGenertor);
@@ -178,3 +180,33 @@ function normalize(content) {
 module.exports = function(rules) {
     return new Engine(rules);
 };
+
+function behaveBuggyAsTheCPPVersion(doc, errorGenertor){
+    try{
+        var head = findFirstTagChild(findFirstTagChild(doc));
+        if(head.tagName !== 'head') return;
+
+        var noscriptAppeared = false;
+        head.childNodes.forEach((node, i) => {
+            if(node.tagName === 'noscript'){
+                noscriptAppeared = true;
+            // it's a tag after noscript
+            } else if (node.tagName && noscriptAppeared){
+                var err = ERR.INVALID_NOSCRIPT;
+                errorGenertor(err);
+            }
+        });
+    } catch(e){
+        // let it be...
+        console.log('behaveBuggyAsTheCPPVersion error:', e);
+    }
+};
+
+function findFirstTagChild(parent){
+    var ret;
+    parent.childNodes.some(node => {
+        ret = node;
+        return node.tagName;
+    });
+    return ret;
+}

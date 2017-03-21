@@ -94,6 +94,8 @@
             "type": "/^(?!application\/(ld\\+)?json)/",
             "src":"/^(?!((http(s)?:)?\/\/mipcache.bdstatic.com)|((http(s)?:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/))/"
         }
+    }, {
+        "disallowed_ancestor": "template"
     }],
     "mip-input": {
         "mandatory_ancestor": "mip-form",
@@ -152,13 +154,6 @@
 
     "a": {
         "attrs": {
-            "target": {
-                "mandatory": true,
-                "value": "/^_blank$/",
-                "match": {
-                    "href": "/^((http(s)?:)?\/\/)|#$/"
-                }
-            },
             "href": {
                 "mandatory": true,
                 "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(sms:\\d+)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
@@ -183,6 +178,15 @@
         }
     },
     "mip-video": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "nomatch_descendant": "source"
+            }
+        }
+    },
+    "source": {
+        "mandatory_ancestor": "mip-video",
         "attrs": {
             "src": {
                 "mandatory": true,
@@ -222,7 +226,10 @@
             },
             "src": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^http(s)?:\/\//",
+                "match": {
+                    "tpl": "imageText"
+                }
             },
             "texttip": {
                 "mandatory": true,
@@ -297,6 +304,13 @@
         "duplicate": true,
         "mandatory_parent": "head"
         
+    },
+    "template": {
+        "attrs": {
+            "type": {
+                 "mandatory": true
+            }
+        }
     }
     
 }
