@@ -15951,67 +15951,77 @@ function hasOwnProperty(obj, prop) {
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./support/isBuffer":50,"_process":36,"inherits":8}],52:[function(require,module,exports){
 module.exports={
-    "name": "mip-validator",
-    "version": "1.2.18",
-    "description": "MIP validator",
-    "main": "index.js",
-    "dependencies": {
-        "commander": "^2.9.0",
-        "jschardet": "^1.4.1",
-        "lodash": "^4.17.2",
-        "parse5": "^3.0.1"
-    },
-    "browserify": {
-        "transform": [
-            ["babelify", { 
-                "presets": ["es2015"],
-                "global": true
-            }],
-            ["aliasify", {
-                "aliases": {
-                    "jschardet": "./src/fake-jschardet.js",
-                    "lodash": "./node_modules/lodash/lodash.min.js"
-                }
-            }]
-        ]
-    },
-    "devDependencies": {
-        "aliasify": "^2.1.0",
-        "babel-preset-es2015": "^6.13.2",
-        "babelify": "^7.3.0",
-        "browserify": "^13.1.0",
-        "chai": "^3.5.0",
-        "chai-as-promised": "^6.0.0",
-        "changelog": "^1.0.7",
-        "coveralls": "^2.11.9",
-        "git-changelog": "^1.0.1",
-        "istanbul": "^0.4.3",
-        "mocha": "^3.2.0",
-        "mock-fs": "^3.11.0",
-        "sinon": "^1.17.6",
-        "sinon-chai": "^2.8.0",
-        "supertest": "^2.0.1",
-        "uglifyjs": "^2.4.10"
-    },
-    "scripts": {
-        "test": "DEBUG='mip-validator:' mocha",
-        "prepublish": "npm test && make dist"
-    },
-    "bin": {
-        "mip-validator": "./bin/cli.js",
-        "mip-validator-http": "./bin/http.js",
-        "mip-validator-socket": "./bin/socket.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "ssh://git@github.com:mipengine/mip-validator.git"
-    },
-    "keywords": [
-        "MIP",
-        "validator"
-    ],
-    "author": "harttle",
-    "license": "ISC"
+  "name": "mip-validator",
+  "version": "1.3.1",
+  "description": "MIP validator",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "jschardet": "^1.4.1",
+    "lodash": "^4.17.2",
+    "parse5": "^3.0.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ],
+          "global": true
+        }
+      ],
+      [
+        "aliasify",
+        {
+          "aliases": {
+            "jschardet": "./src/fake-jschardet.js",
+            "lodash": "./node_modules/lodash/lodash.min.js"
+          }
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "aliasify": "^2.1.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "changelog": "^1.0.7",
+    "coveralls": "^2.11.9",
+    "git-changelog": "^1.0.1",
+    "istanbul": "^0.4.3",
+    "mocha": "^3.2.0",
+    "mock-fs": "^3.11.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^2.0.1",
+    "uglifyjs": "^2.4.10"
+  },
+  "scripts": {
+    "test": "DEBUG='mip-validator:' mocha",
+    "preversion": "npm test",
+    "version": "make dist && git add -A dist",
+    "postversion": "git push && git push --tags && npm publish"
+  },
+  "bin": {
+    "mip-validator": "./bin/cli.js",
+    "mip-validator-http": "./bin/http.js",
+    "mip-validator-socket": "./bin/socket.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:mipengine/mip-validator.git"
+  },
+  "keywords": [
+    "MIP",
+    "validator"
+  ],
+  "author": "harttle",
+  "license": "ISC"
 }
 
 },{}],53:[function(require,module,exports){
@@ -16111,6 +16121,8 @@ module.exports={
             "type": "/^(?!application\/(ld\\+)?json)/",
             "src":"/^(?!((http(s)?:)?\/\/mipcache.bdstatic.com)|((http(s)?:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/))/"
         }
+    }, {
+        "disallowed_ancestor": "template"
     }],
     "mip-input": {
         "mandatory_ancestor": "mip-form",
@@ -16169,13 +16181,6 @@ module.exports={
 
     "a": {
         "attrs": {
-            "target": {
-                "mandatory": true,
-                "value": "/^_blank$/",
-                "match": {
-                    "href": "/^((http(s)?:)?\/\/)|#$/"
-                }
-            },
             "href": {
                 "mandatory": true,
                 "value": "/^((http(s)?:)?\/\/)|#|(tel:\\d+[\\d-]*)$|(sms:\\d+)$|(mailto:([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+)/"
@@ -16200,6 +16205,15 @@ module.exports={
         }
     },
     "mip-video": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "nomatch_descendant": "source"
+            }
+        }
+    },
+    "source": {
+        "mandatory_ancestor": "mip-video",
         "attrs": {
             "src": {
                 "mandatory": true,
@@ -16239,7 +16253,10 @@ module.exports={
             },
             "src": {
                 "mandatory": true,
-                "value": "/^http(s)?:\/\//"
+                "value": "/^http(s)?:\/\//",
+                "match": {
+                    "tpl": "imageText"
+                }
             },
             "texttip": {
                 "mandatory": true,
@@ -16314,6 +16331,13 @@ module.exports={
         "duplicate": true,
         "mandatory_parent": "head"
         
+    },
+    "template": {
+        "attrs": {
+            "type": {
+                 "mandatory": true
+            }
+        }
     }
     
 }
@@ -16436,7 +16460,7 @@ Engine.prototype.onNode = function (node, error) {
 
     logger.debug('onNode', node.nodeName);
     // get rules
-    var rules = _.chain(this.config.regexNodes).filter(function (rules, name) {
+    var rules = _.chain(this.config.regexNodes).filter(function (rules) {
         return rules.regex.test(node.nodeName);
     }).flatten().concat(this.config.nodes[node.nodeName] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
@@ -16476,10 +16500,12 @@ Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
     var _this3 = this;
 
     // get rules
-    var rules = _.chain(nodeRule.regexAttrs).filter(function (rules, name) {
+    var rules = _.chain(nodeRule.regexAttrs).filter(function (rules) {
         return rules.regex.test(attr.name);
     }).flatten().concat(nodeRule.attrs[attr.name] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
+    }).filter(function (rule) {
+        return matcher.nomatchDescendant(node, rule.nomatch_descendant);
     }).value();
     // call callbacks
     rules.map(function (rule) {
@@ -16627,6 +16653,10 @@ module.exports={
     "code": "06200001",
     "message": "禁止使用'%s'，请统一使用UTF-8编码"
   },
+  "INVALID_INNER_HTML": {
+    "code": "03210001",
+    "message": "标签 '%s' 的 HTML 内容不合法（%s）"
+  },
   "MANDATORY_TAG_MISSING": {
     "code": "06200101",
     "message": "强制性标签'%s'缺失或错误",
@@ -16698,7 +16728,7 @@ function Logger(id) {
     }
     var debugEnabled = match(process.env.DEBUG, id);
     return {
-        debug: debugEnabled ? createWith(console.log.bind(console), id) : function (x) {
+        debug: debugEnabled ? createWith(console.log.bind(console), id) : function () {
             return false;
         },
         log: createWith(console.log.bind(console), id),
@@ -16926,12 +16956,55 @@ function matchAncestor(node, ancestorNodeName) {
  *      matchParent(node, '/form|div|section/'
  */
 function matchParent(node, parentNodeName) {
+    logger.debug('matching parent:', parentNodeName);
+
     // match disabled 
     if (!parentNodeName) return true;
     // there's no parent
     if (!node.parentNode) return false;
 
     return matchValue(node.parentNode.nodeName, parentNodeName);
+}
+
+/*
+ * match descendant node name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} descendantNodeName string or regex-like string to match with
+ * legacy:
+ *      matchDescendant(node, 'form');
+ *      matchDescendant(node, '/form|div|section/'
+ */
+function matchDescendant(node, descendantNodeName) {
+    // match disabled 
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return dfsUntil(node, function (child) {
+        return matchValue(child.nodeName, descendantNodeName);
+    });
+}
+
+/*
+ * nomatch descendant node name
+ * @param {ASTNode} node the node of which parent will be matched
+ * @param {String} descendantNodeName string or regex-like string to match with
+ * legacy:
+ *      nomatchDescendant(node, 'form');
+ *      nomatchDescendant(node, '/form|div|section/'
+ */
+function nomatchDescendant(node, descendantNodeName) {
+    logger.debug('nomatching descendant:', descendantNodeName);
+
+    // match disabled, pass
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return !matchDescendant(node, descendantNodeName);
+}
+
+function dfsUntil(node, predict) {
+    var children = node.childNodes || [];
+    return predict(node) || children.some(function (child) {
+        return dfsUntil(child, predict);
+    });
 }
 
 /*
@@ -16975,16 +17048,6 @@ function fingerprintByTag(node) {
 }
 
 /*
- * Get a RegExp matching one of the given tags
- * @param {Array} tags
- * legacy: tagsPattern(['div', 'head', 'iframe'])
- */
-function tagsPattern(tags) {
-    var reTags = tags.join('|');
-    return new RegExp('<\\s*(' + reTags + ')(?:\\s+[^>]*)*>', 'ig');
-}
-
-/*
  * Match tagnames from the given HTML
  * @param {Array} tagNames
  * @param {String} html
@@ -16997,8 +17060,18 @@ function matchTagNames(tagNames, html) {
 }
 
 module.exports = {
-    match: match, matchAttrs: matchAttrs, matchValue: matchValue, fingerprintByTag: fingerprintByTag, createNode: createNode, fingerprintByObject: fingerprintByObject,
-    stringToRegex: stringToRegex, matchTagNames: matchTagNames, matchParent: matchParent, matchAncestor: matchAncestor
+    match: match,
+    matchAttrs: matchAttrs,
+    matchValue: matchValue,
+    fingerprintByTag: fingerprintByTag,
+    createNode: createNode,
+    fingerprintByObject: fingerprintByObject,
+    stringToRegex: stringToRegex,
+    matchTagNames: matchTagNames,
+    matchParent: matchParent,
+    matchAncestor: matchAncestor,
+    nomatchDescendant: nomatchDescendant,
+    matchDescendant: matchDescendant
 };
 
 },{"./../node_modules/lodash/lodash.min.js":11,"./logger.js":59}],61:[function(require,module,exports){
@@ -17242,6 +17315,24 @@ var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error.json');
 var matcher = require('../matcher.js');
 
+exports.onNode = function (node, rule, error, engine) {
+    if (rule.inner_html === undefined) return;
+
+    var loc = node.__location;
+    var innerHTML = engine.html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
+    if (matcher.matchValue(innerHTML, rule.inner_html)) return;
+
+    var err = ERR.INVALID_INNER_HTML;
+    error(err, node.tagName, rule.inner_html);
+};
+
+},{"../error.json":57,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],69:[function(require,module,exports){
+'use strict';
+
+var _ = require('./../../node_modules/lodash/lodash.min.js');
+var ERR = require('../error.json');
+var matcher = require('../matcher.js');
+
 exports.onAttr = function (attr, attrRule, node, nodeRule, error, engine) {
     if (!attrRule.properties) return;
 
@@ -17264,19 +17355,19 @@ function parseValueProperties(value) {
     }).fromPairs().value();
 }
 
-},{"../error.json":57,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],69:[function(require,module,exports){
+},{"../error.json":57,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],70:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error.json');
 var matcher = require('../matcher.js');
 
-exports.onNode = function (node, nodeRule, error, engine) {
+exports.onNode = function (node, nodeRule, error) {
     var attrOccurrence = _.keyBy(node.attrs, 'name');
 
     _.forOwn(nodeRule.attrs, function (rules, attrName) {
         rules.map(function (rule) {
-            if (rule.mandatory && matcher.matchAttrs(node, rule.match) && !attrOccurrence[attrName]) {
+            if (rule.mandatory && matcher.matchAttrs(node, rule.match) && matcher.nomatchDescendant(node, rule.nomatch_descendant) && !attrOccurrence[attrName]) {
 
                 var err = ERR.MANDATORY_ONEOF_ATTR_MISSING;
                 error(err, node.nodeName, attrName);
@@ -17285,7 +17376,7 @@ exports.onNode = function (node, nodeRule, error, engine) {
     });
 };
 
-},{"../error.json":57,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],70:[function(require,module,exports){
+},{"../error.json":57,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],71:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -17303,7 +17394,7 @@ exports.onNode = function (node, rule, error, engine) {
     error(err, node.nodeName, rule.mandatory_ancestor);
 };
 
-},{"../error.json":57,"./../../node_modules/lodash/lodash.min.js":11}],71:[function(require,module,exports){
+},{"../error.json":57,"./../../node_modules/lodash/lodash.min.js":11}],72:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -17389,7 +17480,7 @@ function validatePolyfill(error, engine) {
     });
 }
 
-},{"../error.json":57,"../logger.js":59,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],72:[function(require,module,exports){
+},{"../error.json":57,"../logger.js":59,"../matcher.js":60,"./../../node_modules/lodash/lodash.min.js":11}],73:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -17404,7 +17495,7 @@ exports.onNode = function (node, rule, error, engine) {
     error(ERR.WRONG_PARENT_TAG, node.nodeName, rule.mandatory_parent, parent);
 };
 
-},{"../error.json":57,"./../../node_modules/lodash/lodash.min.js":11}],73:[function(require,module,exports){
+},{"../error.json":57,"./../../node_modules/lodash/lodash.min.js":11}],74:[function(require,module,exports){
 'use strict';
 
 var _ = require('./node_modules/lodash/lodash.min.js');
@@ -17436,6 +17527,7 @@ function factory(rules, conf) {
     engine.register(require('./src/validators/disallowed_tag.js'));
     engine.register(require('./src/validators/duplicate_unique_tag.js'));
     engine.register(require('./src/validators/mandatory_tag_missing.js'));
+    engine.register(require('./src/validators/invalid_inner_html.js'));
 
     // nesting
     engine.register(require('./src/validators/disallowed_tag_ancestor.js'));
@@ -17449,5 +17541,5 @@ factory.rules = _.cloneDeep(rules);
 
 module.exports = factory;
 
-},{"./node_modules/lodash/lodash.min.js":11,"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":56,"./src/logger.js":59,"./src/preprocess.js":61,"./src/validators/disallowed_attr.js":63,"./src/validators/disallowed_tag.js":64,"./src/validators/disallowed_tag_ancestor.js":65,"./src/validators/duplicate_unique_tag.js":66,"./src/validators/invalid_attr_value.js":67,"./src/validators/invalid_property_value_in_attr_value.js":68,"./src/validators/mandatory_oneof_attr_missing.js":69,"./src/validators/mandatory_tag_ancestor.js":70,"./src/validators/mandatory_tag_missing.js":71,"./src/validators/mandatory_tag_parent.js":72}]},{},[73])(73)
+},{"./node_modules/lodash/lodash.min.js":11,"./package.json":52,"./rules.json":53,"./src/config.js":54,"./src/engine.js":56,"./src/logger.js":59,"./src/preprocess.js":61,"./src/validators/disallowed_attr.js":63,"./src/validators/disallowed_tag.js":64,"./src/validators/disallowed_tag_ancestor.js":65,"./src/validators/duplicate_unique_tag.js":66,"./src/validators/invalid_attr_value.js":67,"./src/validators/invalid_inner_html.js":68,"./src/validators/invalid_property_value_in_attr_value.js":69,"./src/validators/mandatory_oneof_attr_missing.js":70,"./src/validators/mandatory_tag_ancestor.js":71,"./src/validators/mandatory_tag_missing.js":72,"./src/validators/mandatory_tag_parent.js":73}]},{},[74])(74)
 });})();
