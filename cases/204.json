@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 'style' 的 HTML 内容不合法（/^(?!.*?position:fixed).*$/）",
+        "code": "03210001",
+        "line": 16,
+        "col": 9,
+        "offset": 936,
+        "input": "        <style mip-custom>"
+    }
+]

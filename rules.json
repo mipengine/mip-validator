@@ -298,9 +298,10 @@
     "style": {
         "attrs": {
             "mip-custom": {
-                 "mandatory": true
+                "mandatory": true
             }
         },
+        "inner_html": "/^(?!.*?position:fixed).*$/",
         "duplicate": true,
         "mandatory_parent": "head"
         
