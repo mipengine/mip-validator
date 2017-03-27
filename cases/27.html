@@ -128,10 +128,10 @@
 			.pullone b{ margin-left:2px; width:14px; height:2px; background-color:#333;}
 
 			.Extension{background:-webkit-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:-moz-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:-o-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee); border: 1px solid #BCBCBC;border-radius:0  0 3px 3px;  padding:8px 0 2px; right:0px; left:0px; border-top:none; margin-top:-1px;}
-			.Extension ul li {display:inline-block;height:15px; margin: 0 10px 10px;} 
+			.Extension ul li {display:inline-block;height:15px; margin: 0 10px 10px;}
 			.Extension ul li a{color:#565656; font-family: 微软雅黑;}
 
-			.list{ margin:5px; border:1px solid #d0d0d0; border-radius:7px; background:#FFF; position:fixed; top:55px; bottom:50px; left:5px; width:99%; overflow:auto;}
+			.list{ margin:5px; border:1px solid #d0d0d0; border-radius:7px; background:#FFF; position:static; top:55px; bottom:50px; left:5px; width:99%; overflow:auto;}
 			.list li{ border-bottom:1px solid #ececec; line-height:49px; padding-left:13px;}
 			.list li a{ font-size:15px; font-family:\5FAE\8F6F\96C5\9ED1; color:#565656;}
 			.check{ border-top:2px solid #d2d4d6; border-bottom:2px solid #d2d4d6; }
@@ -170,11 +170,11 @@
 			margin-right:8px; color:#333;text-align:center;height:27px;line-height:27px;margin-bottom:3px;
 			background:-webkit-linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);background:-moz-linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);background:linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);
 			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9fff5), color-stop(100%,#e9f2df)); }
-			.bot_box{ position:fixed; bottom:0; width:100%;}
+			.bot_box{ position:static; bottom:0; width:100%;}
             .oh{ overflow:hidden;}
             .j-logo i {width: 28px;height: 28px;background: url(http://static.img.xywy.com/3g_club/images/alogo.png) no-repeat;-webkit-background-size: 28px auto;-moz-background-size: 28px auto;-o-background-size: 28px auto;background-size: 28px auto;}
 		   .item-hd-so-box{width:100%;height:44px;font-family:\5FAE\8F6F\96C5\9ED1;overflow:hidden}
-			.item-hd-so{width:100%;height:44px;padding:0 10px;position:fixed;left:0px;top:0px;z-index:9999;background:#0dc3ce;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+			.item-hd-so{width:100%;height:44px;padding:0 10px;position:static;left:0px;top:0px;z-index:9999;background:#0dc3ce;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
 			.item-hd-so-area{width:100%;height:44px;display:-webkit-box;display:-moz-box;display:-o-box;display:-ms-box;display:box;}
 			.item-hd-so-item{display:block;width:40px;line-height:16px;padding-top:5px;color:#fff;font-size:14px;text-decoration:none;}
 			.item-hd-so-back{display:none;width:40px;height:44px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAfCAMAAADZe72GAAAAdVBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////li2ZAAAAAJnRSTlMA+gVU8PXr5basSSTynpqSjoB6cmBbQj05NTEtKc7NwqSjh4YUB3YfLs8AAAB2SURBVCjPZdFHEsQgDETRYYwn5xyd3fc/orcfmt1TFSCpZ+m5FanvoUpcBF0zX+hN0DlzRz9KnehnqSP92ulAv6P29CeqmcPfhdb0L/N2qVXukQ/WigOIG17xX7wPdtqiwll8Wt+Hb4w77UFs3XPx5Jjt39KfADu9CPZivAU9AAAAAElFTkSuQmCC) no-repeat 0 center;background-size:12px 23px;}
@@ -212,7 +212,7 @@
 			.item-online-so .item-hd-so-back{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAfCAMAAADZe72GAAAAbFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMO261zAAAAI3RSTlMA+vFUBfXp47askF4rJAbOnpqAenJLR0I9OTUxwqSjh4YUB/pAbFEAAABxSURBVCjPfdFFDsUwFEPRn/Qzcxm9/z12ehtLzew8KWRvluuSJQ6PhbOgb+IP/Qt60/+gns53OtNF4jLqRVdRT7qOarfwda/Tmm8HHe+JJx7YKI4gdvjEb/EJX9phwr/4bz0PT4yZDjRT917YnHVr7c+dCwhd7YGtyQAAAABJRU5ErkJggg==);}
 			.item-online-so .login-bar{width:40px;height:26px;margin:8px 0 7px 10px;background:-webkit-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:-moz-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:-o-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);border:1px solid #bcbcbc;border-radius:3px;}
 			.item-online-so .login-bar li{width:40px;height:26px;line-height:26px;}
-			.item-online-so .login-menu div{display:block;padding:0;line-height:2px;}	
+			.item-online-so .login-menu div{display:block;padding:0;line-height:2px;}
 			.item-online-so .login-menu i{width:3px;height:2px;background-color:#333;}
 			.item-online-so .login-menu b{margin-left:2px;width:14px;height:2px;background-color:#333;}
 			.item-online-so .login-menu .first{margin-top:0;}
@@ -224,15 +224,15 @@
 			.item-online-gb-so .refresh{position:static;height:44px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAolBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8ELnaCAAAANXRSTlMABUwUSDERGAoeOS4pISYMPCtBI0Q1gRv69lMH8u0O4c6jj3Nr59i4sopg28a/qVqrmD+sZLau4EEAAAKISURBVEjHpVeJcuowDHScxJD7IAkJ932Wo+3T///aI1OoT2JId6ZTxiBLXq0lGalBAs/NLIytLLZD00CvopNbceKY3ZuFMSSO72I3GCI9hr6Vd0Q3ZoLtSGNoJFaoDi/AebfJ0rF8aigb010ll7lNmkNKn0RNMh9pEFh91bJpOUgLE/cUGcEd9AK6ni9vZ6KXYHiC38iiPnV+cZ/bKg30NpQUlmfbR28g+GL2cdFbSMLfj6nioP3V97EEGM8+B11J5/ixFCRIxghudtNpBQCjhSiEnn3/kKl0XeyzSf3fuZwrqJaCevEPU46nu7+LEk6EZ+rHbUxXTbuGLA5vAxuOD8Oqw4hSujKGGpXM2uQEs4jbrBZ8GNKF/W53AoClQkMfMOd04T7ipZjDDGaqA68BcxHf/jBiYcPYPIIqWwM4sjS7JiIxYnGGJSpgjxT4gAGi8HtCakg5ilAPdkjpdsuWMa+25r4+18wRZZkdlVQ7dbQ2J7IFrNBT7CBlKM9QziVxC/Zz0wJWHMUup50ZNFSLf1CwMhZMp9BQ4g+wYE2FgDdANF5pwAJNJ/A0Z6U0Ccn5hMOLDJNYkMQF5mqzZYaMURlxkiCxpCYFJrDm1VRHa2BJw2oBp7yG68zERLw5KtMVHGFjsATTq07v67ey5JcA88PB5a56lPK/mdLs8RKtUTIFRi4TbqU8brjfF0Vx+dWSoSqmuIL5BDXDse8nFnQbr2F9YCjpyLcJ3/fuJSInV4D14lH9ryU4YuPIn7erry2wPceQ2hVlWtXprpvqSadLwvat+Q8DQfsxpP3w037kajnoEdxrP162H2qbRmmkGaUbNsaaAb7Ns2Hy7mOlS/rax4r8REo1T6T/nS407lArk7AAAAAASUVORK5CYII=) no-repeat right center;background-size:29px;}
 			/* family */
 			.item-family-so .item-hd-so{background:#32b16c;}
-			/* wap */ 
+			/* wap */
 			.item-wap-so .item-hd-so{background:#2daaba}
 			.item-wap-so .item-hd-so-user{line-height:42px;text-align:right;color:#fff;background:none;font-size:14px;}
-			#downList,.Extension,.mask{position:fixed;z-index:9998;}
+			#downList,.Extension,.mask{position:static;z-index:9998;}
 			.mask{top:44px;}
 			.sylist-first{border-bottom:none; margin:0 auto;width:286px;}
 			.wenzi-400{padding:10px 13px;}
 			form div{padding:0;text-align:center;}
-			/*.bottom-float{position:fixed;bottom:0px;left:0px;height:50px;width:100%;}*/
+			/*.bottom-float{position:static;bottom:0px;left:0px;height:50px;width:100%;}*/
         </style>
 	</head>
     <body>
@@ -267,7 +267,7 @@
 		</div>
 	</mip-fixed>
 	<!-- 新的模块结束 -->
-        <div class="mr5 ml5 Extension f15 pa none">		
+        <div class="mr5 ml5 Extension f15 pa none">
             <ul>
                <li><a target="_blank" href="http://3g.xywy.com/">首页</a></li>            </ul>
         </div>
@@ -277,7 +277,7 @@
                 <div class="sy-dateda">来源:寻医问药网<span class="ml15">时间：2016-10-25</span></div>
             </div>
             <p>
-            <p mm="text-align:justify">性功能障碍的发生给我们的患者造成了极大的困扰，在患上性功能障碍疾病的时候是不能够忽视了治疗的，一定要重视起来，及早的采取治疗措施，这样才能够早日达到康复，帮助到患者减少一些麻烦出现，我们就一起来关注性功能障碍的治疗护理措施到底是什么？</p> <p mm="text-align:justify"><strong>性功能障碍要注意心理调节</strong></p> <p mm="text-align:justify"><strong>1、性教育</strong></p> <p mm="text-align:justify">如果一个人在青少年时期没有接受过正规的解剖生理学习，成年后又因社会不能提供正确的性解剖生理知识的信息或接受了错误的信息，则容易产生性功能障碍。常见的错误观念有：不了解能激发性兴奋的解剖部位(如乳头、阴蒂)，甚至不了解正常的性解剖位置(如不知道阴道口的位置);不了解阴茎大小的正常变异，总认为自己的阴茎太小而自卑(体象障碍);不了解性反应周期，不知道自己的性高潮;认为遗精一定是身体虚弱等等。性教育就是要通过简明坦率的交谈，介绍一些性知识的书籍或借助于幻灯、录像、电影，使患者对性的解剖与生理有一个完整正确的概念，使他们消除顾虑，了解到自己的性功能并非想象中的状况。</p> <p mm="text-align:justify">由于缺乏性知识而导致性功能障碍的患者，经过性教育就可能治愈，而不需要其他特别的治疗。但需注意的是：虽然性知识方面的问题容易改变，但由此而产生的性行为异常则往往不能很快纠正。在此阶段发现明显的其他方面的问题(如婚姻关系障碍)，则需另作特殊的处理。</p> <p mm="text-align:justify"><strong>2.性态度的端正</strong></p> <p mm="text-align:justify">对性行为的畏惧和焦虑，是引起性功能障碍的最主要的原因，它可以减轻性欲、丧失自信心，并能直接引起阳痿和性冷淡。例如，有的患者因为焦虑和害怕失败，在性交中总是注意自己的方法是否正确，反应是否正常，无意地把自己摆在了&ldquo;旁观者&rdquo;的地位，从而破坏了夫妻二人和谐协调的亲密性而出现性功能障碍。性功能障碍又反过来加重焦虑和恐惧，形成了恶性循环。此阶段的治疗就是要纠正患者不正确的认识和态度，消除由此产生的焦虑和恐惧。</p> <p mm="text-align:justify"><strong>3.性技术的学习</strong></p> <p mm="text-align:justify">性功能障碍产生的原因之一是性交双方没能掌握必要的性技术。此阶段治疗的任务就是传授患者必要的性技术。性技术主要包含两个方面：</p> <p mm="text-align:justify">(1)交流技术。由于受中国传统文化的影响，有关性的许多事情，夫妻间很少交流过，夫妻对性的感受、性的需要和恐惧的能常常避而不谈，或由含糊不清的方式表达，从而造成这方面的障碍。如由于性欲水平的差异，一方希望一周性交几次，而另一方则希望一周一次，而夫妻双方又缺乏有效的交流，性交时就容易失败，甚至产生破坏或防御性性行为。又如在性生活中，一方希望对方在拥抱抚摸一段时间而不是急于行房事，如果没有有效的言语或非言语交流，就容易产生相互间公开或隐蔽的、有意或无意的不满情绪，最终导致性功能障碍。另外，生活中其他方面的不愉快事情也可给夫妻间性生活带来严重影响，如抚养孩子上的争执，工作中挫折、经济问题、文化和宗教信仰的差异、过度劳累等。要告诉患者注意夫妻双方的言语和非语言的交流，避开不宜进行性生活的情绪，合理安排性生活的次数和时间，注意对方的性要求和表达方式，加深双方相互默契的程度。</p> <p mm="text-align:justify">(2)性交技术。性交过程中可以有不同的姿势和方式，可以采取任何一种双方认为适宜的方式，或从一种姿势转移到另一种姿势。性技术的学习是为了加强双方交流的程度，消除单调固定的性交方式带来的厌烦情绪，解决因缺乏有效技术而形成的性行为失败。学习的方式可以是图书资料、录像、幻灯片、电影等。心理医生的职责是介绍性交的技术，让患者双方自己在不受干扰的情况下选择并练习，并了解对性生活的改善程度。</p> <p mm="text-align:justify">关于性功能障碍疾病的调养护理措施就为大家讲述到这里，希望了解了性功能障碍疾病的调养护理措施，可以帮助到患者在患上这个疾病的时候正确的护理疾病，争取早日达到康复，避免给性功能障碍疾病患者造成太多的伤害。</p> 
+            <p mm="text-align:justify">性功能障碍的发生给我们的患者造成了极大的困扰，在患上性功能障碍疾病的时候是不能够忽视了治疗的，一定要重视起来，及早的采取治疗措施，这样才能够早日达到康复，帮助到患者减少一些麻烦出现，我们就一起来关注性功能障碍的治疗护理措施到底是什么？</p> <p mm="text-align:justify"><strong>性功能障碍要注意心理调节</strong></p> <p mm="text-align:justify"><strong>1、性教育</strong></p> <p mm="text-align:justify">如果一个人在青少年时期没有接受过正规的解剖生理学习，成年后又因社会不能提供正确的性解剖生理知识的信息或接受了错误的信息，则容易产生性功能障碍。常见的错误观念有：不了解能激发性兴奋的解剖部位(如乳头、阴蒂)，甚至不了解正常的性解剖位置(如不知道阴道口的位置);不了解阴茎大小的正常变异，总认为自己的阴茎太小而自卑(体象障碍);不了解性反应周期，不知道自己的性高潮;认为遗精一定是身体虚弱等等。性教育就是要通过简明坦率的交谈，介绍一些性知识的书籍或借助于幻灯、录像、电影，使患者对性的解剖与生理有一个完整正确的概念，使他们消除顾虑，了解到自己的性功能并非想象中的状况。</p> <p mm="text-align:justify">由于缺乏性知识而导致性功能障碍的患者，经过性教育就可能治愈，而不需要其他特别的治疗。但需注意的是：虽然性知识方面的问题容易改变，但由此而产生的性行为异常则往往不能很快纠正。在此阶段发现明显的其他方面的问题(如婚姻关系障碍)，则需另作特殊的处理。</p> <p mm="text-align:justify"><strong>2.性态度的端正</strong></p> <p mm="text-align:justify">对性行为的畏惧和焦虑，是引起性功能障碍的最主要的原因，它可以减轻性欲、丧失自信心，并能直接引起阳痿和性冷淡。例如，有的患者因为焦虑和害怕失败，在性交中总是注意自己的方法是否正确，反应是否正常，无意地把自己摆在了&ldquo;旁观者&rdquo;的地位，从而破坏了夫妻二人和谐协调的亲密性而出现性功能障碍。性功能障碍又反过来加重焦虑和恐惧，形成了恶性循环。此阶段的治疗就是要纠正患者不正确的认识和态度，消除由此产生的焦虑和恐惧。</p> <p mm="text-align:justify"><strong>3.性技术的学习</strong></p> <p mm="text-align:justify">性功能障碍产生的原因之一是性交双方没能掌握必要的性技术。此阶段治疗的任务就是传授患者必要的性技术。性技术主要包含两个方面：</p> <p mm="text-align:justify">(1)交流技术。由于受中国传统文化的影响，有关性的许多事情，夫妻间很少交流过，夫妻对性的感受、性的需要和恐惧的能常常避而不谈，或由含糊不清的方式表达，从而造成这方面的障碍。如由于性欲水平的差异，一方希望一周性交几次，而另一方则希望一周一次，而夫妻双方又缺乏有效的交流，性交时就容易失败，甚至产生破坏或防御性性行为。又如在性生活中，一方希望对方在拥抱抚摸一段时间而不是急于行房事，如果没有有效的言语或非言语交流，就容易产生相互间公开或隐蔽的、有意或无意的不满情绪，最终导致性功能障碍。另外，生活中其他方面的不愉快事情也可给夫妻间性生活带来严重影响，如抚养孩子上的争执，工作中挫折、经济问题、文化和宗教信仰的差异、过度劳累等。要告诉患者注意夫妻双方的言语和非语言的交流，避开不宜进行性生活的情绪，合理安排性生活的次数和时间，注意对方的性要求和表达方式，加深双方相互默契的程度。</p> <p mm="text-align:justify">(2)性交技术。性交过程中可以有不同的姿势和方式，可以采取任何一种双方认为适宜的方式，或从一种姿势转移到另一种姿势。性技术的学习是为了加强双方交流的程度，消除单调固定的性交方式带来的厌烦情绪，解决因缺乏有效技术而形成的性行为失败。学习的方式可以是图书资料、录像、幻灯片、电影等。心理医生的职责是介绍性交的技术，让患者双方自己在不受干扰的情况下选择并练习，并了解对性生活的改善程度。</p> <p mm="text-align:justify">关于性功能障碍疾病的调养护理措施就为大家讲述到这里，希望了解了性功能障碍疾病的调养护理措施，可以帮助到患者在患上这个疾病的时候正确的护理疾病，争取早日达到康复，避免给性功能障碍疾病患者造成太多的伤害。</p>
 			</p>
     </div>
     <div class="sy-tl">

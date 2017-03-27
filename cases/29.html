@@ -128,10 +128,10 @@
 			.pullone b{ margin-left:2px; width:14px; height:2px; background-color:#333;}
 
 			.Extension{background:-webkit-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:-moz-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:-o-linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee);background:linear-gradient(top,#f9f9f9,#f2f2f2 50%, #eeeeee); border: 1px solid #BCBCBC;border-radius:0  0 3px 3px;  padding:8px 0 2px; right:0px; left:0px; border-top:none; margin-top:-1px;}
-			.Extension ul li {display:inline-block;height:15px; margin: 0 10px 10px;} 
+			.Extension ul li {display:inline-block;height:15px; margin: 0 10px 10px;}
 			.Extension ul li a{color:#565656; font-family: 微软雅黑;}
 
-			.list{ margin:5px; border:1px solid #d0d0d0; border-radius:7px; background:#FFF; position:fixed; top:55px; bottom:50px; left:5px; width:99%; overflow:auto;}
+			.list{ margin:5px; border:1px solid #d0d0d0; border-radius:7px; background:#FFF; position:static; top:55px; bottom:50px; left:5px; width:99%; overflow:auto;}
 			.list li{ border-bottom:1px solid #ececec; line-height:49px; padding-left:13px;}
 			.list li a{ font-size:15px; font-family:\5FAE\8F6F\96C5\9ED1; color:#565656;}
 			.check{ border-top:2px solid #d2d4d6; border-bottom:2px solid #d2d4d6; }
@@ -170,11 +170,11 @@
 			margin-right:8px; color:#333;text-align:center;height:27px;line-height:27px;margin-bottom:3px;
 			background:-webkit-linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);background:-moz-linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);background:linear-gradient(top,#f9fff5,#f1f9eb 50%,#e9f2df);
 			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9fff5), color-stop(100%,#e9f2df)); }
-			.bot_box{ position:fixed; bottom:0; width:100%;}
+			.bot_box{ position:static; bottom:0; width:100%;}
             .oh{ overflow:hidden;}
             .j-logo i {width: 28px;height: 28px;background: url(http://static.img.xywy.com/3g_club/images/alogo.png) no-repeat;-webkit-background-size: 28px auto;-moz-background-size: 28px auto;-o-background-size: 28px auto;background-size: 28px auto;}
 		   .item-hd-so-box{width:100%;height:44px;font-family:\5FAE\8F6F\96C5\9ED1;overflow:hidden}
-			.item-hd-so{width:100%;height:44px;padding:0 10px;position:fixed;left:0px;top:0px;z-index:9999;background:#0dc3ce;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+			.item-hd-so{width:100%;height:44px;padding:0 10px;position:static;left:0px;top:0px;z-index:9999;background:#0dc3ce;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
 			.item-hd-so-area{width:100%;height:44px;display:-webkit-box;display:-moz-box;display:-o-box;display:-ms-box;display:box;}
 			.item-hd-so-item{display:block;width:40px;line-height:16px;padding-top:5px;color:#fff;font-size:14px;text-decoration:none;}
 			.item-hd-so-back{display:none;width:40px;height:44px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAfCAMAAADZe72GAAAAdVBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////li2ZAAAAAJnRSTlMA+gVU8PXr5basSSTynpqSjoB6cmBbQj05NTEtKc7NwqSjh4YUB3YfLs8AAAB2SURBVCjPZdFHEsQgDETRYYwn5xyd3fc/orcfmt1TFSCpZ+m5FanvoUpcBF0zX+hN0DlzRz9KnehnqSP92ulAv6P29CeqmcPfhdb0L/N2qVXukQ/WigOIG17xX7wPdtqiwll8Wt+Hb4w77UFs3XPx5Jjt39KfADu9CPZivAU9AAAAAElFTkSuQmCC) no-repeat 0 center;background-size:12px 23px;}
@@ -212,7 +212,7 @@
 			.item-online-so .item-hd-so-back{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAfCAMAAADZe72GAAAAbFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMO261zAAAAI3RSTlMA+vFUBfXp47askF4rJAbOnpqAenJLR0I9OTUxwqSjh4YUB/pAbFEAAABxSURBVCjPfdFFDsUwFEPRn/Qzcxm9/z12ehtLzew8KWRvluuSJQ6PhbOgb+IP/Qt60/+gns53OtNF4jLqRVdRT7qOarfwda/Tmm8HHe+JJx7YKI4gdvjEb/EJX9phwr/4bz0PT4yZDjRT917YnHVr7c+dCwhd7YGtyQAAAABJRU5ErkJggg==);}
 			.item-online-so .login-bar{width:40px;height:26px;margin:8px 0 7px 10px;background:-webkit-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:-moz-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:-o-linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);background:linear-gradient(top,#fefefe,#f9f9f9 50%, #efefef);border:1px solid #bcbcbc;border-radius:3px;}
 			.item-online-so .login-bar li{width:40px;height:26px;line-height:26px;}
-			.item-online-so .login-menu div{display:block;padding:0;line-height:2px;}	
+			.item-online-so .login-menu div{display:block;padding:0;line-height:2px;}
 			.item-online-so .login-menu i{width:3px;height:2px;background-color:#333;}
 			.item-online-so .login-menu b{margin-left:2px;width:14px;height:2px;background-color:#333;}
 			.item-online-so .login-menu .first{margin-top:0;}
@@ -224,15 +224,15 @@
 			.item-online-gb-so .refresh{position:static;height:44px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAolBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8ELnaCAAAANXRSTlMABUwUSDERGAoeOS4pISYMPCtBI0Q1gRv69lMH8u0O4c6jj3Nr59i4sopg28a/qVqrmD+sZLau4EEAAAKISURBVEjHpVeJcuowDHScxJD7IAkJ932Wo+3T///aI1OoT2JId6ZTxiBLXq0lGalBAs/NLIytLLZD00CvopNbceKY3ZuFMSSO72I3GCI9hr6Vd0Q3ZoLtSGNoJFaoDi/AebfJ0rF8aigb010ll7lNmkNKn0RNMh9pEFh91bJpOUgLE/cUGcEd9AK6ni9vZ6KXYHiC38iiPnV+cZ/bKg30NpQUlmfbR28g+GL2cdFbSMLfj6nioP3V97EEGM8+B11J5/ixFCRIxghudtNpBQCjhSiEnn3/kKl0XeyzSf3fuZwrqJaCevEPU46nu7+LEk6EZ+rHbUxXTbuGLA5vAxuOD8Oqw4hSujKGGpXM2uQEs4jbrBZ8GNKF/W53AoClQkMfMOd04T7ipZjDDGaqA68BcxHf/jBiYcPYPIIqWwM4sjS7JiIxYnGGJSpgjxT4gAGi8HtCakg5ilAPdkjpdsuWMa+25r4+18wRZZkdlVQ7dbQ2J7IFrNBT7CBlKM9QziVxC/Zz0wJWHMUup50ZNFSLf1CwMhZMp9BQ4g+wYE2FgDdANF5pwAJNJ/A0Z6U0Ccn5hMOLDJNYkMQF5mqzZYaMURlxkiCxpCYFJrDm1VRHa2BJw2oBp7yG68zERLw5KtMVHGFjsATTq07v67ey5JcA88PB5a56lPK/mdLs8RKtUTIFRi4TbqU8brjfF0Vx+dWSoSqmuIL5BDXDse8nFnQbr2F9YCjpyLcJ3/fuJSInV4D14lH9ryU4YuPIn7erry2wPceQ2hVlWtXprpvqSadLwvat+Q8DQfsxpP3w037kajnoEdxrP162H2qbRmmkGaUbNsaaAb7Ns2Hy7mOlS/rax4r8REo1T6T/nS407lArk7AAAAAASUVORK5CYII=) no-repeat right center;background-size:29px;}
 			/* family */
 			.item-family-so .item-hd-so{background:#32b16c;}
-			/* wap */ 
+			/* wap */
 			.item-wap-so .item-hd-so{background:#2daaba}
 			.item-wap-so .item-hd-so-user{line-height:42px;text-align:right;color:#fff;background:none;font-size:14px;}
-			#downList,.Extension,.mask{position:fixed;z-index:9998;}
+			#downList,.Extension,.mask{position:static;z-index:9998;}
 			.mask{top:44px;}
 			.sylist-first{border-bottom:none; margin:0 auto;width:286px;}
 			.wenzi-400{padding:10px 13px;}
 			form div{padding:0;text-align:center;}
-			/*.bottom-float{position:fixed;bottom:0px;left:0px;height:50px;width:100%;}*/
+			/*.bottom-float{position:static;bottom:0px;left:0px;height:50px;width:100%;}*/
         </style>
 	</head>
     <body>
@@ -267,7 +267,7 @@
 		</div>
 	</mip-fixed>
 	<!-- 新的模块结束 -->
-        <div class="mr5 ml5 Extension f15 pa none">		
+        <div class="mr5 ml5 Extension f15 pa none">
             <ul>
                <li><a target="_blank" href="http://3g.xywy.com/">首页</a></li>            </ul>
         </div>
@@ -277,7 +277,7 @@
                 <div class="sy-dateda">来源:寻医问药网<span class="ml15">时间：2016-10-25</span></div>
             </div>
             <p>
-            <p>性功能障碍这个疾病的发生让患者承受太多的折磨，在患上性功能障碍疾病的时候，千万不要忽视治疗，坚持做好治疗和护理，才能够看到一些好的治疗效果，那么我们就一起来了解性功能障碍的护理事项到底是什么？</p> <p>人的性活动，人生物学的角度来说，是以指向异性，发生性器官接触，达到产生下一代为目的的，这是与其他动物共同之点。但是，作为高等动物的人，不知从什么时候起，生育已不是每次性生活的目的了，而指向异性、进行性交仍是绝大多数人的性活动过程。凡是不符合这一过程而又没有性器官解剖生理缺陷的就被称为性心理障碍(或称性变态、性欲倒错等)。性心理障碍大多病因未明，有一部份可能与少年儿童期的生活历有关。治疗大多困难，近年来使用行为疗法，有时可以好转。</p> <p>性功能障碍相信有很多男性都出现过，它给大家带来的困扰非常大，现在社会有很多男性平时比较忙碌，不注意自己的身心变化，平时大家需要注意自己的身体调理方法，避免造成自身健康受到影响，那么，男性出现了性功能障碍的护理要点。</p> <p>①避免不良生活习惯避免不健康的饮食习惯，减少应酬，避免酗酒，控制饮食，充分认识到戒烟的重要性和必要性。</p> <p>②排除疾病必要时应去医院，排除泌尿系统疾病，如慢性前列腺炎、附睾炎、尿道炎，或其他如内分泌疾病、各种全身性慢性疾病。</p> <p>③家庭关心家庭和睦，有利于消除工作和生活中的紧张情绪。对于丈夫出现的性欲和性能力减退，妻子应坦然对待，宽容处理，关爱体贴，消除顾虑，主动配合治疗。</p> <p>④积极治疗对情志不畅、郁闷不舒的人，中医表现为肝气郁结，可服用疏肝解郁的中成药。</p> <p>⑤遇到烦恼忧伤，应冷静思考，不应长期背上精神负担，及时放松与调整紧张心态，缓和与消除焦虑不安的情绪。做一些自己喜欢的事情，如欣赏音乐、参加集体活动和阅读有益的书籍，或找家人亲友倾诉，心情反而会舒畅，性压抑也会逐渐消失。</p> <p>综合阅读完这篇文章内容的介绍，我们知道出现性功能障碍疾病患者该如何做好相关护理事项了，希望了解这些相关护理事项可以帮助到我们的疾病患者正确的是去护理疾病，争取早日得到康复，避免给我的性功能障碍患者造成太多的健康危害。</p> 
+            <p>性功能障碍这个疾病的发生让患者承受太多的折磨，在患上性功能障碍疾病的时候，千万不要忽视治疗，坚持做好治疗和护理，才能够看到一些好的治疗效果，那么我们就一起来了解性功能障碍的护理事项到底是什么？</p> <p>人的性活动，人生物学的角度来说，是以指向异性，发生性器官接触，达到产生下一代为目的的，这是与其他动物共同之点。但是，作为高等动物的人，不知从什么时候起，生育已不是每次性生活的目的了，而指向异性、进行性交仍是绝大多数人的性活动过程。凡是不符合这一过程而又没有性器官解剖生理缺陷的就被称为性心理障碍(或称性变态、性欲倒错等)。性心理障碍大多病因未明，有一部份可能与少年儿童期的生活历有关。治疗大多困难，近年来使用行为疗法，有时可以好转。</p> <p>性功能障碍相信有很多男性都出现过，它给大家带来的困扰非常大，现在社会有很多男性平时比较忙碌，不注意自己的身心变化，平时大家需要注意自己的身体调理方法，避免造成自身健康受到影响，那么，男性出现了性功能障碍的护理要点。</p> <p>①避免不良生活习惯避免不健康的饮食习惯，减少应酬，避免酗酒，控制饮食，充分认识到戒烟的重要性和必要性。</p> <p>②排除疾病必要时应去医院，排除泌尿系统疾病，如慢性前列腺炎、附睾炎、尿道炎，或其他如内分泌疾病、各种全身性慢性疾病。</p> <p>③家庭关心家庭和睦，有利于消除工作和生活中的紧张情绪。对于丈夫出现的性欲和性能力减退，妻子应坦然对待，宽容处理，关爱体贴，消除顾虑，主动配合治疗。</p> <p>④积极治疗对情志不畅、郁闷不舒的人，中医表现为肝气郁结，可服用疏肝解郁的中成药。</p> <p>⑤遇到烦恼忧伤，应冷静思考，不应长期背上精神负担，及时放松与调整紧张心态，缓和与消除焦虑不安的情绪。做一些自己喜欢的事情，如欣赏音乐、参加集体活动和阅读有益的书籍，或找家人亲友倾诉，心情反而会舒畅，性压抑也会逐渐消失。</p> <p>综合阅读完这篇文章内容的介绍，我们知道出现性功能障碍疾病患者该如何做好相关护理事项了，希望了解这些相关护理事项可以帮助到我们的疾病患者正确的是去护理疾病，争取早日得到康复，避免给我的性功能障碍患者造成太多的健康危害。</p>
 			</p>
     </div>
     <div class="sy-tl">
