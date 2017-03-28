@@ -15952,7 +15952,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":8}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -16325,9 +16325,10 @@ module.exports={
     "style": {
         "attrs": {
             "mip-custom": {
-                 "mandatory": true
+                "mandatory": true
             }
         },
+        "inner_html": "/^(?!.*?position:fixed).*$/",
         "duplicate": true,
         "mandatory_parent": "head"
         
@@ -16461,7 +16462,7 @@ Engine.prototype.onNode = function (node, error) {
     logger.debug('onNode', node.nodeName);
     // get rules
     var rules = _.chain(this.config.regexNodes).filter(function (rules) {
-        return rules.regex.test(node.nodeName);
+        return matcher.matchValue(node.nodeName, rules.regexStr);
     }).flatten().concat(this.config.nodes[node.nodeName] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
     }).filter(function (rule) {
@@ -16501,7 +16502,7 @@ Engine.prototype.onAttr = function (attr, node, nodeRule, error) {
 
     // get rules
     var rules = _.chain(nodeRule.regexAttrs).filter(function (rules) {
-        return rules.regex.test(attr.name);
+        return matcher.matchValue(attr.name, rules.regexStr);
     }).flatten().concat(nodeRule.attrs[attr.name] || []).filter(function (rule) {
         return matcher.matchAttrs(node, rule.match);
     }).filter(function (rule) {
@@ -16865,7 +16866,7 @@ module.exports = Logger;
 'use strict';
 
 var _ = require('./../node_modules/lodash/lodash.min.js');
-var regexSyntax = /^\/(.*)\/(\w*)$/;
+var regexSyntax = /^(!?)\/(.*)\/(\w*)$/;
 var logger = require('./logger.js')('mip-validator:matcher');
 
 /*
@@ -16874,7 +16875,14 @@ var logger = require('./logger.js')('mip-validator:matcher');
  */
 function stringToRegex(str) {
     var match = str.match(regexSyntax);
-    return match ? new RegExp(match[1], match[2]) : null;
+    if (!match) {
+        return null;
+    }
+    var regex = new RegExp(match[2], match[3]);
+    if (match[1] === '!') {
+        regex.negate = true;
+    }
+    return regex;
 }
 
 /*
@@ -16885,7 +16893,8 @@ function stringToRegex(str) {
 function matchValue(src, target) {
     var re;
     if (re = stringToRegex(target)) {
-        return re.test(src);
+        var result = re.test(src);
+        return re.negate ? !result : result;
     } else {
         return src == target;
     }
@@ -17063,6 +17072,7 @@ module.exports = {
     match: match,
     matchAttrs: matchAttrs,
     matchValue: matchValue,
+    regexSyntax: regexSyntax,
     fingerprintByTag: fingerprintByTag,
     createNode: createNode,
     fingerprintByObject: fingerprintByObject,
@@ -17091,9 +17101,8 @@ function processNodeRules(config) {
     config.regexNodes = {};
     // for each node
     _.forEach(config.nodes, function (rules, name) {
-        var re = matcher.stringToRegex(name);
-        if (re) {
-            rules.regex = re;
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
             config.regexNodes[name] = rules;
         }
         _.forEach(rules, processNodeRule);
@@ -17104,9 +17113,8 @@ function processNodeRule(nodeRule) {
     nodeRule.id = id++;
     nodeRule.regexAttrs = {};
     _.forEach(nodeRule.attrs, function (rules, name) {
-        var re = matcher.stringToRegex(name);
-        rules.regex = re;
-        if (re) {
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
             nodeRule.regexAttrs[name] = rules;
         }
         _.forEach(rules, processAttrRule);
@@ -17319,7 +17327,7 @@ exports.onNode = function (node, rule, error, engine) {
     if (rule.inner_html === undefined) return;
 
     var loc = node.__location;
-    var innerHTML = engine.html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
+    var innerHTML = engine.html.slice(loc.startTag.endOffset, loc.endTag.startOffset).replace(/(\s*)/g, "");
     if (matcher.matchValue(innerHTML, rule.inner_html)) return;
 
     var err = ERR.INVALID_INNER_HTML;
