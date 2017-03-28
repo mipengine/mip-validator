@@ -15952,7 +15952,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":50,"_process":36,"inherits":8}],52:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -16328,7 +16328,7 @@ module.exports={
                 "mandatory": true
             }
         },
-        "inner_html": "/^(?!.*?position:fixed).*$/",
+        "inner_html": "!/position:\\s*fixed/",
         "duplicate": true,
         "mandatory_parent": "head"
         
@@ -17327,7 +17327,7 @@ exports.onNode = function (node, rule, error, engine) {
     if (rule.inner_html === undefined) return;
 
     var loc = node.__location;
-    var innerHTML = engine.html.slice(loc.startTag.endOffset, loc.endTag.startOffset).replace(/(\s*)/g, "");
+    var innerHTML = engine.html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
     if (matcher.matchValue(innerHTML, rule.inner_html)) return;
 
     var err = ERR.INVALID_INNER_HTML;
