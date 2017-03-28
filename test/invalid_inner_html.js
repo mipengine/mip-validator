@@ -16,6 +16,9 @@ describe('invalid inner HTML', function() {
             },
             div: {
               inner_html: '/^foo.*>$/'
+            },
+            style: {
+              inner_html: '!/position:\\s*fixed/'
             }
         });
     });
@@ -45,5 +48,15 @@ describe('invalid inner HTML', function() {
         var result = validator.validate('<div>foo<span>bar</span>foo</div>');
         console.log(result)
         expect(result).to.have.lengthOf(1);
+    });
+    it('should support negative match 0', function() {
+        var result = validator.validate('<style>foo</style>');
+        expect(result).to.have.lengthOf(0);
+    });
+    it('should support negative match 1', function() {
+        var result = validator.validate('<style>position:fixed</style>');
+        expect(result).to.have.lengthOf(1);
+        expect(result[0].code).to.equal(code);
+        expect(result[0].message).to.contain("标签 'style' 的 HTML 内容不合法");
     });
 });

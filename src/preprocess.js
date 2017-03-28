@@ -12,9 +12,8 @@ function processNodeRules(config) {
     config.regexNodes = {};
     // for each node
     _.forEach(config.nodes, (rules, name) => {
-        var re = matcher.stringToRegex(name);
-        if (re) {
-            rules.regex = re;
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
             config.regexNodes[name] = rules;
         }
         _.forEach(rules, processNodeRule);
@@ -25,9 +24,8 @@ function processNodeRule(nodeRule) {
     nodeRule.id = id++;
     nodeRule.regexAttrs = {};
     _.forEach(nodeRule.attrs, (rules, name) => {
-        var re = matcher.stringToRegex(name);
-        rules.regex = re;
-        if (re) {
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
             nodeRule.regexAttrs[name] = rules;
         }
         _.forEach(rules, processAttrRule);

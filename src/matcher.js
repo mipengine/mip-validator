@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const regexSyntax = /^\/(.*)\/(\w*)$/;
+const regexSyntax = /^(!?)\/(.*)\/(\w*)$/;
 const logger = require('./logger.js')('mip-validator:matcher');
 
 /*
@@ -8,7 +8,14 @@ const logger = require('./logger.js')('mip-validator:matcher');
  */
 function stringToRegex(str) {
     var match = str.match(regexSyntax);
-    return match ? new RegExp(match[1], match[2]) : null;
+    if (!match) {
+        return null;
+    }
+    var regex = new RegExp(match[2], match[3])
+    if (match[1] === '!') {
+        regex.negate = true;
+    }
+    return regex;
 }
 
 /*
@@ -19,7 +26,8 @@ function stringToRegex(str) {
 function matchValue(src, target) {
     var re;
     if (re = stringToRegex(target)) {
-        return re.test(src);
+        var result = re.test(src);
+        return re.negate ? (!result) : result;
     } else {
         return src == target;
     }
@@ -196,6 +204,7 @@ module.exports = {
     match,
     matchAttrs,
     matchValue,
+    regexSyntax,
     fingerprintByTag,
     createNode,
     fingerprintByObject,

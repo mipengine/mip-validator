@@ -44,7 +44,7 @@ Engine.prototype.onNode = function(node, error) {
     logger.debug('onNode', node.nodeName);
     // get rules
     var rules = _.chain(this.config.regexNodes)
-        .filter((rules) => rules.regex.test(node.nodeName))
+        .filter((rules) => matcher.matchValue(node.nodeName, rules.regexStr))
         .flatten()
         .concat(this.config.nodes[node.nodeName] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
@@ -79,7 +79,7 @@ Engine.prototype.onNode = function(node, error) {
 Engine.prototype.onAttr = function(attr, node, nodeRule, error) {
     // get rules
     var rules = _.chain(nodeRule.regexAttrs)
-        .filter((rules) => rules.regex.test(attr.name))
+        .filter((rules) => matcher.matchValue(attr.name, rules.regexStr))
         .flatten()
         .concat(nodeRule.attrs[attr.name] || [])
         .filter(rule => matcher.matchAttrs(node, rule.match))
