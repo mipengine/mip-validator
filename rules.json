@@ -301,7 +301,6 @@
                 "mandatory": true
             }
         },
-        "inner_html": "!/position:\\s*fixed/",
         "duplicate": true,
         "mandatory_parent": "head"
         
