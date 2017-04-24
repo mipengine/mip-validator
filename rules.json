@@ -155,7 +155,7 @@
     "a": {
         "attrs": {
             "href": {
-                "mandatory": true,
+                "mandatory": true
             }
             
         }
@@ -163,7 +163,7 @@
     "mip-img": {
         "attrs": {
             "src": {
-                "mandatory": true,
+                "mandatory": true
             }
         }
     },
@@ -266,7 +266,7 @@
     "mip-link": {
         "attrs": {
             "href": {
-                "mandatory": true,
+                "mandatory": true
             }
         }
     },
