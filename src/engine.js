@@ -5,18 +5,21 @@ const ValidateError = require('./validate-error.js');
 const logger = require('./logger.js')('mip-validator:engine');
 const ERR = require('./error.json');
 const checkUTF8 = require('./encoding.js').checkUTF8;
-const rules = require('../rules.json');
+const defaultRules = require('../rules.json');
 const ruleParser = require('../src/rule-parser.js');
+const assert = require('assert');
 
 function Engine(rules) {
     this.onBeginCbs = [];
     this.onEndCbs = [];
     this.onAttrCbs = [];
     this.onNodeCbs = [];
-    this.setRules(rules);
+    this.setRules(rules || defaultRules);
 }
 
 Engine.prototype.setRules = function(rules) {
+    assert(typeof rules === 'object',
+       'rules object expected, but ' + (typeof rules) + ' found');
     this.config = ruleParser.mkConfig(rules);
 }
 
