@@ -1,22 +1,21 @@
 const _ = require('lodash');
 const Engine = require('./src/engine.js');
-const config = require('./src/config.js');
 const rules = require('./rules.json');
-const preprocess = require('./src/preprocess.js');
+const rulesCustom = require('./rules-custom.json');
 const logger = require('./src/logger.js')('mip-validator:index');
 
-function factory(rules, conf) {
+function factory(rules) {
     // NPM compliance
     if(rules === 'package.json'){
         return require('./package.json');
     }
 
-    conf = conf || {};
-    conf.rules = rules;
-    conf = config.normalize(conf);
-    conf = preprocess.process(conf);
-    var engine = Engine(conf);
+    var engine = engineFactory(rules);
+    return engine;
+}
 
+function engineFactory(conf){
+    var engine = Engine(conf);
     // attr
     engine.register(require('./src/validators/disallowed_attr.js'));
     engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'));
@@ -33,11 +32,11 @@ function factory(rules, conf) {
     engine.register(require('./src/validators/disallowed_tag_ancestor.js'));
     engine.register(require('./src/validators/mandatory_tag_ancestor.js'));
     engine.register(require('./src/validators/mandatory_tag_parent.js'));
-
     return engine;
 }
 
 factory.rules = _.cloneDeep(rules);
+factory.rulesCustom = _.cloneDeep(rulesCustom);
 
 module.exports = factory;
 

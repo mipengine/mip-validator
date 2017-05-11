@@ -21,10 +21,8 @@ describe('index', function() {
         expect(rules).to.be.an('object');
     });
     it('should return first error only in fast mode', function() {
-        validator = Validator(null, {
-            fast: true
-        });
-        result = validator.validate('<html></html>');
+        validator = Validator(null);
+        result = validator.validate('<html></html>', true);
         expect(result).to.have.lengthOf(1);
     });
 });

@@ -5,19 +5,21 @@ const ValidateError = require('./validate-error.js');
 const logger = require('./logger.js')('mip-validator:engine');
 const ERR = require('./error.json');
 const checkUTF8 = require('./encoding.js').checkUTF8;
+const rules = require('../rules.json');
+const ruleParser = require('../src/rule-parser.js');
 
-function Engine(config) {
-    this.config = config;
+function Engine(rules) {
     this.onBeginCbs = [];
     this.onEndCbs = [];
     this.onAttrCbs = [];
     this.onNodeCbs = [];
+    this.setRules(rules);
 }
 
-/*
- * Register a validator
- * @param {Object} validator
- */
+Engine.prototype.setRules = function(rules) {
+    this.config = ruleParser.mkConfig(rules);
+}
+
 Engine.prototype.register = function(validator) {
     validator.onBegin && this.onBeginCbs.push(validator.onBegin);
     validator.onEnd && this.onEndCbs.push(validator.onEnd);
@@ -25,8 +27,9 @@ Engine.prototype.register = function(validator) {
     validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
-/*
+/**
  * Callback when DFS begins
+ *
  * @param {Function} error errorFactory to create an error.
  */
 Engine.prototype.onBegin = function(error) {
@@ -42,7 +45,7 @@ Engine.prototype.onBegin = function(error) {
  */
 Engine.prototype.onNode = function(node, error) {
     logger.debug('onNode', node.nodeName);
-    // get rules
+    // get active rules
     var rules = _.chain(this.config.regexNodes)
         .filter((rules) => matcher.matchValue(node.nodeName, rules.regexStr))
         .flatten()
@@ -53,11 +56,11 @@ Engine.prototype.onNode = function(node, error) {
         .value();
 
     _.forEach(rules, nodeRule => {
-        // call callbacks
+        // invoke callbacks
         _.map(this.onNodeCbs, cb => {
             cb(node, nodeRule, nodeError, this);
         });
-        // traversal attributes
+        // traverse attributes
         _.forEach(node.attrs, attr => this.onAttr(attr, node, nodeRule, nodeError));
     });
 
@@ -116,17 +119,24 @@ Engine.prototype.dfs = function(node, error) {
     children.forEach(child => this.dfs(child, error));
 };
 
-/*
+/**
  * Validate the HTML
- * @param {String} html The HTML to validate
+ *
+ * @param {string} html The HTML to validate.
+ * @param {Boolean} fastMode Optional, abort on first error, default false.
+ * @param {Object} rules Optional, the rules to validate the `html` with, first initialized in constructor
  */
-Engine.prototype.validate = function(html) {
+Engine.prototype.validate = function(html, fastMode, rules) {
     // just pretend to be UTF-8
     this.html = normalize(html);
 
+    if (rules) {
+        this.setRules(rules);
+    }
+
     var errorGenertor = ValidateError.generator({
         html: this.html,
-        fast: this.config.fast
+        fast: fastMode
     });
 
     // Encoding Check
@@ -151,17 +161,17 @@ Engine.prototype.validate = function(html) {
         this.dfs(document, errorGenertor);
         this.onEnd(errorGenertor);
         return errorGenertor.errors;
-    }, this.config.fast);
+    }, fastMode);
 
     return errors;
 };
 
-Engine.prototype.applyErrorPolicy = function(validate, fastEnabled) {
+Engine.prototype.applyErrorPolicy = function(validate, fastMode) {
     try {
         var errors = validate();
-        return fastEnabled ? [] : errors;
+        return fastMode ? [] : errors;
     } catch (e) {
-        if (fastEnabled) {
+        if (fastMode) {
             return [e];
         } else {
             throw e;

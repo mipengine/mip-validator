@@ -33,11 +33,6 @@ if (program['conf']) {
     config = require(configPath);
 }
 var validator = config ? Validator(config) : Validator();
-var fastValidator = config ? Validator(config, {
-    fast: true
-}) : Validator(null, {
-    fast: true
-});
 
 
 ////////////////////////////////////////////////////////////////////
@@ -78,8 +73,8 @@ routes['/'] = function(req, res) {
  * Router: /validate
  */
 routes['/validate'] = function(req, res) {
-    var v = req.params.fast === 'true' ? fastValidator : validator;
-    var result = v.validate(req.body);
+    var fastMode = (req.params.fast === 'true');
+    var result = validator.validate(req.body, fastMode);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result, null, 4));
 };
