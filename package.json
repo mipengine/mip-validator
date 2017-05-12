@@ -57,9 +57,9 @@
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
-    "test": "npm run lint && DEBUG='mip-validator:' mocha",
+    "test": "DEBUG='mip-validator:' mocha",
     "lint": "eslint src/ test/ bin/ index.js",
-    "preversion": "npm test",
+    "preversion": "npm run lint && npm test",
     "version": "make dist && git add -A dist",
     "postversion": "git push && git push --tags && npm publish"
   },

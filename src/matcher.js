@@ -99,13 +99,12 @@ function matchAncestor (node, ancestorNodeName) {
  *      matchParent(node, '/form|div|section/'
  */
 function matchParent (node, parentNodeName) {
-  logger.debug('matching parent:', parentNodeName)
-
-    // match disabled
+  // match disabled
   if (!parentNodeName) return true
-    // there's no parent
+  // there's no parent
   if (!node.parentNode) return false
 
+  logger.debug('matching parent:', parentNodeName)
   return matchValue(node.parentNode.nodeName, parentNodeName)
 }
 

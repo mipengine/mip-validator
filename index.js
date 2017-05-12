@@ -1,21 +1,19 @@
 const _ = require('lodash')
 const Engine = require('./src/engine.js')
-const rules = require('./rules.json')
+const defaultRules = require('./rules.json')
 const rulesCustom = require('./rules-custom.json')
 const logger = require('./src/logger.js')('mip-validator:index')
 
-function factory (rules) {
-    // NPM compliance
+function exporter (rules) {
+  // NPM compliance
   if (rules === 'package.json') {
     return require('./package.json')
   }
-
-  var engine = engineFactory(rules)
-  return engine
+  return engineFactory(rules)
 }
 
-function engineFactory (conf) {
-  var engine = Engine(conf)
+function engineFactory (rules) {
+  var engine = Engine(rules || defaultRules)
     // attr
   engine.register(require('./src/validators/disallowed_attr.js'))
   engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'))
@@ -35,7 +33,8 @@ function engineFactory (conf) {
   return engine
 }
 
-factory.rules = _.cloneDeep(rules)
-factory.rulesCustom = _.cloneDeep(rulesCustom)
+// make a separate copy of rules
+exporter.rules = _.cloneDeep(defaultRules)
+exporter.rulesCustom = _.cloneDeep(rulesCustom)
 
-module.exports = factory
+module.exports = exporter

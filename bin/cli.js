@@ -9,6 +9,8 @@ const Buffer = require('buffer').Buffer
 program
     .version(pkg.version)
     .option('-c, --conf [path]', 'validator configuration file [rules.json]')
+    .option('-f, --fast', 'use fast mode, abort on first error')
+    .option('-t, --type <type>', 'optional, specify the type of mip page')
     .parse(process.argv)
 
 var html = Buffer.alloc(0)
@@ -24,7 +26,10 @@ process.stdin.on('data', function (buf) {
 })
 
 process.stdin.on('end', function () {
-  var result = validator.validate(html)
+  var result = validator.validate(html, {
+    fastMode: program['fast'],
+    type: program['type']
+  })
   var str = JSON.stringify(result, null, 4)
   console.log(str)
 })

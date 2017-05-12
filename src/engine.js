@@ -10,7 +10,6 @@ const ValidateError = require('./validate-error.js')
 const logger = require('./logger.js')('mip-validator:engine')
 const ERR = require('./error.json')
 const checkUTF8 = require('./encoding.js').checkUTF8
-const defaultRules = require('../rules.json')
 const ruleParser = require('../src/rule-parser.js')
 const assert = require('assert')
 
@@ -25,10 +24,11 @@ function Engine (rules) {
   this.onEndCbs = []
   this.onAttrCbs = []
   this.onNodeCbs = []
-  this.setRules(rules || defaultRules)
+  this.setRules(rules)
 }
 
 Engine.prototype.setRules = function (rules) {
+  logger.debug('setting rules %J', rules)
   assert(typeof rules === 'object',
         'rules object expected, but ' + (typeof rules) + ' found')
   this.config = ruleParser.mkConfig(rules)
@@ -138,59 +138,66 @@ Engine.prototype.dfs = function (node, error) {
  * Validate the HTML
  *
  * @param {string} html The HTML to validate.
- * @param {Boolean} fastMode Optional, abort on first error, default false.
- * @param {Object} rules Optional, the rules to validate the `html` with, first initialized in constructor
+ * @param {Boolean} options.fastMode Optional, abort on first error, default false.
+ * @param {Object} options.rules Optional, the rules to validate the `html` with, first initialized in constructor
+ * @param {string} options.type Optional, the sub type of MIP document, e.g. "custom"
  */
-Engine.prototype.validate = function (html, fastMode, rules) {
-    // just pretend to be UTF-8
+Engine.prototype.validate = function (html, options) {
   this.html = normalize(html)
+  options = _.assign({
+    fastMode: false,
+    rules: undefined,
+    type: undefined
+  }, options)
 
-  if (rules) {
-    this.setRules(rules)
-  }
+  logger.debug('validating using options %J', options)
 
-  var errorGenertor = ValidateError.generator({
-    html: this.html,
-    fast: fastMode
-  })
+  return useErrorPolicy(() => {
+    var errorGenertor = ValidateError.generator({
+      html: this.html,
+      fast: options.fastMode
+    })
 
-    // Encoding Check
-  var errors = this.applyErrorPolicy(() => {
     checkUTF8(html, errorGenertor)
-    return errorGenertor.errors
-  })
-  if (errors.length) {
-        // stop continue on Encoding error
-    return errors
-  }
-
-    // parse DOM tree
-  var document = parse5.parse(this.html, {
-    locationInfo: true
-  })
-
-    // Apply Validators
-  errors = this.applyErrorPolicy(() => {
+    var document = parse(this.html, options)
     behaveBuggyAsTheCPPVersion(document, errorGenertor)
-    this.onBegin(errorGenertor)
-    this.dfs(document, errorGenertor)
-    this.onEnd(errorGenertor)
-    return errorGenertor.errors
-  }, fastMode)
+    this.validateDocument(document, errorGenertor)
+    if (options.type) {
+      this.validateTypedDocument(document, errorGenertor, options.type)
+    }
 
-  return errors
+    return errorGenertor.errors
+  }, options.fastMode)
 }
 
-Engine.prototype.applyErrorPolicy = function (validate, fastMode) {
+Engine.prototype.validateTypedDocument = function (document, errorGenertor, type) {
+  var rules = ruleParser.typedRules(type)
+  this.setRules(rules)
+
+  return this.validateDocument(document, errorGenertor)
+}
+
+Engine.prototype.validateDocument = function (document, errorGenertor) {
+  this.onBegin(errorGenertor)
+  this.dfs(document, errorGenertor)
+  this.onEnd(errorGenertor)
+}
+
+function parse (html, options) {
+  return parse5.parse(html, {
+    locationInfo: !options.fastMode
+  })
+}
+
+function useErrorPolicy (validate, fastMode) {
+  if (!fastMode) {
+    return validate()
+  }
   try {
-    var errors = validate()
-    return fastMode ? [] : errors
+    validate()
+    return []
   } catch (e) {
-    if (fastMode) {
-      return [e]
-    } else {
-      throw e
-    }
+    return [e]
   }
 }
 
@@ -217,14 +224,14 @@ function behaveBuggyAsTheCPPVersion (doc, errorGenertor) {
     head.childNodes.forEach((node) => {
       if (node.tagName === 'noscript') {
         noscriptAppeared = true
-            // it's a tag after noscript
       } else if (node.tagName && noscriptAppeared) {
+        // it's a tag after noscript
         var err = ERR.INVALID_NOSCRIPT
         errorGenertor(err)
       }
     })
   } catch (e) {
-        // let it be...
+    // let it be...
     console.log('behaveBuggyAsTheCPPVersion error:', e)
   }
 }

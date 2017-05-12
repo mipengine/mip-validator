@@ -72,7 +72,7 @@ routes['/'] = function (req, res) {
  */
 routes['/validate'] = function (req, res) {
   var fastMode = (req.params.fast === 'true')
-  var result = validator.validate(req.body, fastMode)
+  var result = validator.validate(req.body, {fastMode: fastMode})
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(result, null, 4))
 }

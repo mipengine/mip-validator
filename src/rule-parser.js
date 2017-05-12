@@ -1,19 +1,22 @@
 const _ = require('lodash')
 const assert = require('assert')
-const defaultRules = require('../rules.json')
 const matcher = require('./matcher.js')
+const defaultRules = require('../rules.json')
+const TYPED_RULES = {
+  custom: require('../rules-custom.json')
+}
 
 var id = 0
 
 function normalize (rules) {
   return _.chain(rules || defaultRules)
-        .toPairs()
-        .map(pair => [
-          pair[0],
-          normalizeArray(pair[1]).map(tag => normalizeTag(tag))
-        ])
-        .fromPairs()
-        .value()
+    .toPairs()
+    .map(pair => [
+      pair[0],
+      normalizeArray(pair[1]).map(tag => normalizeTag(tag))
+    ])
+    .fromPairs()
+    .value()
 }
 
 function normalizeArray (v) {
@@ -31,10 +34,10 @@ function normalizeArray (v) {
 
 function normalizeAttrs (attrs) {
   return _.chain(attrs)
-        .toPairs()
-        .map(pair => [pair[0], normalizeArray(pair[1])])
-        .fromPairs()
-        .value()
+    .toPairs()
+    .map(pair => [pair[0], normalizeArray(pair[1])])
+    .fromPairs()
+    .value()
 }
 
 function normalizeTag (config) {
@@ -48,7 +51,7 @@ function normalizeTag (config) {
 
 function processNodeRules (nodes) {
   var regexNodes = {}
-    // for each node
+  // for each node
   _.forEach(nodes, (rules, name) => {
     if (matcher.regexSyntax.test(name)) {
       rules.regexStr = name
@@ -85,4 +88,13 @@ function mkConfig (rules) {
   }
 }
 
+function typedRules (config) {
+  var rules = TYPED_RULES[config]
+  if (!rules) {
+    throw new Error('rules not found for config ' + config)
+  }
+  return rules
+}
+
 exports.mkConfig = mkConfig
+exports.typedRules = typedRules
