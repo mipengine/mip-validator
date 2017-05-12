@@ -1,0 +1,14 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": "standard",
+  "rules": {
+    "global-require": "off",
+    "no-unused-vars": [
+      "error", {
+      "varsIgnorePattern": "logger"
+    }]
+  }
+}

@@ -1,6 +1,6 @@
-const chai = require("chai");
+const chai = require('chai')
 
-chai.use(require('sinon-chai'));
-chai.use(require("chai-as-promised"));
+chai.use(require('sinon-chai'))
+chai.use(require('chai-as-promised'))
 
-module.exports = chai;
+module.exports = chai

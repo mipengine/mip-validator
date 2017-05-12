@@ -40,6 +40,13 @@
     "chai-as-promised": "^6.0.0",
     "changelog": "^1.0.7",
     "coveralls": "^2.11.9",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-mocha": "^4.9.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "git-changelog": "^1.0.1",
     "istanbul": "^0.4.3",
     "mocha": "^3.2.0",
@@ -50,7 +57,8 @@
     "uglifyjs": "^2.4.10"
   },
   "scripts": {
-    "test": "DEBUG='mip-validator:' mocha",
+    "test": "npm run lint && DEBUG='mip-validator:' mocha",
+    "lint": "eslint src/ test/ bin/ index.js",
     "preversion": "npm test",
     "version": "make dist && git add -A dist",
     "postversion": "git push && git push --tags && npm publish"

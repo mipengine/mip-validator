@@ -1,39 +1,39 @@
-const util = require('util');
-const _ = require('lodash');
+const util = require('util')
+const _ = require('lodash')
 
-function ValidationError(message, code, location, lines) {
-    //this.stack = (new Error()).stack;
-    this.message = message;
-    this.code = code;
-    this.line = location ? location.line : 0;
-    this.col = location ? location.col : 0;
-    this.offset = location ? location.startOffset : 0;
-    this.input = location ? lines[location.line - 1] : '';
+function ValidationError (message, code, location, lines) {
+    // this.stack = (new Error()).stack;
+  this.message = message
+  this.code = code
+  this.line = location ? location.line : 0
+  this.col = location ? location.col : 0
+  this.offset = location ? location.startOffset : 0
+  this.input = location ? lines[location.line - 1] : ''
 }
-ValidationError.prototype = Object.create(Error.prototype);
-ValidationError.prototype.name = 'ValidationError';
+ValidationError.prototype = Object.create(Error.prototype)
+ValidationError.prototype.name = 'ValidationError'
 
-function getGenerator(options) {
-    var lines = options.html.split('\n');
+function getGenerator (options) {
+  var lines = options.html.split('\n')
 
-    function generator(err) {
-        var location = err.location;
+  function generator (err) {
+    var location = err.location
 
-        var args = _.toArray(arguments);
-        args[0] = err.message;
-        var message = util.format.apply(util, args);
+    var args = _.toArray(arguments)
+    args[0] = err.message
+    var message = util.format.apply(util, args)
 
-        var err = new ValidationError(
-            message, err.code, location, lines);
+    var validationError = new ValidationError(
+            message, err.code, location, lines)
 
-        if (options.fast) {
-            throw err;
-        }
-        generator.errors.push(err);
+    if (options.fast) {
+      throw validationError
     }
-    generator.errors = [];
-    return generator;
+    generator.errors.push(validationError)
+  }
+  generator.errors = []
+  return generator
 }
 
-exports.generator = getGenerator;
-exports.ValidationError = ValidationError;
+exports.generator = getGenerator
+exports.ValidationError = ValidationError
