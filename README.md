@@ -47,11 +47,10 @@ console.log(errs);
 
 ### 命令行接口
 
-需要全局安装`mip-validator`（见上一节）。API：
+需要全局安装`mip-validator`（见上一节）。输入输出：
 
 * 使用标准输入HTML（String类型）
 * 标准输出的错误列表（JSON格式）
-* `-c`参数（可选）来指定规则文件（JSON格式），为空则采用MIP默认配置。
 
 例如：
 
@@ -59,7 +58,7 @@ console.log(errs);
 $ mip-validator < a.html                # 校验 a.html
 $ mip-validator < a.html -t custom      # 校验 a.html
 $ mip-validator < a.html > a.html.json  # 也可将验证结果重定向至文件
-$ mip-validator --help                  # 查看帮助
+$ mip-validator --help                  # 查看更多参数
 
   Usage: cli [options]
 
@@ -71,6 +70,8 @@ $ mip-validator --help                  # 查看帮助
     -f, --fast         use fast mode, abort on first error
     -t, --type <type>  optional, specify the type of mip page
 ```
+
+> 例如定制化 MIP 通过 `mip-validator -t custom` 来校验。
 
 ### 浏览器JS
 
