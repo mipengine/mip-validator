@@ -155,15 +155,16 @@
     "a": {
         "attrs": {
             "href": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^((?!javascript:).*)$/"
             }
-            
         }
     },
     "mip-img": {
         "attrs": {
             "src": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^.+/"
             }
         }
     },
@@ -266,7 +267,8 @@
     "mip-link": {
         "attrs": {
             "href": {
-                "mandatory": true
+                "mandatory": true,
+                "value": "/^((?!javascript:).*)$/"
             }
         }
     },

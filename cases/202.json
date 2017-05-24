@@ -1,10 +1,1 @@
-[
-    {
-        "message": "标签'a'中的属性'href'的属性值'sms:'无效",
-        "code": "06200301",
-        "line": 376,
-        "col": 1,
-        "offset": 28675,
-        "input": "<a href=\"sms:\"></a>"
-    }
-]
+[]
