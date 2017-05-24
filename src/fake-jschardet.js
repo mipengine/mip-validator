@@ -1,6 +1,6 @@
-exports.detect = function() {
-    return {
-        encoding: 'UTF-8',
-        confidence: 1
-    };
-};
+exports.detect = function () {
+  return {
+    encoding: 'UTF-8',
+    confidence: 1
+  }
+}

@@ -2,6 +2,7 @@ node_modules/
 tmp/
 *.log
 *.swp
+.vimrc
 examples/results/*.json
 !examples/results/valid.html.json
 !examples/results/invalid.html.json

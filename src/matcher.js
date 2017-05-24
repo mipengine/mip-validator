@@ -1,21 +1,21 @@
-const _ = require('lodash');
-const regexSyntax = /^(!?)\/(.*)\/(\w*)$/;
-const logger = require('./logger.js')('mip-validator:matcher');
+const _ = require('lodash')
+const regexSyntax = /^(!?)\/(.*)\/(\w*)$/
+const logger = require('./logger.js')('mip-validator:matcher')
 
 /*
  * convert regex-like string to regex
  * @param {str} the regex-like string to convert
  */
-function stringToRegex(str) {
-    var match = str.match(regexSyntax);
-    if (!match) {
-        return null;
-    }
-    var regex = new RegExp(match[2], match[3])
-    if (match[1] === '!') {
-        regex.negate = true;
-    }
-    return regex;
+function stringToRegex (str) {
+  var match = str.match(regexSyntax)
+  if (!match) {
+    return null
+  }
+  var regex = new RegExp(match[2], match[3])
+  if (match[1] === '!') {
+    regex.negate = true
+  }
+  return regex
 }
 
 /*
@@ -23,14 +23,14 @@ function stringToRegex(str) {
  * @param {String} src the string to match
  * @param {String} target the string or regex-like string to match with
  */
-function matchValue(src, target) {
-    var re;
-    if (re = stringToRegex(target)) {
-        var result = re.test(src);
-        return re.negate ? (!result) : result;
-    } else {
-        return src == target;
-    }
+function matchValue (src, target) {
+  var re
+  if ((re = stringToRegex(target))) {
+    var result = re.test(src)
+    return re.negate ? (!result) : result
+  } else {
+    return src === target
+  }
 }
 
 /*
@@ -44,14 +44,14 @@ function matchValue(src, target) {
  *          id: '/^modal-.+$/'
  *      });
  */
-function match(src, target) {
-    var ret = true;
-    _.forOwn(target, (value, key) => {
-        if (!matchValue(src[key], value)) {
-            ret = false;
-        }
-    });
-    return ret;
+function match (src, target) {
+  var ret = true
+  _.forOwn(target, (value, key) => {
+    if (!matchValue(src[key], value)) {
+      ret = false
+    }
+  })
+  return ret
 }
 
 /*
@@ -64,12 +64,12 @@ function match(src, target) {
  *          id: '/mip-.+/'
  *      });
  */
-function matchAttrs(node, target) {
-    var attrSet = _.chain(node.attrs)
+function matchAttrs (node, target) {
+  var attrSet = _.chain(node.attrs)
         .map(attr => [attr.name, attr.value])
         .fromPairs()
-        .value();
-    return match(attrSet, target);
+        .value()
+  return match(attrSet, target)
 }
 
 /*
@@ -80,14 +80,14 @@ function matchAttrs(node, target) {
  *      matchAncestor(node, 'form');
  *      matchAncestor(node, '/form|div|section/'
  */
-function matchAncestor(node, ancestorNodeName) {
+function matchAncestor (node, ancestorNodeName) {
     // match_ancestor disabled
-    if (!ancestorNodeName) return true;
+  if (!ancestorNodeName) return true
 
-    while (node = node.parentNode) {
-        if (matchValue(node.nodeName, ancestorNodeName)) return true;
-    }
-    return false;
+  while ((node = node.parentNode)) {
+    if (matchValue(node.nodeName, ancestorNodeName)) return true
+  }
+  return false
 }
 
 /*
@@ -98,15 +98,14 @@ function matchAncestor(node, ancestorNodeName) {
  *      matchParent(node, 'form');
  *      matchParent(node, '/form|div|section/'
  */
-function matchParent(node, parentNodeName) {
-    logger.debug('matching parent:', parentNodeName);
+function matchParent (node, parentNodeName) {
+  // match disabled
+  if (!parentNodeName) return true
+  // there's no parent
+  if (!node.parentNode) return false
 
-    // match disabled 
-    if (!parentNodeName) return true;
-    // there's no parent
-    if (!node.parentNode) return false;
-
-    return matchValue(node.parentNode.nodeName, parentNodeName);
+  logger.debug('matching parent:', parentNodeName)
+  return matchValue(node.parentNode.nodeName, parentNodeName)
 }
 
 /*
@@ -117,11 +116,11 @@ function matchParent(node, parentNodeName) {
  *      matchDescendant(node, 'form');
  *      matchDescendant(node, '/form|div|section/'
  */
-function matchDescendant(node, descendantNodeName) {
-    // match disabled 
-    if (!descendantNodeName) return true;
+function matchDescendant (node, descendantNodeName) {
+    // match disabled
+  if (!descendantNodeName) return true
     // is there a match?
-    return dfsUntil(node, child => matchValue(child.nodeName, descendantNodeName));
+  return dfsUntil(node, child => matchValue(child.nodeName, descendantNodeName))
 }
 
 /*
@@ -132,34 +131,34 @@ function matchDescendant(node, descendantNodeName) {
  *      nomatchDescendant(node, 'form');
  *      nomatchDescendant(node, '/form|div|section/'
  */
-function nomatchDescendant(node, descendantNodeName) {
-    logger.debug('nomatching descendant:', descendantNodeName);
+function nomatchDescendant (node, descendantNodeName) {
+  logger.debug('nomatching descendant:', descendantNodeName)
 
     // match disabled, pass
-    if (!descendantNodeName) return true;
+  if (!descendantNodeName) return true
     // is there a match?
-    return !matchDescendant(node, descendantNodeName);
+  return !matchDescendant(node, descendantNodeName)
 }
 
-function dfsUntil(node, predict) {
-    var children = node.childNodes || [];
-    return predict(node) || children.some(child => dfsUntil(child, predict));
+function dfsUntil (node, predict) {
+  var children = node.childNodes || []
+  return predict(node) || children.some(child => dfsUntil(child, predict))
 }
 
 /*
  * Create a ASTNode for given nodeName and attribute object
  */
-function createNode(nodeName, attrsObj) {
-    return {
-        nodeName,
-        attrs: _.chain(attrsObj)
+function createNode (nodeName, attrsObj) {
+  return {
+    nodeName,
+    attrs: _.chain(attrsObj)
             .toPairs()
             .map(pair => ({
-                name: pair[0],
-                value: pair[1]
+              name: pair[0],
+              value: pair[1]
             }))
             .value()
-    };
+  }
 }
 
 /*
@@ -168,24 +167,24 @@ function createNode(nodeName, attrsObj) {
  *      // returns: <div id="modal">
  *      fingerprintByObject('div', {id: 'modal'});
  */
-function fingerprintByObject(nodeName, attrsObj) {
-    var tag = createNode(nodeName, attrsObj);
-    return fingerprintByTag(tag);
+function fingerprintByObject (nodeName, attrsObj) {
+  var tag = createNode(nodeName, attrsObj)
+  return fingerprintByTag(tag)
 }
 
 /*
  * Generate a fingerprint for given node
  * @param {ASTNode} node
  */
-function fingerprintByTag(node) {
-    var attrStr = _.chain(node.attrs)
+function fingerprintByTag (node) {
+  var attrStr = _.chain(node.attrs)
         .map(attr => `${attr.name}="${attr.value}"`)
         .join(' ')
-        .value();
-    if (attrStr.length) {
-        attrStr = ' ' + attrStr;
-    }
-    return `<${node.nodeName}${attrStr}>`;
+        .value()
+  if (attrStr.length) {
+    attrStr = ' ' + attrStr
+  }
+  return `<${node.nodeName}${attrStr}>`
 }
 
 /*
@@ -194,24 +193,24 @@ function fingerprintByTag(node) {
  * @param {String} html
  * legacy: matchTagNames(['div', 'head', 'iframe'], '<div><iframe></div>')
  */
-function matchTagNames(tagNames, html) {
-    var tagsStr = tagNames.join('|');
-    var re = new RegExp(`<\\s*(${tagsStr})(?:\\s+[^>]*)*>`, 'ig');
-    return (html || '').match(re) || [];
+function matchTagNames (tagNames, html) {
+  var tagsStr = tagNames.join('|')
+  var re = new RegExp(`<\\s*(${tagsStr})(?:\\s+[^>]*)*>`, 'ig')
+  return (html || '').match(re) || []
 }
 
 module.exports = {
-    match,
-    matchAttrs,
-    matchValue,
-    regexSyntax,
-    fingerprintByTag,
-    createNode,
-    fingerprintByObject,
-    stringToRegex,
-    matchTagNames,
-    matchParent,
-    matchAncestor,
-    nomatchDescendant,
-    matchDescendant
-};
+  match,
+  matchAttrs,
+  matchValue,
+  regexSyntax,
+  fingerprintByTag,
+  createNode,
+  fingerprintByObject,
+  stringToRegex,
+  matchTagNames,
+  matchParent,
+  matchAncestor,
+  nomatchDescendant,
+  matchDescendant
+}

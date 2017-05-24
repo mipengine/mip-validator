@@ -47,23 +47,31 @@ console.log(errs);
 
 ### 命令行接口
 
-需要全局安装`mip-validator`（见上一节）。API：
+需要全局安装`mip-validator`（见上一节）。输入输出：
 
 * 使用标准输入HTML（String类型）
 * 标准输出的错误列表（JSON格式）
-* `-c`参数（可选）来指定规则文件（JSON格式），为空则采用MIP默认配置。
 
 例如：
 
 ```
 $ mip-validator < a.html                # 校验 a.html
+$ mip-validator < a.html -t custom      # 校验 a.html
 $ mip-validator < a.html > a.html.json  # 也可将验证结果重定向至文件
-$ mip-validator --help                  # 查看帮助
+$ mip-validator --help                  # 查看更多参数
+
+  Usage: cli [options]
+
+  Options:
+
     -h, --help         output usage information
     -V, --version      output the version number
-    -F, --fast         fast validation
     -c, --conf [path]  validator configuration file [rules.json]
+    -f, --fast         use fast mode, abort on first error
+    -t, --type <type>  optional, specify the type of mip page
 ```
+
+> 例如定制化 MIP 通过 `mip-validator -t custom` 来校验。
 
 ### 浏览器JS
 
@@ -112,11 +120,11 @@ HTML文本之间以`__baidu_mip_validator__`分隔，
 
 ## API
 
-### `new Validator(<rules>, <config>)`
+### `new Validator(<rules>)`
 
 根据传入的校验规则，以及校验器配置返回一个校验器实例。
 
-### `<rules>`
+#### `<rules>`
 
 可选，默认值：`Validator.rules`。
 
@@ -136,20 +144,38 @@ var rules = {
 var validator = Validator(rules);
 ```
 
-### `<config.fast>`
+### `.validate(html, <config>)`
 
-可选，默认值：`false`
+传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。`config` 可选。
+
+#### `html`
+
+必选，类型为 `String`。
+
+传入待校验的 HTML 字符串，应该是完整的被校验 HTML 内容。
+
+#### `<config.fastMode>`
+
+可选，类型为 `Boolean`，默认值：`false`
 
 为`true`时mip-validator在第一个错误发生就立即返回。
 否则mip-validator会找到所有错误。例如：
 
 ```javascript
-var validator = Validator(null, {fast: true});
+validator.validate(html, {fastMode: true});
 ```
 
-### `.validate(html)`
+#### `<config.type>`
 
-传入HTML字符串，返回错误列表（如果完全正确，则返回空数组）。
+可选，类型为 `String`，无默认值。取值列表：
+
+* `"custom"`：校验定制化 MIP。
+
+例如：
+
+```javascript
+validator.validate(html, {type: 'custom'});
+```
 
 ### `Validator.rules`
 
