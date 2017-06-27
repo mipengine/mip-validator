@@ -101,8 +101,6 @@ function matchAncestor (node, ancestorNodeName) {
 function matchParent (node, parentNodeName) {
   // match disabled
   if (!parentNodeName) return true
-  // there's no parent
-  if (!node.parentNode) return false
 
   logger.debug('matching parent:', parentNodeName)
   return matchValue(node.parentNode.nodeName, parentNodeName)

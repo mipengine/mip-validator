@@ -23,8 +23,8 @@ describe('match', function () {
   })
 })
 
-describe('match_parent', function () {
-  it('should work when parent not exist', function () {
+describe('matchParent', function () {
+  it('should work for root node', function () {
     var val = Validator({
       html: {
         disallow: true,
