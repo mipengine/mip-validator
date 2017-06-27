@@ -28,8 +28,8 @@ function Engine (rules) {
 }
 
 Engine.prototype.setRules = function (rules) {
-  assert(typeof rules === 'object',
-        'rules object expected, but ' + (typeof rules) + ' found')
+  assert(_.isObject(rules),
+    'rules object expected, but ' + (typeof rules) + ' found')
   this.config = ruleParser.mkConfig(rules)
 }
 

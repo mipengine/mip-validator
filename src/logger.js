@@ -28,7 +28,7 @@ function isString (obj) {
 function match (root, path) {
   if (!root) return false
   root = String(root).split(':').filter(x => x.length)
-  path = (path || '').split(':').filter(x => x.length)
+  path = path.split(':').filter(x => x.length)
   for (var i = 0; i < root.length; i++) {
     if (path[i] !== root[i]) return false
   }
@@ -124,8 +124,6 @@ function format (f) {
           } catch (_) {
             return '\n[Circular]\n'
           }
-        default:
-          return x
       }
     })
   }

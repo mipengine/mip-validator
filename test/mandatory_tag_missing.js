@@ -127,6 +127,20 @@ describe('mandatory tag missing', function () {
     result = validator.validate('<div>')
     expect(result).to.have.lengthOf(3)
   })
+  it('should pass body when not specified', function () {
+    var validator = Validator({
+      html: {
+        mandatory: true
+      },
+      head: {
+        mandatory: true
+      },
+      body: {}
+    })
+    var result = validator.validate('<html><head>')
+    console.log(result)
+    expect(result).to.have.lengthOf(0)
+  })
   it('should validate noscript tag', function () {
     var validator = Validator({
       'noscript': {

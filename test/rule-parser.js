@@ -14,4 +14,10 @@ describe('rule-parser', function () {
       }).to.throw(/rules not found for type foo/)
     })
   })
+  describe('.normalize()', function () {
+    it('should use default rules when not given', function () {
+      var ret = ruleParser.normalize()
+      expect(ret).to.be.an('object')
+    })
+  })
 })

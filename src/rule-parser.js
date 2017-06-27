@@ -98,3 +98,4 @@ function typedRules (type) {
 
 exports.mkConfig = mkConfig
 exports.typedRules = typedRules
+exports.normalize = normalize

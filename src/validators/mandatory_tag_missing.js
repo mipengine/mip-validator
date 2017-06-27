@@ -70,7 +70,9 @@ function validatePolyfill (error, engine) {
   POLYFILL_TAGS.forEach(tag => {
     var rules = _.get(engine.config.nodes, `${tag}`)
     _.map(rules, rule => {
-      if (!rule.mandatory.length === 0) return
+      if (rule.mandatory.length === 0) {
+        return
+      }
       var matches = matcher.matchTagNames([tag], engine.html)
       if (matches.length === 0) {
         error(ERR.MANDATORY_TAG_MISSING, `<${tag}>`)
