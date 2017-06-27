@@ -39,7 +39,7 @@ function match (root, path) {
  * create logger method with STDOUT instance and trace ID
  * @param {Function} output STDOUT instance
  * @param {String} id trace ID
- * legacy:
+ * legal:
  *      createWith(console.log.bind(console), 'mip:cache:getCache')
  */
 function createWith (output, id) {
@@ -55,7 +55,7 @@ function createWith (output, id) {
  * Pad number to 2-digit.
  * @param {Number} n The number
  * @return {String} 2-digit number string
- * legacy:
+ * legal:
  *      pad(2)      // 02
  *      pad(22)     // 22
  */
@@ -66,7 +66,7 @@ function pad (n) {
 /*
  * Generate a timestamp from current time
  * @return {String} the timestamp string
- * legacy:
+ * legal:
  *      timestamp()    // "2016/09/27-17:31:22"
  */
 function timestamp () {
@@ -88,7 +88,7 @@ var formatRegExp = /%[sdjJ%]/g
  * format arguments to a single string
  * @param {String} f Optional, the format string
  * @return {String} the formated string
- * legacy:
+ * legal:
  *      format('%s', 'foo', 'bar')  // foo bar
  *      format('%d', '200', 'bar')  // 200 bar
  *      format('%j', {foo: 'bar'}, 'bar')
@@ -104,8 +104,7 @@ function format (f) {
   var str = ''
   if (isString(f)) {
     i++
-    str += String(f).replace(formatRegExp, function (x) {
-      if (i >= len) return x
+    str += f.replace(formatRegExp, function (x) {
       switch (x) {
         case '%%':
           return '%'

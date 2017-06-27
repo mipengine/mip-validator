@@ -15,17 +15,15 @@ exports.onBegin = function (error, engine) {
     // 初始化Mandatory标记
   _.forOwn(engine.config.nodes, (rules, ruleName) => {
     _.map(rules, rule => {
-      if (rule.mandatory) {
-        _.map(rule.mandatory, pattern => {
-          var fp = matcher.fingerprintByObject(ruleName, pattern)
-          tags[fp] = {
-            rule: rule,
-            ruleName: ruleName,
-            pattern: pattern,
-            count: 0
-          }
-        })
-      }
+      _.map(rule.mandatory, pattern => {
+        var fp = matcher.fingerprintByObject(ruleName, pattern)
+        tags[fp] = {
+          rule: rule,
+          ruleName: ruleName,
+          pattern: pattern,
+          count: 0
+        }
+      })
       if (rule.mandatory_or) {
         ors[ruleName] = {
           rule: rule,
@@ -72,7 +70,7 @@ function validatePolyfill (error, engine) {
   POLYFILL_TAGS.forEach(tag => {
     var rules = _.get(engine.config.nodes, `${tag}`)
     _.map(rules, rule => {
-      if (!rule.mandatory) return
+      if (!rule.mandatory.length === 0) return
       var matches = matcher.matchTagNames([tag], engine.html)
       if (matches.length === 0) {
         error(ERR.MANDATORY_TAG_MISSING, `<${tag}>`)

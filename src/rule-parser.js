@@ -88,10 +88,10 @@ function mkConfig (rules) {
   }
 }
 
-function typedRules (config) {
-  var rules = TYPED_RULES[config]
+function typedRules (type) {
+  var rules = TYPED_RULES[type]
   if (!rules) {
-    throw new Error('rules not found for config ' + config)
+    throw new Error('rules not found for type ' + type)
   }
   return rules
 }

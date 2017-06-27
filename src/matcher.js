@@ -37,7 +37,7 @@ function matchValue (src, target) {
  * object match: match src with target
  * @param {Object} src the object to match
  * @param {Object} target the object to match with
- * legacy:
+ * legal:
  *      match({
  *          id: 'modal-user'
  *      }, {
@@ -58,7 +58,7 @@ function match (src, target) {
  * attributes match
  * @param {ASTNode} node the node of which attributes will be matched
  * @param {Object} target the attribute list object to match with
- * legacy:
+ * legal:
  *      matchAttrs(node, {
  *          style: 'color:red',
  *          id: '/mip-.+/'
@@ -76,7 +76,7 @@ function matchAttrs (node, target) {
  * match ancestor name
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} ancestorNodeName string or regex-like string to match with
- * legacy:
+ * legal:
  *      matchAncestor(node, 'form');
  *      matchAncestor(node, '/form|div|section/'
  */
@@ -94,7 +94,7 @@ function matchAncestor (node, ancestorNodeName) {
  * match parent name
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} parentNodeName string or regex-like string to match with
- * legacy:
+ * legal:
  *      matchParent(node, 'form');
  *      matchParent(node, '/form|div|section/'
  */
@@ -112,7 +112,7 @@ function matchParent (node, parentNodeName) {
  * match descendant node name
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} descendantNodeName string or regex-like string to match with
- * legacy:
+ * legal:
  *      matchDescendant(node, 'form');
  *      matchDescendant(node, '/form|div|section/'
  */
@@ -127,7 +127,7 @@ function matchDescendant (node, descendantNodeName) {
  * nomatch descendant node name
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} descendantNodeName string or regex-like string to match with
- * legacy:
+ * legal:
  *      nomatchDescendant(node, 'form');
  *      nomatchDescendant(node, '/form|div|section/'
  */
@@ -141,8 +141,7 @@ function nomatchDescendant (node, descendantNodeName) {
 }
 
 function dfsUntil (node, predict) {
-  var children = node.childNodes || []
-  return predict(node) || children.some(child => dfsUntil(child, predict))
+  return predict(node) || node.childNodes.some(child => dfsUntil(child, predict))
 }
 
 /*
@@ -163,7 +162,7 @@ function createNode (nodeName, attrsObj) {
 
 /*
  * Generate a fingerprint for given nodeName and attributes
- * legacy:
+ * legal:
  *      // returns: <div id="modal">
  *      fingerprintByObject('div', {id: 'modal'});
  */
@@ -191,7 +190,7 @@ function fingerprintByTag (node) {
  * Match tagnames from the given HTML
  * @param {Array} tagNames
  * @param {String} html
- * legacy: matchTagNames(['div', 'head', 'iframe'], '<div><iframe></div>')
+ * legal: matchTagNames(['div', 'head', 'iframe'], '<div><iframe></div>')
  */
 function matchTagNames (tagNames, html) {
   var tagsStr = tagNames.join('|')

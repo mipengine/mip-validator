@@ -57,6 +57,18 @@ describe('Logger', function () {
         foo: 'bar'
       })).to.contain('before{"foo":"bar"}after')
     })
+    it('should escape % via: %%', function () {
+      expect(logger.log('foo%%bar')).to.contain('foo%bar')
+    })
+    it('should ignore not supported %z', function () {
+      expect(logger.log('%z')).to.contain('%z')
+    })
+    it('should detect circular in %j, %J', function () {
+      var foo = {}
+      foo.bar = foo
+      expect(logger.log('%j', foo)).to.contain('[Circular]')
+      expect(logger.log('%J', foo)).to.contain('[Circular]')
+    })
     it('should support format string: %J', function () {
       expect(logger.log('before%Jafter', {
         foo: 'bar'

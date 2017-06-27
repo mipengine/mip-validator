@@ -6,6 +6,9 @@ const ruleParser = require('../src/rule-parser.js')
 
 describe('index', function () {
   var result, validator
+  it('should echo package info', function () {
+    expect(Validator('package.json')).to.equal(require('../package.json'))
+  })
   it('should respect rules config', function () {
     validator = Validator({})
     result = validator.validate('<html></html>')

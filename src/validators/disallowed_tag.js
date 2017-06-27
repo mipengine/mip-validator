@@ -22,7 +22,9 @@ function validatePolyfill (error, engine) {
     var tagName = tag.match(/\w+/)
     var rules = _.get(engine.config.nodes, `${tagName}`)
     _.map(rules, rule => {
-      if (!rule.disallow) return
+      if (!rule.disallow) {
+        return
+      }
 
       var err = ERR.DISALLOWED_TAG
       error(err, tag)

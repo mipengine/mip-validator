@@ -46,11 +46,18 @@ describe('disallowed tag', function () {
     var msg = "禁止使用'<script type=\"application/javascript\">'标签"
     expect(result[0].message).to.equal(msg)
   })
-  it('should support frame/frameset', function () {
+  it('should reject disallowed frame/frameset', function () {
     result = validator.validate('<div><frame></frame><frameset></div>')
     expect(result).to.have.lengthOf(2)
     expect(result[0].message).to.equal("禁止使用'<frame>'标签")
     expect(result[1].message).to.equal("禁止使用'<frameset>'标签")
+  })
+  it('should accept frame/frameset when not specified', function () {
+    var val = Validator({
+      frame: {}
+    })
+    result = val.validate('<div><frame></frame><frameset></div>')
+    expect(result).to.have.lengthOf(0)
   })
   it('should support regex', function () {
     result = validator.validate('<foo0></foo0><foo1></foo1>')

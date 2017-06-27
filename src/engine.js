@@ -28,7 +28,6 @@ function Engine (rules) {
 }
 
 Engine.prototype.setRules = function (rules) {
-  logger.debug('setting rules %J', rules)
   assert(typeof rules === 'object',
         'rules object expected, but ' + (typeof rules) + ' found')
   this.config = ruleParser.mkConfig(rules)
@@ -214,26 +213,18 @@ module.exports = function (rules) {
 }
 
 function behaveBuggyAsTheCPPVersion (doc, errorGenertor) {
-  try {
-    var head = findFirstTagChild(findFirstTagChild(doc))
-    if (head.tagName !== 'head') {
-      return
-    }
+  var head = findFirstTagChild(findFirstTagChild(doc))
+  var noscriptAppeared = false
 
-    var noscriptAppeared = false
-    head.childNodes.forEach((node) => {
-      if (node.tagName === 'noscript') {
-        noscriptAppeared = true
-      } else if (node.tagName && noscriptAppeared) {
-        // it's a tag after noscript
-        var err = ERR.INVALID_NOSCRIPT
-        errorGenertor(err)
-      }
-    })
-  } catch (e) {
-    // let it be...
-    console.log('behaveBuggyAsTheCPPVersion error:', e)
-  }
+  head.childNodes.forEach((node) => {
+    if (node.tagName === 'noscript') {
+      noscriptAppeared = true
+    } else if (node.tagName && noscriptAppeared) {
+      // it's a tag after noscript
+      var err = ERR.INVALID_NOSCRIPT
+      errorGenertor(err)
+    }
+  })
 }
 
 function findFirstTagChild (parent) {
