@@ -5,7 +5,7 @@
 const chai = require('./chai.js')
 const expect = chai.expect
 const Validator = require('..')
-const error = require('../src/error.json')
+const error = require('../src/error/dfn.json')
 
 describe('nomatch_descendant', function () {
   var validator = Validator({

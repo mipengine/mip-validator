@@ -1,11 +1,11 @@
 const _ = require('lodash')
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 const POLYFILL_TAGS = ['frame', 'frameset']
 const matcher = require('../matcher.js')
 const logger = require('../logger.js')('mip-validator:disallowed_tag')
 
-exports.onBegin = function (error, engine) {
-  validatePolyfill(error, engine)
+exports.onBegin = function (error, html, rules) {
+  validatePolyfill(error, html, rules)
 }
 
 exports.onNode = function (node, rule, error) {
@@ -16,12 +16,14 @@ exports.onNode = function (node, rule, error) {
 
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
-function validatePolyfill (error, engine) {
-  var matches = matcher.matchTagNames(POLYFILL_TAGS, engine.html)
+function validatePolyfill (error, html, rules) {
+  var matches = matcher.matchTagNames(POLYFILL_TAGS, html)
   matches.forEach(function (tag) {
     var tagName = tag.match(/\w+/)
-    var rules = _.get(engine.config.nodes, `${tagName}`)
-    _.map(rules, rule => {
+    if (tagName) {
+      var subRules = _.get(rules, tagName[0])
+    }
+    _.map(subRules, rule => {
       if (!rule.disallow) {
         return
       }

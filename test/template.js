@@ -1,7 +1,7 @@
 const chai = require('./chai.js')
 const expect = chai.expect
 const Validator = require('..')
-const ERR = require('../src/error.json')
+const ERR = require('../src/error/dfn.json')
 
 describe('template content validation', function () {
   it('should validate mandatory tag missing', function () {

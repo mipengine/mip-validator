@@ -2,7 +2,6 @@ const util = require('util')
 const _ = require('lodash')
 
 function ValidationError (message, code, location, lines) {
-    // this.stack = (new Error()).stack;
   this.message = message
   this.code = code
   this.line = location ? location.line : 0
@@ -23,13 +22,12 @@ function getGenerator (options) {
     args[0] = err.message
     var message = util.format.apply(util, args)
 
-    var validationError = new ValidationError(
-            message, err.code, location, lines)
+    err = new ValidationError(message, err.code, location, lines)
 
     if (options.fast) {
-      throw validationError
+      throw err
     }
-    generator.errors.push(validationError)
+    generator.errors.push(err)
   }
   generator.errors = []
   return generator

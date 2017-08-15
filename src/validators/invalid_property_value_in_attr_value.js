@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 
 exports.onAttr = function (attr, attrRule, node, nodeRule, error) {
   if (!attrRule.properties) return

@@ -1,4 +1,4 @@
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 const matcher = require('../matcher.js')
 
 exports.onAttr = function (attr, attrRule, node, rule, error) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var ERR = require('../src/error.json')
+var ERR = require('../src/error/dfn.json')
 var _ = require('lodash')
 
 console.log('错误代码 | 错误标识 | 错误消息')

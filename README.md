@@ -257,7 +257,7 @@ node bin/benchmark.js
 
 #### bin/md-error.js
 
-将[错误代码](src/error.json)转换为Markdown文件，用于Wiki或其他Doc。
+将[错误代码](src/error/dfn.json)转换为Markdown文件，用于Wiki或其他Doc。
 
 [wiki]: https://github.com/mipengine/mip-validator/wiki
 [rules-syntax]: https://github.com/mipengine/mip-validator/wiki/%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95

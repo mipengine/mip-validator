@@ -79,11 +79,11 @@ function processAttrRule (attrRule) {
 }
 
 function mkConfig (rules) {
-  var nodes = normalize(rules)
-  var regexNodes = processNodeRules(nodes)
+  var normalizedRules = normalize(rules)
+  var regexNodes = processNodeRules(normalizedRules)
   return {
-    rules: rules,
-    nodes: nodes,
+    rules: normalizedRules,
+    rawRules: rules,
     regexNodes: regexNodes
   }
 }

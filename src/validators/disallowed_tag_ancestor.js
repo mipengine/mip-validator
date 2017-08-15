@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 
 exports.onNode = function (node, rule, error) {
   if (!rule.disallowed_ancestor) return

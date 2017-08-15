@@ -1,7 +1,7 @@
 const chai = require('./chai.js')
 const expect = chai.expect
 const Validator = require('..')
-const errorCode = require('../src/error.json')
+const errorCode = require('../src/error/dfn.json')
 
 describe('disallowed attr', function () {
   var validator, result

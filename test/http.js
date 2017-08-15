@@ -1,5 +1,5 @@
 const chai = require('./chai.js')
-const ERR = require('../src/error.json')
+const ERR = require('../src/error/dfn.json')
 const expect = chai.expect
 const request = require('supertest')
 const path = require('path')

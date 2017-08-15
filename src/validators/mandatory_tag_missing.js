@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 const matcher = require('../matcher.js')
 const POLYFILL_TAGS = ['html', 'body', 'head']
 const logger = require('../logger.js')('mip-validator:mandatory_tag_missing')
@@ -7,14 +7,14 @@ const logger = require('../logger.js')('mip-validator:mandatory_tag_missing')
 // Tag 标记，Tag OR 标记
 var tags, ors
 
-exports.onBegin = function (error, engine) {
+exports.onBegin = function (error, html, rules) {
   logger.debug('[MANDATORY_TAG_MISSING] onBegin')
   tags = {}
   ors = {}
 
     // 初始化Mandatory标记
-  _.forOwn(engine.config.nodes, (rules, ruleName) => {
-    _.map(rules, rule => {
+  _.forOwn(rules, (subRules, ruleName) => {
+    _.map(subRules, rule => {
       _.map(rule.mandatory, pattern => {
         var fp = matcher.fingerprintByObject(ruleName, pattern)
         tags[fp] = {
@@ -34,7 +34,7 @@ exports.onBegin = function (error, engine) {
     })
   })
 
-  validatePolyfill(error, engine)
+  validatePolyfill(error, html, rules)
 }
 
 exports.onNode = function (node, rule) {
@@ -66,14 +66,14 @@ exports.onEnd = function (error) {
   })
 }
 
-function validatePolyfill (error, engine) {
+function validatePolyfill (error, html, rules) {
   POLYFILL_TAGS.forEach(tag => {
-    var rules = _.get(engine.config.nodes, `${tag}`)
-    _.map(rules, rule => {
+    var subRules = _.get(rules, `${tag}`)
+    _.map(subRules, rule => {
       if (rule.mandatory.length === 0) {
         return
       }
-      var matches = matcher.matchTagNames([tag], engine.html)
+      var matches = matcher.matchTagNames([tag], html)
       if (matches.length === 0) {
         error(ERR.MANDATORY_TAG_MISSING, `<${tag}>`)
       }

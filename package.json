@@ -24,7 +24,7 @@
         "aliasify",
         {
           "aliases": {
-            "jschardet": "./src/fake-jschardet.js",
+            "jschardet": "./src/encoding/fake-jschardet.js",
             "lodash": "./node_modules/lodash/lodash.min.js"
           }
         }

@@ -1,7 +1,7 @@
 const jschardet = require('jschardet')
-const ERR = require('./error.json')
+const ERR = require('../error/dfn.json')
 const allowedEncoding = ['UTF-8', 'ascii']
-const logger = require('./logger.js')('mip-validator:encoding')
+const logger = require('../logger.js')('mip-validator:encoding')
 
 function checkUTF8 (content, error) {
   var result = jschardet.detect(content)

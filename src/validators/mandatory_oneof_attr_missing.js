@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 const matcher = require('../matcher.js')
 
 exports.onNode = function (node, nodeRule, error) {

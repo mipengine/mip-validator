@@ -1,4 +1,4 @@
-const ERR = require('../error.json')
+const ERR = require('../error/dfn.json')
 
 exports.onNode = function (node, rule, error) {
   if (!rule.mandatory_ancestor) return
