@@ -38,11 +38,11 @@ function matchValue (src, target) {
  * @param {Object} src the object to match
  * @param {Object} target the object to match with
  * legal:
- *      match({
- *          id: 'modal-user'
- *      }, {
- *          id: '/^modal-.+$/'
- *      });
+ *   match({
+ *     id: 'modal-user'
+ *   }, {
+ *     id: '/^modal-.+$/'
+ *   });
  */
 function match (src, target) {
   var ret = true
@@ -59,16 +59,16 @@ function match (src, target) {
  * @param {ASTNode} node the node of which attributes will be matched
  * @param {Object} target the attribute list object to match with
  * legal:
- *      matchAttrs(node, {
- *          style: 'color:red',
- *          id: '/mip-.+/'
- *      });
+ *   matchAttrs(node, {
+ *     style: 'color:red',
+ *     id: '/mip-.+/'
+ *   });
  */
 function matchAttrs (node, target) {
   var attrSet = _.chain(node.attrs)
-        .map(attr => [attr.name, attr.value])
-        .fromPairs()
-        .value()
+    .map(attr => [attr.name, attr.value])
+    .fromPairs()
+    .value()
   return match(attrSet, target)
 }
 
@@ -77,11 +77,11 @@ function matchAttrs (node, target) {
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} ancestorNodeName string or regex-like string to match with
  * legal:
- *      matchAncestor(node, 'form');
- *      matchAncestor(node, '/form|div|section/'
+ *   matchAncestor(node, 'form');
+ *   matchAncestor(node, '/form|div|section/'
  */
 function matchAncestor (node, ancestorNodeName) {
-    // match_ancestor disabled
+  // match_ancestor disabled
   if (!ancestorNodeName) return true
 
   while ((node = node.parentNode)) {
@@ -95,8 +95,8 @@ function matchAncestor (node, ancestorNodeName) {
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} parentNodeName string or regex-like string to match with
  * legal:
- *      matchParent(node, 'form');
- *      matchParent(node, '/form|div|section/'
+ *   matchParent(node, 'form');
+ *   matchParent(node, '/form|div|section/'
  */
 function matchParent (node, parentNodeName) {
   // match disabled
@@ -111,13 +111,13 @@ function matchParent (node, parentNodeName) {
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} descendantNodeName string or regex-like string to match with
  * legal:
- *      matchDescendant(node, 'form');
- *      matchDescendant(node, '/form|div|section/'
+ *   matchDescendant(node, 'form');
+ *   matchDescendant(node, '/form|div|section/'
  */
 function matchDescendant (node, descendantNodeName) {
-    // match disabled
+  // match disabled
   if (!descendantNodeName) return true
-    // is there a match?
+  // is there a match?
   return dfsUntil(node, child => matchValue(child.nodeName, descendantNodeName))
 }
 
@@ -126,20 +126,21 @@ function matchDescendant (node, descendantNodeName) {
  * @param {ASTNode} node the node of which parent will be matched
  * @param {String} descendantNodeName string or regex-like string to match with
  * legal:
- *      nomatchDescendant(node, 'form');
- *      nomatchDescendant(node, '/form|div|section/'
+ *   nomatchDescendant(node, 'form');
+ *   nomatchDescendant(node, '/form|div|section/'
  */
 function nomatchDescendant (node, descendantNodeName) {
   logger.debug('nomatching descendant:', descendantNodeName)
 
-    // match disabled, pass
+  // match disabled, pass
   if (!descendantNodeName) return true
-    // is there a match?
+  // is there a match?
   return !matchDescendant(node, descendantNodeName)
 }
 
 function dfsUntil (node, predict) {
-  return predict(node) || node.childNodes.some(child => dfsUntil(child, predict))
+  // #text node do NOT have childNodes defined
+  return predict(node) || (node.childNodes || []).some(child => dfsUntil(child, predict))
 }
 
 /*
@@ -149,20 +150,19 @@ function createNode (nodeName, attrsObj) {
   return {
     nodeName,
     attrs: _.chain(attrsObj)
-            .toPairs()
-            .map(pair => ({
-              name: pair[0],
-              value: pair[1]
-            }))
-            .value()
+      .toPairs()
+      .map(pair => ({
+        name: pair[0],
+        value: pair[1]
+      }))
+      .value()
   }
 }
 
 /*
  * Generate a fingerprint for given nodeName and attributes
  * legal:
- *      // returns: <div id="modal">
- *      fingerprintByObject('div', {id: 'modal'});
+ *   fingerprintByObject('div', {id: 'modal'}); // returns: <div id="modal">
  */
 function fingerprintByObject (nodeName, attrsObj) {
   var tag = createNode(nodeName, attrsObj)
@@ -175,9 +175,9 @@ function fingerprintByObject (nodeName, attrsObj) {
  */
 function fingerprintByTag (node) {
   var attrStr = _.chain(node.attrs)
-        .map(attr => `${attr.name}="${attr.value}"`)
-        .join(' ')
-        .value()
+    .map(attr => `${attr.name}="${attr.value}"`)
+    .join(' ')
+    .value()
   if (attrStr.length) {
     attrStr = ' ' + attrStr
   }

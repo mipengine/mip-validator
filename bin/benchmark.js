@@ -28,21 +28,21 @@ htmls = randomize(htmls, HTML_COUNT)
 
 var bm = Benchmark(htmls.length)
 Promise.resolve()
-    .then(() => npmBenchmark(false))
-    .then(() => npmBenchmark(true))
-    .then(() => httpBenchmark(false))
-    .then(() => httpBenchmark(true))
-    .then(socketBenchmark)
-    .then(() => {
-      bm.finish()
-      httpServer.close()
-      socketServer.close()
-    })
-    .catch(e => {
-      console.error(e)
-      httpServer.close()
-      socketServer.close()
-    })
+  .then(() => npmBenchmark(false))
+  .then(() => npmBenchmark(true))
+  .then(() => httpBenchmark(false))
+  .then(() => httpBenchmark(true))
+  .then(socketBenchmark)
+  .then(() => {
+    bm.finish()
+    httpServer.close()
+    socketServer.close()
+  })
+  .catch(e => {
+    console.error(e)
+    httpServer.close()
+    socketServer.close()
+  })
 
 function npmBenchmark (fast) {
   var validator = Validator(rules, {
@@ -74,7 +74,7 @@ function httpBenchmark (fast) {
     function onEnd () {
       httpRequestCount--
       if (httpRequestCount === 0) {
-        console.log(`[benchmark] HTTP failed: ${failCount}`)
+        console.log(`[benchmark] HTTP fail count: ${failCount}`)
         bm.end('HTTP', fast, -failCount)
         resolve()
       }
@@ -141,13 +141,13 @@ function Benchmark (count) {
 
   var logs = [BANNER]
   logs.push(
-        '|' +
-        render('API', 0) +
-        render('Mode', 1) +
-        render('Time(ms)', 2) +
-        render('Count', 3) +
-        render('doc/s', 4) +
-        render('doc/day', 5))
+    '|' +
+    render('API', 0) +
+    render('Mode', 1) +
+    render('Time(ms)', 2) +
+    render('Count', 3) +
+    render('doc/s', 4) +
+    render('doc/day', 5))
   logs.push(BANNER)
 
   function begin (label, mode) {
@@ -156,10 +156,10 @@ function Benchmark (count) {
     beginTime[title] = Date.now()
   }
 
-    /*
-     * @param {Boolean} mode is fast mode enabled
-     * @param {Number} coutnOffset count offset, in case failures
-     */
+  /*
+   * @param {Boolean} mode is fast mode enabled
+   * @param {Number} coutnOffset count offset, in case failures
+   */
   function end (label, mode, countOffset) {
     var title = label + (mode ? '(fast)' : '(normal)')
     console.timeEnd(`benchmarking ${title}`)
@@ -169,13 +169,13 @@ function Benchmark (count) {
     var perSec = (actualCount * 1000 / time).toExponential(3)
     var perDay = (actualCount * 1000 * 3600 * 24 / time).toExponential(3)
     logs.push(
-            '|' +
-            render(label, 0) +
-            render(mode ? 'fast' : 'normal', 1) +
-            render(time, 2) +
-            render(actualCount, 3) +
-            render(perSec, 4) +
-            render(perDay, 5))
+      '|' +
+      render(label, 0) +
+      render(mode ? 'fast' : 'normal', 1) +
+      render(time, 2) +
+      render(actualCount, 3) +
+      render(perSec, 4) +
+      render(perDay, 5))
   }
 
   function render (str, n) {
@@ -184,7 +184,7 @@ function Benchmark (count) {
     var paddingLength = width - str.length - 2
     if (paddingLength < 0) {
       var msg = 'min width for column ' + n +
-                ' is ' + (width - paddingLength)
+        ' is ' + (width - paddingLength)
       throw new Error(msg)
     }
     var renderding = ' '.repeat(paddingLength)
@@ -221,12 +221,12 @@ function readHTMLFiles (filepath) {
   var htmlFiles = fs.readdirSync(filepath)
 
   var files = htmlFiles
-        .filter(file => file.match(/\.html$/))
+    .filter(file => file.match(/\.html$/))
   console.log(`[benchmark] found ${files.length} html files in ${filepath}`)
 
   var htmlContents = files
-        .map(file => path.resolve(filepath, file))
-        .map(filepath => fs.readFileSync(filepath, 'utf8'))
+    .map(file => path.resolve(filepath, file))
+    .map(filepath => fs.readFileSync(filepath, 'utf8'))
   console.timeEnd('reading html files')
   return htmlContents
 }

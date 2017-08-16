@@ -34,3 +34,5 @@ var server = mkServer(config)
 server.listen(program['port'], program['host'], function () {
   console.log(`[http] listening to ${program['host']}:${program['port']}`)
 })
+
+module.exports = server

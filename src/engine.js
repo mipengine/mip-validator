@@ -48,18 +48,13 @@ Engine.prototype.validate = function (html, options) {
     behaveBuggyAsTheCPPVersion(document, errorGenertor)
     this.walker.validate(document, errorGenertor, html)
     if (options.type) {
-      this.validateTypedDocument(document, errorGenertor, options.type, html)
+      var rules = ruleParser.typedRules(options.type)
+      this.walker.config = ruleParser.mkConfig(rules)
+      this.walker.validate(document, errorGenertor, html)
     }
 
     return errorGenertor.errors
   }, options.fastMode)
-}
-
-Engine.prototype.validateTypedDocument = function (document, errorGenertor, type, html) {
-  var rules = ruleParser.typedRules(type)
-  this.walker.config = ruleParser.mkConfig(rules)
-
-  return this.walker.validate(document, errorGenertor, html)
 }
 
 /*

@@ -4,20 +4,19 @@ const matcher = require('../matcher.js')
 const POLYFILL_TAGS = ['html', 'body', 'head']
 const logger = require('../logger.js')('mip-validator:mandatory_tag_missing')
 
-// Tag 标记，Tag OR 标记
-var tags, ors
+var tagOccurrence, anyTagOccurrence
 
 exports.onBegin = function (error, html, rules) {
   logger.debug('[MANDATORY_TAG_MISSING] onBegin')
-  tags = {}
-  ors = {}
+  tagOccurrence = {}
+  anyTagOccurrence = {}
 
     // 初始化Mandatory标记
   _.forOwn(rules, (subRules, ruleName) => {
     _.map(subRules, rule => {
       _.map(rule.mandatory, pattern => {
         var fp = matcher.fingerprintByObject(ruleName, pattern)
-        tags[fp] = {
+        tagOccurrence[fp] = {
           rule: rule,
           ruleName: ruleName,
           pattern: pattern,
@@ -25,7 +24,7 @@ exports.onBegin = function (error, html, rules) {
         }
       })
       if (rule.mandatory_or) {
-        ors[ruleName] = {
+        anyTagOccurrence[ruleName] = {
           rule: rule,
           ruleName: ruleName,
           count: 0
@@ -42,21 +41,21 @@ exports.onNode = function (node, rule) {
     if (!matcher.matchAttrs(node, pattern)) return
 
     var fp = matcher.fingerprintByObject(node.nodeName, pattern)
-    tags[fp].count++
+    tagOccurrence[fp].count++
   })
   _.map(rule.mandatory_or, pattern => {
     if (!matcher.matchAttrs(node, pattern)) return
-    ors[node.nodeName].count++
+    anyTagOccurrence[node.nodeName].count++
   })
 }
 
 exports.onEnd = function (error) {
-  _.forOwn(tags, (v, k) => {
+  _.forOwn(tagOccurrence, (v, k) => {
     if (v.rule.mandatory && v.count < 1) {
       error(ERR.MANDATORY_TAG_MISSING, k)
     }
   })
-  _.forOwn(ors, (v, k) => {
+  _.forOwn(anyTagOccurrence, (v, k) => {
     if (v.rule.mandatory_or && v.count < 1) {
       var fps = v.rule.mandatory_or
                 .map(rule => matcher.fingerprintByObject(k, rule))

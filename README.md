@@ -95,6 +95,12 @@ $ mip-validator-http
 * 校验HTML文档：POST `/validate`，Request Body为待校验HTML字符串。
 * 快速校验HTML文档：POST `/validate?fast=true`，Request Body为待校验HTML字符串。
 
+例如：
+
+```bash
+curl localhost:4444/validate -X POST --data '<html></html>'
+```
+
 > 开启快速校验时，只能获得第一个校验错误。因此运行也稍快。
 
 ### Socket Service

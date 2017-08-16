@@ -4,18 +4,18 @@ const POLYFILL_TAGS = ['html', 'body', 'head']
 const matcher = require('../matcher.js')
 const logger = require('../logger.js')('mip-validator:duplicate_unique_tag')
 
-var cache
+var tagOccurrence
 
 exports.onBegin = function (error, html, rules) {
   logger.debug('[DUPLICATE_UNIQUE_TAG] onBegin')
-  cache = {}
+  tagOccurrence = {}
 
   _.forOwn(rules, (subRules, ruleName) => {
     _.map(subRules, rule => {
       _.map(rule.duplicate, pattern => {
         var fingerprint = matcher.fingerprintByObject(ruleName, pattern)
         var hash = fingerprint + rule.id
-        cache[hash] = 0
+        tagOccurrence[hash] = 0
       })
     })
   })
@@ -32,8 +32,8 @@ exports.onNode = function (node, rule, error) {
 
     var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern)
     var hash = fingerprint + rule.id
-    cache[hash]++
-    if (cache[hash] <= 1) return
+    tagOccurrence[hash]++
+    if (tagOccurrence[hash] <= 1) return
 
     error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint)
   })
