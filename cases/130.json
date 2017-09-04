@@ -1,13 +1,5 @@
 [
     {
-        "message": "标签'mip-form'的强制性属性'method'缺失",
-        "code": "06200501",
-        "line": 153,
-        "col": 1,
-        "offset": 5938,
-        "input": "<mip-form></mip-form>"
-    },
-    {
         "message": "标签'mip-form'的强制性属性'url'缺失",
         "code": "06200501",
         "line": 153,
