@@ -96,6 +96,15 @@
         }
     }, {
         "disallowed_ancestor": "template"
+    },{
+         "attrs": {
+            "async": [{
+                "match": {
+                    "match_ancestor": "head"
+                },
+                "mandatory": true
+            }]
+        }
     }],
     "mip-input": {
         "mandatory_ancestor": "mip-form",
@@ -138,6 +147,9 @@
     "form": {
         "disallow": true
     },
+    "iframe": {
+        "disallow": true
+    },
     "input": {
         "mandatory_ancestor": "mip-form"
     },
@@ -164,7 +176,10 @@
         "attrs": {
             "src": {
                 "mandatory": true,
-                "value": "/^.+/"
+                "value": "/^.+\\S/"
+            },
+            "srcset": {
+                "value": "/^.+\\S/"
             }
         }
     },
@@ -255,7 +270,6 @@
     "mip-form": {
         "attrs": {
             "method": {
-                "mandatory": true,
                 "value": "/^(post)|(get)$/i"
             },
             "url": {
@@ -287,12 +301,14 @@
         }
     },
     "head": {
+		"duplicate": true,
         "mandatory": true,
         "mandatory_parent": "html"
     },
     "body": {
         "mandatory": true,
-        "mandatory_parent": "html"
+        "mandatory_parent": "html",
+        "duplicate": true
     },
     "style": {
         "attrs": {
@@ -310,6 +326,15 @@
                  "mandatory": true
             }
         }
+    },
+    "base": {
+        "attrs": {
+            "target": {
+                "value": "/^(^_top$)|(^_self$)|(^_blank$)$/i"
+            },
+            "href": {
+                "value": "/^\/$/"
+            }
+        }
     }
-    
 }
