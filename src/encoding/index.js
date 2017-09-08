@@ -1,4 +1,4 @@
-const jschardet = require('jschardet')
+const jschardet = require('./fake-jschardet.js')
 const ERR = require('../error/dfn.json')
 const allowedEncoding = ['UTF-8', 'ascii']
 const logger = require('../logger.js')('mip-validator:encoding')
