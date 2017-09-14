@@ -16755,7 +16755,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":56,"_process":36,"inherits":55}],58:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
@@ -16913,7 +16913,7 @@ module.exports={
             "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((http(s)?:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
         }],
 
         "mandatory_parent": "head",
@@ -16923,7 +16923,7 @@ module.exports={
             "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)/"
+            "href": "/^(http(s)?:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|(c.mipcdn.com\/static\/mipmain)/"
         }],
         "attrs": {
             "href": [{
@@ -16943,7 +16943,7 @@ module.exports={
     "script": [{
         "mandatory": {
              "type": "/^(text\/javascript)?/",
-             "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)/"
+             "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
         }
     }, {
         "disallow": true,
