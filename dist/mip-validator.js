@@ -16755,7 +16755,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":56,"_process":36,"inherits":55}],58:[function(require,module,exports){
 module.exports={
   "name": "mip-validator",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "MIP validator",
   "main": "index.js",
   "dependencies": {
