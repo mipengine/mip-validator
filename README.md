@@ -37,8 +37,8 @@ npm install mip-validator
 ```javascript
 const Validator = require('mip-validator');
 
-// 使用默认规则创建实例，等效于：Valicator(Validator.rules);
-var validator = Valicator(); 
+// 使用默认规则创建实例，等效于：Validator(Validator.rules);
+var validator = Validator(); 
 var errs = validator.validate('<html><div></div></html>')
 console.log(errs);
 ```
