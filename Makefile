@@ -9,13 +9,13 @@ dist: dist/mip-validator.min.js
 
 cases: $(results)
 
-$(results):cases/%.json:cases/%.html rules.json 
+$(results):cases/%.json:cases/%.html rules.json
 	node bin/cli.js < $< > $@
 
 dist/mip-validator.min.js: dist/mip-validator.js
 	$(MINIFY) $< --output $@
 
-dist/mip-validator.js: 
+dist/mip-validator.js:
 	echo '(function(define) {' > $@
 	$(BROWSERIFY) . -s MIPValidator >> $@
 	echo '})();' >> $@
