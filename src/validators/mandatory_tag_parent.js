@@ -1,12 +1,12 @@
 const _ = require('lodash')
 const ERR = require('../error/dfn.json')
 
-exports.onNode = function (node, rule, error) {
-  if (!rule.mandatory_parent) return
+exports.onNode = function(node, rule, error) {
+    if (!rule.mandatory_parent) return
 
-  var parent = node.parentNode && node.parentNode.nodeName
-  if (_.includes(rule.mandatory_parent, parent)) return
+    var parent = node.parentNode && node.parentNode.nodeName
+    if (_.includes(rule.mandatory_parent, parent)) return
 
-  error(ERR.WRONG_PARENT_TAG, node.nodeName,
+    error(ERR.WRONG_PARENT_TAG, node.nodeName,
         rule.mandatory_parent, parent)
 }

@@ -16,20 +16,20 @@ program
 var html = Buffer.alloc(0)
 var config
 if (program['conf']) {
-  var configPath = path.resolve(process.cwd(), program['conf'])
-  config = require(configPath)
+    var configPath = path.resolve(process.cwd(), program['conf'])
+    config = require(configPath)
 }
 var validator = config ? Validator(config) : Validator()
 
-process.stdin.on('data', function (buf) {
-  html = Buffer.concat([html, buf])
+process.stdin.on('data', function(buf) {
+    html = Buffer.concat([html, buf])
 })
 
-process.stdin.on('end', function () {
-  var result = validator.validate(html, {
-    fastMode: program['fast'],
-    type: program['type']
-  })
-  var str = JSON.stringify(result, null, 4)
-  console.log(str)
+process.stdin.on('end', function() {
+    var result = validator.validate(html, {
+        fastMode: program['fast'],
+        type: program['type']
+    })
+    var str = JSON.stringify(result, null, 4)
+    console.log(str)
 })
