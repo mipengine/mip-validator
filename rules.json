@@ -336,5 +336,18 @@
                 "value": "/^\/$/"
             }
         }
+    },
+    "mip-vd-baidu": {
+        "attrs": {
+            "src": {
+                "value": "/^(http(s)?:)?\/\//"
+            },
+            "title": {
+                "value": "/^\\S+$/"
+            },
+            "poster": {
+                "value": "/^(http(s)?:)?\/\//"
+            }
+        }
     }
 }
