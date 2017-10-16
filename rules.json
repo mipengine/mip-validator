@@ -80,7 +80,7 @@
                     "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
                 }
             }]
-            
+
         }
     },
     "script": [{
@@ -116,7 +116,7 @@
     },
 
 
-    
+
     "img": {
         "disallow": true
     },
@@ -318,7 +318,7 @@
         },
         "duplicate": true,
         "mandatory_parent": "head"
-        
+
     },
     "template": {
         "attrs": {
@@ -346,7 +346,7 @@
                 "value": "/^\\S+$/"
             },
             "poster": {
-                "value": "/^(http(s)?:)?\/\//"
+                "value": "/^\\S+$/"
             }
         }
     }
