@@ -16809,6 +16809,9 @@ module.exports={
         "supertest": "^2.0.1",
         "uglifyjs": "^2.4.10"
     },
+    "engines": {
+        "node": ">=4.0.0"
+    },
     "scripts": {
         "test": "DEBUG='mip-validator:' mocha",
         "lint": "eslint src/ test/ bin/ index.js",
