@@ -340,12 +340,15 @@
     "mip-vd-baidu": {
         "attrs": {
             "src": {
+                "mandatory": true,
                 "value": "/^(http(s)?:)?\/\//"
             },
             "title": {
+                "mandatory": true,
                 "value": "/^\\S+$/"
             },
             "poster": {
+                "mandatory": true,
                 "value": "/^\\S+$/"
             }
         }
