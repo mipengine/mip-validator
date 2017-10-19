@@ -80,7 +80,7 @@
                     "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
                 }
             }]
-            
+
         }
     },
     "script": [{
@@ -116,7 +116,7 @@
     },
 
 
-    
+
     "img": {
         "disallow": true
     },
@@ -318,7 +318,7 @@
         },
         "duplicate": true,
         "mandatory_parent": "head"
-        
+
     },
     "template": {
         "attrs": {
@@ -334,6 +334,19 @@
             },
             "href": {
                 "value": "/^\/$/"
+            }
+        }
+    },
+    "mip-vd-baidu": {
+        "attrs": {
+            "src": {
+                "value": "/^(http(s)?:)?\/\//"
+            },
+            "title": {
+                "value": "/^\\S+$/"
+            },
+            "poster": {
+                "value": "/^\\S+$/"
             }
         }
     }
