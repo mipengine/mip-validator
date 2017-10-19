@@ -16754,85 +16754,83 @@ function hasOwnProperty(obj, prop) {
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./support/isBuffer":56,"_process":36,"inherits":55}],58:[function(require,module,exports){
 module.exports={
-  "name": "mip-validator",
-  "version": "1.5.6",
-  "description": "MIP validator",
-  "main": "index.js",
-  "dependencies": {
-    "commander": "^2.9.0",
-    "jschardet": "^1.4.1",
-    "lodash": "^4.17.2",
-    "parse5": "^3.0.1"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ],
-          "global": true
-        }
-      ],
-      [
-        "aliasify",
-        {
-          "aliases": {
-            "jschardet": "./src/encoding/fake-jschardet.js",
-            "lodash": "./node_modules/lodash/lodash.min.js"
-          }
-        }
-      ]
-    ]
-  },
-  "devDependencies": {
-    "aliasify": "^2.1.0",
-    "babel-preset-es2015": "^6.13.2",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
-    "changelog": "^1.0.7",
-    "coveralls": "^2.11.9",
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-mocha": "^4.9.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "git-changelog": "^1.0.1",
-    "istanbul": "^0.4.3",
-    "mocha": "^3.2.0",
-    "mock-fs": "^3.11.0",
-    "sinon": "^1.17.6",
-    "sinon-chai": "^2.8.0",
-    "supertest": "^2.0.1",
-    "uglifyjs": "^2.4.10"
-  },
-  "scripts": {
-    "test": "DEBUG='mip-validator:' mocha",
-    "lint": "eslint src/ test/ bin/ index.js",
-    "preversion": "npm run lint && npm test",
-    "version": "make dist && git add -A dist",
-    "postversion": "git push && git push --tags && npm publish"
-  },
-  "bin": {
-    "mip-validator": "./bin/cli.js",
-    "mip-validator-http": "./bin/http.js",
-    "mip-validator-socket": "./bin/socket.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com:mipengine/mip-validator.git"
-  },
-  "keywords": [
-    "MIP",
-    "validator"
-  ],
-  "author": "harttle",
-  "license": "ISC"
+    "name": "mip-validator",
+    "version": "1.5.8",
+    "description": "MIP validator",
+    "main": "index.js",
+    "dependencies": {
+        "commander": "^2.9.0",
+        "jschardet": "^1.4.1",
+        "lodash": "^4.17.2",
+        "parse5": "^3.0.1"
+    },
+    "browserify": {
+        "transform": [
+            [
+                "babelify", {
+                    "presets": [
+                        "es2015"
+                    ],
+                    "global": true
+                }
+            ],
+            [
+                "aliasify", {
+                    "aliases": {
+                        "jschardet": "./src/encoding/fake-jschardet.js",
+                        "lodash": "./node_modules/lodash/lodash.min.js"
+                    }
+                }
+            ]
+        ]
+    },
+    "devDependencies": {
+        "aliasify": "^2.1.0",
+        "babel-preset-es2015": "^6.13.2",
+        "babelify": "^7.3.0",
+        "browserify": "^13.1.0",
+        "chai": "^3.5.0",
+        "chai-as-promised": "^6.0.0",
+        "changelog": "^1.0.7",
+        "coveralls": "^2.11.9",
+        "eslint": "^3.19.0",
+        "eslint-config-standard": "^10.2.1",
+        "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-mocha": "^4.9.0",
+        "eslint-plugin-node": "^4.2.2",
+        "eslint-plugin-promise": "^3.5.0",
+        "eslint-plugin-standard": "^3.0.1",
+        "git-changelog": "^1.0.1",
+        "istanbul": "^0.4.3",
+        "mocha": "^3.2.0",
+        "mock-fs": "^3.11.0",
+        "sinon": "^1.17.6",
+        "sinon-chai": "^2.8.0",
+        "supertest": "^2.0.1",
+        "uglifyjs": "^2.4.10"
+    },
+    "scripts": {
+        "test": "DEBUG='mip-validator:' mocha",
+        "lint": "eslint src/ test/ bin/ index.js",
+        "preversion": "npm run lint && npm test",
+        "version": "make dist && git add -A dist",
+        "postversion": "git push && git push --tags && npm publish"
+    },
+    "bin": {
+        "mip-validator": "./bin/cli.js",
+        "mip-validator-http": "./bin/http.js",
+        "mip-validator-socket": "./bin/socket.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "ssh://git@github.com:mipengine/mip-validator.git"
+    },
+    "keywords": [
+        "MIP",
+        "validator"
+    ],
+    "author": "harttle",
+    "license": "ISC"
 }
 
 },{}],59:[function(require,module,exports){
@@ -16937,7 +16935,7 @@ module.exports={
                     "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
                 }
             }]
-            
+
         }
     },
     "script": [{
@@ -16973,7 +16971,7 @@ module.exports={
     },
 
 
-    
+
     "img": {
         "disallow": true
     },
@@ -17175,7 +17173,7 @@ module.exports={
         },
         "duplicate": true,
         "mandatory_parent": "head"
-        
+
     },
     "template": {
         "attrs": {
@@ -17193,6 +17191,22 @@ module.exports={
                 "value": "/^\/$/"
             }
         }
+    },
+    "mip-vd-baidu": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "/^(http(s)?:)?\/\//"
+            },
+            "title": {
+                "mandatory": true,
+                "value": "/^\\S+$/"
+            },
+            "poster": {
+                "mandatory": true,
+                "value": "/^\\S+$/"
+            }
+        }
     }
 }
 
@@ -17200,10 +17214,10 @@ module.exports={
 'use strict';
 
 exports.detect = function () {
-  return {
-    encoding: 'UTF-8',
-    confidence: 1
-  };
+    return {
+        encoding: 'UTF-8',
+        confidence: 1
+    };
 };
 
 },{}],62:[function(require,module,exports){
@@ -17215,11 +17229,11 @@ var allowedEncoding = ['UTF-8', 'ascii'];
 var logger = require('../logger.js')('mip-validator:encoding');
 
 function checkUTF8(content, error) {
-  var result = jschardet.detect(content);
-  logger.debug('encoding detected:', result.encoding);
-  if (allowedEncoding.indexOf(result.encoding) === -1 && result.confidence >= 0.9) {
-    error(ERR.DISALLOWED_ENCODING, result.encoding);
-  }
+    var result = jschardet.detect(content);
+    logger.debug('encoding detected:', result.encoding);
+    if (allowedEncoding.indexOf(result.encoding) === -1 && result.confidence >= 0.9) {
+        error(ERR.DISALLOWED_ENCODING, result.encoding);
+    }
 }
 
 exports.checkUTF8 = checkUTF8;
@@ -17240,14 +17254,14 @@ var checkUTF8 = require('./encoding').checkUTF8;
 var ValidateError = require('./error/validation-error.js');
 
 function Engine(rules) {
-  assert(_.isObject(rules), 'rules must be object, ' + (typeof rules === 'undefined' ? 'undefined' : _typeof(rules)) + ' found');
+    assert(_.isObject(rules), 'rules must be object, ' + (typeof rules === 'undefined' ? 'undefined' : _typeof(rules)) + ' found');
 
-  var config = ruleParser.mkConfig(rules);
-  this.walker = Walker(config);
+    var config = ruleParser.mkConfig(rules);
+    this.walker = Walker(config);
 }
 
 Engine.prototype.register = function (validator) {
-  return this.walker.register(validator);
+    return this.walker.register(validator);
 };
 
 /**
@@ -17259,35 +17273,35 @@ Engine.prototype.register = function (validator) {
  * @param {string} options.type Optional, the sub type of MIP document, e.g. "custom"
  */
 Engine.prototype.validate = function (html, options) {
-  var _this = this;
+    var _this = this;
 
-  html = normalize(html);
-  options = _.assign({
-    fastMode: false,
-    rules: undefined,
-    type: undefined
-  }, options);
+    html = normalize(html);
+    options = _.assign({
+        fastMode: false,
+        rules: undefined,
+        type: undefined
+    }, options);
 
-  logger.debug('validating using options %J', options);
+    logger.debug('validating using options %J', options);
 
-  return useErrorPolicy(function () {
-    var errorGenertor = ValidateError.generator({
-      html: html,
-      fast: options.fastMode
-    });
+    return useErrorPolicy(function () {
+        var errorGenertor = ValidateError.generator({
+            html: html,
+            fast: options.fastMode
+        });
 
-    checkUTF8(html, errorGenertor);
-    var document = parse(html, options);
-    behaveBuggyAsTheCPPVersion(document, errorGenertor);
-    _this.walker.validate(document, errorGenertor, html);
-    if (options.type) {
-      var rules = ruleParser.typedRules(options.type);
-      _this.walker.config = ruleParser.mkConfig(rules);
-      _this.walker.validate(document, errorGenertor, html);
-    }
+        checkUTF8(html, errorGenertor);
+        var document = parse(html, options);
+        behaveBuggyAsTheCPPVersion(document, errorGenertor);
+        _this.walker.validate(document, errorGenertor, html);
+        if (options.type) {
+            var rules = ruleParser.typedRules(options.type);
+            _this.walker.config = ruleParser.mkConfig(rules);
+            _this.walker.validate(document, errorGenertor, html);
+        }
 
-    return errorGenertor.errors;
-  }, options.fastMode);
+        return errorGenertor.errors;
+    }, options.fastMode);
 };
 
 /*
@@ -17295,110 +17309,109 @@ Engine.prototype.validate = function (html, options) {
  * @return {String} The normalized string
  */
 function normalize(content) {
-  return content.toString().replace(/^\uFEFF/, '');
+    return content.toString().replace(/^\uFEFF/, '');
 }
 
 function useErrorPolicy(validate, fastMode) {
-  if (!fastMode) {
-    return validate();
-  }
-  try {
-    validate();
-    return [];
-  } catch (e) {
-    return [e];
-  }
+    if (!fastMode) {
+        return validate();
+    }
+    try {
+        validate();
+        return [];
+    } catch (e) {
+        return [e];
+    }
 }
 
 function parse(html, options) {
-  return parse5.parse(html, {
-    locationInfo: !options.fastMode
-  });
+    return parse5.parse(html, {
+        locationInfo: !options.fastMode
+    });
 }
 
 function behaveBuggyAsTheCPPVersion(doc, errorGenertor) {
-  var head = findFirstTagChild(findFirstTagChild(doc));
-  var noscriptAppeared = false;
+    var head = findFirstTagChild(findFirstTagChild(doc));
+    var noscriptAppeared = false;
 
-  head.childNodes.forEach(function (node) {
-    if (node.tagName === 'noscript') {
-      noscriptAppeared = true;
-    } else if (node.tagName && noscriptAppeared) {
-      // it's a tag after noscript
-      var err = ERR.INVALID_NOSCRIPT;
-      errorGenertor(err);
-    }
-  });
+    head.childNodes.forEach(function (node) {
+        if (node.tagName === 'noscript') {
+            noscriptAppeared = true;
+        } else if (node.tagName && noscriptAppeared) {
+            // it's a tag after noscript
+            var err = ERR.INVALID_NOSCRIPT;
+            errorGenertor(err);
+        }
+    });
 }
 
 function findFirstTagChild(parent) {
-  var ret;
-  parent.childNodes.some(function (node) {
-    ret = node;
-    return node.tagName;
-  });
-  return ret;
+    var ret;
+    parent.childNodes.some(function (node) {
+        ret = node;
+        return node.tagName;
+    });
+    return ret;
 }
 
 module.exports = Engine;
 
 },{"./../node_modules/lodash/lodash.min.js":11,"./encoding":62,"./error/dfn.json":64,"./error/validation-error.js":65,"./logger.js":66,"./rule-parser.js":68,"./walker.js":80,"assert":1,"parse5":17}],64:[function(require,module,exports){
 module.exports={
-  "DISALLOWED_ENCODING": {
-    "code": "06200001",
-    "message": "禁止使用'%s'，请统一使用UTF-8编码"
-  },
-  "INVALID_INNER_HTML": {
-    "code": "03210001",
-    "message": "标签 '%s' 的 HTML 内容不合法（%s）"
-  },
-  "MANDATORY_TAG_MISSING": {
-    "code": "06200101",
-    "message": "强制性标签'%s'缺失或错误",
-    "misc": "去除该标签即可"
-  },
-  "DISALLOWED_TAG": {
-    "code": "06200201",
-    "message": "禁止使用'%s'标签"
-  },
-  "DUPLICATE_UNIQUE_TAG": {
-    "code": "06200701",
-    "message": "标签'%s'只能出现一次"
-  },
-  "MANDATORY_ONEOF_ATTR_MISSING": {
-    "code": "06200501",
-    "message": "标签'%s'的强制性属性'%s'缺失"
-  },
-  "DISALLOWED_ATTR": {
-    "code": "06200202",
-    "message": "'%s'标签中禁止使用'%s'属性"
-  },
-  "INVALID_ATTR_VALUE": {
-    "code": "06200301",
-    "message": "标签'%s'中的属性'%s'的属性值'%s'无效"
-  },
-  "DISALLOWED_TAG_ANCESTOR": {
-    "code": "06200801",
-    "message": "标签'%s'不应该是标签'%s'的子标签"
-  },
-  "MANDATORY_TAG_ANCESTOR": {
-    "code": "06200901",
-    "message": "标签'%s'只能是标签'%s'的子级标签"
-  },
-  "WRONG_PARENT_TAG": {
-    "code": "06200601",
-    "message": "标签'%s'的直接父标签应该是'%s'，而不是'%s'"
-  },
-  "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
-    "code": "06200401",
-    "message": "标签'%s'中的属性'%s'的属性'%s'被设置为'%s'，该属性值无效"
-  },
-  "INVALID_NOSCRIPT": {
-    "code": "06201001",
-    "message": "标签'<noscript>'在标签'<head>'中时强制为最后一个子节点"
-  }
+    "DISALLOWED_ENCODING": {
+        "code": "06200001",
+        "message": "禁止使用'%s'，请统一使用UTF-8编码"
+    },
+    "INVALID_INNER_HTML": {
+        "code": "03210001",
+        "message": "标签 '%s' 的 HTML 内容不合法（%s）"
+    },
+    "MANDATORY_TAG_MISSING": {
+        "code": "06200101",
+        "message": "强制性标签'%s'缺失或错误",
+        "misc": "去除该标签即可"
+    },
+    "DISALLOWED_TAG": {
+        "code": "06200201",
+        "message": "禁止使用'%s'标签"
+    },
+    "DUPLICATE_UNIQUE_TAG": {
+        "code": "06200701",
+        "message": "标签'%s'只能出现一次"
+    },
+    "MANDATORY_ONEOF_ATTR_MISSING": {
+        "code": "06200501",
+        "message": "标签'%s'的强制性属性'%s'缺失"
+    },
+    "DISALLOWED_ATTR": {
+        "code": "06200202",
+        "message": "'%s'标签中禁止使用'%s'属性"
+    },
+    "INVALID_ATTR_VALUE": {
+        "code": "06200301",
+        "message": "标签'%s'中的属性'%s'的属性值'%s'无效"
+    },
+    "DISALLOWED_TAG_ANCESTOR": {
+        "code": "06200801",
+        "message": "标签'%s'不应该是标签'%s'的子标签"
+    },
+    "MANDATORY_TAG_ANCESTOR": {
+        "code": "06200901",
+        "message": "标签'%s'只能是标签'%s'的子级标签"
+    },
+    "WRONG_PARENT_TAG": {
+        "code": "06200601",
+        "message": "标签'%s'的直接父标签应该是'%s'，而不是'%s'"
+    },
+    "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
+        "code": "06200401",
+        "message": "标签'%s'中的属性'%s'的属性'%s'被设置为'%s'，该属性值无效"
+    },
+    "INVALID_NOSCRIPT": {
+        "code": "06201001",
+        "message": "标签'<noscript>'在标签'<head>'中时强制为最后一个子节点"
+    }
 }
-
 },{}],65:[function(require,module,exports){
 'use strict';
 
@@ -17406,35 +17419,35 @@ var util = require('util');
 var _ = require('./../../node_modules/lodash/lodash.min.js');
 
 function ValidationError(message, code, location, lines) {
-  this.message = message;
-  this.code = code;
-  this.line = location ? location.line : 0;
-  this.col = location ? location.col : 0;
-  this.offset = location ? location.startOffset : 0;
-  this.input = location ? lines[location.line - 1] : '';
+    this.message = message;
+    this.code = code;
+    this.line = location ? location.line : 0;
+    this.col = location ? location.col : 0;
+    this.offset = location ? location.startOffset : 0;
+    this.input = location ? lines[location.line - 1] : '';
 }
 ValidationError.prototype = Object.create(Error.prototype);
 ValidationError.prototype.name = 'ValidationError';
 
 function getGenerator(options) {
-  var lines = options.html.split('\n');
+    var lines = options.html.split('\n');
 
-  function generator(err) {
-    var location = err.location;
+    function generator(err) {
+        var location = err.location;
 
-    var args = _.toArray(arguments);
-    args[0] = err.message;
-    var message = util.format.apply(util, args);
+        var args = _.toArray(arguments);
+        args[0] = err.message;
+        var message = util.format.apply(util, args);
 
-    err = new ValidationError(message, err.code, location, lines);
+        err = new ValidationError(message, err.code, location, lines);
 
-    if (options.fast) {
-      throw err;
+        if (options.fast) {
+            throw err;
+        }
+        generator.errors.push(err);
     }
-    generator.errors.push(err);
-  }
-  generator.errors = [];
-  return generator;
+    generator.errors = [];
+    return generator;
 }
 
 exports.generator = getGenerator;
@@ -17449,23 +17462,23 @@ exports.ValidationError = ValidationError;
  * @param {String} id trace ID of the logger instance, typically use module ID
  */
 function Logger(id) {
-  if (!isString(id)) {
-    throw new Error('invalid logger id: ' + id);
-  }
-  var debugEnabled = match(process.env.DEBUG, id);
-  return {
-    debug: debugEnabled ? createWith(console.log.bind(console), id) : function () {
-      return false;
-    },
-    log: createWith(console.log.bind(console), id),
-    warn: createWith(console.warn.bind(console), id),
-    error: createWith(console.error.bind(console), id),
-    info: createWith(console.info.bind(console), id)
-  };
+    if (!isString(id)) {
+        throw new Error('invalid logger id: ' + id);
+    }
+    var debugEnabled = match(process.env.DEBUG, id);
+    return {
+        debug: debugEnabled ? createWith(console.log.bind(console), id) : function () {
+            return false;
+        },
+        log: createWith(console.log.bind(console), id),
+        warn: createWith(console.warn.bind(console), id),
+        error: createWith(console.error.bind(console), id),
+        info: createWith(console.info.bind(console), id)
+    };
 }
 
 function isString(obj) {
-  return typeof obj === 'string' || obj instanceof String;
+    return typeof obj === 'string' || obj instanceof String;
 }
 
 /*
@@ -17474,17 +17487,17 @@ function isString(obj) {
  * @param {String} path trace ID
  */
 function match(root, path) {
-  if (!root) return false;
-  root = String(root).split(':').filter(function (x) {
-    return x.length;
-  });
-  path = path.split(':').filter(function (x) {
-    return x.length;
-  });
-  for (var i = 0; i < root.length; i++) {
-    if (path[i] !== root[i]) return false;
-  }
-  return true;
+    if (!root) return false;
+    root = String(root).split(':').filter(function (x) {
+        return x.length;
+    });
+    path = path.split(':').filter(function (x) {
+        return x.length;
+    });
+    for (var i = 0; i < root.length; i++) {
+        if (path[i] !== root[i]) return false;
+    }
+    return true;
 }
 
 /*
@@ -17495,12 +17508,12 @@ function match(root, path) {
  *      createWith(console.log.bind(console), 'mip:cache:getCache')
  */
 function createWith(output, id) {
-  return function () {
-    var str = '[' + timestamp() + '][' + id + '] ';
-    str += format.apply(exports, arguments);
-    output(str);
-    return str;
-  };
+    return function () {
+        var str = '[' + timestamp() + '][' + id + '] ';
+        str += format.apply(exports, arguments);
+        output(str);
+        return str;
+    };
 }
 
 /*
@@ -17512,7 +17525,7 @@ function createWith(output, id) {
  *      pad(22)     // 22
  */
 function pad(n) {
-  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+    return n < 10 ? '0' + n.toString(10) : n.toString(10);
 }
 
 /*
@@ -17522,10 +17535,10 @@ function pad(n) {
  *      timestamp()    // "2016/09/27-17:31:22"
  */
 function timestamp() {
-  var d = new Date();
-  var date = [pad(d.getFullYear()), pad(d.getMonth() + 1), pad(d.getDate())].join('/');
-  var time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
-  return date + '-' + time;
+    var d = new Date();
+    var date = [pad(d.getFullYear()), pad(d.getMonth() + 1), pad(d.getDate())].join('/');
+    var time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+    return date + '-' + time;
 }
 
 var formatRegExp = /%[sdjJ%]/g;
@@ -17544,39 +17557,39 @@ var formatRegExp = /%[sdjJ%]/g;
  *      format('foo', 'bar')        // foo bar
  */
 function format(f) {
-  var i = 0;
-  var args = arguments;
-  var len = args.length;
-  var str = '';
-  if (isString(f)) {
-    i++;
-    str += f.replace(formatRegExp, function (x) {
-      switch (x) {
-        case '%%':
-          return '%';
-        case '%s':
-          return String(args[i++]);
-        case '%d':
-          return Number(args[i++]);
-        case '%j':
-          try {
-            return JSON.stringify(args[i++]);
-          } catch (_) {
-            return '[Circular]';
-          }
-        case '%J':
-          try {
-            return '\n' + JSON.stringify(args[i++], null, 4) + '\n';
-          } catch (_) {
-            return '\n[Circular]\n';
-          }
-      }
-    });
-  }
-  for (var x = args[i]; i < len; x = args[++i]) {
-    str += ' ' + x;
-  }
-  return str;
+    var i = 0;
+    var args = arguments;
+    var len = args.length;
+    var str = '';
+    if (isString(f)) {
+        i++;
+        str += f.replace(formatRegExp, function (x) {
+            switch (x) {
+                case '%%':
+                    return '%';
+                case '%s':
+                    return String(args[i++]);
+                case '%d':
+                    return Number(args[i++]);
+                case '%j':
+                    try {
+                        return JSON.stringify(args[i++]);
+                    } catch (_) {
+                        return '[Circular]';
+                    }
+                case '%J':
+                    try {
+                        return '\n' + JSON.stringify(args[i++], null, 4) + '\n';
+                    } catch (_) {
+                        return '\n[Circular]\n';
+                    }
+            }
+        });
+    }
+    for (var x = args[i]; i < len; x = args[++i]) {
+        str += ' ' + x;
+    }
+    return str;
 }
 
 module.exports = Logger;
@@ -17594,15 +17607,15 @@ var logger = require('./logger.js')('mip-validator:matcher');
  * @param {str} the regex-like string to convert
  */
 function stringToRegex(str) {
-  var match = str.match(regexSyntax);
-  if (!match) {
-    return null;
-  }
-  var regex = new RegExp(match[2], match[3]);
-  if (match[1] === '!') {
-    regex.negate = true;
-  }
-  return regex;
+    var match = str.match(regexSyntax);
+    if (!match) {
+        return null;
+    }
+    var regex = new RegExp(match[2], match[3]);
+    if (match[1] === '!') {
+        regex.negate = true;
+    }
+    return regex;
 }
 
 /*
@@ -17611,13 +17624,13 @@ function stringToRegex(str) {
  * @param {String} target the string or regex-like string to match with
  */
 function matchValue(src, target) {
-  var re;
-  if (re = stringToRegex(target)) {
-    var result = re.test(src);
-    return re.negate ? !result : result;
-  } else {
-    return src === target;
-  }
+    var re;
+    if (re = stringToRegex(target)) {
+        var result = re.test(src);
+        return re.negate ? !result : result;
+    } else {
+        return src === target;
+    }
 }
 
 /*
@@ -17632,13 +17645,13 @@ function matchValue(src, target) {
  *   });
  */
 function match(src, target) {
-  var ret = true;
-  _.forOwn(target, function (value, key) {
-    if (!matchValue(src[key], value)) {
-      ret = false;
-    }
-  });
-  return ret;
+    var ret = true;
+    _.forOwn(target, function (value, key) {
+        if (!matchValue(src[key], value)) {
+            ret = false;
+        }
+    });
+    return ret;
 }
 
 /*
@@ -17652,10 +17665,10 @@ function match(src, target) {
  *   });
  */
 function matchAttrs(node, target) {
-  var attrSet = _.chain(node.attrs).map(function (attr) {
-    return [attr.name, attr.value];
-  }).fromPairs().value();
-  return match(attrSet, target);
+    var attrSet = _.chain(node.attrs).map(function (attr) {
+        return [attr.name, attr.value];
+    }).fromPairs().value();
+    return match(attrSet, target);
 }
 
 /*
@@ -17667,13 +17680,13 @@ function matchAttrs(node, target) {
  *   matchAncestor(node, '/form|div|section/'
  */
 function matchAncestor(node, ancestorNodeName) {
-  // match_ancestor disabled
-  if (!ancestorNodeName) return true;
+    // match_ancestor disabled
+    if (!ancestorNodeName) return true;
 
-  while (node = node.parentNode) {
-    if (matchValue(node.nodeName, ancestorNodeName)) return true;
-  }
-  return false;
+    while (node = node.parentNode) {
+        if (matchValue(node.nodeName, ancestorNodeName)) return true;
+    }
+    return false;
 }
 
 /*
@@ -17685,11 +17698,11 @@ function matchAncestor(node, ancestorNodeName) {
  *   matchParent(node, '/form|div|section/'
  */
 function matchParent(node, parentNodeName) {
-  // match disabled
-  if (!parentNodeName) return true;
+    // match disabled
+    if (!parentNodeName) return true;
 
-  logger.debug('matching parent:', parentNodeName);
-  return matchValue(node.parentNode.nodeName, parentNodeName);
+    logger.debug('matching parent:', parentNodeName);
+    return matchValue(node.parentNode.nodeName, parentNodeName);
 }
 
 /*
@@ -17701,12 +17714,12 @@ function matchParent(node, parentNodeName) {
  *   matchDescendant(node, '/form|div|section/'
  */
 function matchDescendant(node, descendantNodeName) {
-  // match disabled
-  if (!descendantNodeName) return true;
-  // is there a match?
-  return dfsUntil(node, function (child) {
-    return matchValue(child.nodeName, descendantNodeName);
-  });
+    // match disabled
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return dfsUntil(node, function (child) {
+        return matchValue(child.nodeName, descendantNodeName);
+    });
 }
 
 /*
@@ -17718,34 +17731,34 @@ function matchDescendant(node, descendantNodeName) {
  *   nomatchDescendant(node, '/form|div|section/'
  */
 function nomatchDescendant(node, descendantNodeName) {
-  logger.debug('nomatching descendant:', descendantNodeName);
+    logger.debug('nomatching descendant:', descendantNodeName);
 
-  // match disabled, pass
-  if (!descendantNodeName) return true;
-  // is there a match?
-  return !matchDescendant(node, descendantNodeName);
+    // match disabled, pass
+    if (!descendantNodeName) return true;
+    // is there a match?
+    return !matchDescendant(node, descendantNodeName);
 }
 
 function dfsUntil(node, predict) {
-  // #text node do NOT have childNodes defined
-  return predict(node) || (node.childNodes || []).some(function (child) {
-    return dfsUntil(child, predict);
-  });
+    // #text node do NOT have childNodes defined
+    return predict(node) || (node.childNodes || []).some(function (child) {
+        return dfsUntil(child, predict);
+    });
 }
 
 /*
  * Create a ASTNode for given nodeName and attribute object
  */
 function createNode(nodeName, attrsObj) {
-  return {
-    nodeName: nodeName,
-    attrs: _.chain(attrsObj).toPairs().map(function (pair) {
-      return {
-        name: pair[0],
-        value: pair[1]
-      };
-    }).value()
-  };
+    return {
+        nodeName: nodeName,
+        attrs: _.chain(attrsObj).toPairs().map(function (pair) {
+            return {
+                name: pair[0],
+                value: pair[1]
+            };
+        }).value()
+    };
 }
 
 /*
@@ -17754,8 +17767,8 @@ function createNode(nodeName, attrsObj) {
  *   fingerprintByObject('div', {id: 'modal'}); // returns: <div id="modal">
  */
 function fingerprintByObject(nodeName, attrsObj) {
-  var tag = createNode(nodeName, attrsObj);
-  return fingerprintByTag(tag);
+    var tag = createNode(nodeName, attrsObj);
+    return fingerprintByTag(tag);
 }
 
 /*
@@ -17763,13 +17776,13 @@ function fingerprintByObject(nodeName, attrsObj) {
  * @param {ASTNode} node
  */
 function fingerprintByTag(node) {
-  var attrStr = _.chain(node.attrs).map(function (attr) {
-    return attr.name + '="' + attr.value + '"';
-  }).join(' ').value();
-  if (attrStr.length) {
-    attrStr = ' ' + attrStr;
-  }
-  return '<' + node.nodeName + attrStr + '>';
+    var attrStr = _.chain(node.attrs).map(function (attr) {
+        return attr.name + '="' + attr.value + '"';
+    }).join(' ').value();
+    if (attrStr.length) {
+        attrStr = ' ' + attrStr;
+    }
+    return '<' + node.nodeName + attrStr + '>';
 }
 
 /*
@@ -17779,25 +17792,25 @@ function fingerprintByTag(node) {
  * legal: matchTagNames(['div', 'head', 'iframe'], '<div><iframe></div>')
  */
 function matchTagNames(tagNames, html) {
-  var tagsStr = tagNames.join('|');
-  var re = new RegExp('<\\s*(' + tagsStr + ')(?:\\s+[^>]*)*>', 'ig');
-  return (html || '').match(re) || [];
+    var tagsStr = tagNames.join('|');
+    var re = new RegExp('<\\s*(' + tagsStr + ')(?:\\s+[^>]*)*>', 'ig');
+    return (html || '').match(re) || [];
 }
 
 module.exports = {
-  match: match,
-  matchAttrs: matchAttrs,
-  matchValue: matchValue,
-  regexSyntax: regexSyntax,
-  fingerprintByTag: fingerprintByTag,
-  createNode: createNode,
-  fingerprintByObject: fingerprintByObject,
-  stringToRegex: stringToRegex,
-  matchTagNames: matchTagNames,
-  matchParent: matchParent,
-  matchAncestor: matchAncestor,
-  nomatchDescendant: nomatchDescendant,
-  matchDescendant: matchDescendant
+    match: match,
+    matchAttrs: matchAttrs,
+    matchValue: matchValue,
+    regexSyntax: regexSyntax,
+    fingerprintByTag: fingerprintByTag,
+    createNode: createNode,
+    fingerprintByObject: fingerprintByObject,
+    stringToRegex: stringToRegex,
+    matchTagNames: matchTagNames,
+    matchParent: matchParent,
+    matchAncestor: matchAncestor,
+    nomatchDescendant: nomatchDescendant,
+    matchDescendant: matchDescendant
 };
 
 },{"./../node_modules/lodash/lodash.min.js":11,"./logger.js":66}],68:[function(require,module,exports){
@@ -17808,92 +17821,92 @@ var assert = require('assert');
 var matcher = require('./matcher.js');
 var defaultRules = require('../rules.json');
 var TYPED_RULES = {
-  custom: require('../rules-custom.json')
+    custom: require('../rules-custom.json')
 };
 
 var id = 0;
 
 function normalize(rules) {
-  return _.chain(rules || defaultRules).toPairs().map(function (pair) {
-    return [pair[0], normalizeArray(pair[1]).map(function (tag) {
-      return normalizeTag(tag);
-    })];
-  }).fromPairs().value();
+    return _.chain(rules || defaultRules).toPairs().map(function (pair) {
+        return [pair[0], normalizeArray(pair[1]).map(function (tag) {
+            return normalizeTag(tag);
+        })];
+    }).fromPairs().value();
 }
 
 function normalizeArray(v) {
-  if (!v) {
-    return [];
-  }
-  if (v === true) {
-    v = {};
-  }
-  if (!_.isArray(v)) {
-    v = [v];
-  }
-  return v;
+    if (!v) {
+        return [];
+    }
+    if (v === true) {
+        v = {};
+    }
+    if (!_.isArray(v)) {
+        v = [v];
+    }
+    return v;
 }
 
 function normalizeAttrs(attrs) {
-  return _.chain(attrs).toPairs().map(function (pair) {
-    return [pair[0], normalizeArray(pair[1])];
-  }).fromPairs().value();
+    return _.chain(attrs).toPairs().map(function (pair) {
+        return [pair[0], normalizeArray(pair[1])];
+    }).fromPairs().value();
 }
 
 function normalizeTag(config) {
-  assert(_.isObject(config), 'node name should be Array or Object');
+    assert(_.isObject(config), 'node name should be Array or Object');
 
-  config.mandatory = normalizeArray(config.mandatory);
-  config.duplicate = normalizeArray(config.duplicate);
-  config.attrs = normalizeAttrs(config.attrs);
-  return config;
+    config.mandatory = normalizeArray(config.mandatory);
+    config.duplicate = normalizeArray(config.duplicate);
+    config.attrs = normalizeAttrs(config.attrs);
+    return config;
 }
 
 function processNodeRules(nodes) {
-  var regexNodes = {};
-  // for each node
-  _.forEach(nodes, function (rules, name) {
-    if (matcher.regexSyntax.test(name)) {
-      rules.regexStr = name;
-      regexNodes[name] = rules;
-    }
-    _.forEach(rules, processNodeRule);
-  });
-  return regexNodes;
+    var regexNodes = {};
+    // for each node
+    _.forEach(nodes, function (rules, name) {
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
+            regexNodes[name] = rules;
+        }
+        _.forEach(rules, processNodeRule);
+    });
+    return regexNodes;
 }
 
 function processNodeRule(nodeRule) {
-  nodeRule.id = id++;
-  nodeRule.regexAttrs = {};
-  _.forEach(nodeRule.attrs, function (rules, name) {
-    if (matcher.regexSyntax.test(name)) {
-      rules.regexStr = name;
-      nodeRule.regexAttrs[name] = rules;
-    }
-    _.forEach(rules, processAttrRule);
-  });
+    nodeRule.id = id++;
+    nodeRule.regexAttrs = {};
+    _.forEach(nodeRule.attrs, function (rules, name) {
+        if (matcher.regexSyntax.test(name)) {
+            rules.regexStr = name;
+            nodeRule.regexAttrs[name] = rules;
+        }
+        _.forEach(rules, processAttrRule);
+    });
 }
 
 function processAttrRule(attrRule) {
-  attrRule.id = id++;
+    attrRule.id = id++;
 }
 
 function mkConfig(rules) {
-  var normalizedRules = normalize(rules);
-  var regexNodes = processNodeRules(normalizedRules);
-  return {
-    rules: normalizedRules,
-    rawRules: rules,
-    regexNodes: regexNodes
-  };
+    var normalizedRules = normalize(rules);
+    var regexNodes = processNodeRules(normalizedRules);
+    return {
+        rules: normalizedRules,
+        rawRules: rules,
+        regexNodes: regexNodes
+    };
 }
 
 function typedRules(type) {
-  var rules = TYPED_RULES[type];
-  if (!rules) {
-    throw new Error('rules not found for type ' + type);
-  }
-  return rules;
+    var rules = TYPED_RULES[type];
+    if (!rules) {
+        throw new Error('rules not found for type ' + type);
+    }
+    return rules;
 }
 
 exports.mkConfig = mkConfig;
@@ -17907,11 +17920,11 @@ var ERR = require('../error/dfn.json');
 var matcher = require('../matcher.js');
 
 exports.onAttr = function (attr, attrRule, node, rule, error) {
-  if (attrRule.disallow) {
-    var err = ERR.DISALLOWED_ATTR;
-    var tagStr = matcher.fingerprintByObject(node.tagName);
-    error(err, tagStr, attr.name);
-  }
+    if (attrRule.disallow) {
+        var err = ERR.DISALLOWED_ATTR;
+        var tagStr = matcher.fingerprintByObject(node.tagName);
+        error(err, tagStr, attr.name);
+    }
 };
 
 },{"../error/dfn.json":64,"../matcher.js":67}],70:[function(require,module,exports){
@@ -17924,33 +17937,33 @@ var matcher = require('../matcher.js');
 var logger = require('../logger.js')('mip-validator:disallowed_tag');
 
 exports.onBegin = function (error, html, rules) {
-  validatePolyfill(error, html, rules);
+    validatePolyfill(error, html, rules);
 };
 
 exports.onNode = function (node, rule, error) {
-  if (!rule.disallow || _.includes(POLYFILL_TAGS, node.nodeName)) return;
-  var err = ERR.DISALLOWED_TAG;
-  error(err, matcher.fingerprintByTag(node));
+    if (!rule.disallow || _.includes(POLYFILL_TAGS, node.nodeName)) return;
+    var err = ERR.DISALLOWED_TAG;
+    error(err, matcher.fingerprintByTag(node));
 };
 
 // parse5 do not support frameset/frame
 // ref: https://github.com/inikulin/parse5/issues/6
 function validatePolyfill(error, html, rules) {
-  var matches = matcher.matchTagNames(POLYFILL_TAGS, html);
-  matches.forEach(function (tag) {
-    var tagName = tag.match(/\w+/);
-    if (tagName) {
-      var subRules = _.get(rules, tagName[0]);
-    }
-    _.map(subRules, function (rule) {
-      if (!rule.disallow) {
-        return;
-      }
+    var matches = matcher.matchTagNames(POLYFILL_TAGS, html);
+    matches.forEach(function (tag) {
+        var tagName = tag.match(/\w+/);
+        if (tagName) {
+            var subRules = _.get(rules, tagName[0]);
+        }
+        _.map(subRules, function (rule) {
+            if (!rule.disallow) {
+                return;
+            }
 
-      var err = ERR.DISALLOWED_TAG;
-      error(err, tag);
+            var err = ERR.DISALLOWED_TAG;
+            error(err, tag);
+        });
     });
-  });
 }
 
 },{"../error/dfn.json":64,"../logger.js":66,"../matcher.js":67,"./../../node_modules/lodash/lodash.min.js":11}],71:[function(require,module,exports){
@@ -17960,14 +17973,14 @@ var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error/dfn.json');
 
 exports.onNode = function (node, rule, error) {
-  if (!rule.disallowed_ancestor) return;
+    if (!rule.disallowed_ancestor) return;
 
-  for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
-    if (_.includes(rule.disallowed_ancestor, cur.nodeName)) {
-      var err = ERR.DISALLOWED_TAG_ANCESTOR;
-      return error(err, node.nodeName, cur.nodeName);
+    for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
+        if (_.includes(rule.disallowed_ancestor, cur.nodeName)) {
+            var err = ERR.DISALLOWED_TAG_ANCESTOR;
+            return error(err, node.nodeName, cur.nodeName);
+        }
     }
-  }
 };
 
 },{"../error/dfn.json":64,"./../../node_modules/lodash/lodash.min.js":11}],72:[function(require,module,exports){
@@ -17982,49 +17995,49 @@ var logger = require('../logger.js')('mip-validator:duplicate_unique_tag');
 var tagOccurrence;
 
 exports.onBegin = function (error, html, rules) {
-  logger.debug('[DUPLICATE_UNIQUE_TAG] onBegin');
-  tagOccurrence = {};
+    logger.debug('[DUPLICATE_UNIQUE_TAG] onBegin');
+    tagOccurrence = {};
 
-  _.forOwn(rules, function (subRules, ruleName) {
-    _.map(subRules, function (rule) {
-      _.map(rule.duplicate, function (pattern) {
-        var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
-        var hash = fingerprint + rule.id;
-        tagOccurrence[hash] = 0;
-      });
+    _.forOwn(rules, function (subRules, ruleName) {
+        _.map(subRules, function (rule) {
+            _.map(rule.duplicate, function (pattern) {
+                var fingerprint = matcher.fingerprintByObject(ruleName, pattern);
+                var hash = fingerprint + rule.id;
+                tagOccurrence[hash] = 0;
+            });
+        });
     });
-  });
-  validatePolyfill(error, html, rules);
+    validatePolyfill(error, html, rules);
 };
 
 exports.onNode = function (node, rule, error) {
-  if (!rule.duplicate || _.includes(POLYFILL_TAGS, node.nodeName)) return;
+    if (!rule.duplicate || _.includes(POLYFILL_TAGS, node.nodeName)) return;
 
-  var duplicates = rule.duplicate;
+    var duplicates = rule.duplicate;
 
-  _.map(duplicates, function (pattern) {
-    if (!matcher.matchAttrs(node, pattern)) return;
+    _.map(duplicates, function (pattern) {
+        if (!matcher.matchAttrs(node, pattern)) return;
 
-    var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern);
-    var hash = fingerprint + rule.id;
-    tagOccurrence[hash]++;
-    if (tagOccurrence[hash] <= 1) return;
+        var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern);
+        var hash = fingerprint + rule.id;
+        tagOccurrence[hash]++;
+        if (tagOccurrence[hash] <= 1) return;
 
-    error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint);
-  });
+        error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint);
+    });
 };
 
 function validatePolyfill(error, html, rules) {
-  POLYFILL_TAGS.forEach(function (tag) {
-    var subRules = _.get(rules, '' + tag);
-    _.map(subRules, function (rule) {
-      if (rule.duplicate.length === 0) return;
-      var matches = matcher.matchTagNames([tag], html);
-      if (matches.length > 1) {
-        error(ERR.DUPLICATE_UNIQUE_TAG, tag);
-      }
+    POLYFILL_TAGS.forEach(function (tag) {
+        var subRules = _.get(rules, '' + tag);
+        _.map(subRules, function (rule) {
+            if (rule.duplicate.length === 0) return;
+            var matches = matcher.matchTagNames([tag], html);
+            if (matches.length > 1) {
+                error(ERR.DUPLICATE_UNIQUE_TAG, tag);
+            }
+        });
     });
-  });
 }
 
 },{"../error/dfn.json":64,"../logger.js":66,"../matcher.js":67,"./../../node_modules/lodash/lodash.min.js":11}],73:[function(require,module,exports){
@@ -18034,12 +18047,12 @@ var ERR = require('../error/dfn.json');
 var matcher = require('../matcher.js');
 
 exports.onAttr = function (attr, attrRule, node, rule, error) {
-  if (attrRule.value) {
-    if (matcher.matchValue(attr.value, attrRule.value)) return;
+    if (attrRule.value) {
+        if (matcher.matchValue(attr.value, attrRule.value)) return;
 
-    var err = ERR.INVALID_ATTR_VALUE;
-    error(err, node.tagName, attr.name, attr.value);
-  }
+        var err = ERR.INVALID_ATTR_VALUE;
+        error(err, node.tagName, attr.name, attr.value);
+    }
 };
 
 },{"../error/dfn.json":64,"../matcher.js":67}],74:[function(require,module,exports){
@@ -18049,14 +18062,14 @@ var ERR = require('../error/dfn.json');
 var matcher = require('../matcher.js');
 
 exports.onNode = function (node, rule, error, html) {
-  if (rule.inner_html === undefined) return;
+    if (rule.inner_html === undefined) return;
 
-  var loc = node.__location;
-  var innerHTML = html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
-  if (matcher.matchValue(innerHTML, rule.inner_html)) return;
+    var loc = node.__location;
+    var innerHTML = html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
+    if (matcher.matchValue(innerHTML, rule.inner_html)) return;
 
-  var err = ERR.INVALID_INNER_HTML;
-  error(err, node.tagName, rule.inner_html);
+    var err = ERR.INVALID_INNER_HTML;
+    error(err, node.tagName, rule.inner_html);
 };
 
 },{"../error/dfn.json":64,"../matcher.js":67}],75:[function(require,module,exports){
@@ -18066,25 +18079,25 @@ var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error/dfn.json');
 
 exports.onAttr = function (attr, attrRule, node, nodeRule, error) {
-  if (!attrRule.properties) return;
+    if (!attrRule.properties) return;
 
-  var obj = parseValueProperties(attr.value);
-  _.forOwn(attrRule.properties, function (value, key) {
-    var property = {
-      name: key,
-      value: obj[key]
-    };
+    var obj = parseValueProperties(attr.value);
+    _.forOwn(attrRule.properties, function (value, key) {
+        var property = {
+            name: key,
+            value: obj[key]
+        };
 
-    if (property.value === value) return;
+        if (property.value === value) return;
 
-    error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE, node.nodeName, attr.name, property.name, property.value || '');
-  });
+        error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE, node.nodeName, attr.name, property.name, property.value || '');
+    });
 };
 
 function parseValueProperties(value) {
-  return _.chain(value || '').split(/[,;]/).map(function (propertyStr) {
-    return propertyStr.split('=').map(_.trim);
-  }).fromPairs().value();
+    return _.chain(value || '').split(/[,;]/).map(function (propertyStr) {
+        return propertyStr.split('=').map(_.trim);
+    }).fromPairs().value();
 }
 
 },{"../error/dfn.json":64,"./../../node_modules/lodash/lodash.min.js":11}],76:[function(require,module,exports){
@@ -18095,16 +18108,16 @@ var ERR = require('../error/dfn.json');
 var matcher = require('../matcher.js');
 
 exports.onNode = function (node, nodeRule, error) {
-  var attrOccurrence = _.keyBy(node.attrs, 'name');
+    var attrOccurrence = _.keyBy(node.attrs, 'name');
 
-  _.forOwn(nodeRule.attrs, function (rules, attrName) {
-    rules.map(function (rule) {
-      if (rule.mandatory && matcher.matchAttrs(node, rule.match) && matcher.nomatchDescendant(node, rule.nomatch_descendant) && !attrOccurrence[attrName]) {
-        var err = ERR.MANDATORY_ONEOF_ATTR_MISSING;
-        error(err, node.nodeName, attrName);
-      }
+    _.forOwn(nodeRule.attrs, function (rules, attrName) {
+        rules.map(function (rule) {
+            if (rule.mandatory && matcher.matchAttrs(node, rule.match) && matcher.nomatchDescendant(node, rule.nomatch_descendant) && !attrOccurrence[attrName]) {
+                var err = ERR.MANDATORY_ONEOF_ATTR_MISSING;
+                error(err, node.nodeName, attrName);
+            }
+        });
     });
-  });
 };
 
 },{"../error/dfn.json":64,"../matcher.js":67,"./../../node_modules/lodash/lodash.min.js":11}],77:[function(require,module,exports){
@@ -18113,15 +18126,15 @@ exports.onNode = function (node, nodeRule, error) {
 var ERR = require('../error/dfn.json');
 
 exports.onNode = function (node, rule, error) {
-  if (!rule.mandatory_ancestor) return;
+    if (!rule.mandatory_ancestor) return;
 
-  for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
-    if (rule.mandatory_ancestor === cur.nodeName) {
-      return;
+    for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
+        if (rule.mandatory_ancestor === cur.nodeName) {
+            return;
+        }
     }
-  }
-  var err = ERR.MANDATORY_TAG_ANCESTOR;
-  error(err, node.nodeName, rule.mandatory_ancestor);
+    var err = ERR.MANDATORY_TAG_ANCESTOR;
+    error(err, node.nodeName, rule.mandatory_ancestor);
 };
 
 },{"../error/dfn.json":64}],78:[function(require,module,exports){
@@ -18136,77 +18149,77 @@ var logger = require('../logger.js')('mip-validator:mandatory_tag_missing');
 var tagOccurrence, anyTagOccurrence;
 
 exports.onBegin = function (error, html, rules) {
-  logger.debug('[MANDATORY_TAG_MISSING] onBegin');
-  tagOccurrence = {};
-  anyTagOccurrence = {};
+    logger.debug('[MANDATORY_TAG_MISSING] onBegin');
+    tagOccurrence = {};
+    anyTagOccurrence = {};
 
-  // 初始化Mandatory标记
-  _.forOwn(rules, function (subRules, ruleName) {
-    _.map(subRules, function (rule) {
-      _.map(rule.mandatory, function (pattern) {
-        var fp = matcher.fingerprintByObject(ruleName, pattern);
-        tagOccurrence[fp] = {
-          rule: rule,
-          ruleName: ruleName,
-          pattern: pattern,
-          count: 0
-        };
-      });
-      if (rule.mandatory_or) {
-        anyTagOccurrence[ruleName] = {
-          rule: rule,
-          ruleName: ruleName,
-          count: 0
-        };
-      }
+    // 初始化Mandatory标记
+    _.forOwn(rules, function (subRules, ruleName) {
+        _.map(subRules, function (rule) {
+            _.map(rule.mandatory, function (pattern) {
+                var fp = matcher.fingerprintByObject(ruleName, pattern);
+                tagOccurrence[fp] = {
+                    rule: rule,
+                    ruleName: ruleName,
+                    pattern: pattern,
+                    count: 0
+                };
+            });
+            if (rule.mandatory_or) {
+                anyTagOccurrence[ruleName] = {
+                    rule: rule,
+                    ruleName: ruleName,
+                    count: 0
+                };
+            }
+        });
     });
-  });
 
-  validatePolyfill(error, html, rules);
+    validatePolyfill(error, html, rules);
 };
 
 exports.onNode = function (node, rule) {
-  _.map(rule.mandatory, function (pattern) {
-    if (!matcher.matchAttrs(node, pattern)) return;
+    _.map(rule.mandatory, function (pattern) {
+        if (!matcher.matchAttrs(node, pattern)) return;
 
-    var fp = matcher.fingerprintByObject(node.nodeName, pattern);
-    tagOccurrence[fp].count++;
-  });
-  _.map(rule.mandatory_or, function (pattern) {
-    if (!matcher.matchAttrs(node, pattern)) return;
-    anyTagOccurrence[node.nodeName].count++;
-  });
+        var fp = matcher.fingerprintByObject(node.nodeName, pattern);
+        tagOccurrence[fp].count++;
+    });
+    _.map(rule.mandatory_or, function (pattern) {
+        if (!matcher.matchAttrs(node, pattern)) return;
+        anyTagOccurrence[node.nodeName].count++;
+    });
 };
 
 exports.onEnd = function (error) {
-  _.forOwn(tagOccurrence, function (v, k) {
-    if (v.rule.mandatory && v.count < 1) {
-      error(ERR.MANDATORY_TAG_MISSING, k);
-    }
-  });
-  _.forOwn(anyTagOccurrence, function (v, k) {
-    if (v.rule.mandatory_or && v.count < 1) {
-      var fps = v.rule.mandatory_or.map(function (rule) {
-        return matcher.fingerprintByObject(k, rule);
-      }).join("'或'");
-      error(ERR.MANDATORY_TAG_MISSING, fps);
-    }
-  });
+    _.forOwn(tagOccurrence, function (v, k) {
+        if (v.rule.mandatory && v.count < 1) {
+            error(ERR.MANDATORY_TAG_MISSING, k);
+        }
+    });
+    _.forOwn(anyTagOccurrence, function (v, k) {
+        if (v.rule.mandatory_or && v.count < 1) {
+            var fps = v.rule.mandatory_or.map(function (rule) {
+                return matcher.fingerprintByObject(k, rule);
+            }).join("'或'");
+            error(ERR.MANDATORY_TAG_MISSING, fps);
+        }
+    });
 };
 
 function validatePolyfill(error, html, rules) {
-  POLYFILL_TAGS.forEach(function (tag) {
-    var subRules = _.get(rules, '' + tag);
-    _.map(subRules, function (rule) {
-      if (rule.mandatory.length === 0) {
-        return;
-      }
-      var matches = matcher.matchTagNames([tag], html);
-      if (matches.length === 0) {
-        error(ERR.MANDATORY_TAG_MISSING, '<' + tag + '>');
-      }
+    POLYFILL_TAGS.forEach(function (tag) {
+        var subRules = _.get(rules, '' + tag);
+        _.map(subRules, function (rule) {
+            if (rule.mandatory.length === 0) {
+                return;
+            }
+            var matches = matcher.matchTagNames([tag], html);
+            if (matches.length === 0) {
+                error(ERR.MANDATORY_TAG_MISSING, '<' + tag + '>');
+            }
+        });
     });
-  });
 }
 
 },{"../error/dfn.json":64,"../logger.js":66,"../matcher.js":67,"./../../node_modules/lodash/lodash.min.js":11}],79:[function(require,module,exports){
@@ -18216,12 +18229,12 @@ var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error/dfn.json');
 
 exports.onNode = function (node, rule, error) {
-  if (!rule.mandatory_parent) return;
+    if (!rule.mandatory_parent) return;
 
-  var parent = node.parentNode && node.parentNode.nodeName;
-  if (_.includes(rule.mandatory_parent, parent)) return;
+    var parent = node.parentNode && node.parentNode.nodeName;
+    if (_.includes(rule.mandatory_parent, parent)) return;
 
-  error(ERR.WRONG_PARENT_TAG, node.nodeName, rule.mandatory_parent, parent);
+    error(ERR.WRONG_PARENT_TAG, node.nodeName, rule.mandatory_parent, parent);
 };
 
 },{"../error/dfn.json":64,"./../../node_modules/lodash/lodash.min.js":11}],80:[function(require,module,exports){
@@ -18238,18 +18251,18 @@ var logger = require('./logger.js')('mip-validator:walker');
  * @param {Object} config plain object configuring normalizedRules, rawRules, and regexRules
  */
 function Walker(config) {
-  this.onBeginCbs = [];
-  this.onEndCbs = [];
-  this.onAttrCbs = [];
-  this.onNodeCbs = [];
-  this.config = config;
+    this.onBeginCbs = [];
+    this.onEndCbs = [];
+    this.onAttrCbs = [];
+    this.onNodeCbs = [];
+    this.config = config;
 }
 
 Walker.prototype.register = function (validator) {
-  validator.onBegin && this.onBeginCbs.push(validator.onBegin);
-  validator.onEnd && this.onEndCbs.push(validator.onEnd);
-  validator.onNode && this.onNodeCbs.push(validator.onNode);
-  validator.onAttr && this.onAttrCbs.push(validator.onAttr);
+    validator.onBegin && this.onBeginCbs.push(validator.onBegin);
+    validator.onEnd && this.onEndCbs.push(validator.onEnd);
+    validator.onNode && this.onNodeCbs.push(validator.onNode);
+    validator.onAttr && this.onAttrCbs.push(validator.onAttr);
 };
 
 /**
@@ -18259,12 +18272,12 @@ Walker.prototype.register = function (validator) {
  * @param {string} html the whole html of the document to validate
  */
 Walker.prototype.onBegin = function (error, html) {
-  var _this = this;
+    var _this = this;
 
-  logger.debug('onBegin');
-  _.map(this.onBeginCbs, function (cb) {
-    return cb(error, html, _this.config.rules);
-  });
+    logger.debug('onBegin');
+    _.map(this.onBeginCbs, function (cb) {
+        return cb(error, html, _this.config.rules);
+    });
 };
 
 /*
@@ -18275,36 +18288,36 @@ Walker.prototype.onBegin = function (error, html) {
  * @param {string} html the whole html of the document to validate
  */
 Walker.prototype.onNode = function (node, error, html) {
-  var _this2 = this;
+    var _this2 = this;
 
-  logger.debug('onNode', node.nodeName);
-  // get active rules
-  var rules = _.chain(this.config.regexNodes).filter(function (rules) {
-    return matcher.matchValue(node.nodeName, rules.regexStr);
-  }).flatten().concat(this.config.rules[node.nodeName] || []).filter(function (rule) {
-    return matcher.matchAttrs(node, rule.match);
-  }).filter(function (rule) {
-    return matcher.matchParent(node, rule.match_parent);
-  }).filter(function (rule) {
-    return matcher.matchAncestor(node, rule.match_ancestor);
-  }).value();
+    logger.debug('onNode', node.nodeName);
+    // get active rules
+    var rules = _.chain(this.config.regexNodes).filter(function (rules) {
+        return matcher.matchValue(node.nodeName, rules.regexStr);
+    }).flatten().concat(this.config.rules[node.nodeName] || []).filter(function (rule) {
+        return matcher.matchAttrs(node, rule.match);
+    }).filter(function (rule) {
+        return matcher.matchParent(node, rule.match_parent);
+    }).filter(function (rule) {
+        return matcher.matchAncestor(node, rule.match_ancestor);
+    }).value();
 
-  _.forEach(rules, function (nodeRule) {
-    // invoke callbacks
-    _.map(_this2.onNodeCbs, function (cb) {
-      cb(node, nodeRule, nodeError, html, _this2.config.rules);
+    _.forEach(rules, function (nodeRule) {
+        // invoke callbacks
+        _.map(_this2.onNodeCbs, function (cb) {
+            cb(node, nodeRule, nodeError, html, _this2.config.rules);
+        });
+        // traverse attributes
+        _.forEach(node.attrs, function (attr) {
+            return _this2.onAttr(attr, node, nodeRule, nodeError, html);
+        });
     });
-    // traverse attributes
-    _.forEach(node.attrs, function (attr) {
-      return _this2.onAttr(attr, node, nodeRule, nodeError, html);
-    });
-  });
 
-  // error generator
-  function nodeError(e) {
-    e.location = node.__location;
-    error.apply(null, arguments);
-  }
+    // error generator
+    function nodeError(e) {
+        e.location = node.__location;
+        error.apply(null, arguments);
+    }
 };
 
 /*
@@ -18317,22 +18330,22 @@ Walker.prototype.onNode = function (node, error, html) {
  * @param {string} html the whole html of the document to validate
  */
 Walker.prototype.onAttr = function (attr, node, nodeRule, error, html) {
-  var _this3 = this;
+    var _this3 = this;
 
-  // get rules
-  var rules = _.chain(nodeRule.regexAttrs).filter(function (rules) {
-    return matcher.matchValue(attr.name, rules.regexStr);
-  }).flatten().concat(nodeRule.attrs[attr.name] || []).filter(function (rule) {
-    return matcher.matchAttrs(node, rule.match);
-  }).filter(function (rule) {
-    return matcher.nomatchDescendant(node, rule.nomatch_descendant);
-  }).value();
-  // call callbacks
-  rules.map(function (rule) {
-    _.map(_this3.onAttrCbs, function (cb) {
-      return cb(attr, rule, node, nodeRule, error, html, _this3.config.rules);
+    // get rules
+    var rules = _.chain(nodeRule.regexAttrs).filter(function (rules) {
+        return matcher.matchValue(attr.name, rules.regexStr);
+    }).flatten().concat(nodeRule.attrs[attr.name] || []).filter(function (rule) {
+        return matcher.matchAttrs(node, rule.match);
+    }).filter(function (rule) {
+        return matcher.nomatchDescendant(node, rule.nomatch_descendant);
+    }).value();
+    // call callbacks
+    rules.map(function (rule) {
+        _.map(_this3.onAttrCbs, function (cb) {
+            return cb(attr, rule, node, nodeRule, error, html, _this3.config.rules);
+        });
     });
-  });
 };
 
 /*
@@ -18341,12 +18354,12 @@ Walker.prototype.onAttr = function (attr, node, nodeRule, error, html) {
  * @param {string} html the whole html of the document to validate
  */
 Walker.prototype.onEnd = function (error, html) {
-  var _this4 = this;
+    var _this4 = this;
 
-  logger.debug('onEnd');
-  _.map(this.onEndCbs, function (cb) {
-    return cb(error, html, _this4.config.rules);
-  });
+    logger.debug('onEnd');
+    _.map(this.onEndCbs, function (cb) {
+        return cb(error, html, _this4.config.rules);
+    });
 };
 
 /*
@@ -18356,31 +18369,31 @@ Walker.prototype.onEnd = function (error, html) {
  * @param {String} html the whole html of the document to validate
  */
 Walker.prototype.dfs = function (node, error, html) {
-  var _this5 = this;
+    var _this5 = this;
 
-  if (node.nodeName === 'template') {
-    logger.debug('<template> encountered');
-    node.childNodes = node.content.childNodes;
-    node.childNodes.forEach(function (child) {
-      return child.parentNode = node;
+    if (node.nodeName === 'template') {
+        logger.debug('<template> encountered');
+        node.childNodes = node.content.childNodes;
+        node.childNodes.forEach(function (child) {
+            return child.parentNode = node;
+        });
+    }
+
+    this.onNode(node, error, html);
+    var children = node.childNodes || [];
+    children.forEach(function (child) {
+        return _this5.dfs(child, error, html);
     });
-  }
-
-  this.onNode(node, error, html);
-  var children = node.childNodes || [];
-  children.forEach(function (child) {
-    return _this5.dfs(child, error, html);
-  });
 };
 
 Walker.prototype.validate = function (document, errorGenertor, html) {
-  this.onBegin(errorGenertor, html);
-  this.dfs(document, errorGenertor, html);
-  this.onEnd(errorGenertor, html);
+    this.onBegin(errorGenertor, html);
+    this.dfs(document, errorGenertor, html);
+    this.onEnd(errorGenertor, html);
 };
 
 module.exports = function (rules) {
-  return new Walker(rules);
+    return new Walker(rules);
 };
 
 },{"./../node_modules/lodash/lodash.min.js":11,"./logger.js":66,"./matcher.js":67}],81:[function(require,module,exports){
@@ -18393,29 +18406,29 @@ var rulesCustom = require('./rules-custom.json');
 var logger = require('./src/logger.js')('mip-validator:index');
 
 function engineFactory(rules) {
-  // NPM compliance
-  if (rules === 'package.json') {
-    return require('./package.json');
-  }
-  var engine = new Engine(rules || defaultRules);
+    // NPM compliance
+    if (rules === 'package.json') {
+        return require('./package.json');
+    }
+    var engine = new Engine(rules || defaultRules);
 
-  // attr
-  engine.register(require('./src/validators/disallowed_attr.js'));
-  engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'));
-  engine.register(require('./src/validators/invalid_attr_value.js'));
-  engine.register(require('./src/validators/invalid_property_value_in_attr_value.js'));
+    // attr
+    engine.register(require('./src/validators/disallowed_attr.js'));
+    engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'));
+    engine.register(require('./src/validators/invalid_attr_value.js'));
+    engine.register(require('./src/validators/invalid_property_value_in_attr_value.js'));
 
-  // tag
-  engine.register(require('./src/validators/disallowed_tag.js'));
-  engine.register(require('./src/validators/duplicate_unique_tag.js'));
-  engine.register(require('./src/validators/mandatory_tag_missing.js'));
-  engine.register(require('./src/validators/invalid_inner_html.js'));
+    // tag
+    engine.register(require('./src/validators/disallowed_tag.js'));
+    engine.register(require('./src/validators/duplicate_unique_tag.js'));
+    engine.register(require('./src/validators/mandatory_tag_missing.js'));
+    engine.register(require('./src/validators/invalid_inner_html.js'));
 
-  // nesting
-  engine.register(require('./src/validators/disallowed_tag_ancestor.js'));
-  engine.register(require('./src/validators/mandatory_tag_ancestor.js'));
-  engine.register(require('./src/validators/mandatory_tag_parent.js'));
-  return engine;
+    // nesting
+    engine.register(require('./src/validators/disallowed_tag_ancestor.js'));
+    engine.register(require('./src/validators/mandatory_tag_ancestor.js'));
+    engine.register(require('./src/validators/mandatory_tag_parent.js'));
+    return engine;
 }
 
 // make a separate copy of rules
