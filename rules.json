@@ -96,14 +96,12 @@
         }
     }, {
         "disallowed_ancestor": "template"
-    },{
-         "attrs": {
-            "async": [{
-                "match": {
-                    "match_ancestor": "head"
-                },
+    }, {
+        "match_ancestor": "head",
+        "attrs": {
+            "async": {
                 "mandatory": true
-            }]
+            }
         }
     }],
     "mip-input": {
