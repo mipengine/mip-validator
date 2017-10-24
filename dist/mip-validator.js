@@ -16755,7 +16755,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":56,"_process":36,"inherits":55}],58:[function(require,module,exports){
 module.exports={
     "name": "mip-validator",
-    "version": "1.5.9",
+    "version": "1.5.10",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
@@ -16810,6 +16810,9 @@ module.exports={
         "sinon-chai": "^2.8.0",
         "supertest": "^2.0.1",
         "uglifyjs": "^2.4.10"
+    },
+    "engines": {
+        "node": ">=4.0.0"
     },
     "scripts": {
         "test": "DEBUG='mip-validator:' mocha",
@@ -16953,14 +16956,15 @@ module.exports={
         }
     }, {
         "disallowed_ancestor": "template"
-    },{
-         "attrs": {
-            "async": [{
-                "match": {
-                    "match_ancestor": "head"
-                },
+    }, {
+        "match_ancestor": "head",
+        "match": {
+            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+        },
+        "attrs": {
+            "async": {
                 "mandatory": true
-            }]
+            }
         }
     }],
     "mip-input": {
