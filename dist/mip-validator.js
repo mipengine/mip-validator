@@ -2941,7 +2941,7 @@ if (typeof Object.create === 'function') {
 /*!
  * Determine if an object is a Buffer
  *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
  */
 
@@ -16943,19 +16943,16 @@ module.exports={
 
         }
     },
-    "script": [{
-        "mandatory": {
-             "type": "/^(text\/javascript)?/",
-             "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
-        }
-    }, {
-        "disallow": true,
+    "script": [
+    {
         "match": {
-            "type": "/^(?!application\/(ld\\+)?json)/",
-            "src":"/^(?!((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com))/"
+            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+        },
+        "attrs": {
+            "type": {
+                "value": "/^(text\/javascript)$/"
+            }
         }
-    }, {
-        "disallowed_ancestor": "template"
     }, {
         "match_ancestor": "head",
         "match": {
@@ -16966,6 +16963,14 @@ module.exports={
                 "mandatory": true
             }
         }
+    }, {
+        "disallow": true,
+        "match": {
+            "type": "/^(?!application\/(ld\\+)?json)/",
+            "src":"/^(?!((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com))/"
+        }
+    }, {
+        "disallowed_ancestor": "template"
     }],
     "mip-input": {
         "mandatory_ancestor": "mip-form",
