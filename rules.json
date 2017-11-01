@@ -83,10 +83,31 @@
 
         }
     },
-    "script": [{
+    "script": [
+    {
         "mandatory": {
-             "type": "/^(text\/javascript)?/",
-             "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "type": "/^(text\/javascript)?/",
+            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+        }
+    },
+    {
+        "match": {
+            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+        },
+        "attrs": {
+            "type": {
+                "value": "/^(text\/javascript)$/"
+            }
+        }
+    }, {
+        "match_ancestor": "head",
+        "match": {
+            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+        },
+        "attrs": {
+            "async": {
+                "mandatory": true
+            }
         }
     }, {
         "disallow": true,
@@ -96,15 +117,6 @@
         }
     }, {
         "disallowed_ancestor": "template"
-    },{
-         "attrs": {
-            "async": [{
-                "match": {
-                    "match_ancestor": "head"
-                },
-                "mandatory": true
-            }]
-        }
     }],
     "mip-input": {
         "mandatory_ancestor": "mip-form",

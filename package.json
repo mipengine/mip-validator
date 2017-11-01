@@ -1,6 +1,6 @@
 {
     "name": "mip-validator",
-    "version": "1.5.9",
+    "version": "1.5.10",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
@@ -55,6 +55,9 @@
         "sinon-chai": "^2.8.0",
         "supertest": "^2.0.1",
         "uglifyjs": "^2.4.10"
+    },
+    "engines": {
+        "node": ">=4.0.0"
     },
     "scripts": {
         "test": "DEBUG='mip-validator:' mocha",
