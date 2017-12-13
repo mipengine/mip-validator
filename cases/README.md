@@ -106,3 +106,5 @@
 201|template中：标签'style'的直接父标签应该是'head'，而不是'body'
 202|标签'a'中的属性'href'的属性值'sms:'无效
 203|标签'mip-video'中的既无属性'src'也无子节点 source
+212|标签'mip-vd-baidu'必须包含'title'（非空）, 'poster'（非空）, 'src'（http[s]或//开头）属性
+213|标签'script'在head中使用时应该家'async'属性

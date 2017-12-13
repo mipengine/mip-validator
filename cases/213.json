@@ -1,0 +1,26 @@
+[
+    {
+        "message": "标签'script'的强制性属性'async'缺失",
+        "code": "06200501",
+        "line": 11,
+        "col": 5,
+        "offset": 387,
+        "input": "    <script src=\"https://mipcache.bdstatic.com/static/v1/mip.js\"></script>"
+    },
+    {
+        "message": "标签'script'中的属性'type'的属性值'application/json'无效",
+        "code": "06200301",
+        "line": 26,
+        "col": 5,
+        "offset": 1366,
+        "input": "    <script type=\"application/json\" src=\"https://mipcache.bdstatic.com/static/v1/mip-sidebar/mip-sidebar.js\"></script>"
+    },
+    {
+        "message": "标签'script'中的属性'type'的属性值''无效",
+        "code": "06200301",
+        "line": 27,
+        "col": 5,
+        "offset": 1485,
+        "input": "    <script type=\"\" src=\"https://mipcache.bdstatic.com/static/v1/mip-showmore/mip-showmore.js\"></script>"
+    }
+]

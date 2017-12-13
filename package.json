@@ -1,6 +1,6 @@
 {
     "name": "mip-validator",
-    "version": "1.5.9",
+    "version": "1.5.10",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
@@ -12,7 +12,8 @@
     "browserify": {
         "transform": [
             [
-                "babelify", {
+                "babelify",
+                {
                     "presets": [
                         "es2015"
                     ],
@@ -20,7 +21,8 @@
                 }
             ],
             [
-                "aliasify", {
+                "aliasify",
+                {
                     "aliases": {
                         "jschardet": "./src/encoding/fake-jschardet.js",
                         "lodash": "./node_modules/lodash/lodash.min.js"
