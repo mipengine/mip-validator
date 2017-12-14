@@ -16755,7 +16755,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":56,"_process":36,"inherits":55}],58:[function(require,module,exports){
 module.exports={
     "name": "mip-validator",
-    "version": "1.5.10",
+    "version": "1.5.11",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
@@ -16962,7 +16962,7 @@ module.exports={
     }, {
         "match_ancestor": "head",
         "match": {
-            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "src":"/^((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com)/"
         },
         "attrs": {
             "async": {
@@ -17173,7 +17173,7 @@ module.exports={
         }
     },
     "head": {
-		"duplicate": true,
+        "duplicate": true,
         "mandatory": true,
         "mandatory_parent": "html"
     },

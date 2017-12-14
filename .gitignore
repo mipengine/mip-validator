@@ -7,3 +7,4 @@ tmp/
 examples/results/*.json
 !examples/results/valid.html.json
 !examples/results/invalid.html.json
+package-lock.json
