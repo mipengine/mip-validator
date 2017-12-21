@@ -1,6 +1,6 @@
 {
     "name": "mip-validator",
-    "version": "1.5.11",
+    "version": "1.5.12",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
