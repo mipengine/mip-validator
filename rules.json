@@ -202,7 +202,7 @@
         }
     },
     "source": {
-        "mandatory_ancestor": "mip-video",
+        "mandatory_ancestor": "/picture|mip-video|mip-audio/",
         "attrs": {
             "src": {
                 "mandatory": true,
