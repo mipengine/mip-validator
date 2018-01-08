@@ -53,31 +53,25 @@
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
+            "rel": "/^(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css))$/"
         }],
-
         "mandatory_parent": "head",
         "duplicate": [{
-            "rel": "/^(miphtml)|(standardhtml)$/"
-        }, {
-            "rel": "/^(miphtml)|(canonical)$/"
-        }, {
-            "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|(c.mipcdn.com\/static\/mipmain)/"
+            "rel": "/^(canonical)|(standardhtml)$/"
         }],
         "attrs": {
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
+                    "rel": "/^(canonical)|(standardhtml)$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
+                    "rel": "/^(?!(canonical)|(standardhtml))$/"
                 }
             }]
 
