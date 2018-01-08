@@ -272,7 +272,7 @@
     "mip-form": {
         "attrs": {
             "method": {
-                "value": "/^(post)|(get)$/i"
+                "value": "/^((post)|(get))$/i"
             },
             "url": {
                 "mandatory": true,
