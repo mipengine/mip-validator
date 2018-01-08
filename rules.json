@@ -26,7 +26,7 @@
         }, {
             "http-equiv": "/Content-Type/i"
         }, {
-            "charset": "/^(UTF-8)/i"
+            "charset": "/^utf-8$/i"
         }],
         "attrs": {
             "content": [{
@@ -41,9 +41,9 @@
         },
         "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
-            "content": "/charset=(utf)|(UTF)-8/"
+            "content": "/charset=utf-8/i"
         }, {
-            "charset": "/^(utf)|(UTF-8)/"
+            "charset": "/^utf-8$/i"
         }],
         "mandatory": {
             "name": "/^(viewport)?/",
