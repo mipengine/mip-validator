@@ -35,7 +35,7 @@
                 },
                 "properties": {
                     "width": "device-width",
-                    "initial-scale": "1"
+                    "initial-scale": "/^1(\\.0)?$/"
                 }
             }]
         },
@@ -164,8 +164,6 @@
     "option": {
         "mandatory_ancestor": "mip-form"
     },
-
-
     "a": {
         "attrs": {
             "href": {

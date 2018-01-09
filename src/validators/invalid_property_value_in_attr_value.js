@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const ERR = require('../error/dfn.json')
+const matcher = require('../matcher.js')
 
 exports.onAttr = function(attr, attrRule, node, nodeRule, error) {
     if (!attrRule.properties) return
@@ -10,8 +11,8 @@ exports.onAttr = function(attr, attrRule, node, nodeRule, error) {
             name: key,
             value: obj[key]
         }
-
-        if (property.value === value) return
+        
+        if (matcher.matchValue(property.value, value)) return
 
         error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE,
             node.nodeName, attr.name,
