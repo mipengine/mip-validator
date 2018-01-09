@@ -5,7 +5,7 @@
         "line": 106,
         "col": 86,
         "offset": 5843,
-        "input": "<script src=\"//m.baidu.com/static/ala/sf/static/js/miphtml_main_91d6a5e.js\"></script><script src=\"./bn_files/ds.js\"></script>"
+        "input": "<script src=\"https://c.mipcdn.com/static/v1/mip.css\"></script><script src=\"./bn_files/ds.js\"></script>"
     },
     {
         "message": "强制性标签'<link rel=\"/^(miphtml)|(canonical)|(standardhtml)$/\">'缺失或错误",
