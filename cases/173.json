@@ -1,10 +1,10 @@
 [
     {
-        "message": "标签'<link rel=\"/^(miphtml)|(standardhtml)$/\">'只能出现一次",
+        "message": "标签'<link rel=\"/^(canonical)|(standardhtml)$/\">'只能出现一次",
         "code": "06200701",
         "line": 18,
         "col": 2,
-        "offset": 684,
+        "offset": 664,
         "input": "\t<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200601",
         "line": 18,
         "col": 2,
-        "offset": 684,
+        "offset": 664,
         "input": "\t<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     }
 ]

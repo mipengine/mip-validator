@@ -4,7 +4,7 @@
         "code": "06200901",
         "line": 13,
         "col": 1,
-        "offset": 574,
+        "offset": 554,
         "input": "<select>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200901",
         "line": 14,
         "col": 5,
-        "offset": 587,
+        "offset": 567,
         "input": "    <option>1</option>"
     },
     {
@@ -20,7 +20,7 @@
         "code": "06200901",
         "line": 15,
         "col": 5,
-        "offset": 610,
+        "offset": 590,
         "input": "    <option>2</option>"
     }
 ]

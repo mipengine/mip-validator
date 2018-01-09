@@ -4,7 +4,7 @@
         "code": "06200501",
         "line": 154,
         "col": 1,
-        "offset": 5939,
+        "offset": 5919,
         "input": "<mip-carousel></mip-carousel>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200501",
         "line": 154,
         "col": 1,
-        "offset": 5939,
+        "offset": 5919,
         "input": "<mip-carousel></mip-carousel>"
     }
 ]

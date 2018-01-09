@@ -4,7 +4,7 @@
         "code": "06200201",
         "line": 154,
         "col": 5,
-        "offset": 5973,
+        "offset": 5953,
         "input": "    <script type=\"text/javascript\"></script>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200801",
         "line": 154,
         "col": 5,
-        "offset": 5973,
+        "offset": 5953,
         "input": "    <script type=\"text/javascript\"></script>"
     },
     {
@@ -20,7 +20,7 @@
         "code": "06200201",
         "line": 155,
         "col": 1,
-        "offset": 6014,
+        "offset": 5994,
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
@@ -28,7 +28,7 @@
         "code": "06200801",
         "line": 155,
         "col": 1,
-        "offset": 6014,
+        "offset": 5994,
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
@@ -36,7 +36,7 @@
         "code": "06200801",
         "line": 156,
         "col": 1,
-        "offset": 6055,
+        "offset": 6035,
         "input": "<script type=\"application/ld+json\">"
     },
     {
@@ -44,7 +44,7 @@
         "code": "06200201",
         "line": 160,
         "col": 1,
-        "offset": 6107,
+        "offset": 6087,
         "input": "<script type=\"application\">"
     },
     {
@@ -52,7 +52,7 @@
         "code": "06200801",
         "line": 160,
         "col": 1,
-        "offset": 6107,
+        "offset": 6087,
         "input": "<script type=\"application\">"
     }
 ]
