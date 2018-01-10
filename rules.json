@@ -56,11 +56,16 @@
             "rel": "/^(canonical)|(standardhtml)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css))$/"
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/"
         }],
         "mandatory_parent": "head",
         "duplicate": [{
-            "rel": "/^(canonical)|(standardhtml)$/"
+            "rel": "/^(standardhtml)$/"
+        }, {
+            "rel": "/^(canonical)$/"
+        }, {
+            "rel": "/^stylesheet$/",
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(c\\.mipcdn\\.com\/static\/mipmain))/"
         }],
         "attrs": {
             "href": [{
@@ -80,12 +85,12 @@
     "script": [
     {
         "mandatory": {
-            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.js))$/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/"
         }
     },
     {
         "match": {
-            "src":"/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/"
         },
         "attrs": {
             "type": {
