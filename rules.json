@@ -53,7 +53,7 @@
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(canonical)|(miphtml)$/"
+            "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/"
@@ -62,7 +62,7 @@
         "duplicate": [{
             "rel": "/^(miphtml)$/"
         }, {
-            "rel": "/^(canonical)$/"
+            "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(c\\.mipcdn\\.com\/static\/mipmain))/"
