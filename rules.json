@@ -184,7 +184,7 @@
             "srcset": "/^\\S+$/"
         }],
         "attrs": {
-            "href": {
+            "src": {
                 "value": "/^\\S+$/"
             },
             "srcset": {

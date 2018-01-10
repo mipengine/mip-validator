@@ -25,10 +25,18 @@ exports.onBegin = function(error, html, rules) {
 
 exports.onNode = function(node, rule, error) {
     if (!rule.attrs_or) return
+    var attrOccurrence = _.keyBy(node.attrs, 'name')
     
     var matched = false
 	_.map(rule.attrs_or, pattern => {
-        if (!matcher.matchAttrs(node, pattern)) return
+        var isExisted = true
+        _.forOwn(pattern, (rules, attrName) => {
+            if (!attrOccurrence[attrName]) {
+                isExisted = false
+                return
+            }
+        })
+        if (!isExisted || !matcher.matchAttrs(node, pattern)) return
         matched = true
     })
     if (!matched) {
