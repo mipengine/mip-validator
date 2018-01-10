@@ -4,7 +4,7 @@
         "code": "06200601",
         "line": 19,
         "col": 2,
-        "offset": 648,
+        "offset": 645,
         "input": "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"https://c.mipcdn.com/static/v1/mip.css\">"
     }
 ]

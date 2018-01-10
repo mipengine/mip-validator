@@ -28,7 +28,7 @@
         "code": "06200201",
         "line": 11,
         "col": 39,
-        "offset": 617,
+        "offset": 614,
         "input": "<body><div id=\"BAIDU_DUP_fp_wrapper\" ><iframe id=\"BAIDU_DUP_fp_iframe\" src=\"./error3_use_tag_not_allowed_files/o.html\" ></iframe></div>"
     }
 ]

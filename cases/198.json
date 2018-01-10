@@ -4,7 +4,7 @@
         "code": "06200701",
         "line": 15,
         "col": 2,
-        "offset": 479,
+        "offset": 476,
         "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200601",
         "line": 15,
         "col": 2,
-        "offset": 479,
+        "offset": 476,
         "input": "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"
     }
 ]

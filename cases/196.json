@@ -4,7 +4,7 @@
         "code": "06200201",
         "line": 109,
         "col": 2,
-        "offset": 5930,
+        "offset": 5927,
         "input": "\t<script src=\"./bn_files/ds.js\"></script>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200801",
         "line": 109,
         "col": 2,
-        "offset": 5930,
+        "offset": 5927,
         "input": "\t<script src=\"./bn_files/ds.js\"></script>"
     }
 ]

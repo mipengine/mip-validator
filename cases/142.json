@@ -8,7 +8,7 @@
         "input": "<html>"
     },
     {
-        "message": "强制性标签'<script src=\"/^(https:)?//((mipcache\\.bdstatic\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.js)|(c\\.mipcdn\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com/static/v\\d/mip\\.js)|(c\\.mipcdn\\.com/static/v\\d/mip\\.js))$/\">'缺失或错误",
+        "message": "强制性标签'<script src=\"/^(https:)?//((mipcache\\.bdstatic\\.com/static/mipmain)|(mipcache\\.bdstatic\\.com/static/v\\d/)|(c\\.mipcdn\\.com/static/v\\d/)|(c\\.mipcdn\\.com/static/mipmain))/\">'缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,

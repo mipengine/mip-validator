@@ -4,7 +4,7 @@
         "code": "06200601",
         "line": 10,
         "col": 2,
-        "offset": 369,
+        "offset": 366,
         "input": "\t<meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">"
     }
 ]

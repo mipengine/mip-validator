@@ -1,0 +1,50 @@
+[
+    {
+        "message": "标签'<link rel=\"/^(miphtml)|(canonical)$/\">'只能出现一次",
+        "code": "06200701",
+        "line": 10,
+        "col": 5,
+        "offset": 458,
+        "input": "    <link rel=\"canonical\" href=\"https://www.baidu.com\">"
+    },
+    {
+        "message": "标签'<link rel=\"/^(miphtml)|(canonical)$/\">'只能出现一次",
+        "code": "06200701",
+        "line": 11,
+        "col": 5,
+        "offset": 514,
+        "input": "    <link rel=\"miphtml\" href=\"//www.baidu.com\"> "
+    },
+    {
+        "message": "标签'<link rel=\"/^(miphtml)$/\">'只能出现一次",
+        "code": "06200701",
+        "line": 12,
+        "col": 5,
+        "offset": 563,
+        "input": "    <link rel=\"miphtml\" href=\"//www.baidu.com\"> "
+    },
+    {
+        "message": "标签'<link rel=\"/^(miphtml)|(canonical)$/\">'只能出现一次",
+        "code": "06200701",
+        "line": 12,
+        "col": 5,
+        "offset": 563,
+        "input": "    <link rel=\"miphtml\" href=\"//www.baidu.com\"> "
+    },
+    {
+        "message": "标签'link'中的属性'href'的属性值'/www.baidu.com'无效",
+        "code": "06200301",
+        "line": 14,
+        "col": 5,
+        "offset": 684,
+        "input": "    <link href=\"/www.baidu.com\">"
+    },
+    {
+        "message": "强制性标签'<link rel=\"/^stylesheet$/\" href=\"/^(https:)?//((mipcache\\.bdstatic\\.com/static/mipmain)|(mipcache\\.bdstatic\\.com/static/v\\d/)|(c\\.mipcdn\\.com/static/v\\d/)|(c\\.mipcdn\\.com/static/mipmain))/\">'缺失或错误",
+        "code": "06200101",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
+    }
+]

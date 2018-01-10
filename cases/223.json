@@ -1,0 +1,26 @@
+[
+    {
+        "message": "标签'source'只能是标签'/picture|mip-video|mip-audio/'的子级标签",
+        "code": "06200901",
+        "line": 14,
+        "col": 9,
+        "offset": 373,
+        "input": "        <source src=\"\"></source>"
+    },
+    {
+        "message": "标签'source'只能是标签'/picture|mip-video|mip-audio/'的子级标签",
+        "code": "06200901",
+        "line": 17,
+        "col": 5,
+        "offset": 417,
+        "input": "    <source src=\"\"></source>    "
+    },
+    {
+        "message": "标签'source'中的属性'src'的属性值'/a'无效",
+        "code": "06200301",
+        "line": 20,
+        "col": 9,
+        "offset": 473,
+        "input": "        <source src=\"/a\"></source>"
+    }
+]
