@@ -53,14 +53,14 @@
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(canonical)|(standardhtml)$/"
+            "rel": "/^(canonical)|(miphtml)$/"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/"
         }],
         "mandatory_parent": "head",
         "duplicate": [{
-            "rel": "/^(standardhtml)$/"
+            "rel": "/^(miphtml)$/"
         }, {
             "rel": "/^(canonical)$/"
         }, {
@@ -71,12 +71,12 @@
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^(canonical)|(standardhtml)$/"
+                    "rel": "/^(canonical)|(miphtml)$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!(canonical)|(standardhtml))$/"
+                    "rel": "/^(?!(canonical)|(miphtml))$/"
                 }
             }]
 
