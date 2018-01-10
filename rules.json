@@ -76,7 +76,7 @@
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!(canonical)|(miphtml))$/"
+                    "rel": "/^(?!((canonical)|(miphtml))$)/"
                 }
             }]
 
@@ -94,7 +94,7 @@
         },
         "attrs": {
             "type": {
-                "value": "/^(text\/javascript)$/"
+                "value": "/^(((application)|(text))\/javascript)$/"
             }
         }
     }, {
@@ -110,7 +110,7 @@
     }, {
         "disallow": true,
         "match": {
-            "type": "/^(?!application\/(ld\\+)?json)/",
+            "type": "/^(?!application\/(ld\\+)?json$)/",
             "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))))/"
         }
     }, {
