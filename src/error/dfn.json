@@ -12,6 +12,10 @@
         "message": "强制性标签'%s'缺失或错误",
         "misc": "去除该标签即可"
     },
+    "MANDATORY_ATTR_OR_MISSING": {
+        "code": "06200102",
+        "message": "标签 %s 必要属性不符合要求或缺失"
+    },
     "DISALLOWED_TAG": {
         "code": "06200201",
         "message": "禁止使用'%s'标签"

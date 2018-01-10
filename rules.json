@@ -35,7 +35,7 @@
                 },
                 "properties": {
                     "width": "device-width",
-                    "initial-scale": "/^1(\\.0)?$/"
+                    "initial-scale": "1"
                 }
             }]
         },
@@ -173,13 +173,17 @@
         }
     },
     "mip-img": {
+        "attrs_or": [{
+            "src": "/^\\S+$/"
+        }, {
+            "srcset": "/^\\S+$/"
+        }],
         "attrs": {
-            "src": {
-                "mandatory": true,
-                "value": "/^.+\\S/"
+            "href": {
+                "value": "/^\\S+$/"
             },
             "srcset": {
-                "value": "/^.+\\S/"
+                "value": "/^\\S+$/"
             }
         }
     },
@@ -328,9 +332,16 @@
         }
     },
     "base": {
+        "duplicate": true,
+        "mandatory_parent": "head",        
+        "attrs_or": [{
+            "target": "/^((_top)|(_self)|(_blank))$/i"
+        }, {
+            "href": "/^\/$/"
+        }],
         "attrs": {
             "target": {
-                "value": "/^(^_top$)|(^_self$)|(^_blank$)$/i"
+                "value": "/^((_top)|(_self)|(_blank))$/i"
             },
             "href": {
                 "value": "/^\/$/"

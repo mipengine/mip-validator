@@ -16,6 +16,7 @@ function engineFactory(rules) {
     engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'))
     engine.register(require('./src/validators/invalid_attr_value.js'))
     engine.register(require('./src/validators/invalid_property_value_in_attr_value.js'))
+    engine.register(require('./src/validators/mandatory_attr_or_missing.js'))
 
     // tag
     engine.register(require('./src/validators/disallowed_tag.js'))

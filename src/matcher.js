@@ -25,6 +25,7 @@ function stringToRegex(str) {
  */
 function matchValue(src, target) {
     var re
+    if (!target || !src) return false
     if ((re = stringToRegex(target))) {
         var result = re.test(src)
         return re.negate ? (!result) : result
