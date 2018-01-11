@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<iframe src=\"https://www.mipengine.org/article/instant-pageview.html\">'标签",
+        "code": "06200201",
+        "line": 15,
+        "col": 5,
+        "offset": 518,
+        "input": "    <iframe src=\"https://www.mipengine.org/article/instant-pageview.html\">"
+    }
+]
