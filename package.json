@@ -60,7 +60,8 @@
         "node": ">=4.0.0"
     },
     "scripts": {
-        "test": "DEBUG='mip-validator:' mocha",
+        "test": "DEBUG='mip-validator:' mocha && npm run test:e2e",
+        "test:e2e": "make cases",
         "lint": "eslint src/ test/ bin/ index.js",
         "preversion": "npm run lint && npm test",
         "version": "make dist && git add -A dist",

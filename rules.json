@@ -60,20 +60,18 @@
         }],
         "mandatory_parent": "head",
         "duplicate": [{
-            "rel": "/^(miphtml)$/"
-        }, {
             "rel": "/^(miphtml)|(canonical)$/"
         }],
         "attrs": {
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^(canonical)|(miphtml)$/"
+                    "rel": "/^((canonical)|(miphtml))$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!((canonical)|(miphtml))$)/"
+                    "rel": "/^(?!((miphtml)|(canonical))$)/"
                 }
             }]
 
