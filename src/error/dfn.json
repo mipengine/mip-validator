@@ -47,7 +47,7 @@
     "MANDATORY_TAG_ANCESTOR": {
         "code": "06200901",
         "message": "标签 '%s' 只能是标签 '%s' 的子级标签",
-        "misc": "将标签插入到运行的父标签内"
+        "misc": "将标签插入到允许的父标签内"
     },
     "WRONG_PARENT_TAG": {
         "code": "06200601",
@@ -62,6 +62,6 @@
     "INVALID_NOSCRIPT": {
         "code": "06201001",
         "message": "标签 '<noscript>' 在标签 '<head>' 中时强制为最后一个子节点",
-        "misc": "将 noscript 标签放在 head 的最后一个节点处"
+        "misc": "将 noscript 标签放在 head 标签内的最末"
     }
 }
