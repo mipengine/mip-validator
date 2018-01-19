@@ -4,7 +4,7 @@
         "code": "06200201",
         "line": 153,
         "col": 1,
-        "offset": 5938,
+        "offset": 5915,
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200201",
         "line": 154,
         "col": 1,
-        "offset": 5979,
+        "offset": 5956,
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
@@ -20,7 +20,7 @@
         "code": "06200201",
         "line": 169,
         "col": 1,
-        "offset": 6670,
+        "offset": 6647,
         "input": "<script type=\"application\">"
     }
 ]

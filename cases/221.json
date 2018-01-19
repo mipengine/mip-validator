@@ -1,0 +1,90 @@
+[
+    {
+        "message": "标签 <base target=\"/^((_top)|(_self)|(_blank))$/i\">'或'<base href=\"/^/$/\"> 必要属性不符合要求或缺失",
+        "code": "06200102",
+        "line": 14,
+        "col": 5,
+        "offset": 386,
+        "input": "    <base></base>"
+    },
+    {
+        "message": "标签'<base>'只能出现一次",
+        "code": "06200701",
+        "line": 14,
+        "col": 5,
+        "offset": 386,
+        "input": "    <base></base>"
+    },
+    {
+        "message": "标签'base'的直接父标签应该是'head'，而不是'body'",
+        "code": "06200601",
+        "line": 14,
+        "col": 5,
+        "offset": 386,
+        "input": "    <base></base>"
+    },
+    {
+        "message": "标签 <base target=\"/^((_top)|(_self)|(_blank))$/i\">'或'<base href=\"/^/$/\"> 必要属性不符合要求或缺失",
+        "code": "06200102",
+        "line": 15,
+        "col": 5,
+        "offset": 404,
+        "input": "    <base target=\"a\"></base>"
+    },
+    {
+        "message": "标签'<base>'只能出现一次",
+        "code": "06200701",
+        "line": 15,
+        "col": 5,
+        "offset": 404,
+        "input": "    <base target=\"a\"></base>"
+    },
+    {
+        "message": "标签'base'的直接父标签应该是'head'，而不是'body'",
+        "code": "06200601",
+        "line": 15,
+        "col": 5,
+        "offset": 404,
+        "input": "    <base target=\"a\"></base>"
+    },
+    {
+        "message": "标签'base'中的属性'target'的属性值'a'无效",
+        "code": "06200301",
+        "line": 15,
+        "col": 5,
+        "offset": 404,
+        "input": "    <base target=\"a\"></base>"
+    },
+    {
+        "message": "标签 <base target=\"/^((_top)|(_self)|(_blank))$/i\">'或'<base href=\"/^/$/\"> 必要属性不符合要求或缺失",
+        "code": "06200102",
+        "line": 16,
+        "col": 5,
+        "offset": 433,
+        "input": "    <base href=\"x\"></base>"
+    },
+    {
+        "message": "标签'<base>'只能出现一次",
+        "code": "06200701",
+        "line": 16,
+        "col": 5,
+        "offset": 433,
+        "input": "    <base href=\"x\"></base>"
+    },
+    {
+        "message": "标签'base'的直接父标签应该是'head'，而不是'body'",
+        "code": "06200601",
+        "line": 16,
+        "col": 5,
+        "offset": 433,
+        "input": "    <base href=\"x\"></base>"
+    },
+    {
+        "message": "标签'base'中的属性'href'的属性值'x'无效",
+        "code": "06200301",
+        "line": 16,
+        "col": 5,
+        "offset": 433,
+        "input": "    <base href=\"x\"></base>"
+    }
+]

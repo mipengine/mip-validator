@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html mip="" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>测试 link 标签</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!-- 不存在 /^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/v\\d\/)|(c\\.mipcdn\\.com\/static\/mipmain))/ 下的 css -->
+    <link rel="canonical" href="https://www.baidu.com">
+    <link rel="canonical" href="https://www.baidu.com">
+    <link rel="miphtml" href="//www.baidu.com"> 
+    <link rel="miphtml" href="//www.baidu.com"> 
+    <!-- 不带 rel=canonical 或 rel=miphtml 的 link 的 href 非 / 开头，可以是 // -->
+    <link href="/www.baidu.com">
+    <script async src="https://mipcache.bdstatic.com/static/v1/mip.js"></script>
+</head>
+
+<body>
+</body>
+
+</html>

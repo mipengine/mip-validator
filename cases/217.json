@@ -1,0 +1,74 @@
+[
+    {
+        "message": "标签'script'的强制性属性'async'缺失",
+        "code": "06200501",
+        "line": 11,
+        "col": 5,
+        "offset": 377,
+        "input": "    <script src=\"//mipcache.bdstatic.com/static/v1/mip.js\"></script>"
+    },
+    {
+        "message": "标签'script'中的属性'type'的属性值'a/javascript'无效",
+        "code": "06200301",
+        "line": 16,
+        "col": 5,
+        "offset": 552,
+        "input": "    <script type=\"a/javascript\" src=\"https://mipcache.bdstatic.com/static/v1/mip.js\"></script>"
+    },
+    {
+        "message": "标签'script'中的属性'type'的属性值'application/json'无效",
+        "code": "06200301",
+        "line": 19,
+        "col": 5,
+        "offset": 679,
+        "input": "    <script type=\"application/json\" src=\"//mipcache.bdstatic.com/static/v1/mip.js\"></script>"
+    },
+    {
+        "message": "禁止使用'<script src=\"/mipcache.bdstatic.com/static/v1/mip.js\">'标签",
+        "code": "06200201",
+        "line": 22,
+        "col": 5,
+        "offset": 814,
+        "input": "    <script src=\"/mipcache.bdstatic.com/static/v1/mip.js\"></script>"
+    },
+    {
+        "message": "禁止使用'<script src=\"//xx.com/static/v1/mip.js\">'标签",
+        "code": "06200201",
+        "line": 25,
+        "col": 5,
+        "offset": 912,
+        "input": "    <script src=\"//xx.com/static/v1/mip.js\"></script>    "
+    },
+    {
+        "message": "禁止使用'<script type=\"application/jsona\">'标签",
+        "code": "06200201",
+        "line": 28,
+        "col": 5,
+        "offset": 1039,
+        "input": "    <script type=\"application/jsona\"></script>"
+    },
+    {
+        "message": "禁止使用'<script type=\"application/ldjson\">'标签",
+        "code": "06200201",
+        "line": 29,
+        "col": 5,
+        "offset": 1086,
+        "input": "    <script type=\"application/ldjson\"></script>"
+    },
+    {
+        "message": "禁止使用'<script src=\"//m.baidu.com/static/ala/sf/static/js/miphtml_main_91d6a5e.js\">'标签",
+        "code": "06200201",
+        "line": 32,
+        "col": 5,
+        "offset": 1163,
+        "input": "    <script src=\"//m.baidu.com/static/ala/sf/static/js/miphtml_main_91d6a5e.js\"></script>"
+    },
+    {
+        "message": "禁止使用'<script src=\"xx/miphtml_main_91d6a5e.js\">'标签",
+        "code": "06200201",
+        "line": 35,
+        "col": 5,
+        "offset": 1280,
+        "input": "    <script src=\"xx/miphtml_main_91d6a5e.js\"></script>"
+    }
+]

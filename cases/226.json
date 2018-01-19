@@ -1,0 +1,26 @@
+[
+    {
+        "message": "标签'mip-vd-baidu'的强制性属性'title'缺失",
+        "code": "06200501",
+        "line": 13,
+        "col": 5,
+        "offset": 355,
+        "input": "    <mip-vd-baidu src=\"\" poster=\"\">"
+    },
+    {
+        "message": "标签'mip-vd-baidu'中的属性'src'的属性值''无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 5,
+        "offset": 355,
+        "input": "    <mip-vd-baidu src=\"\" poster=\"\">"
+    },
+    {
+        "message": "标签'mip-vd-baidu'中的属性'poster'的属性值''无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 5,
+        "offset": 355,
+        "input": "    <mip-vd-baidu src=\"\" poster=\"\">"
+    }
+]

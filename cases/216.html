@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html mip="" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>测试 link 标签</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" href="https://mipcache.bdstatic.com/static/v1/mip.css">
+    <link rel="canonical" href="https://www.baidu.com">
+    <!-- head 中的 script 必须加 async -->
+    <script async src="//mipcache.bdstatic.com/static/v1/mip.js"></script>
+</head>
+
+<body>
+    <!-- 如果 src 存在，type必须text/javascript 、application/javascript 或 type不存在（即没有type属性） -->
+    <script src="https://mipcache.bdstatic.com/static/v1/mip.js"></script>
+    <script type="text/javascript" src="https://mipcache.bdstatic.com/static/v1/mip.js"></script>
+    <script type="application/javascript" src="https://mipcache.bdstatic.com/static/v1/mip.js"></script>
+    
+    <!-- 如果 src 存在，必须是https或//开头 -->
+    <script src="//mipcache.bdstatic.com/static/v1/mip.js"></script>
+    
+    <!-- src不存在，type必须是application/json或application/ld+json -->
+    <script type="application/json"></script>
+    <script type="application/ld+json"></script>
+</body>
+
+</html>

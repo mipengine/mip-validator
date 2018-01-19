@@ -26,7 +26,7 @@
         }, {
             "http-equiv": "/Content-Type/i"
         }, {
-            "charset": "/^(UTF-8)/i"
+            "charset": "/^utf-8$/i"
         }],
         "attrs": {
             "content": [{
@@ -41,9 +41,9 @@
         },
         "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
-            "content": "/charset=(utf)|(UTF)-8/"
+            "content": "/charset=utf-8/i"
         }, {
-            "charset": "/^(utf)|(UTF-8)/"
+            "charset": "/^utf-8$/i"
         }],
         "mandatory": {
             "name": "/^(viewport)?/",
@@ -53,31 +53,25 @@
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
-        }, {
-            "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
-        }],
-
-        "mandatory_parent": "head",
-        "duplicate": [{
-            "rel": "/^(miphtml)|(standardhtml)$/"
-        }, {
             "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|(c.mipcdn.com\/static\/mipmain)/"
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css))$/"
+        }],
+        "mandatory_parent": "head",
+        "duplicate": [{
+            "rel": "/^(miphtml)|(canonical)$/"
         }],
         "attrs": {
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
+                    "rel": "/^((canonical)|(miphtml))$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
+                    "rel": "/^(?!((miphtml)|(canonical))$)/"
                 }
             }]
 
@@ -86,23 +80,22 @@
     "script": [
     {
         "mandatory": {
-            "type": "/^(text\/javascript)?/",
-            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js))$/"
         }
     },
     {
         "match": {
-            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$/"
         },
         "attrs": {
             "type": {
-                "value": "/^(text\/javascript)$/"
+                "value": "/^(((application)|(text))\/javascript)$/"
             }
         }
     }, {
         "match_ancestor": "head",
         "match": {
-            "src":"/^((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com)/"
+            "src":"/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$/"        
         },
         "attrs": {
             "async": {
@@ -112,8 +105,8 @@
     }, {
         "disallow": true,
         "match": {
-            "type": "/^(?!application\/(ld\\+)?json)/",
-            "src":"/^(?!((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com))/"
+            "type": "/^(?!application\/(ld\\+)?json$)/",
+            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$))/"
         }
     }, {
         "disallowed_ancestor": "template"
@@ -126,9 +119,6 @@
             }
         }
     },
-
-
-
     "img": {
         "disallow": true
     },
@@ -174,8 +164,6 @@
     "option": {
         "mandatory_ancestor": "mip-form"
     },
-
-
     "a": {
         "attrs": {
             "href": {
@@ -185,13 +173,17 @@
         }
     },
     "mip-img": {
+        "attrs_or": [{
+            "src": "/^\\S+$/"
+        }, {
+            "srcset": "/^\\S+$/"
+        }],
         "attrs": {
             "src": {
-                "mandatory": true,
-                "value": "/^.+\\S/"
+                "value": "/^\\S+$/"
             },
             "srcset": {
-                "value": "/^.+\\S/"
+                "value": "/^\\S+$/"
             }
         }
     },
@@ -212,7 +204,7 @@
         }
     },
     "source": {
-        "mandatory_ancestor": "mip-video",
+        "mandatory_ancestor": "/picture|mip-video|mip-audio/",
         "attrs": {
             "src": {
                 "mandatory": true,
@@ -282,7 +274,7 @@
     "mip-form": {
         "attrs": {
             "method": {
-                "value": "/^(post)|(get)$/i"
+                "value": "/^((post)|(get))$/i"
             },
             "url": {
                 "mandatory": true,
@@ -340,9 +332,16 @@
         }
     },
     "base": {
+        "duplicate": true,
+        "mandatory_parent": "head",        
+        "attrs_or": [{
+            "target": "/^((_top)|(_self)|(_blank))$/i"
+        }, {
+            "href": "/^\/$/"
+        }],
         "attrs": {
             "target": {
-                "value": "/^(^_top$)|(^_self$)|(^_blank$)$/i"
+                "value": "/^((_top)|(_self)|(_blank))$/i"
             },
             "href": {
                 "value": "/^\/$/"

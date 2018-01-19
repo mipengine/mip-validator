@@ -16900,7 +16900,8 @@ module.exports={
         "node": ">=4.0.0"
     },
     "scripts": {
-        "test": "DEBUG='mip-validator:' mocha",
+        "test": "DEBUG='mip-validator:' mocha && npm run test:e2e",
+        "test:e2e": "make cases",
         "lint": "eslint src/ test/ bin/ index.js",
         "preversion": "npm run lint && npm test",
         "version": "make dist && git add -A dist",
@@ -16971,7 +16972,7 @@ module.exports={
         }, {
             "http-equiv": "/Content-Type/i"
         }, {
-            "charset": "/^(UTF-8)/i"
+            "charset": "/^utf-8$/i"
         }],
         "attrs": {
             "content": [{
@@ -16986,9 +16987,9 @@ module.exports={
         },
         "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
-            "content": "/charset=(utf)|(UTF)-8/"
+            "content": "/charset=utf-8/i"
         }, {
-            "charset": "/^(utf)|(UTF-8)/"
+            "charset": "/^utf-8$/i"
         }],
         "mandatory": {
             "name": "/^(viewport)?/",
@@ -16998,31 +16999,25 @@ module.exports={
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
-        }, {
-            "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
-        }],
-
-        "mandatory_parent": "head",
-        "duplicate": [{
-            "rel": "/^(miphtml)|(standardhtml)$/"
-        }, {
             "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|(c.mipcdn.com\/static\/mipmain)/"
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css))$/"
+        }],
+        "mandatory_parent": "head",
+        "duplicate": [{
+            "rel": "/^(miphtml)|(canonical)$/"
         }],
         "attrs": {
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^(miphtml)|(canonical)|(standardhtml)$/"
+                    "rel": "/^((canonical)|(miphtml))$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
                 "match": {
-                    "rel": "/^(?!(miphtml)|(canonical)|(standardhtml))$/"
+                    "rel": "/^(?!((miphtml)|(canonical))$)/"
                 }
             }]
 
@@ -17031,23 +17026,22 @@ module.exports={
     "script": [
     {
         "mandatory": {
-            "type": "/^(text\/javascript)?/",
-            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js))$/"
         }
     },
     {
         "match": {
-            "src": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/mipcache.bdstatic.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/v\\d\/)|((https:)?\/\/c.mipcdn.com\/static\/mipmain)/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$/"
         },
         "attrs": {
             "type": {
-                "value": "/^(text\/javascript)$/"
+                "value": "/^(((application)|(text))\/javascript)$/"
             }
         }
     }, {
         "match_ancestor": "head",
         "match": {
-            "src":"/^((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com)/"
+            "src":"/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$/"        
         },
         "attrs": {
             "async": {
@@ -17057,8 +17051,8 @@ module.exports={
     }, {
         "disallow": true,
         "match": {
-            "type": "/^(?!application\/(ld\\+)?json)/",
-            "src":"/^(?!((https:)?\/\/mipcache.bdstatic.com)|((https:)?\/\/m.baidu.com\/static\/ala\/sf\/static\/)|((https:)?\/\/c.mipcdn.com))/"
+            "type": "/^(?!application\/(ld\\+)?json$)/",
+            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/.*)?$))/"
         }
     }, {
         "disallowed_ancestor": "template"
@@ -17071,9 +17065,6 @@ module.exports={
             }
         }
     },
-
-
-
     "img": {
         "disallow": true
     },
@@ -17119,8 +17110,6 @@ module.exports={
     "option": {
         "mandatory_ancestor": "mip-form"
     },
-
-
     "a": {
         "attrs": {
             "href": {
@@ -17130,13 +17119,17 @@ module.exports={
         }
     },
     "mip-img": {
+        "attrs_or": [{
+            "src": "/^\\S+$/"
+        }, {
+            "srcset": "/^\\S+$/"
+        }],
         "attrs": {
             "src": {
-                "mandatory": true,
-                "value": "/^.+\\S/"
+                "value": "/^\\S+$/"
             },
             "srcset": {
-                "value": "/^.+\\S/"
+                "value": "/^\\S+$/"
             }
         }
     },
@@ -17157,7 +17150,7 @@ module.exports={
         }
     },
     "source": {
-        "mandatory_ancestor": "mip-video",
+        "mandatory_ancestor": "/picture|mip-video|mip-audio/",
         "attrs": {
             "src": {
                 "mandatory": true,
@@ -17227,7 +17220,7 @@ module.exports={
     "mip-form": {
         "attrs": {
             "method": {
-                "value": "/^(post)|(get)$/i"
+                "value": "/^((post)|(get))$/i"
             },
             "url": {
                 "mandatory": true,
@@ -17285,9 +17278,16 @@ module.exports={
         }
     },
     "base": {
+        "duplicate": true,
+        "mandatory_parent": "head",        
+        "attrs_or": [{
+            "target": "/^((_top)|(_self)|(_blank))$/i"
+        }, {
+            "href": "/^\/$/"
+        }],
         "attrs": {
             "target": {
-                "value": "/^(^_top$)|(^_self$)|(^_blank$)$/i"
+                "value": "/^((_top)|(_self)|(_blank))$/i"
             },
             "href": {
                 "value": "/^\/$/"
@@ -17311,7 +17311,6 @@ module.exports={
         }
     }
 }
-
 },{}],64:[function(require,module,exports){
 'use strict';
 
@@ -17458,7 +17457,7 @@ function findFirstTagChild(parent) {
 
 module.exports = Engine;
 
-},{"./../node_modules/lodash/lodash.min.js":11,"./encoding":65,"./error/dfn.json":67,"./error/validation-error.js":68,"./logger.js":69,"./rule-parser.js":71,"./walker.js":83,"assert":1,"parse5":20}],67:[function(require,module,exports){
+},{"./../node_modules/lodash/lodash.min.js":11,"./encoding":65,"./error/dfn.json":67,"./error/validation-error.js":68,"./logger.js":69,"./rule-parser.js":71,"./walker.js":84,"assert":1,"parse5":20}],67:[function(require,module,exports){
 module.exports={
     "DISALLOWED_ENCODING": {
         "code": "06200001",
@@ -17472,6 +17471,10 @@ module.exports={
         "code": "06200101",
         "message": "强制性标签'%s'缺失或错误",
         "misc": "去除该标签即可"
+    },
+    "MANDATORY_ATTR_OR_MISSING": {
+        "code": "06200102",
+        "message": "标签 %s 必要属性不符合要求或缺失"
     },
     "DISALLOWED_TAG": {
         "code": "06200201",
@@ -18179,6 +18182,7 @@ exports.onNode = function (node, rule, error, html) {
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
 var ERR = require('../error/dfn.json');
+var matcher = require('../matcher.js');
 
 exports.onAttr = function (attr, attrRule, node, nodeRule, error) {
     if (!attrRule.properties) return;
@@ -18190,7 +18194,7 @@ exports.onAttr = function (attr, attrRule, node, nodeRule, error) {
             value: obj[key]
         };
 
-        if (property.value === value) return;
+        if (matcher.matchValue(property.value, value)) return;
 
         error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE, node.nodeName, attr.name, property.name, property.value || '');
     });
@@ -18202,7 +18206,59 @@ function parseValueProperties(value) {
     }).fromPairs().value();
 }
 
-},{"../error/dfn.json":67,"./../../node_modules/lodash/lodash.min.js":11}],79:[function(require,module,exports){
+},{"../error/dfn.json":67,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],79:[function(require,module,exports){
+'use strict';
+
+var _ = require('./../../node_modules/lodash/lodash.min.js');
+var ERR = require('../error/dfn.json');
+var matcher = require('../matcher.js');
+
+var tagOccurrence, anyTagOccurrence;
+
+exports.onBegin = function (error, html, rules) {
+    tagOccurrence = {};
+
+    // 初始化Mandatory标记    
+    _.forOwn(rules, function (subRules, ruleName) {
+        _.map(subRules, function (rule) {
+            _.map(rule.attrs_or, function (pattern) {
+                var fp = matcher.fingerprintByObject(ruleName, pattern);
+                tagOccurrence[fp] = {
+                    rule: rule,
+                    ruleName: ruleName,
+                    pattern: pattern,
+                    count: 0
+                };
+            });
+        });
+    });
+};
+
+exports.onNode = function (node, rule, error) {
+    if (!rule.attrs_or) return;
+    var attrOccurrence = _.keyBy(node.attrs, 'name');
+
+    var matched = false;
+    _.map(rule.attrs_or, function (pattern) {
+        var isExisted = true;
+        _.forOwn(pattern, function (rules, attrName) {
+            if (!attrOccurrence[attrName]) {
+                isExisted = false;
+                return;
+            }
+        });
+        if (!isExisted || !matcher.matchAttrs(node, pattern)) return;
+        matched = true;
+    });
+    if (!matched) {
+        var fps = rule.attrs_or.map(function (rule) {
+            return matcher.fingerprintByObject(node.nodeName, rule);
+        }).join("'或'");
+        error(ERR.MANDATORY_ATTR_OR_MISSING, fps);
+    }
+};
+
+},{"../error/dfn.json":67,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],80:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -18222,16 +18278,17 @@ exports.onNode = function (node, nodeRule, error) {
     });
 };
 
-},{"../error/dfn.json":67,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],80:[function(require,module,exports){
+},{"../error/dfn.json":67,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],81:[function(require,module,exports){
 'use strict';
 
 var ERR = require('../error/dfn.json');
+var matcher = require('../matcher.js');
 
 exports.onNode = function (node, rule, error) {
     if (!rule.mandatory_ancestor) return;
 
     for (var cur = node.parentNode; cur && cur.nodeName; cur = cur.parentNode) {
-        if (rule.mandatory_ancestor === cur.nodeName) {
+        if (matcher.matchValue(cur.nodeName, rule.mandatory_ancestor)) {
             return;
         }
     }
@@ -18239,7 +18296,7 @@ exports.onNode = function (node, rule, error) {
     error(err, node.nodeName, rule.mandatory_ancestor);
 };
 
-},{"../error/dfn.json":67}],81:[function(require,module,exports){
+},{"../error/dfn.json":67,"../matcher.js":70}],82:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -18324,7 +18381,7 @@ function validatePolyfill(error, html, rules) {
     });
 }
 
-},{"../error/dfn.json":67,"../logger.js":69,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],82:[function(require,module,exports){
+},{"../error/dfn.json":67,"../logger.js":69,"../matcher.js":70,"./../../node_modules/lodash/lodash.min.js":11}],83:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../../node_modules/lodash/lodash.min.js');
@@ -18339,7 +18396,7 @@ exports.onNode = function (node, rule, error) {
     error(ERR.WRONG_PARENT_TAG, node.nodeName, rule.mandatory_parent, parent);
 };
 
-},{"../error/dfn.json":67,"./../../node_modules/lodash/lodash.min.js":11}],83:[function(require,module,exports){
+},{"../error/dfn.json":67,"./../../node_modules/lodash/lodash.min.js":11}],84:[function(require,module,exports){
 'use strict';
 
 var _ = require('./../node_modules/lodash/lodash.min.js');
@@ -18498,7 +18555,7 @@ module.exports = function (rules) {
     return new Walker(rules);
 };
 
-},{"./../node_modules/lodash/lodash.min.js":11,"./logger.js":69,"./matcher.js":70}],84:[function(require,module,exports){
+},{"./../node_modules/lodash/lodash.min.js":11,"./logger.js":69,"./matcher.js":70}],85:[function(require,module,exports){
 'use strict';
 
 var _ = require('./node_modules/lodash/lodash.min.js');
@@ -18519,6 +18576,7 @@ function engineFactory(rules) {
     engine.register(require('./src/validators/mandatory_oneof_attr_missing.js'));
     engine.register(require('./src/validators/invalid_attr_value.js'));
     engine.register(require('./src/validators/invalid_property_value_in_attr_value.js'));
+    engine.register(require('./src/validators/mandatory_attr_or_missing.js'));
 
     // tag
     engine.register(require('./src/validators/disallowed_tag.js'));
@@ -18539,5 +18597,5 @@ engineFactory.rulesCustom = _.cloneDeep(rulesCustom);
 
 module.exports = engineFactory;
 
-},{"./node_modules/lodash/lodash.min.js":11,"./package.json":61,"./rules-custom.json":62,"./rules.json":63,"./src/engine.js":66,"./src/logger.js":69,"./src/validators/disallowed_attr.js":72,"./src/validators/disallowed_tag.js":73,"./src/validators/disallowed_tag_ancestor.js":74,"./src/validators/duplicate_unique_tag.js":75,"./src/validators/invalid_attr_value.js":76,"./src/validators/invalid_inner_html.js":77,"./src/validators/invalid_property_value_in_attr_value.js":78,"./src/validators/mandatory_oneof_attr_missing.js":79,"./src/validators/mandatory_tag_ancestor.js":80,"./src/validators/mandatory_tag_missing.js":81,"./src/validators/mandatory_tag_parent.js":82}]},{},[84])(84)
+},{"./node_modules/lodash/lodash.min.js":11,"./package.json":61,"./rules-custom.json":62,"./rules.json":63,"./src/engine.js":66,"./src/logger.js":69,"./src/validators/disallowed_attr.js":72,"./src/validators/disallowed_tag.js":73,"./src/validators/disallowed_tag_ancestor.js":74,"./src/validators/duplicate_unique_tag.js":75,"./src/validators/invalid_attr_value.js":76,"./src/validators/invalid_inner_html.js":77,"./src/validators/invalid_property_value_in_attr_value.js":78,"./src/validators/mandatory_attr_or_missing.js":79,"./src/validators/mandatory_oneof_attr_missing.js":80,"./src/validators/mandatory_tag_ancestor.js":81,"./src/validators/mandatory_tag_missing.js":82,"./src/validators/mandatory_tag_parent.js":83}]},{},[85])(85)
 });})();
