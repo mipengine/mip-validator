@@ -17052,7 +17052,7 @@ module.exports={
         "disallow": true,
         "match": {
             "type": "/^(?!application\/(ld\\+)?json$)/",
-            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/[.|\n]*)?$))/"
+            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))))/"
         }
     }, {
         "disallowed_ancestor": "template"
