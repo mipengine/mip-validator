@@ -114,13 +114,13 @@
 214|不存在 mip.css 标签|不通过
 215|存在 2 个 rel="canonical" 的标签|不通过
 216|存在 2 个 rel="miphtml" 的标签|不通过
-217|既存在 rel=”miphtml”，又存在 rel=”canonical”|不通过
-218|rel=”canonical”，href不为 https, http, // 开头|不通过
-219|rel=”miphtml”，href不为 https, http, // 开头|不通过
-220|非 rel=”canonical”，rel=”miphtml”，href为 / 开头（非 //）|不通过
-221|以上所有规则都满足，同时 rel=”canonical” 时，href 为 https 开头|通过
-222|以上所有规则都满足，同时 rel=”canonical” 时，href 为 http 开头|通过
-223|以上所有规则都满足，同时 rel=”canonical” 时，href 为 // 开头|通过
+217|既存在 rel="miphtml"，又存在 rel="canonical"|不通过
+218|rel="canonical"，href不为 https, http, // 开头|不通过
+219|rel="miphtml"，href不为 https, http, // 开头|不通过
+220|非 rel="canonical"，rel="miphtml"，href为 / 开头（非 //）|不通过
+221|以上所有规则都满足，同时 rel="canonical" 时，href 为 https 开头|通过
+222|以上所有规则都满足，同时 rel="canonical" 时，href 为 http 开头|通过
+223|以上所有规则都满足，同时 rel="canonical" 时，href 为 // 开头|通过
 224|以上所有规则都满足，link 在非 head 标签中|不通过
 225|不存在 mip.js 标签|不通过
 226|src 存在且符合规范，type 非 application/javascript 或 text/javascript 或空|不通过
