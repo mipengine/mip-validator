@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<script src=\"https://c.xx.com/static/v1/mip.js\">'标签",
+        "code": "06200201",
+        "line": 13,
+        "col": 9,
+        "offset": 442,
+        "input": "        <script src=\"https://c.xx.com/static/v1/mip.js\"></script>"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'script'的强制性属性'async'缺失",
+        "code": "06200501",
+        "line": 8,
+        "col": 9,
+        "offset": 341,
+        "input": "        <script src=\"https://mipcache.bdstatic.com/static/V1/mip-hIstory.js\"></script>"
+    }
+]

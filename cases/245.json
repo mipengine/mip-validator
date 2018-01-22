@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用'<script src=\"//m.baidu.com/static/ala/sf/static/css/miphtml_c0c6e10.js\">'标签",
+        "code": "06200201",
+        "line": 14,
+        "col": 9,
+        "offset": 535,
+        "input": "        <script src=\"//m.baidu.com/static/ala/sf/static/css/miphtml_c0c6e10.js\"></script>"
+    }
+]

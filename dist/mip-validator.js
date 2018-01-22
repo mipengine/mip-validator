@@ -17031,7 +17031,7 @@ module.exports={
     },
     {
         "match": {
-            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/[.|\n]*)?$/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$/"
         },
         "attrs": {
             "type": {
@@ -17041,7 +17041,7 @@ module.exports={
     }, {
         "match_ancestor": "head",
         "match": {
-            "src":"/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/[.|\n]*)?$/"        
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$/"
         },
         "attrs": {
             "async": {
@@ -17052,7 +17052,7 @@ module.exports={
         "disallow": true,
         "match": {
             "type": "/^(?!application\/(ld\\+)?json$)/",
-            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))))/"
+            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$))/"
         }
     }, {
         "disallowed_ancestor": "template"
