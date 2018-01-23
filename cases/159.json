@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'mip-img'中的属性'src'的属性值''无效",
+        "message": "标签 'mip-img' 中的属性 'src' 的属性值 '' 无效",
         "code": "06200301",
         "line": 20,
         "col": 2,

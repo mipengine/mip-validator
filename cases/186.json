@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'script'不应该是标签'template'的子标签",
+        "message": "标签 'script' 不应该是标签 'template' 的子标签",
         "code": "06200801",
         "line": 154,
         "col": 5,

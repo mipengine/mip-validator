@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'<link rel=\"/^(miphtml)|(standardhtml)$/\">'只能出现一次",
+        "message": "标签 '<link rel=\"/^(miphtml)|(standardhtml)$/\">' 只能出现一次",
         "code": "06200701",
         "line": 18,
         "col": 2,
@@ -8,7 +8,7 @@
         "input": "\t<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     },
     {
-        "message": "标签'link'的直接父标签应该是'head'，而不是'template'",
+        "message": "标签 'link' 的直接父标签应该是 'head'，而不是 'template'",
         "code": "06200601",
         "line": 18,
         "col": 2,

@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'html'只能出现一次",
+        "message": "标签 'html' 只能出现一次",
         "code": "06200701",
         "line": 0,
         "col": 0,

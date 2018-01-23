@@ -1,6 +1,6 @@
 [
     {
-        "message": "强制性标签'<meta name=\"/^(viewport)?/\" content=\"/((width|initial-scale)=.+){2}/\">'缺失或错误",
+        "message": "强制性标签 '<meta name=\"/^(viewport)?/\" content=\"/((width|initial-scale)=.+){2}/\">' 缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,

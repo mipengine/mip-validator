@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'<link rel=\"/^(miphtml)|(standardhtml)$/\">'只能出现一次",
+        "message": "标签 '<link rel=\"/^(miphtml)|(standardhtml)$/\">' 只能出现一次",
         "code": "06200701",
         "line": 10,
         "col": 1,

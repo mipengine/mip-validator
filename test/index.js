@@ -48,7 +48,7 @@ describe('index', function() {
             validator = Validator({})
             result = validator.validate('<html></html>', { type: 'custom' })
             expect(result).to.have.lengthOf(1)
-            expect(result[0]).to.have.property('message', "强制性标签'<div>'缺失或错误")
+            expect(result[0]).to.have.property('message', "强制性标签 '<div>' 缺失或错误")
         })
     })
 })

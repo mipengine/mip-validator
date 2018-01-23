@@ -45,7 +45,7 @@ describe('mandatory oneof attr missing', function() {
         expect(result).to.have.lengthOf(1)
         var err = errorCode.MANDATORY_ONEOF_ATTR_MISSING
         expect(result[0].code).to.equal(err.code)
-        expect(result[0].message).to.equal("标签'div'的强制性属性'id'缺失")
+        expect(result[0].message).to.equal("标签 'div' 的强制性属性 'id' 缺失")
     })
     it('should accept when no tag presence', function() {
         var result = validator.validate('<p></p>')

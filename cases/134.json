@@ -1,6 +1,6 @@
 [
     {
-        "message": "强制性标签'<script type=\"/^(text/javascript)?/\" src=\"/^(https:)?//(mipcache.bdstatic.com/static/mipmain)|(m.baidu.com/static/ala/sf/static/)|((https:)?//mipcache.bdstatic.com/static/v\\d/)|((https:)?//c.mipcdn.com/static/v\\d/)|((https:)?//c.mipcdn.com/static/mipmain)/\">'缺失或错误",
+        "message": "强制性标签 '<script type=\"/^(text/javascript)?/\" src=\"/^(https:)?//(mipcache.bdstatic.com/static/mipmain)|(m.baidu.com/static/ala/sf/static/)|((https:)?//mipcache.bdstatic.com/static/v\\d/)|((https:)?//c.mipcdn.com/static/v\\d/)|((https:)?//c.mipcdn.com/static/mipmain)/\">' 缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,

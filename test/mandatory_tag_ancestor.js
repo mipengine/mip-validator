@@ -15,7 +15,7 @@ describe('mandatory tag ancestor', function() {
     it('should reject when ancestor not matched', function() {
         var result = validator.validate('<span><mip-input></mip-input></span>')
         var code = ERR.MANDATORY_TAG_ANCESTOR.code
-        var message = "标签'mip-input'只能是标签'form'的子级标签"
+        var message = "标签 'mip-input' 只能是标签 'form' 的子级标签"
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(code)
         expect(result[0].message).to.equal(message)

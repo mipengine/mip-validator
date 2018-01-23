@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'mip-appdl'的强制性属性'tpl'缺失",
+        "message": "标签 'mip-appdl' 的强制性属性 'tpl' 缺失",
         "code": "06200501",
         "line": 153,
         "col": 1,
@@ -8,7 +8,7 @@
         "input": "<mip-appdl></mip-appdl>"
     },
     {
-        "message": "标签'mip-appdl'的强制性属性'texttip'缺失",
+        "message": "标签 'mip-appdl' 的强制性属性 'texttip' 缺失",
         "code": "06200501",
         "line": 153,
         "col": 1,

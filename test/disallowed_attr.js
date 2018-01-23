@@ -37,7 +37,7 @@ describe('disallowed attr', function() {
         result = validator.validate('<img src="">')
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(errorCode.DISALLOWED_ATTR.code)
-        expect(result[0].message).to.equal("'<img>'标签中禁止使用'src'属性")
+        expect(result[0].message).to.equal("'<img>' 标签中禁止使用 'src' 属性")
 
         result = validator.validate('<img src>')
         expect(result).to.have.lengthOf(1)
@@ -76,11 +76,11 @@ describe('disallowed attr', function() {
         result = validator.validate('<span style>')
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(errorCode.DISALLOWED_ATTR.code)
-        expect(result[0].message).to.equal("'<span>'标签中禁止使用'style'属性")
+        expect(result[0].message).to.equal("'<span>' 标签中禁止使用 'style' 属性")
 
         result = validator.validate('<span onclick="">')
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(errorCode.DISALLOWED_ATTR.code)
-        expect(result[0].message).to.equal("'<span>'标签中禁止使用'onclick'属性")
+        expect(result[0].message).to.equal("'<span>' 标签中禁止使用 'onclick' 属性")
     })
 })
