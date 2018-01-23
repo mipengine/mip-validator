@@ -63,5 +63,10 @@
         "code": "06201001",
         "message": "标签 '<noscript>' 在标签 '<head>' 中时强制为最后一个子节点",
         "misc": "将 noscript 标签放在 head 标签内的最末"
+    },
+    "MANDATORY_ATTR_OR_MISSING": {
+        "code": "06200102",
+        "message": "标签 %s 必要属性不符合要求或缺失",
+        "misc": "标签中添加一组必要属性"
     }
 }
