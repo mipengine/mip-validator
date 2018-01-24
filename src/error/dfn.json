@@ -66,7 +66,7 @@
     },
     "MANDATORY_ATTR_OR_MISSING": {
         "code": "06200102",
-        "message": "标签 %s 必要属性不符合要求或缺失",
+        "message": "标签 '%s' 必要属性不符合要求或缺失",
         "misc": "标签中添加一组必要属性"
     }
 }
