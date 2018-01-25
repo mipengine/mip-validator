@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'script'中的属性'type'的属性值'application/json'无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 9,
+        "offset": 442,
+        "input": "        <script src=\"https://c.mipcdn.com/static/v1/mip.js\" type=\"application/json\"></script>"
+    }
+]

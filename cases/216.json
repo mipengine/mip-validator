@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'<link rel=\"/^(miphtml)|(canonical)$/\">'只能出现一次",
+        "code": "06200701",
+        "line": 8,
+        "col": 9,
+        "offset": 339,
+        "input": "        <link rel=\"miphtml\" href=\"https://www.mipengine.org/test_xxx.html\">"
+    }
+]

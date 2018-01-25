@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'script'不应该是标签'template'的子标签",
+        "code": "06200801",
+        "line": 15,
+        "col": 13,
+        "offset": 566,
+        "input": "            <script src=\"https://c.mipcdn.com/static/v1/mip.js\"></script>"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签'meta'中的属性'content'的属性'initial-scale'被设置为'1.0'，该属性值无效",
+        "code": "06200401",
+        "line": 5,
+        "col": 9,
+        "offset": 77,
+        "input": "        <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1.0\">"
+    }
+]
