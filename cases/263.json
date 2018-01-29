@@ -1,0 +1,18 @@
+[
+    {
+        "message": "标签 '<base target=\"/^((_top)|(_self)|(_blank))$/i\">'或'<base href=\"/^/$/\">' 必要属性不符合要求或缺失",
+        "code": "06200102",
+        "line": 10,
+        "col": 9,
+        "offset": 468,
+        "input": "        <base href=\"./\">"
+    },
+    {
+        "message": "标签 'base' 中的属性 'href' 的属性值 './' 无效",
+        "code": "06200301",
+        "line": 10,
+        "col": 9,
+        "offset": 468,
+        "input": "        <base href=\"./\">"
+    }
+]

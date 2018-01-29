@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 'base' 中的属性 'href' 的属性值 '/a' 无效",
+        "code": "06200301",
+        "line": 10,
+        "col": 9,
+        "offset": 468,
+        "input": "        <base target=\"_self\" href=\"/a\">"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 'script' 中的属性 'type' 的属性值 'application/ld+json' 无效",
+        "code": "06200301",
+        "line": 13,
+        "col": 9,
+        "offset": 442,
+        "input": "        <script type=\"application/ld+json\" src=\"https://mipcache.bdstatic.com/a\"></script>"
+    }
+]

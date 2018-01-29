@@ -1,6 +1,6 @@
 [
     {
-        "message": "强制性标签 '<meta http-equiv=\"/Content-Type/i\" content=\"/charset=(utf)|(UTF)-8/\">'或'<meta charset=\"/^(utf)|(UTF-8)/\">' 缺失或错误",
+        "message": "强制性标签 '<meta http-equiv=\"/Content-Type/i\" content=\"/charset=utf-8/i\">'或'<meta charset=\"/^utf-8$/i\">' 缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,

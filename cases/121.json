@@ -1,10 +1,10 @@
 [
     {
-        "message": "标签 '<link rel=\"/^(miphtml)|(standardhtml)$/\">' 只能出现一次",
+        "message": "标签 '<link rel=\"/^(miphtml)|(canonical)$/\">' 只能出现一次",
         "code": "06200701",
         "line": 10,
         "col": 1,
-        "offset": 428,
-        "input": "<link rel=\"standardhtml\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
+        "offset": 405,
+        "input": "<link rel=\"canonical\" href=\"http://fedev.baidu.com/~wangpei07/mib/mip_cache_test/error44.htm\">"
     }
 ]

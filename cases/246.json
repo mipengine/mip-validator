@@ -1,0 +1,10 @@
+[
+    {
+        "message": "禁止使用 '<iframe src=\"\">' 标签",
+        "code": "06200201",
+        "line": 14,
+        "col": 9,
+        "offset": 535,
+        "input": "        <iframe src=\"\"></iframe>"
+    }
+]

@@ -3,12 +3,12 @@
         "message": "禁止使用 '<script src=\"./bn_files/ds.js\">' 标签",
         "code": "06200201",
         "line": 106,
-        "col": 86,
-        "offset": 5843,
-        "input": "<script src=\"//m.baidu.com/static/ala/sf/static/js/miphtml_main_91d6a5e.js\"></script><script src=\"./bn_files/ds.js\"></script>"
+        "col": 62,
+        "offset": 5799,
+        "input": "<script src=\"https://c.mipcdn.com/static/v1/mip.js\"></script><script src=\"./bn_files/ds.js\"></script>"
     },
     {
-        "message": "强制性标签 '<link rel=\"/^(miphtml)|(canonical)|(standardhtml)$/\">' 缺失或错误",
+        "message": "强制性标签 '<link rel=\"/^(miphtml)|(canonical)$/\">' 缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,

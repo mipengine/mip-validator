@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 '<base>' 只能出现一次",
+        "code": "06200701",
+        "line": 11,
+        "col": 9,
+        "offset": 508,
+        "input": "        <base target=\"_blank\" href=\"/\">"
+    }
+]

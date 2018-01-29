@@ -1,10 +1,18 @@
 [
     {
+        "message": "标签 '<mip-img src=\"/^\\S+$/\">'或'<mip-img srcset=\"/^\\S+$/\">' 必要属性不符合要求或缺失",
+        "code": "06200102",
+        "line": 20,
+        "col": 2,
+        "offset": 1044,
+        "input": "\t<mip-img data-carousel=\"\" class=\"mip-img\" src=\"\">"
+    },
+    {
         "message": "标签 'mip-img' 中的属性 'src' 的属性值 '' 无效",
         "code": "06200301",
         "line": 20,
         "col": 2,
-        "offset": 1067,
+        "offset": 1044,
         "input": "\t<mip-img data-carousel=\"\" class=\"mip-img\" src=\"\">"
     }
 ]

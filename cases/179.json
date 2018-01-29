@@ -4,7 +4,7 @@
         "code": "06200501",
         "line": 154,
         "col": 5,
-        "offset": 5973,
+        "offset": 5950,
         "input": "    <mip-appdl></mip-appdl>"
     },
     {
@@ -12,7 +12,7 @@
         "code": "06200501",
         "line": 154,
         "col": 5,
-        "offset": 5973,
+        "offset": 5950,
         "input": "    <mip-appdl></mip-appdl>"
     }
 ]

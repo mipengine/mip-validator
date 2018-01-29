@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 'link' 中的属性 'href' 的属性值 '/a' 无效",
+        "code": "06200301",
+        "line": 8,
+        "col": 9,
+        "offset": 341,
+        "input": "        <link rel=\"stylesheet\" href=\"/a\">"
+    }
+]
