@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'base'中的属性'target'的属性值'_self1'无效",
+        "message": "标签 'base' 中的属性 'target' 的属性值 '_self1' 无效",
         "code": "06200301",
         "line": 10,
         "col": 9,

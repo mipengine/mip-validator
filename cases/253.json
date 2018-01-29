@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签 <mip-img src=\"/^\\S+$/\">'或'<mip-img srcset=\"/^\\S+$/\"> 必要属性不符合要求或缺失",
+        "message": "标签 '<mip-img src=\"/^\\S+$/\">'或'<mip-img srcset=\"/^\\S+$/\">' 必要属性不符合要求或缺失",
         "code": "06200102",
         "line": 14,
         "col": 9,
@@ -8,7 +8,7 @@
         "input": "        <mip-img src=\"\" srcset=\"\"></mip-img>"
     },
     {
-        "message": "标签'mip-img'中的属性'src'的属性值''无效",
+        "message": "标签 'mip-img' 中的属性 'src' 的属性值 '' 无效",
         "code": "06200301",
         "line": 14,
         "col": 9,
@@ -16,7 +16,7 @@
         "input": "        <mip-img src=\"\" srcset=\"\"></mip-img>"
     },
     {
-        "message": "标签'mip-img'中的属性'srcset'的属性值''无效",
+        "message": "标签 'mip-img' 中的属性 'srcset' 的属性值 '' 无效",
         "code": "06200301",
         "line": 14,
         "col": 9,

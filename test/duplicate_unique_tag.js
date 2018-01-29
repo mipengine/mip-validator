@@ -42,7 +42,7 @@ describe('duplicate unique tag', function() {
         result = result[0]
         var err = ERR.DUPLICATE_UNIQUE_TAG
         expect(result.code).to.equal(err.code)
-        expect(result.message).to.equal("标签'<meta viewport=\"/.*/\">'只能出现一次")
+        expect(result.message).to.equal("标签 '<meta viewport=\"/.*/\">' 只能出现一次")
     })
     it('should support array of duplicate patterns', function() {
         result = validator.validate('<link rel="miphtml">')

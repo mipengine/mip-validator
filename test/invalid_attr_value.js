@@ -27,7 +27,7 @@ describe('invalid attribute value', function() {
         var result = validator.validate('<html>\n\n' +
             '  <img src="harttle.com"></img>\n' +
             '</html>')[0]
-        var message = "标签'img'中的属性'src'的属性值'harttle.com'无效"
+        var message = "标签 'img' 中的属性 'src' 的属性值 'harttle.com' 无效"
         expect(result.line).to.equal(3)
         expect(result.message).to.equal(message)
     })

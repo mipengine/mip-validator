@@ -28,7 +28,7 @@ describe('mandatory tag missing', function() {
         result = validator.validate('<body></body>')
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(ERR.MANDATORY_TAG_MISSING.code)
-        var message = "强制性标签'<body mip=\"/.*/\" foo=\"bar\">'缺失或错误"
+        var message = "强制性标签 '<body mip=\"/.*/\" foo=\"bar\">' 缺失或错误"
         expect(result[0].message).to.equal(message)
     })
     it('should support arrays', function() {
@@ -75,7 +75,7 @@ describe('mandatory tag missing', function() {
 
         var err = ERR.MANDATORY_TAG_MISSING
         expect(result[0].code).to.equal(err.code)
-        var message = "强制性标签'<div>'缺失或错误"
+        var message = "强制性标签 '<div>' 缺失或错误"
         expect(result[0].message).to.equal(message)
     })
     it('should accept when mandatory false', function() {

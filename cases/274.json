@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'link'的直接父标签应该是'head'，而不是'header'",
+        "message": "标签 'link' 的直接父标签应该是 'head'，而不是 'header'",
         "code": "06200601",
         "line": 15,
         "col": 13,

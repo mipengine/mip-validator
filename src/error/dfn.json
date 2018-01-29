@@ -1,16 +1,18 @@
 {
     "DISALLOWED_ENCODING": {
         "code": "06200001",
-        "message": "禁止使用'%s'，请统一使用UTF-8编码"
+        "message": "禁止使用 '%s'，请统一使用 UTF-8 编码",
+        "misc": "使用 UTF-8 编码"
     },
     "INVALID_INNER_HTML": {
         "code": "03210001",
-        "message": "标签 '%s' 的 HTML 内容不合法（%s）"
+        "message": "标签 '%s' 的 HTML 内容不合法（%s）",
+        "misc": "使用合法 HTML"
     },
     "MANDATORY_TAG_MISSING": {
         "code": "06200101",
-        "message": "强制性标签'%s'缺失或错误",
-        "misc": "去除该标签即可"
+        "message": "强制性标签 '%s' 缺失或错误",
+        "misc": "增加或修改强制性标签"
     },
     "MANDATORY_ATTR_OR_MISSING": {
         "code": "06200102",
@@ -18,42 +20,57 @@
     },
     "DISALLOWED_TAG": {
         "code": "06200201",
-        "message": "禁止使用'%s'标签"
+        "message": "禁止使用 '%s' 标签",
+        "misc": "删除禁用标签"
     },
     "DUPLICATE_UNIQUE_TAG": {
         "code": "06200701",
-        "message": "标签'%s'只能出现一次"
+        "message": "标签 '%s' 只能出现一次",
+        "misc": "删除多余标签"
     },
     "MANDATORY_ONEOF_ATTR_MISSING": {
         "code": "06200501",
-        "message": "标签'%s'的强制性属性'%s'缺失"
+        "message": "标签 '%s' 的强制性属性 '%s' 缺失",
+        "misc": "增加缺失属性"
     },
     "DISALLOWED_ATTR": {
         "code": "06200202",
-        "message": "'%s'标签中禁止使用'%s'属性"
+        "message": "'%s' 标签中禁止使用 '%s' 属性",
+        "misc": "删除禁用属性"
     },
     "INVALID_ATTR_VALUE": {
         "code": "06200301",
-        "message": "标签'%s'中的属性'%s'的属性值'%s'无效"
+        "message": "标签 '%s' 中的属性 '%s' 的属性值 '%s' 无效",
+        "misc": "将属性值修改为规则限定格式"
     },
     "DISALLOWED_TAG_ANCESTOR": {
         "code": "06200801",
-        "message": "标签'%s'不应该是标签'%s'的子标签"
+        "message": "标签 '%s' 不应该是标签 '%s' 的子标签",
+        "misc": "将标签移出禁用的父标签"
     },
     "MANDATORY_TAG_ANCESTOR": {
         "code": "06200901",
-        "message": "标签'%s'只能是标签'%s'的子级标签"
+        "message": "标签 '%s' 只能是标签 '%s' 的子级标签",
+        "misc": "将标签插入到允许的父标签内"
     },
     "WRONG_PARENT_TAG": {
         "code": "06200601",
-        "message": "标签'%s'的直接父标签应该是'%s'，而不是'%s'"
+        "message": "标签 '%s' 的直接父标签应该是 '%s'，而不是 '%s'",
+        "misc": "使用正确的父标签"
     },
     "INVALID_PROPERTY_VALUE_IN_ATTR_VALUE": {
         "code": "06200401",
-        "message": "标签'%s'中的属性'%s'的属性'%s'被设置为'%s'，该属性值无效"
+        "message": "标签 '%s' 中的属性 '%s' 的属性 '%s' 被设置为 '%s'，该属性值无效",
+        "misc": "使用正确的属性值"
     },
     "INVALID_NOSCRIPT": {
         "code": "06201001",
-        "message": "标签'<noscript>'在标签'<head>'中时强制为最后一个子节点"
+        "message": "标签 '<noscript>' 在标签 '<head>' 中时强制为最后一个子节点",
+        "misc": "将 noscript 标签放在 head 标签内的最末"
+    },
+    "MANDATORY_ATTR_OR_MISSING": {
+        "code": "06200102",
+        "message": "标签 '%s' 必要属性不符合要求或缺失",
+        "misc": "标签中添加一组必要属性"
     }
 }

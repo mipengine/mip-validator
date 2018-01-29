@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'mip-vd-baidu'中的属性'title'的属性值''无效",
+        "message": "标签 'mip-vd-baidu' 中的属性 'title' 的属性值 '' 无效",
         "code": "06200301",
         "line": 14,
         "col": 9,

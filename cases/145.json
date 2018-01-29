@@ -1,6 +1,6 @@
 [
     {
-        "message": "禁止使用'<frame>'标签",
+        "message": "禁止使用 '<frame>' 标签",
         "code": "06200201",
         "line": 0,
         "col": 0,
@@ -8,7 +8,7 @@
         "input": ""
     },
     {
-        "message": "禁止使用'<frameset>'标签",
+        "message": "禁止使用 '<frameset>' 标签",
         "code": "06200201",
         "line": 0,
         "col": 0,
@@ -16,7 +16,7 @@
         "input": ""
     },
     {
-        "message": "禁止使用'<frame>'标签",
+        "message": "禁止使用 '<frame>' 标签",
         "code": "06200201",
         "line": 0,
         "col": 0,
@@ -24,7 +24,7 @@
         "input": ""
     },
     {
-        "message": "禁止使用'<iframe id=\"BAIDU_DUP_fp_iframe\" src=\"./error3_use_tag_not_allowed_files/o.html\">'标签",
+        "message": "禁止使用 '<iframe id=\"BAIDU_DUP_fp_iframe\" src=\"./error3_use_tag_not_allowed_files/o.html\">' 标签",
         "code": "06200201",
         "line": 11,
         "col": 39,

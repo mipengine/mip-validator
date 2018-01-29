@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'input'只能是标签'mip-form'的子级标签",
+        "message": "标签 'input' 只能是标签 'mip-form' 的子级标签",
         "code": "06200901",
         "line": 12,
         "col": 2,

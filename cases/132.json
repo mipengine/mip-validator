@@ -1,6 +1,6 @@
 [
     {
-        "message": "禁止使用'<script type=\"text/javascript\">'标签",
+        "message": "禁止使用 '<script type=\"text/javascript\">' 标签",
         "code": "06200201",
         "line": 153,
         "col": 1,
@@ -8,7 +8,7 @@
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
-        "message": "禁止使用'<script type=\"text/javascript\">'标签",
+        "message": "禁止使用 '<script type=\"text/javascript\">' 标签",
         "code": "06200201",
         "line": 154,
         "col": 1,
@@ -16,7 +16,7 @@
         "input": "<script type=\"text/javascript\"></script>"
     },
     {
-        "message": "禁止使用'<script type=\"application\">'标签",
+        "message": "禁止使用 '<script type=\"application\">' 标签",
         "code": "06200201",
         "line": 169,
         "col": 1,

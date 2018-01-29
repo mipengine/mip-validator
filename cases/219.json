@@ -1,6 +1,6 @@
 [
     {
-        "message": "标签'link'中的属性'href'的属性值'/www.mipengine.org/test_xxx.html'无效",
+        "message": "标签 'link' 中的属性 'href' 的属性值 '/www.mipengine.org/test_xxx.html' 无效",
         "code": "06200301",
         "line": 7,
         "col": 9,
