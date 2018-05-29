@@ -1,0 +1,10 @@
+[
+    {
+        "message": "标签 '<mip-shell>' 只能出现一次",
+        "code": "06200701",
+        "line": 127,
+        "col": 5,
+        "offset": 4999,
+        "input": "    <mip-shell>"
+    }
+]

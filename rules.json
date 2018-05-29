@@ -363,5 +363,8 @@
                 "value": "/^\\S+$/"
             }
         }
+    },
+    "mip-shell": {
+        "duplicate": true
     }
 }

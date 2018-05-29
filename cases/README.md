@@ -183,3 +183,4 @@
 281|内部以其他分隔|不通过
 289|src 不存在，type 为 application/mip-script | 通过
 290|src 存在，type 为 application/mip-script | 不通过
+291|标签 mip-shell 只能出现一次 | 不通过
