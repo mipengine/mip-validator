@@ -105,7 +105,7 @@
     }, {
         "disallow": true,
         "match": {
-            "type": "/^(?!(application\/(ld\\+)?json$)|(application\/mip-script$))/",
+            "type": "/^(?!application\/(ld\\+)?json$)/",
             "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$))/"
         }
     }, {

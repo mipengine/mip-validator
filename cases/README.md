@@ -110,9 +110,7 @@
 213|标签'script'在head中使用时应该家'async'属性
 
 # 新增规则
-
 页面编码|说明|状态
----|---
 214|不存在 mip.css 标签|不通过
 215|存在 2 个 rel="canonical" 的标签|不通过
 216|存在 2 个 rel="miphtml" 的标签|不通过
@@ -181,6 +179,4 @@
 279|内部以逗号分隔|通过
 280|内部以分号分隔|通过
 281|内部以其他分隔|不通过
-289|src 不存在，type 为 application/mip-script | 通过
-290|src 存在，type 为 application/mip-script | 不通过
 291|标签 mip-shell 只能出现一次 | 不通过
