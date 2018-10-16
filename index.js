@@ -23,6 +23,7 @@ function engineFactory(rules) {
     engine.register(require('./src/validators/duplicate_unique_tag.js'))
     engine.register(require('./src/validators/mandatory_tag_missing.js'))
     engine.register(require('./src/validators/invalid_inner_html.js'))
+    engine.register(require('./src/validators/ignore_tag.js'))
 
     // nesting
     engine.register(require('./src/validators/disallowed_tag_ancestor.js'))
