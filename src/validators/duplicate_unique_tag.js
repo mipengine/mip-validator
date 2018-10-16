@@ -33,7 +33,7 @@ exports.onNode = function(node, rule, error) {
         var fingerprint = matcher.fingerprintByObject(node.nodeName, pattern)
         var hash = fingerprint + rule.id
         tagOccurrence[hash]++
-            if (tagOccurrence[hash] <= 1) return
+        if (tagOccurrence[hash] <= 1) return
 
         error(ERR.DUPLICATE_UNIQUE_TAG, fingerprint)
     })

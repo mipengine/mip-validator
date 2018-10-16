@@ -64,7 +64,7 @@ function processNodeRules(nodes) {
 
 function processNodeRule(nodeRule) {
     nodeRule.id = id++
-        nodeRule.regexAttrs = {}
+    nodeRule.regexAttrs = {}
     _.forEach(nodeRule.attrs, (rules, name) => {
         if (matcher.regexSyntax.test(name)) {
             rules.regexStr = name

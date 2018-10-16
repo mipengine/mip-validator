@@ -11,7 +11,7 @@ exports.onAttr = function(attr, attrRule, node, nodeRule, error) {
             name: key,
             value: obj[key]
         }
-        
+
         if (matcher.matchValue(property.value, value)) return
 
         error(ERR.INVALID_PROPERTY_VALUE_IN_ATTR_VALUE,

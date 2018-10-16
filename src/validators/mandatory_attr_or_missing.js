@@ -2,12 +2,12 @@ const _ = require('lodash')
 const ERR = require('../error/dfn.json')
 const matcher = require('../matcher.js')
 
-var tagOccurrence, anyTagOccurrence
+var tagOccurrence
 
 exports.onBegin = function(error, html, rules) {
-	tagOccurrence = {}
+    tagOccurrence = {}
 
-    // 初始化Mandatory标记    
+    // 初始化Mandatory标记
     _.forOwn(rules, (subRules, ruleName) => {
         _.map(subRules, rule => {
             _.map(rule.attrs_or, pattern => {
@@ -26,14 +26,13 @@ exports.onBegin = function(error, html, rules) {
 exports.onNode = function(node, rule, error) {
     if (!rule.attrs_or) return
     var attrOccurrence = _.keyBy(node.attrs, 'name')
-    
+
     var matched = false
-	_.map(rule.attrs_or, pattern => {
+    _.map(rule.attrs_or, pattern => {
         var isExisted = true
         _.forOwn(pattern, (rules, attrName) => {
             if (!attrOccurrence[attrName]) {
                 isExisted = false
-                return
             }
         })
         if (!isExisted || !matcher.matchAttrs(node, pattern)) return

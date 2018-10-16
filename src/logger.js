@@ -106,24 +106,24 @@ function format(f) {
         i++
         str += f.replace(formatRegExp, function(x) {
             switch (x) {
-                case '%%':
-                    return '%'
-                case '%s':
-                    return String(args[i++])
-                case '%d':
-                    return Number(args[i++])
-                case '%j':
-                    try {
-                        return JSON.stringify(args[i++])
-                    } catch (_) {
-                        return '[Circular]'
-                    }
-                case '%J':
-                    try {
-                        return '\n' + JSON.stringify(args[i++], null, 4) + '\n'
-                    } catch (_) {
-                        return '\n[Circular]\n'
-                    }
+            case '%%':
+                return '%'
+            case '%s':
+                return String(args[i++])
+            case '%d':
+                return Number(args[i++])
+            case '%j':
+                try {
+                    return JSON.stringify(args[i++])
+                } catch (_) {
+                    return '[Circular]'
+                }
+            case '%J':
+                try {
+                    return '\n' + JSON.stringify(args[i++], null, 4) + '\n'
+                } catch (_) {
+                    return '\n[Circular]\n'
+                }
             }
         })
     }

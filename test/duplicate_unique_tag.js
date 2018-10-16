@@ -59,20 +59,20 @@ describe('duplicate unique tag', function() {
         expect(result).to.have.lengthOf(0)
     })
     it('should validate html/head/body tag', function() {
-            var validator = Validator({
-                html: {
-                    duplicate: true
-                },
-                head: {
-                    duplicate: true
-                },
-                body: {
-                    duplicate: true
-                }
-            })
-            result = validator.validate('<html><body><head><head><body><html>')
-            expect(result).to.have.lengthOf(3)
+        var validator = Validator({
+            html: {
+                duplicate: true
+            },
+            head: {
+                duplicate: true
+            },
+            body: {
+                duplicate: true
+            }
         })
+        result = validator.validate('<html><body><head><head><body><html>')
+        expect(result).to.have.lengthOf(3)
+    })
         // it.only('should count correctly for multiple rules per node', function() {
     it('should count correctly for multiple rules per node', function() {
         result = validator.validate('<div foo="bar" bar="foo">')
