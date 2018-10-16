@@ -56,8 +56,8 @@ Walker.prototype.onNode = function(node, error, html) {
     _.forEach(rules, nodeRule => {
         // invoke callbacks
         _.map(this.onNodeCbs, cb => {
-                cb(node, nodeRule, nodeError, html, this.config.rules)
-            })
+            cb(node, nodeRule, nodeError, html, this.config.rules)
+        })
             // traverse attributes
         _.forEach(node.attrs, attr => this.onAttr(attr, node, nodeRule, nodeError, html))
     })

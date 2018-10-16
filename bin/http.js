@@ -14,10 +14,10 @@ program
     .option('-c, --conf [path]', 'validator configuration file [rules.json]')
 
 program.on('--help', function () {
-  console.log('  Examples:')
-  console.log('')
-  console.log('    $ node bin/http.js -H 0.0.0.0 -p 8888')
-  console.log('')
+    console.log('  Examples:')
+    console.log('')
+    console.log('    $ node bin/http.js -H 0.0.0.0 -p 8888')
+    console.log('')
 })
 
 program.parse(process.argv)
@@ -26,13 +26,13 @@ program.parse(process.argv)
 // Initialize Validator
 var config = null
 if (program['conf']) {
-  var configPath = path.resolve(process.cwd(), program['conf'])
-  config = require(configPath)
+    var configPath = path.resolve(process.cwd(), program['conf'])
+    config = require(configPath)
 }
 
 var server = mkServer(config)
 server.listen(program['port'], program['host'], function () {
-  console.log(`[http] listening to ${program['host']}:${program['port']}`)
+    console.log(`[http] listening to ${program['host']}:${program['port']}`)
 })
 
 module.exports = server

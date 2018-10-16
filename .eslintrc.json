@@ -5,7 +5,11 @@
     },
     "extends": "standard",
     "rules": {
+        "indent": ["error", 4],
         "global-require": "off",
+        "space-before-function-paren": "off",
+        "eol-last": "off",
+        "handle-callback-err": "off",
         "no-unused-vars": [
             "error", {
                 "varsIgnorePattern": "logger"

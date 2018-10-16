@@ -1,11 +1,10 @@
 const chai = require('./chai.js')
 const expect = chai.expect
 const Validator = require('..')
-const errorCode = require('../src/error/dfn.json')
 
 describe('ignore tag', function() {
     var validator, result
-        
+
     it('should igore template tag', function() {
         validator = Validator({
             template: {

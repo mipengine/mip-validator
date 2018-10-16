@@ -43,7 +43,7 @@ describe('disallowed tag', function() {
         result = validator.validate('<script type="application/javascript">')
         expect(result).to.have.lengthOf(1)
         expect(result[0].code).to.equal(errorCode.DISALLOWED_TAG.code)
-        var msg = "禁止使用 '<script type=\"application/javascript\">' 标签"        
+        var msg = "禁止使用 '<script type=\"application/javascript\">' 标签"
         expect(result[0].message).to.equal(msg)
     })
     it('should reject disallowed frame/frameset', function() {
