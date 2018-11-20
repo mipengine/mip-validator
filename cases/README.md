@@ -108,9 +108,6 @@
 203|标签'mip-video'中的既无属性'src'也无子节点 source
 212|标签'mip-vd-baidu'必须包含'title'（非空）, 'poster'（非空）, 'src'（http[s]或//开头）属性
 213|标签'script'在head中使用时应该家'async'属性
-
-# 新增规则
-页面编码|说明|状态
 214|不存在 mip.css 标签|不通过
 215|存在 2 个 rel="canonical" 的标签|不通过
 216|存在 2 个 rel="miphtml" 的标签|不通过
@@ -179,3 +176,6 @@
 279|内部以逗号分隔|通过
 280|内部以分号分隔|通过
 281|内部以其他分隔|不通过
+289|src 存在, href 域名为 https://*.sm-tc.cn | 通过
+290|mip.js 和 mip.css 路径不符合规范|不通过
+291|src 存在，href 域名为 https://*.transcode.cn |通过

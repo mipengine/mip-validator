@@ -56,7 +56,7 @@
             "rel": "/^(miphtml)|(canonical)$/"
         }, {
             "rel": "/^stylesheet$/",
-            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css))$/"
+            "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(\\S+\\.sm-tc\\.cn\/static\/v\\d\/mip\\.css)|(\\S+\\.transcode\\.cn\/static\/v\\d\/mip\\.css))$/"
         }],
         "mandatory_parent": "head",
         "duplicate": [{
@@ -80,12 +80,12 @@
     "script": [
     {
         "mandatory": {
-            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js))$/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.js)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.js)|(\\S+\\.sm-tc\\.cn\/static\/v\\d\/mip\\.js)|(\\S+\\.transcode\\.cn\/static\/v\\d\/mip\\.js))$/"
         }
     },
     {
         "match": {
-            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com)|(\\S+\\.sm-tc\\.cn)|(\\S+\\.transcode\\.cn))(\/([\\s\\S]*))?$/"
         },
         "attrs": {
             "type": {
@@ -95,7 +95,7 @@
     }, {
         "match_ancestor": "head",
         "match": {
-            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$/"
+            "src": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com)|(\\S+\\.sm-tc\\.cn)|(\\S+\\.transcode\\.cn))(\/([\\s\\S]*))?$/"
         },
         "attrs": {
             "async": {
@@ -106,7 +106,7 @@
         "disallow": true,
         "match": {
             "type": "/^(?!application\/(ld\\+)?json$)/",
-            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com))(\/([\\s\\S]*))?$))/"
+            "src":"/^(?!((https:)?\/\/((mipcache\\.bdstatic\\.com)|(c\\.mipcdn\\.com)|(\\S+\\.sm-tc\\.cn)|(\\S+\\.transcode\\.cn))(\/([\\s\\S]*))?$))/"
         }
     }, {
         "disallowed_ancestor": "template"

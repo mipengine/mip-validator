@@ -1,11 +1,11 @@
 [
     {
-        "message": "标签 'html' 的强制性属性 'mip' 缺失",
-        "code": "06200501",
-        "line": 2,
-        "col": 1,
-        "offset": 16,
-        "input": "<html>"
+        "message": "强制性标签 '<link rel=\"/^stylesheet$/\" href=\"/^(https:)?//((mipcache\\.bdstatic\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com/static/v\\d/mip\\.css)|(c\\.mipcdn\\.com/static/v\\d/mip\\.css)|(c\\.mipcdn\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.css)|(\\S+\\.sm-tc\\.cn/static/v\\d/mip\\.css)|(\\S+\\.transcode\\.cn/static/v\\d/mip\\.css))$/\">' 缺失或错误",
+        "code": "06200101",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
     },
     {
         "message": "强制性标签 '<script src=\"/^(https:)?//((mipcache\\.bdstatic\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.js)|(mipcache\\.bdstatic\\.com/static/v\\d/mip\\.js)|(c\\.mipcdn\\.com/static/v\\d/mip\\.js)|(c\\.mipcdn\\.com/static/mipmain-v\\d\\.\\d\\.\\d\\.js)|(\\S+\\.sm-tc\\.cn/static/v\\d/mip\\.js)|(\\S+\\.transcode\\.cn/static/v\\d/mip\\.js))$/\">' 缺失或错误",
