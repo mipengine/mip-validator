@@ -238,10 +238,6 @@
     },
     "mip-appdl": {
         "attrs": {
-            "tpl": {
-                "mandatory": true,
-                "value": "/^(noneImg)|(imageText)$/"
-            },
             "src": {
                 "mandatory": true,
                 "value": "/^http(s)?:\/\//",
