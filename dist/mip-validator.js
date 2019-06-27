@@ -17047,7 +17047,7 @@ arguments[4][4][0].apply(exports,arguments)
 },{"./support/isBuffer":62,"_process":42,"dup":4,"inherits":12}],64:[function(require,module,exports){
 module.exports={
     "name": "mip-validator",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "description": "MIP validator",
     "main": "index.js",
     "dependencies": {
