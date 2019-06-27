@@ -8,7 +8,7 @@
         "input": "<script src=\"https://c.mipcdn.com/static/v1/mip.js\"></script><script src=\"./bn_files/ds.js\"></script>"
     },
     {
-        "message": "强制性标签 '<link rel=\"/^(miphtml)|(canonical)$/\">' 缺失或错误",
+        "message": "强制性标签 '<link rel=\"/^(miphtml)|(canonical)$/\" href=\"/^(http(s)?:)?///\">' 缺失或错误",
         "code": "06200101",
         "line": 0,
         "col": 0,
