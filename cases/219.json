@@ -6,5 +6,13 @@
         "col": 9,
         "offset": 263,
         "input": "        <link rel=\"miphtml\" href=\"/www.mipengine.org/test_xxx.html\">"
+    },
+    {
+        "message": "强制性标签 '<link rel=\"/^(miphtml)|(canonical)$/\" href=\"/^(http(s)?:)?///\">' 缺失或错误",
+        "code": "06200101",
+        "line": 0,
+        "col": 0,
+        "offset": 0,
+        "input": ""
     }
 ]

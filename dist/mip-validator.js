@@ -17179,7 +17179,7 @@ module.exports={
         }, {
             "http-equiv": "/Content-Type/i"
         }, {
-            "charset": "/^utf-8$/i"
+            "charset": "/^(UTF-8)/i"
         }],
         "attrs": {
             "content": [{
@@ -17194,9 +17194,9 @@ module.exports={
         },
         "mandatory_or": [{
             "http-equiv": "/Content-Type/i",
-            "content": "/charset=utf-8/i"
+            "content": "/charset=(utf)|(UTF)-8/"
         }, {
-            "charset": "/^utf-8$/i"
+            "charset": "/^(utf)|(UTF-8)/"
         }],
         "mandatory": {
             "name": "/^(viewport)?/",
@@ -17206,20 +17206,26 @@ module.exports={
     },
     "link": {
         "mandatory": [{
-            "rel": "/^(miphtml)|(canonical)$/"
+            "rel": "/^(miphtml)|(canonical)$/",
+            "href": "/^(http(s)?:)?\/\//"
         }, {
             "rel": "/^stylesheet$/",
             "href": "/^(https:)?\/\/((mipcache\\.bdstatic\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(mipcache\\.bdstatic\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/v\\d\/mip\\.css)|(c\\.mipcdn\\.com\/static\/mipmain-v\\d\\.\\d\\.\\d\\.css)|(\\S+\\.sm-tc\\.cn\/static\/v\\d\/mip\\.css)|(\\S+\\.transcode\\.cn\/static\/v\\d\/mip\\.css))$/"
         }],
         "mandatory_parent": "head",
         "duplicate": [{
+            "rel": "/^(miphtml)|(standardhtml)$/"
+        }, {
             "rel": "/^(miphtml)|(canonical)$/"
+        }, {
+            "rel": "/^stylesheet$/",
+            "href": "/^(https:)?\/\/(mipcache.bdstatic.com\/static\/mipmain)|(m.baidu.com\/static\/ala\/sf\/static\/)|(c.mipcdn.com\/static\/mipmain)/"
         }],
         "attrs": {
             "href": [{
                 "value": "/^(http(s)?:)?\/\//",
                 "match": {
-                    "rel": "/^((canonical)|(miphtml))$/"
+                    "rel": "/^(miphtml)|(canonical)$/"
                 }
             }, {
                 "value": "/^(?!\/[^\/])/",
@@ -17227,7 +17233,6 @@ module.exports={
                     "rel": "/^(?!((miphtml)|(canonical))$)/"
                 }
             }]
-
         }
     },
     "script": [
@@ -17287,6 +17292,9 @@ module.exports={
     "frameset": {
         "disallow": true
     },
+    "iframe": {
+        "disallow": true
+    },
     "object": {
         "disallow": true
     },
@@ -17300,9 +17308,6 @@ module.exports={
         "disallow": true
     },
     "form": {
-        "disallow": true
-    },
-    "iframe": {
         "disallow": true
     },
     "input": {
@@ -17457,15 +17462,34 @@ module.exports={
             }
         }
     },
+    "mip-vd-baidu": {
+        "attrs": {
+            "src": {
+                "mandatory": true,
+                "value": "/^(http(s)?:)?\/\//"
+            },
+            "title": {
+                "mandatory": true,
+                "value": "/^\\S+$/"
+            },
+            "poster": {
+                "mandatory": true,
+                "value": "/^\\S+$/"
+            }
+        }
+    },
+    "mip-shell": {
+        "duplicate": true
+    },
     "head": {
         "duplicate": true,
         "mandatory": true,
         "mandatory_parent": "html"
     },
     "body": {
+        "duplicate": true,
         "mandatory": true,
-        "mandatory_parent": "html",
-        "duplicate": true
+        "mandatory_parent": "html"
     },
     "style": {
         "attrs": {
@@ -17498,22 +17522,6 @@ module.exports={
             },
             "href": {
                 "value": "/^\/$/"
-            }
-        }
-    },
-    "mip-vd-baidu": {
-        "attrs": {
-            "src": {
-                "mandatory": true,
-                "value": "/^(http(s)?:)?\/\//"
-            },
-            "title": {
-                "mandatory": true,
-                "value": "/^\\S+$/"
-            },
-            "poster": {
-                "mandatory": true,
-                "value": "/^\\S+$/"
             }
         }
     }
